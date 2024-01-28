@@ -1,0 +1,68 @@
+struct struct1 {
+  f1:int
+  f2:&int
+}
+
+struct struct2 {
+  f1:struct1
+  f2:&struct1
+}
+
+func1:&() -> int
+func2:&(int, &int) -> &struct2
+func3:&(int) -> _
+g1:int
+g2:&int
+g3:&&int
+
+extern ext1:() -> int
+extern ext2:(int) -> int
+extern ext3:(&int, int) -> &int
+
+fn func1() -> int {
+entry:
+  $ret 42
+}
+
+fn func2(p1:int, p2:&int) -> &struct2 {
+let _t1:&struct2, x:struct2
+entry:
+  _t1 = $addrof x
+  $ret _t1
+}
+
+fn func3(p:int) -> _ {
+entry:
+  $ret 
+}
+
+fn main() -> int {
+let _t1:int, _t2:int, _t3:&&() -> int, _t4:int, _t5:&&int, _t6:&int, _t7:int, _t8:int, id0:&&() -> int, id1:&&() -> int, id2:int, id3:&() -> int, id4:&&&struct1, id5:&&int, id6:&&int
+bb1:
+  g1 = $copy _t2
+  _t3 = $gep id0 id2
+  $store _t3 id3
+  g2 = $copy 0
+  _t4 = $call_ext ext1()
+  _t5 = $gep id5 _t4
+  _t6 = $load _t5
+  _t7 = $cmp eq _t6 g2
+  id4 = $alloc _t7 [_alloc2]
+  _t8 = $call_dir func1() then bb2
+
+bb2:
+  $ret _t8
+
+entry:
+  id1 = $copy id1
+  id0 = $copy id1
+  _t1 = $call_ext ext2(g1)
+  id2 = $copy _t1
+  id3 = $copy id3
+  id4 = $copy 0
+  id6 = $copy id6
+  id5 = $copy id6
+  g2 = $alloc 10 [_alloc1]
+  _t2 = $call_dir func1() then bb1
+}
+

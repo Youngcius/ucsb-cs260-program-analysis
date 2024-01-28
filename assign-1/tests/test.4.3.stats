@@ -1,0 +1,13 @@
+Number of fields across all struct types: 2
+Number of functions that return a value: 4
+Number of function parameters: 8
+Number of local variables: 533
+Number of basic blocks: 150
+Number of instructions: 623
+Number of terminals: 150
+Number of locals and globals with int type: 152
+Number of locals and globals with struct type: 13
+Number of locals and globals with pointer to int type: 107
+Number of locals and globals with pointer to struct type: 34
+Number of locals and globals with pointer to function type: 36
+Number of locals and globals with pointer to pointer type: 198

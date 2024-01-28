@@ -1,0 +1,1212 @@
+struct struct1 {
+  f1:int
+  f2:&struct1
+}
+
+func1:&(int) -> int
+func12:&(int) -> _
+func2:&(&int) -> &struct1
+func22:&(&int) -> _
+func3:&(&int, &&int) -> int
+func32:&(&int, &&int) -> _
+g1:&struct1
+
+extern ext1:() -> int
+extern ext2:(int) -> _
+extern ext3:(&int) -> _
+
+fn func1(s:int) -> int {
+let x:int, y:&int, z:&struct1
+entry:
+  $ret s
+}
+
+fn func12(s:int) -> _ {
+let x:int, y:&int, z:&struct1
+entry:
+  $ret 
+}
+
+fn func2(p:&int) -> &struct1 {
+let _t1:&int, _t2:int, x:&struct1
+entry:
+  x = $alloc 12 [_alloc1]
+  _t1 = $gfp x f1
+  _t2 = $load p
+  $store _t1 _t2
+  $ret x
+}
+
+fn func22(p:&int) -> _ {
+let _t1:&int, _t2:int, x:&struct1
+entry:
+  x = $alloc 12 [_alloc2]
+  _t1 = $gfp x f1
+  _t2 = $load p
+  $store _t1 _t2
+  $ret 
+}
+
+fn func3(q:&int, r:&&int) -> int {
+let _t1:&int, _t2:int
+entry:
+  _t1 = $load r
+  $store _t1 42
+  _t2 = $load q
+  $ret _t2
+}
+
+fn func32(q:&int, r:&&int) -> _ {
+let _t1:&int
+entry:
+  _t1 = $load r
+  $store _t1 42
+  $ret 
+}
+
+fn main() -> int {
+let _lo1:int, _lo10:int, _lo11:int, _lo12:int, _lo13:int, _lo14:int, _lo15:int, _lo16:int, _lo17:int, _lo18:int, _lo19:int, _lo2:int, _lo20:int, _lo21:int, _lo22:int, _lo23:int, _lo24:int, _lo3:int, _lo4:int, _lo5:int, _lo6:int, _lo7:int, _lo8:int, _lo9:int, _ret419:int, _t100:&&&(int) -> int, _t101:int, _t102:&&&(int) -> int, _t103:&&(int) -> int, _t104:&(int) -> int, _t105:&&struct1, _t106:&struct1, _t107:&int, _t108:&struct1, _t109:&&struct1, _t110:&struct1, _t111:&int, _t112:int, _t113:&&&&(int) -> _, _t114:&&&(int) -> _, _t115:&&(int) -> _, _t116:&&&int, _t117:&int, _t118:int, _t119:&&(int) -> int, _t120:&(int) -> int, _t121:&&int, _t122:&int, _t123:&int, _t124:int, _t125:&&struct1, _t126:&struct1, _t127:&&struct1, _t128:&struct1, _t129:int, _t130:&&int, _t131:&int, _t132:&struct1, _t133:int, _t134:&struct1, _t135:&int, _t136:int, _t137:&&int, _t138:int, _t139:&&&int, _t140:&&int, _t141:int, _t142:int, _t143:int, _t144:&int, _t145:int, _t146:&int, _t147:int, _t148:&int, _t149:&&&&int, _t150:&&&int, _t151:&&&int, _t152:&&int, _t153:int, _t154:&&&int, _t155:&&int, _t156:&&int, _t157:&int, _t158:&int, _t159:int, _t160:&&&int, _t161:&&int, _t162:&int, _t163:int, _t164:&struct1, _t165:&int, _t166:&int, _t167:int, _t168:&int, _t169:int, _t170:&&&int, _t171:&&int, _t172:&&int, _t173:&int, _t174:int, _t175:&int, _t176:&int, _t177:int, _t178:&int, _t179:int, _t180:&int, _t181:int, _t182:&struct1, _t183:&int, _t184:int, _t185:int, _t186:&&int, _t187:&int, _t188:&&int, _t189:int, _t190:&int, _t191:&&struct1, _t192:&struct1, _t193:&int, _t194:int, _t195:&&int, _t196:&&(&int, &&int) -> int, _t197:&(&int, &&int) -> int, _t198:int, _t199:int, _t200:&int, _t201:int, _t202:&int, _t203:int, _t204:&&(int) -> _, _t205:&(int) -> _, _t206:&&int, _t207:&int, _t208:&int, _t209:int, _t210:&&&int, _t211:&&int, _t212:&int, _t213:&int, _t214:int, _t215:&int, _t216:int, _t217:&int, _t218:int, _t219:int, _t220:&&struct1, _t221:int, _t222:int, _t223:&struct1, _t224:&int, _t225:int, _t226:&int, _t227:int, _t228:&&int, _t229:&int, _t230:&int, _t231:int, _t232:int, _t233:&&struct1, _t234:&int, _t235:&&int, _t236:&int, _t237:int, _t238:int, _t239:&int, _t240:int, _t241:&int, _t242:int, _t243:int, _t244:&int, _t245:int, _t246:int, _t247:&int, _t248:int, _t249:&&int, _t25:int, _t250:&int, _t251:&struct1, _t252:int, _t253:&&int, _t254:&int, _t255:&&struct1, _t256:int, _t257:&int, _t258:int, _t259:&struct1, _t26:&&int, _t260:&int, _t261:&&int, _t262:int, _t263:&&(&int, &&int) -> int, _t264:&(&int, &&int) -> int, _t265:int, _t266:int, _t267:int, _t268:&int, _t269:&struct1, _t27:&int, _t270:int, _t271:int, _t272:&&int, _t273:&int, _t274:&struct1, _t275:struct1, _t276:&&struct1, _t277:&struct1, _t278:&&struct1, _t279:&struct1, _t28:int, _t280:&struct1, _t281:struct1, _t282:&int, _t283:&int, _t284:&&(&int, &&int) -> int, _t285:&(&int, &&int) -> int, _t286:int, _t287:int, _t288:&&int, _t289:&int, _t29:&&int, _t290:&int, _t291:int, _t292:int, _t293:int, _t294:&&int, _t295:&int, _t296:int, _t297:&int, _t298:int, _t299:int, _t30:&int, _t300:&&struct1, _t301:&struct1, _t302:struct1, _t303:&&struct1, _t304:&struct1, _t305:&int, _t306:int, _t307:int, _t308:&int, _t309:int, _t31:&struct1, _t310:int, _t311:&int, _t312:&&&int, _t313:&&int, _t314:&&int, _t315:&int, _t316:int, _t317:int, _t318:int, _t319:&int, _t32:&&struct1, _t320:int, _t321:int, _t322:&&&&int, _t323:&&&int, _t324:&int, _t325:int, _t326:&&&int, _t327:&&int, _t328:&&int, _t329:&int, _t33:&struct1, _t330:&&int, _t331:int, _t332:int, _t333:&&&struct1, _t334:&&struct1, _t335:int, _t336:&&int, _t337:&int, _t338:&&int, _t339:int, _t34:&struct1, _t340:int, _t341:int, _t342:&int, _t343:&&struct1, _t344:&struct1, _t345:&int, _t346:int, _t347:&int, _t348:int, _t349:int, _t35:&&struct1, _t350:&int, _t351:&int, _t352:int, _t353:&&(int) -> _, _t354:&(int) -> _, _t355:int, _t356:&&int, _t357:&int, _t358:&int, _t359:int, _t36:&struct1, _t360:&int, _t361:int, _t362:&int, _t363:int, _t364:int, _t365:&&&int, _t366:&&int, _t367:&int, _t368:&&int, _t369:&int, _t37:&int, _t370:&&struct1, _t371:&struct1, _t372:&&struct1, _t373:int, _t374:&struct1, _t375:int, _t376:&&&int, _t377:int, _t378:int, _t379:&&int, _t38:int, _t380:int, _t381:&int, _t382:int, _t383:&&int, _t384:&int, _t385:&int, _t386:int, _t387:int, _t388:&&struct1, _t389:&struct1, _t39:&struct1, _t390:&int, _t391:int, _t392:int, _t393:&&struct1, _t394:&&int, _t395:&int, _t396:&int, _t397:int, _t398:&&int, _t399:int, _t40:struct1, _t400:&&&int, _t401:&&int, _t402:&int, _t403:&&&(&int) -> &struct1, _t404:&int, _t405:int, _t406:&&(&int) -> &struct1, _t407:&&(&int) -> &struct1, _t408:&(&int) -> &struct1, _t409:&int, _t41:&&&&&int, _t410:&&(&int) -> &struct1, _t411:int, _t412:&(&int) -> &struct1, _t413:&&&&int, _t414:&&&int, _t415:&&int, _t416:&&&&int, _t417:&&&int, _t418:int, _t42:&&&&int, _t43:&&&int, _t44:&&int, _t45:&&(&int) -> &struct1, _t46:&(&int) -> &struct1, _t47:int, _t48:&&&&&int, _t49:&&&&int, _t50:&&&int, _t51:&&(&int, &&int) -> int, _t52:&&(&int, &&int) -> int, _t53:&(&int, &&int) -> int, _t54:&&int, _t55:&int, _t56:int, _t57:&&int, _t58:&int, _t59:int, _t60:&int, _t61:int, _t62:&&&&(&int, &&int) -> _, _t63:&&&(&int, &&int) -> _, _t64:&&int, _t65:&int, _t66:int, _t67:&&&&int, _t68:&&&int, _t69:&&&int, _t70:&&int, _t71:int, _t72:&&(&int, &&int) -> int, _t73:&(&int, &&int) -> int, _t74:int, _t75:&&&&&&int, _t76:&&&&&int, _t77:int, _t78:int, _t79:&&&&&int, _t80:&&&&int, _t81:int, _t82:&&&&int, _t83:&&&int, _t84:struct1, _t85:&&int, _t86:&&&(&int) -> _, _t87:&&(&int) -> _, _t88:&int, _t89:&&struct1, _t90:&struct1, _t91:&struct1, _t92:struct1, _t93:&&(&int) -> &struct1, _t94:struct1, _t95:&&&&&(int) -> int, _t96:int, _t97:int, _t98:&&&&&(int) -> int, _t99:&&&&(int) -> int, id0:&&int, id1:int, id10:&&int, id11:&&&&&int, id12:&(&int) -> &struct1, id13:&&&int, id14:&&&&int, id15:&&&&&int, id16:&(&int, &&int) -> int, id17:&&(&int, &&int) -> int, id18:&&(&int, &&int) -> int, id19:&&&(&int, &&int) -> int, id2:&struct1, id20:&&&(&int, &&int) -> int, id21:int, id22:&int, id23:&&int, id24:&&&(&int, &&int) -> _, id25:&&&&(&int, &&int) -> _, id26:&&int, id27:&int, id28:int, id29:&&(&int, &&int) -> int, id3:&int, id30:&&(&int, &&int) -> int, id31:&&int, id32:&(&int, &&int) -> int, id33:int, id34:&&&int, id35:&&&&&&int, id36:int, id37:struct1, id38:struct1, id39:&&&int, id4:&&int, id40:&int, id41:&struct1, id42:&&struct1, id43:&int, id44:&&int, id45:struct1, id46:int, id47:int, id48:&&int, id49:&&(&int) -> _, id5:struct1, id50:&&(&int) -> _, id51:&&&(&int) -> _, id52:&int, id53:&int, id54:struct1, id55:&struct1, id56:struct1, id57:&struct1, id58:&&(int) -> _, id59:&&(&int) -> &struct1, id6:struct1, id60:&&&(&int) -> &struct1, id61:&&struct1, id62:&(int) -> int, id63:struct1, id64:&(int) -> int, id65:&&&(int) -> int, id66:&&&&&(int) -> int, id67:&&&&&&(int) -> int, id68:&struct1, id69:&&struct1, id7:&int, id70:&struct1, id71:&&struct1, id72:&struct1, id73:&(&int) -> &struct1, id74:&(&int) -> _, id75:&(&int) -> _, id76:&&struct1, id77:&&&&int, id78:&&struct1, id79:&&(int) -> _, id8:int, id80:&&&&(int) -> _, id81:&&&&(int) -> _, id82:&&&int, id83:&(int) -> int, id84:&&&int, id85:&&&int, id86:&(int) -> int, id87:&&(int) -> int, id88:&&&int, id9:&&&struct1
+bb1:
+  _t32 = $gfp _t31 f2
+  _t33 = $load _t32
+  id2 = $copy _t33
+  _t34 = $call_dir func2(id3) then bb2
+
+bb10:
+  _t60 = $gep _t58 _t59
+  _t61 = $load _t60
+  _t62 = $gep id25 _t61
+  _t63 = $load _t62
+  id24 = $copy _t63
+  id27 = $copy 0
+  id30 = $copy 0
+  id29 = $copy id30
+  id31 = $copy 0
+  _t64 = $load id13
+  _t65 = $load _t64
+  _t66 = $call_ext ext1()
+  _t67 = $gep id14 _t66
+  _t68 = $load _t67
+  _t69 = $gep _t68 2
+  _t70 = $load _t69
+  _t71 = $call_dir func3(id27, id31) then bb12
+
+bb100:
+  id5 = $copy id63
+  id8 = $copy 0
+  id70 = $alloc 1 [_alloc17]
+  $call_ext ext1()
+  _t267 = $call_dir func3(id53, id26) then bb102
+
+bb101:
+  _t270 = $cmp eq id4 id23
+  _t269 = $gep id72 _t270
+  $store _t269 id56
+  _t271 = $load id52
+  _t272 = $gep id48 _t271
+  _t273 = $load _t272
+  id22 = $copy _t273
+  _t274 = $call_idr id73(id22) then bb104
+
+bb102:
+  $call_ext ext2(_t267)
+  _t268 = $addrof id28
+  $call_dir func22(_t268) then bb103
+
+bb103:
+  $jump bb99
+
+bb104:
+  _t275 = $load _t274
+  id45 = $copy _t275
+  _t276 = $gfp id57 f2
+  _t277 = $load _t276
+  _t278 = $gfp _t277 f2
+  _t279 = $load _t278
+  _t280 = $gep _t279 0
+  _t281 = $load _t280
+  id54 = $copy _t281
+  _t282 = $addrof id33
+  $call_idr id74(_t282) then bb105
+
+bb105:
+  _t283 = $addrof id36
+  id53 = $copy _t283
+  $call_dir func2(id22) then bb106
+
+bb106:
+  $jump bb99
+
+bb107:
+  _t287 = $arith sub 0 _t286
+  $store id43 _t287
+  $jump bb18
+
+bb108:
+  $branch 4 bb109 bb110
+
+bb109:
+  _t290 = $addrof id28
+  _t291 = $load _t290
+  $store id52 _t291
+  _t292 = $load id40
+  _t293 = $arith sub 0 _t292
+  _t294 = $gep id44 _t293
+  _t295 = $load _t294
+  id52 = $copy _t295
+  _t296 = $call_dir func3(id40, id10) then bb111
+
+bb11:
+  id28 = $copy _t74
+  id32 = $copy id32
+  id33 = $copy 10
+  id35 = $copy id35
+  _t75 = $gep id35 3
+  _t76 = $load _t75
+  _t77 = $call_ext ext1()
+  _t78 = $cmp lte id28 _t77
+  _t79 = $gep _t76 _t78
+  _t80 = $load _t79
+  _t81 = $load id22
+  _t82 = $gep _t80 _t81
+  _t83 = $load _t82
+  id34 = $copy _t83
+  id37 = $copy id38
+  id39 = $copy id34
+  id40 = $copy id22
+  id41 = $copy id41
+  id43 = $copy 0
+  id44 = $copy 0
+  _t84 = $load id41
+  id45 = $copy _t84
+  id47 = $copy id36
+  id46 = $copy id47
+  _t85 = $addrof id7
+  id48 = $copy _t85
+  _t86 = $gep id51 3
+  _t87 = $load _t86
+  id50 = $copy _t87
+  id49 = $copy id50
+  _t88 = $load id23
+  id52 = $copy _t88
+  id53 = $copy id27
+  _t89 = $addrof id41
+  _t90 = $load _t89
+  id55 = $copy _t90
+  _t91 = $gep id55 id33
+  _t92 = $load _t91
+  id54 = $copy _t92
+  id58 = $copy 0
+  id60 = $copy 0
+  _t93 = $load id60
+  id59 = $copy _t93
+  id61 = $copy 0
+  id62 = $copy func1
+  _t94 = $load id2
+  id63 = $copy _t94
+  id67 = $copy id67
+  _t95 = $load id67
+  id66 = $copy _t95
+  _t96 = $call_ext ext1()
+  _t97 = $cmp lt _t96 id21
+  _t98 = $gep id66 _t97
+  _t99 = $load _t98
+  _t100 = $load _t99
+  id65 = $copy _t100
+  _t101 = $cmp eq id3 id53
+  _t102 = $gep id65 _t101
+  _t103 = $load _t102
+  _t104 = $load _t103
+  id64 = $copy _t104
+  _t105 = $gep id69 id21
+  _t106 = $load _t105
+  id68 = $copy _t106
+  _t107 = $addrof id46
+  _t108 = $call_dir func2(_t107) then bb13
+
+bb110:
+  id47 = $copy id1
+  _t416 = $gep id14 5
+  _t417 = $load _t416
+  _t418 = $cmp eq id82 _t417
+  _ret419 = $copy _t418
+  $jump exit
+
+bb111:
+  $branch _t296 bb113 bb114
+
+bb112:
+  id63 = $copy id6
+  _t351 = $gfp id55 f1
+  _t352 = $load _t351
+  _t350 = $gep id43 _t352
+  $store _t350 id21
+  $jump bb146
+
+bb113:
+  id5 = $copy id6
+  id53 = $alloc 1 [_alloc19]
+  _t297 = $gfp id2 f1
+  _t298 = $load _t297
+  id21 = $copy _t298
+  id7 = $alloc 8 [_alloc20]
+  _t299 = $load id40
+  _t300 = $gep id71 _t299
+  _t301 = $load _t300
+  _t302 = $load _t301
+  id45 = $copy _t302
+  _t303 = $gep id76 id1
+  _t304 = $load _t303
+  _t305 = $gfp _t304 f1
+  _t306 = $load _t305
+  $branch _t306 bb116 bb117
+
+bb114:
+  $jump bb119
+
+bb115:
+  id21 = $copy _lo13
+  $call_dir func22(0) then bb118
+
+bb116:
+  _lo13 = $copy 0
+  $jump bb115
+
+bb117:
+  _lo13 = $copy 1
+  $jump bb115
+
+bb118:
+  $jump bb112
+
+bb119:
+  $branch id1 bb120 bb121
+
+bb12:
+  _t72 = $gep id29 _t71
+  _t73 = $load _t72
+  _t74 = $call_idr _t73(_t65, _t70) then bb11
+
+bb120:
+  _t307 = $cmp eq id27 id3
+  id46 = $copy _t307
+  _t308 = $gfp id72 f1
+  _t309 = $load _t308
+  _t310 = $call_dir func1(_t309) then bb122
+
+bb121:
+  _t318 = $call_ext ext1()
+  $branch _t318 bb130 bb131
+
+bb122:
+  id33 = $copy _t310
+  _t311 = $addrof id21
+  _t312 = $gep id39 id1
+  _t313 = $load _t312
+  _t314 = $gep _t313 id1
+  _t315 = $load _t314
+  _t316 = $cmp eq _t311 _t315
+  $store id53 _t316
+  _t317 = $arith sub 1 1
+  $branch _t317 bb124 bb125
+
+bb123:
+  $branch _lo14 bb127 bb128
+
+bb124:
+  _lo14 = $copy 0
+  $jump bb123
+
+bb125:
+  _lo14 = $copy 1
+  $jump bb123
+
+bb126:
+  $call_ext ext2(_lo15)
+  $jump bb119
+
+bb127:
+  _lo15 = $copy 0
+  $jump bb126
+
+bb128:
+  _lo15 = $copy 1
+  $jump bb126
+
+bb129:
+  _t347 = $gep id53 id28
+  _t348 = $call_ext ext1()
+  _t349 = $call_dir func1(_t348) then bb145
+
+bb13:
+  id70 = $copy _t108
+  id71 = $copy id69
+  _t109 = $gfp id68 f2
+  _t110 = $load _t109
+  id72 = $copy _t110
+  id74 = $copy id75
+  id76 = $copy id76
+  id77 = $copy 0
+  id81 = $copy id81
+  id80 = $copy id81
+  _t111 = $gep id22 id8
+  _t112 = $load _t111
+  _t113 = $gep id80 _t112
+  _t114 = $load _t113
+  _t115 = $load _t114
+  id79 = $copy _t115
+  id83 = $copy func1
+  _t116 = $load id14
+  id85 = $copy _t116
+  id87 = $copy id87
+  $branch 6 bb15 bb16
+
+bb130:
+  id31 = $copy id44
+  _t319 = $addrof id47
+  id3 = $copy _t319
+  id34 = $alloc id28 [_alloc21]
+  _t320 = $call_ext ext1()
+  _t321 = $call_dir func1(_t320) then bb132
+
+bb131:
+  _t331 = $call_ext ext1()
+  _t332 = $call_dir func1(_t331) then bb137
+
+bb132:
+  $branch _t321 bb134 bb135
+
+bb133:
+  _t322 = $gep id77 4
+  _t323 = $load _t322
+  _t324 = $gep id43 id47
+  _t325 = $load _t324
+  _t326 = $gep _t323 _t325
+  _t327 = $load _t326
+  _t328 = $gep _t327 _lo16
+  _t329 = $load _t328
+  _t330 = $addrof id43
+  $call_dir func32(_t329, _t330) then bb136
+
+bb134:
+  _lo16 = $copy 0
+  $jump bb133
+
+bb135:
+  _lo16 = $copy 1
+  $jump bb133
+
+bb136:
+  id52 = $alloc 1 [_alloc22]
+  $jump bb129
+
+bb137:
+  id36 = $copy _t332
+  _t333 = $gep id9 id1
+  _t334 = $load _t333
+  id78 = $copy _t334
+  id52 = $copy id52
+  _t335 = $call_dir func1(5) then bb138
+
+bb138:
+  _t336 = $gep id48 _t335
+  _t337 = $load _t336
+  _t338 = $load id39
+  _t339 = $call_dir func3(_t337, _t338) then bb139
+
+bb139:
+  id21 = $copy _t339
+  _t340 = $call_idr id16(id3, id10) then bb140
+
+bb14:
+  _t117 = $gep id53 _lo3
+  _t118 = $load _t117
+  _t119 = $gep id87 _t118
+  _t120 = $load _t119
+  id86 = $copy _t120
+  id88 = $copy 0
+  _t121 = $gep id0 id1
+  _t122 = $load _t121
+  _t123 = $gep _t122 1
+  _t124 = $load _t123
+  $call_dir func12(_t124) then bb17
+
+bb140:
+  _t341 = $call_dir func1(_t340) then bb141
+
+bb141:
+  $branch _t341 bb143 bb144
+
+bb142:
+  _t343 = $gfp g1 f2
+  _t344 = $load _t343
+  _t345 = $gfp _t344 f1
+  _t346 = $load _t345
+  _t342 = $gep id52 _t346
+  $store _t342 _lo17
+  $jump bb129
+
+bb143:
+  _lo17 = $copy 0
+  $jump bb142
+
+bb144:
+  _lo17 = $copy 1
+  $jump bb142
+
+bb145:
+  $store _t347 _t349
+  id63 = $copy id38
+  $jump bb112
+
+bb146:
+  $branch id8 bb147 bb148
+
+bb147:
+  _t353 = $gep id79 id46
+  _t354 = $load _t353
+  $call_idr _t354(2) then bb149
+
+bb148:
+  $jump bb108
+
+bb149:
+  _t355 = $load id22
+  $branch _t355 bb151 bb152
+
+bb15:
+  _lo3 = $copy 0
+  $jump bb14
+
+bb150:
+  _lo21 = $copy 4
+  _t380 = $cmp neq _lo21 0
+  $branch _t380 bb164 bb163
+
+bb151:
+  _t356 = $gep id44 4
+  _t357 = $load _t356
+  _t358 = $gep id53 7
+  _t359 = $load _t358
+  _t360 = $gep _t357 _t359
+  _t361 = $load _t360
+  _t362 = $gep id43 _t361
+  _t363 = $load _t362
+  $call_ext ext2(_t363)
+  _lo18 = $copy 8
+  _t364 = $cmp eq _lo18 0
+  $branch _t364 bb154 bb153
+
+bb152:
+  _t370 = $gfp id41 f2
+  _t371 = $load _t370
+  _t372 = $gfp _t371 f2
+  _t373 = $load id43
+  _t374 = $alloc _t373 [_alloc25]
+  $store _t372 _t374
+  _t375 = $call_idr id83(id8) then bb156
+
+bb153:
+  _t365 = $gep id82 _lo18
+  _t366 = $load _t365
+  _t367 = $load _t366
+  $call_dir func22(_t367) then bb155
+
+bb154:
+  _lo18 = $copy 7
+  $jump bb153
+
+bb155:
+  id55 = $alloc 1 [_alloc23]
+  id1 = $copy id21
+  _t368 = $load id39
+  _t369 = $alloc 4 [_alloc24]
+  $store _t368 _t369
+  $jump bb150
+
+bb156:
+  $branch _t375 bb158 bb159
+
+bb157:
+  $branch _lo19 bb161 bb162
+
+bb158:
+  _lo19 = $copy 0
+  $jump bb157
+
+bb159:
+  _lo19 = $copy 1
+  $jump bb157
+
+bb16:
+  _lo3 = $copy 1
+  $jump bb14
+
+bb160:
+  id4 = $alloc _lo20 [_alloc26]
+  id63 = $copy id38
+  id39 = $alloc 1 [_alloc27]
+  id7 = $alloc 1 [_alloc28]
+  _t377 = $arith sub 0 4
+  _t378 = $arith sub 0 _t377
+  _t376 = $gep id84 _t378
+  _t379 = $alloc 0 [_alloc29]
+  $store _t376 _t379
+  $jump bb150
+
+bb161:
+  _lo20 = $copy 0
+  $jump bb160
+
+bb162:
+  _lo20 = $copy 1
+  $jump bb160
+
+bb163:
+  $branch _lo21 bb166 bb167
+
+bb164:
+  _lo21 = $copy id8
+  $jump bb163
+
+bb165:
+  _t381 = $gep id53 _lo22
+  _t382 = $arith sub 0 id21
+  _t383 = $gep id48 _t382
+  _t384 = $load _t383
+  _t385 = $gep _t384 5
+  _t386 = $load _t385
+  $store _t381 _t386
+  _t387 = $cmp neq id10 id4
+  _t388 = $gep id61 _t387
+  _t389 = $load _t388
+  _t390 = $gfp _t389 f1
+  _t391 = $load _t390
+  $branch _t391 bb169 bb170
+
+bb166:
+  _lo22 = $copy 0
+  $jump bb165
+
+bb167:
+  _lo22 = $copy 1
+  $jump bb165
+
+bb168:
+  _t413 = $addrof id88
+  _t414 = $load _t413
+  _t415 = $load _t414
+  id31 = $copy _t415
+  $jump bb146
+
+bb169:
+  _t392 = $arith sub 0 3
+  id22 = $alloc _t392 [_alloc30]
+  _t393 = $gfp id68 f2
+  $store _t393 id57
+  $call_idr id16(0, id23) then bb171
+
+bb17:
+  _t125 = $addrof id2
+  _t126 = $load _t125
+  g1 = $copy _t126
+  id5 = $copy id5
+  $jump bb18
+
+bb170:
+  _t396 = $addrof id8
+  _t397 = $cmp eq _t396 id7
+  $call_dir func12(_t397) then bb176
+
+bb171:
+  _t394 = $addrof id43
+  _t395 = $load _t394
+  id52 = $copy _t395
+  id31 = $copy id10
+  $branch 5 bb173 bb174
+
+bb172:
+  $call_dir func12(_lo23) then bb175
+
+bb173:
+  _lo23 = $copy 0
+  $jump bb172
+
+bb174:
+  _lo23 = $copy 1
+  $jump bb172
+
+bb175:
+  $jump bb168
+
+bb176:
+  _t398 = $alloc id33 [_alloc31]
+  $store id85 _t398
+  _t399 = $call_ext ext1()
+  id33 = $copy _t399
+  $branch 2 bb178 bb179
+
+bb177:
+  _t400 = $addrof id31
+  _t401 = $load _t400
+  _t402 = $load _t401
+  _t404 = $gfp id68 f1
+  _t405 = $load _t404
+  _t403 = $gep id60 _t405
+  _t406 = $load _t403
+  _t407 = $gep _t406 _lo24
+  _t408 = $load _t407
+  $call_idr _t408(_t402) then bb180
+
+bb178:
+  _lo24 = $copy 0
+  $jump bb177
+
+bb179:
+  _lo24 = $copy 1
+  $jump bb177
+
+bb18:
+  _t127 = $load id9
+  _t128 = $load _t127
+  _t129 = $call_ext ext1()
+  _t130 = $gep id10 _t129
+  _t131 = $load _t130
+  _t132 = $call_dir func2(_t131) then bb21
+
+bb180:
+  _t409 = $load id26
+  _t411 = $call_ext ext1()
+  _t410 = $gep id59 _t411
+  _t412 = $load _t410
+  $call_idr _t412(_t409) then bb181
+
+bb181:
+  $call_idr id86(9) then bb182
+
+bb182:
+  $jump bb168
+
+bb19:
+  _t134 = $call_idr id12(id3) then bb22
+
+bb2:
+  _t35 = $gfp _t34 f2
+  _t36 = $load _t35
+  _t37 = $gep id7 id8
+  _t38 = $load _t37
+  _t39 = $gep _t36 _t38
+  _t40 = $load _t39
+  id6 = $copy _t40
+  id5 = $copy id6
+  id9 = $copy id9
+  _t41 = $gep id11 9
+  _t42 = $load _t41
+  _t43 = $load _t42
+  _t44 = $load _t43
+  id10 = $copy _t44
+  _t45 = $addrof id12
+  _t46 = $load _t45
+  id12 = $copy _t46
+  id15 = $copy 0
+  _t47 = $call_dir func1(4) then bb3
+
+bb20:
+  _t288 = $gep id4 id8
+  _t289 = $alloc 1 [_alloc18]
+  $store _t288 _t289
+  $jump bb108
+
+bb21:
+  _t133 = $cmp neq _t128 _t132
+  $branch _t133 bb19 bb20
+
+bb22:
+  _t135 = $gfp _t134 f1
+  _t136 = $load _t135
+  $call_ext ext2(_t136)
+  _t137 = $alloc 1 [_alloc3]
+  $store id13 _t137
+  _t138 = $call_ext ext1()
+  $branch _t138 bb24 bb25
+
+bb23:
+  id4 = $copy 0
+  $jump bb58
+
+bb24:
+  $jump bb26
+
+bb25:
+  $call_idr id32(id22, id48) then bb43
+
+bb26:
+  _t139 = $addrof id23
+  _t140 = $load _t139
+  _t141 = $call_idr id16(id22, _t140) then bb29
+
+bb27:
+  id24 = $alloc 1 [_alloc4]
+  _t142 = $call_ext ext1()
+  _t143 = $cmp neq _t142 0
+  _t144 = $gep id27 _t143
+  _t145 = $load _t144
+  _t146 = $gep id3 _t145
+  _t147 = $load _t146
+  id8 = $copy _t147
+  _t148 = $addrof id28
+  _t149 = $gep id14 id33
+  _t150 = $load _t149
+  _t151 = $gep _t150 4
+  _t152 = $load _t151
+  _t153 = $call_idr id32(_t148, _t152) then bb30
+
+bb28:
+  $branch 5 bb32 bb33
+
+bb29:
+  $branch _t141 bb27 bb28
+
+bb3:
+  $branch _t47 bb5 bb6
+
+bb30:
+  id28 = $copy _t153
+  $jump bb26
+
+bb31:
+  id1 = $copy _lo4
+  $branch id36 bb35 bb36
+
+bb32:
+  _lo4 = $copy 0
+  $jump bb31
+
+bb33:
+  _lo4 = $copy 1
+  $jump bb31
+
+bb34:
+  _t154 = $gep id34 id8
+  _t155 = $load _t154
+  _t156 = $gep _t155 8
+  _t157 = $load _t156
+  _t158 = $gep _t157 _lo5
+  _t159 = $load _t158
+  $branch _t159 bb38 bb39
+
+bb35:
+  _lo5 = $copy 0
+  $jump bb34
+
+bb36:
+  _lo5 = $copy 1
+  $jump bb34
+
+bb37:
+  _t168 = $addrof id8
+  $call_dir func32(_t168, 0) then bb42
+
+bb38:
+  id37 = $copy id6
+  _t160 = $gep id39 7
+  _t161 = $alloc 1 [_alloc5]
+  $store _t160 _t161
+  id28 = $copy id8
+  _t162 = $gep id40 id1
+  _t163 = $load _t162
+  id28 = $copy _t163
+  $store id29 id16
+  _t164 = $load id42
+  id41 = $copy _t164
+  $jump bb20
+
+bb39:
+  _t165 = $addrof id21
+  $call_idr id12(_t165) then bb40
+
+bb4:
+  _t48 = $gep id15 _lo1
+  _t49 = $load _t48
+  id14 = $copy _t49
+  _t50 = $load id14
+  id13 = $copy _t50
+  id20 = $copy id20
+  id19 = $copy id20
+  _t51 = $load id19
+  id18 = $copy _t51
+  id17 = $copy id18
+  $branch id21 bb8 bb9
+
+bb40:
+  id42 = $alloc 1 [_alloc6]
+  _t166 = $addrof id8
+  id43 = $copy _t166
+  _t167 = $call_idr id32(id7, id44) then bb41
+
+bb41:
+  id34 = $alloc _t167 [_alloc7]
+  $jump bb37
+
+bb42:
+  id10 = $alloc 1 [_alloc8]
+  id45 = $copy id45
+  _t169 = $load id3
+  id33 = $copy _t169
+  _t170 = $gep id39 id33
+  _t171 = $load _t170
+  _t172 = $gep _t171 6
+  _t173 = $load _t172
+  _t174 = $load _t173
+  id46 = $copy _t174
+  $jump bb18
+
+bb43:
+  id49 = $copy id49
+  id52 = $alloc id8 [_alloc9]
+  $call_dir func1(id46) then bb44
+
+bb44:
+  $branch 10 bb46 bb47
+
+bb45:
+  $branch 1 bb56 bb57
+
+bb46:
+  $call_dir func2(id53) then bb48
+
+bb47:
+  id54 = $copy id56
+  _t181 = $load id43
+  _t180 = $gep id27 _t181
+  _t182 = $call_dir func2(id52) then bb50
+
+bb48:
+  $call_dir func12(id36) then bb49
+
+bb49:
+  id13 = $alloc 1 [_alloc10]
+  _t175 = $load id48
+  id7 = $copy _t175
+  _t176 = $gfp g1 f1
+  _t177 = $load _t176
+  _t178 = $gep id52 _t177
+  _t179 = $load _t178
+  id7 = $alloc _t179 [_alloc11]
+  id48 = $alloc 1 [_alloc12]
+  $jump bb20
+
+bb5:
+  _lo1 = $copy 0
+  $jump bb4
+
+bb50:
+  _t183 = $gfp _t182 f1
+  _t184 = $load _t183
+  $store _t180 _t184
+  _t185 = $call_dir func1(5) then bb51
+
+bb51:
+  _t186 = $gep id48 _t185
+  _t187 = $load _t186
+  _t188 = $load id39
+  _t189 = $call_dir func3(_t187, _t188) then bb52
+
+bb52:
+  id21 = $copy _t189
+  _t191 = $gfp id57 f2
+  _t192 = $load _t191
+  _t193 = $gfp _t192 f1
+  _t194 = $load _t193
+  _t190 = $gep id52 _t194
+  _t195 = $addrof id3
+  _t196 = $gep id29 id28
+  _t197 = $load _t196
+  _t198 = $call_idr _t197(id52, _t195) then bb53
+
+bb53:
+  _t199 = $call_dir func1(_t198) then bb54
+
+bb54:
+  $store _t190 _t199
+  _t200 = $load id44
+  _t201 = $load id53
+  $store _t200 _t201
+  id23 = $alloc 1 [_alloc13]
+  $jump bb45
+
+bb55:
+  id36 = $copy _lo6
+  $jump bb23
+
+bb56:
+  _lo6 = $copy 0
+  $jump bb55
+
+bb57:
+  _lo6 = $copy 1
+  $jump bb55
+
+bb58:
+  $branch id8 bb59 bb60
+
+bb59:
+  $branch 6 bb62 bb63
+
+bb6:
+  _lo1 = $copy 1
+  $jump bb4
+
+bb60:
+  _t284 = $gep id30 9
+  _t285 = $load _t284
+  _t286 = $call_idr _t285(id3, id0) then bb107
+
+bb61:
+  $branch _lo7 bb65 bb66
+
+bb62:
+  _lo7 = $copy 0
+  $jump bb61
+
+bb63:
+  _lo7 = $copy 1
+  $jump bb61
+
+bb64:
+  _t202 = $gep id53 _lo8
+  _t203 = $load _t202
+  _t204 = $gep id58 2
+  _t205 = $load _t204
+  $call_idr _t205(_t203) then bb67
+
+bb65:
+  _lo8 = $copy 0
+  $jump bb64
+
+bb66:
+  _lo8 = $copy 1
+  $jump bb64
+
+bb67:
+  $branch 4 bb69 bb70
+
+bb68:
+  _t206 = $gep id4 _lo9
+  _t207 = $load _t206
+  _t208 = $gep _t207 2
+  _t209 = $load _t208
+  $branch _t209 bb72 bb73
+
+bb69:
+  _lo9 = $copy 0
+  $jump bb68
+
+bb7:
+  _t52 = $gep id17 _lo2
+  _t53 = $load _t52
+  id16 = $copy _t53
+  _t54 = $gep id4 id1
+  _t55 = $load _t54
+  id22 = $copy _t55
+  id23 = $copy 0
+  id25 = $copy id25
+  _t56 = $call_ext ext1()
+  _t57 = $gep id26 _t56
+  _t58 = $load _t57
+  _t59 = $call_dir func3(id3, id10) then bb10
+
+bb70:
+  _lo9 = $copy 1
+  $jump bb68
+
+bb71:
+  $jump bb75
+
+bb72:
+  _t211 = $gep id44 4
+  _t212 = $load _t211
+  _t213 = $gep id53 7
+  _t214 = $load _t213
+  _t215 = $gep _t212 _t214
+  _t216 = $load _t215
+  _t210 = $gep id34 _t216
+  $store _t210 id4
+  id42 = $copy 0
+  id59 = $alloc id1 [_alloc14]
+  _t217 = $load id44
+  id3 = $copy _t217
+  _t218 = $arith sub 0 5
+  id47 = $copy _t218
+  $jump bb71
+
+bb73:
+  _t219 = $load id52
+  id1 = $copy _t219
+  _t221 = $call_ext ext1()
+  _t222 = $call_idr id62(_t221) then bb74
+
+bb74:
+  _t220 = $gep id61 _t222
+  _t223 = $alloc 1 [_alloc15]
+  $store _t220 _t223
+  id63 = $copy id63
+  _t224 = $addrof id46
+  _t225 = $load _t224
+  id21 = $copy _t225
+  _t226 = $gfp id41 f1
+  _t227 = $load _t226
+  _t228 = $gep id26 _t227
+  _t229 = $load _t228
+  id3 = $copy _t229
+  $jump bb71
+
+bb75:
+  $branch 0 bb76 bb77
+
+bb76:
+  _t231 = $call_idr id64(id36) then bb78
+
+bb77:
+  _t245 = $call_dir func1(10) then bb83
+
+bb78:
+  _t230 = $gep id53 _t231
+  _t232 = $call_dir func3(id22, id48) then bb79
+
+bb79:
+  $store _t230 _t232
+  $call_ext ext1()
+  _t233 = $gfp id68 f2
+  $store _t233 id70
+  $call_dir func1(0) then bb80
+
+bb8:
+  _lo2 = $copy 0
+  $jump bb7
+
+bb80:
+  _t234 = $addrof id8
+  _t235 = $gep id10 id47
+  _t236 = $load _t235
+  _t237 = $cmp eq _t234 _t236
+  _t238 = $arith sub 0 _t237
+  id21 = $copy _t238
+  _t239 = $addrof id33
+  _t240 = $call_dir func3(_t239, id23) then bb81
+
+bb81:
+  _t241 = $addrof id8
+  _t242 = $cmp eq _t241 id7
+  _t243 = $arith add _t240 _t242
+  id36 = $copy _t243
+  _t244 = $addrof id1
+  $call_dir func2(_t244) then bb82
+
+bb82:
+  $jump bb75
+
+bb83:
+  $branch _t245 bb85 bb86
+
+bb84:
+  $branch 4 bb93 bb94
+
+bb85:
+  id1 = $copy 5
+  id43 = $copy id22
+  _t246 = $call_ext ext1()
+  id8 = $copy _t246
+  _t247 = $gfp id68 f1
+  $store _t247 6
+  _t248 = $call_ext ext1()
+  $branch _t248 bb88 bb89
+
+bb86:
+  _t253 = $addrof id27
+  _t254 = $load _t253
+  $call_ext ext3(_t254)
+  _t255 = $gep id71 5
+  _t256 = $call_ext ext1()
+  _t257 = $gep id27 _t256
+  _t258 = $load _t257
+  _t259 = $alloc _t258 [_alloc16]
+  $store _t255 _t259
+  _t260 = $gfp id72 f1
+  _t261 = $addrof id40
+  _t262 = $load id40
+  _t263 = $gep id18 _t262
+  _t264 = $load _t263
+  _t265 = $call_idr _t264(id43, _t261) then bb91
+
+bb87:
+  _t249 = $gep id44 _lo10
+  _t250 = $load _t249
+  _t251 = $call_dir func2(_t250) then bb90
+
+bb88:
+  _lo10 = $copy 0
+  $jump bb87
+
+bb89:
+  _lo10 = $copy 1
+  $jump bb87
+
+bb9:
+  _lo2 = $copy 1
+  $jump bb7
+
+bb90:
+  id57 = $copy _t251
+  _t252 = $load id43
+  _ret419 = $copy _t252
+  $jump exit
+
+bb91:
+  $store _t260 _t265
+  $jump bb84
+
+bb92:
+  $branch _lo11 bb96 bb97
+
+bb93:
+  _lo11 = $copy 0
+  $jump bb92
+
+bb94:
+  _lo11 = $copy 1
+  $jump bb92
+
+bb95:
+  _t266 = $call_idr id62(_lo12) then bb98
+
+bb96:
+  _lo12 = $copy 0
+  $jump bb95
+
+bb97:
+  _lo12 = $copy 1
+  $jump bb95
+
+bb98:
+  $branch _t266 bb100 bb101
+
+bb99:
+  $jump bb58
+
+entry:
+  id0 = $copy id0
+  id4 = $copy id4
+  _t25 = $call_ext ext1()
+  _t26 = $gep id4 _t25
+  _t27 = $load _t26
+  _t28 = $load _t27
+  _t29 = $gep id4 _t28
+  _t30 = $load _t29
+  id3 = $copy _t30
+  _t31 = $call_dir func2(id3) then bb1
+
+exit:
+  $ret _ret419
+}
+

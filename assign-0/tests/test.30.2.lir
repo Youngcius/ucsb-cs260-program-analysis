@@ -1,0 +1,150 @@
+struct struct1 {
+  f1:int
+  f2:&int
+}
+
+struct struct2 {
+  f1:struct1
+  f2:&struct1
+}
+
+func1:&() -> int
+func2:&(int, &int) -> &struct2
+func3:&(int) -> _
+g1:int
+g2:&int
+g3:&&int
+
+extern ext1:() -> int
+extern ext2:(int) -> int
+extern ext3:(&int, int) -> &int
+
+fn func1() -> int {
+entry:
+  $ret 42
+}
+
+fn func2(p1:int, p2:&int) -> &struct2 {
+let _t1:&struct2, x:struct2
+entry:
+  _t1 = $addrof x
+  $ret _t1
+}
+
+fn func3(p:int) -> _ {
+entry:
+  $ret 
+}
+
+fn main() -> int {
+let _lo1:int, _t10:&&&() -> int, _t11:int, _t12:&&&() -> int, _t13:&&() -> int, _t14:&&int, _t15:&int, _t16:&int, _t17:int, _t18:&&() -> int, _t19:&() -> int, _t2:&int, _t20:int, _t21:&&&() -> int, _t22:&&() -> int, _t23:&() -> int, _t24:&&&int, _t25:&int, _t26:int, _t27:&&&int, _t28:&&int, _t29:&&int, _t3:&&int, _t30:&int, _t31:int, _t32:&&&&&&struct1, _t33:&&&&&struct1, _t34:int, _t35:&&&&&struct1, _t36:&&&&struct1, _t37:&int, _t38:int, _t39:&&&&struct1, _t4:&int, _t40:&&&struct1, _t41:&&struct1, _t42:int, _t43:int, _t44:int, _t45:&&int, _t46:int, _t47:&&&int, _t48:&&int, _t49:int, _t5:int, _t50:&&int, _t51:&int, _t52:int, _t53:&&struct1, _t54:&struct1, _t55:&int, _t56:int, _t57:int, _t58:&int, _t59:int, _t6:int, _t7:&&(int, &int) -> &struct2, _t8:&(int, &int) -> &struct2, _t9:&&&&() -> int, id0:&int, id1:&int, id10:&&&&() -> int, id11:&struct1, id12:&&&int, id13:&(int) -> _, id14:&&struct1, id15:&&&struct1, id16:&&&struct1, id17:&&&struct1, id18:&&&&&&struct1, id19:&int, id2:int, id3:&struct1, id4:&(int, &int) -> &struct2, id5:&&(int, &int) -> &struct2, id6:&() -> int, id7:&&&() -> int, id8:&() -> int, id9:&&&&() -> int
+bb1:
+  _t7 = $gep id5 _t6
+  _t8 = $load _t7
+  id4 = $copy _t8
+  id10 = $copy 0
+  id9 = $copy id10
+  id11 = $copy 0
+  _t9 = $gep id9 id2
+  _t10 = $load _t9
+  _t11 = $call_ext ext2(5)
+  _t12 = $gep _t10 _t11
+  _t13 = $load _t12
+  _t14 = $gfp id11 f2
+  _t15 = $load _t14
+  _t16 = $gep _t15 1
+  _t17 = $load _t16
+  _t18 = $gep _t13 _t17
+  _t19 = $load _t18
+  id8 = $copy _t19
+  _t20 = $call_idr id8() then bb2
+
+bb10:
+  _t53 = $gep id14 g1
+  _t54 = $load _t53
+  _t55 = $gfp _t54 f1
+  _t56 = $load _t55
+  id2 = $copy _t56
+  _t57 = $call_ext ext2(id2)
+  $call_ext ext2(_t57)
+  _t58 = $gfp id11 f1
+  _t59 = $load _t58
+  $ret _t59
+
+bb2:
+  _t21 = $gep id7 _t20
+  _t22 = $load _t21
+  _t23 = $load _t22
+  id6 = $copy _t23
+  _t24 = $addrof g3
+  id12 = $copy _t24
+  id13 = $copy id13
+  id18 = $copy id18
+  _t25 = $addrof id2
+  _t26 = $load _t25
+  _t27 = $gep id12 _t26
+  _t28 = $load _t27
+  _t29 = $gep _t28 0
+  _t30 = $load _t29
+  id19 = $copy _t30
+  _t31 = $call_dir func1() then bb3
+
+bb3:
+  _t32 = $gep id18 _t31
+  _t33 = $load _t32
+  _t34 = $arith sub 0 3
+  _t35 = $gep _t33 _t34
+  _t36 = $load _t35
+  _t37 = $load g3
+  _t38 = $cmp neq id19 _t37
+  _t39 = $gep _t36 _t38
+  _t40 = $load _t39
+  id17 = $copy _t40
+  id16 = $copy id17
+  id15 = $copy id16
+  _t41 = $load id15
+  id14 = $copy _t41
+  $branch id2 bb5 bb6
+
+bb4:
+  id0 = $alloc _lo1 [_alloc1]
+  _t42 = $call_dir func1() then bb7
+
+bb5:
+  _lo1 = $copy 0
+  $jump bb4
+
+bb6:
+  _lo1 = $copy 1
+  $jump bb4
+
+bb7:
+  _t43 = $call_idr id6() then bb8
+
+bb8:
+  _t44 = $cmp neq _t42 _t43
+  _t45 = $addrof id0
+  _t46 = $cmp neq _t45 g3
+  _t47 = $gep id12 _t46
+  _t48 = $load _t47
+  _t49 = $call_ext ext1()
+  _t50 = $gep _t48 _t49
+  _t51 = $load _t50
+  $call_idr id4(_t44, _t51) then bb9
+
+bb9:
+  _t52 = $call_ext ext1()
+  $call_idr id13(_t52) then bb10
+
+entry:
+  _t2 = $call_ext ext3(id1, g1)
+  id0 = $copy _t2
+  id3 = $copy 0
+  _t3 = $gfp id3 f2
+  _t4 = $load _t3
+  _t5 = $load _t4
+  id2 = $copy _t5
+  id5 = $copy 0
+  _t6 = $call_dir func1() then bb1
+}
+
