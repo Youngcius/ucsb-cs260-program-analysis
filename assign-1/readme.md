@@ -6,7 +6,7 @@ __LAST LATE DAY:__ Sunday, Feb 4
 
 ## PART 1: Integer Constant Analysis
 
-Implement the intraprocedural integer constant analysis using the MFP worklist algorithm, as described in lecture.
+Implement the <u>intraprocedural</u> integer constant analysis using the MFP worklist algorithm, as described in lecture.
 
 As a reminder: The abstract domain is `⊥ ⊑ {..., -2, -1, 0, 1, 2, ...} ⊑ ⊤`, where `⊥` means "no integer value", `⊤` means "any integer value", and for `n` ∈ 𝐙, `n` means "exactly the value `n`". The join of `⊥` and any abstract value `X` is `X`; the join of any abstract value with itself is itself; otherwise the join of any two abstract values is `⊤`.
 
@@ -47,7 +47,7 @@ You must devise the abstract semantics for the arithmetic operators (`add`, `sub
 
 ## PART 2: Integer Interval Analysis (aka Range Analysis)
 
-Implement the intraprocedural integer interval analysis using the MFP worklist algorithm and a widening operator (applied only at loop headers), as described in lecture. 
+Implement the <u>intraprocedural</u> integer interval analysis using the MFP worklist algorithm and a widening operator (applied only at loop headers), as described in lecture. 
 
 As a reminder: The abstract domain elements are `⊥` (the empty interval) and intervals `[a, b]` where `a` ∈ 𝐙 ∪ {-∞} and `b` ∈ 𝐙 ∪ {∞} and `a` <= `b`. In this domain, `⊤` = `[-∞, ∞]`. The join of `⊥` with any abstract value `X` is `X`; the join of two intervals `I1` and `I2` is `[min(I1.low, I2.low), max(I1.high, I2.high)]`. The widening of `⊥` with any abstract value `X` is `X`; otherwise `widen(I1, I2)` = `I3` s.t.
 
@@ -61,6 +61,31 @@ You must devise the abstract semantics for the arithmetic operators (`add`, `sub
 - If `I2.low` is 0: treat this as `I1 ÷ [1, I2.high]` using the min/max method given above.
 - If `I2.high` is 0: treat this as `I1 ÷ [I2.low, -1]` using the min/max method given above.
 - Otherwise just use the min/max method directly.
+
+**Abstract semantics**
+
+- arithmetic operators (`⊔`: `add`/`sub`/`mul`/`div`)
+
+  | ⊔      | $\bot$ | $I_2$       | $\top$ |
+  | ------ | ------ | ----------- | ------ |
+  | $\bot$ | $\bot$ | $\bot$      | $\bot$ |
+  | $I_1$  | $\bot$ | $T_1 ⊔ T_2$ | $\top$ |
+  | $\top$ | $\bot$ | $\top$      | $\top$ |
+
+    For the arithmetic operators (`add`, `sub`, `mul`, `div`), the abstract semantics using the join operation `⊔` are as follows:
+
+    - `add`: `X ⊔ Y`
+    - `sub`: `X ⊔ Y`
+    - `mul`: `X ⊔ Y`
+    - `div`: `X ⊔ Y`, where `Y ≠ 0`; $\bot$, where `Y = 0` 
+
+- comparison operators  (`⊔`: `eq`/`neq`/`lt`/`lte`/`gt`/`gte`)
+
+  | ⊔      | $\bot$ | $I_2$       | $\top$ |
+  | ------ | ------ | ----------- | ------ |
+  | $\bot$ | $\bot$ | $\bot$      | $\bot$ |
+  | $I_1$  | $\bot$ | $T_1 ⊔ T_2$ | $\top$ |
+  | $\top$ | $\bot$ | $\top$      | $\top$ |
 
 ## ANALYSIS OUTPUT
 

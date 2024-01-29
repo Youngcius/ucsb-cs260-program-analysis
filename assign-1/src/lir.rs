@@ -39,6 +39,16 @@ pub struct Variable {
     pub scope: Option<String>,
 }
 
+impl Variable {
+    pub fn new(name: &str) -> Variable {
+        Variable {
+            name: name.to_string(),
+            typ: Type::Int,
+            scope: None,
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Function {
     pub id: String,

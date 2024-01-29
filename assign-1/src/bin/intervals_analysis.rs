@@ -11,7 +11,7 @@ fn main() {
     // accept command line arguments
     let args: Vec<String> = std::env::args().collect();
     if args.len() != 3 {
-        println!("Usage: cargo run --bin int_intervals <json_file> <func_name>");
+        println!("Usage: cargo run --bin intervals_analysis <json_file> <func_name>");
         std::process::exit(1);
     }
     let json_fname = &args[1];

@@ -2,7 +2,7 @@
 
 test3.lir 中的循环怎么处理呢
 
-bb2store: HashMap<&lir::Block, store::ConstantStore>
+bb2store: HashMap<lir::Block, store::ConstantStore>
 
 pub struct ControlFlowGraph {
     // A DAG representing the control flow of a program
@@ -10,8 +10,8 @@ pub struct ControlFlowGraph {
     edges: Vec<(u32, u32)>,
 }
 
-pub struct ConstantStore<'a> {
-    status: HashMap<&'a lir::Variable, domain::Constant>,
+pub struct ConstantStore {
+    status: HashMap<lir::Variable, domain::Constant>,
 }
 
 
