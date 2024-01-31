@@ -3,10 +3,11 @@ Abstract domain, abstract semantics, and abstract execution.
 */
 
 pub mod domain {
-    use super::semantics::AbstractSemantics;
+    use super::{execution::AbstractExecution, semantics::AbstractSemantics};
     use crate::lir;
+    use crate::store;
 
-    #[derive(Debug)]
+    #[derive(Debug, Clone)]
     pub enum DomainType {
         Constant,
         Interval,
@@ -24,6 +25,16 @@ pub mod domain {
         Top,
         Bottom,
         Range(i32, i32),
+    }
+
+    impl std::fmt::Display for Constant {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Bottom => write!(f, "⊥"),
+                Self::Top => write!(f, "Top"),
+                Self::CInt(c) => write!(f, "{}", c),
+            }
+        }
     }
 
     impl Interval {
@@ -344,13 +355,75 @@ pub mod execution {
     use crate::lir;
     use crate::store;
 
-    // fn mfp(prog: &lir::Program) {
-    //     // MFP (Meet For All Paths) worklist algorithm
-    //     panic!("TODO")
-    // }
-    // pub trait AbstractExecution {
-    //     fn mfp(&self);
-    // }
+    pub struct Analyzer<T> {
+        pub prog: lir::Program,
+        pub bb2store: HashMap<String, store::Store<T>>,
+        pub cfg: cfg::ControlFlowGraph,
+        pub worklist: Vec<lir::Block>,
+        pub executed: bool,
+    }
+
+    pub type ConstantAnalyzer = Analyzer<domain::Constant>;
+    pub type IntervalAnalyzer = Analyzer<domain::Interval>;
+
+    impl ConstantAnalyzer {
+        pub fn new(prog: lir::Program) -> Self {
+            // Initialized the constant analyzer
+            // TODO: check following code
+            let cfg = cfg::ControlFlowGraph::from_program(&prog);
+            let worklist = cfg.to_sequence();
+            let mut bb2store: HashMap<lir::Block, store::ConstantStore> = HashMap::new();
+            let mut entry_store = store::ConstantStore::new();
+            // set content of entry_store
+            let globals = prog.get_all_globals();
+            let parameters = prog.get_all_parameters();
+            for global in globals {
+                entry_store.set(global.clone(), domain::Constant::Top);
+            }
+            for parameter in parameters {
+                // set all "int" parameters to Top; otherwise set to Bottom
+                match parameter.typ {
+                    lir::Type::Int => entry_store.set(parameter.clone(), domain::Constant::Top),
+                    _ => entry_store.set(parameter.clone(), domain::Constant::Bottom),
+                }
+            }
+            bb2store.insert(cfg.get_first_block().unwrap().clone(), entry_store);
+            Self {
+                prog,
+                bb2store,
+                cfg,
+                worklist,
+                // entry_store,
+                executed: false,
+            }
+        }
+    }
+
+    impl AbstractExecution for ConstantAnalyzer {
+        fn mfp(&mut self) {
+            self.executed = true;
+            panic!("TODO")
+        }
+
+        fn exe_block(&mut self, block: &lir::Block) {
+            panic!("TODO")
+        }
+
+        fn exe_instr(&mut self, instr: &lir::Instruction) {
+            panic!("TODO")
+        }
+    }
+
+
+    pub trait AbstractExecution {
+        // fn mfp(&self, prog: &lir::Program)
+        //     -> HashMap<lir::Block, store::Store<domain::DomainType>>;
+        // fn exe_block<T>(&self, block: &lir::Block, store: &store::Store<T>) -> store::Store<T>;
+        // fn exe_instr<T>(&self, instr: &lir::Instruction, store: &mut store::Store<T>);
+        fn mfp(&mut self);
+        fn exe_block(&mut self, block: &lir::Block);
+        fn exe_instr(&mut self, instr: &lir::Instruction);
+    }
 
     // pub fn execute(block: &lir::Block, domain_type: &domain::DomainType) {
     //     // execute a block
@@ -496,6 +569,123 @@ pub mod execution {
     //             // {"CallExt": {"lhs": "xxx", "ext_callee": "xxx", "args": ["xxx", "xxx"]}}
     //             let mut arg_vals: Vec<T> = Vec::new();
     //             for arg in args {
+    // pub fn exe_instr_const<T>(instr: &lir::Instruction, store: &mut store::ConstantStore) {
+    //     // execute an instruction on the store
+    //     // current support: no-function no-pointer
+    //     // op: Operand::CInt(i32), or Operand::Var { name: String, typ: Type::Int, scope: ...}
+    //     // TODO: store 是一个全局唯一的变量吗？？？还是每个block对应的store不同？？？
+    //     match instr {
+    //         lir::Instruction::AddrOf { lhs, rhs } => {
+    //             // {"AddrOf": {"lhs": "xxx", "rhs": "xxx"}}
+    //             let rhs_val = store.get(rhs).unwrap();
+    //             store.set(lhs.clone(), rhs_val.clone());
+    //         }
+    //         lir::Instruction::Alloc { lhs, num, id } => {
+    //             // {"Alloc": {"lhs": "xxx", "num": "xxx", "id": "xxx"}}
+    //             let num_val = store.get(num).unwrap();
+    //             let id_val = store.get(id).unwrap();
+    //             store.set(lhs.clone(), id_val.clone());
+    //         }
+    //         lir::Instruction::Copy { lhs, op } => {
+    //             // {"Copy": {"lhs": "xxx", "op": "xxx"}}
+    //             match op {
+    //                 lir::Operand::Var(var) => {
+    //                     store.set(lhs.clone(), store.get(var).unwrap().clone());
+    //                 }
+    //                 lir::Operand::CInt(c) => {
+    //                     store.set(lhs.clone(), domain::Constant::CInt(*c));
+    //                 }
+    //             }
+    //         }
+    //         lir::Instruction::Gep { lhs, src, idx } => {
+    //             // {"Gep": {"lhs": "xxx", "src": "xxx", "idx": "xxx"}}
+    //             let src_val = store.get(src).unwrap();
+    //             let idx_val = store.get(idx).unwrap();
+    //             store.set(lhs.clone(), src_val.clone());
+    //         }
+    //         lir::Instruction::Arith { lhs, aop, op1, op2 } => {
+    //             // {"Arith": {"lhs": "xxx", "aop": "xxx", "op1": "xxx", "op2": "xxx"}}
+    //             let res_val: domain::Constant;
+    //             match (op1, op2) {
+    //                 (lir::Operand::Var(var1), lir::Operand::Var(var2)) => {
+    //                     let op1_val = store.get(var1).unwrap();
+    //                     let op2_val = store.get(var2).unwrap();
+    //                     res_val = op1_val.arith(op2_val, aop);
+    //                 }
+    //                 (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
+    //                     let op1_val = store.get(var).unwrap();
+    //                     let op2_val = domain::Constant::CInt(*c);
+    //                     res_val = op1_val.arith(&op2_val, aop);
+    //                 }
+    //                 (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
+    //                     let op1_val = domain::Constant::CInt(*c);
+    //                     let op2_val = store.get(var).unwrap();
+    //                     res_val = op1_val.arith(op2_val, aop);
+    //                 }
+    //                 (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
+    //                     let op1_val = domain::Constant::CInt(*c1);
+    //                     let op2_val = domain::Constant::CInt(*c2);
+    //                     res_val = op1_val.arith(&op2_val, aop);
+    //                 }
+    //             }
+    //             store.set(lhs.clone(), res_val);
+    //         }
+    //         lir::Instruction::Load { lhs, src } => {
+    //             // {"Load": {"lhs": "xxx", "src": "xxx"}
+    //             let src_val = store.get(src).unwrap();
+    //             store.set(lhs.clone(), src_val.clone());
+    //         }
+    //         lir::Instruction::Store { dst, op } => {
+    //             // {"Store": {"dst": "xxx", "op": "xxx"}}
+    //             let op_val = store.get(op).unwrap();
+    //             store.set(dst.clone(), op_val.clone());
+    //         }
+    //         lir::Instruction::Gfp { lhs, src, field } => {
+    //             // {"Gfp": {"lhs": "xxx", "src": "xxx", "field": "xxx"}}
+    //             let src_val = store.get(src).unwrap();
+    //             let field_val = store.get(field).unwrap();
+    //             store.set(lhs.clone(), src_val.clone());
+    //         }
+    //         lir::Instruction::Cmp { lhs, rop, op1, op2 } => {
+    //             // {"Cmp": {"lhs": "xxx", "rop": "xxx", "op1": "xxx", "op2": "xxx"}}
+    //             let res_val: domain::Constant;
+    //             match (op1, op2) {
+    //                 (lir::Operand::Var(var1), lir::Operand::Var(var2)) => {
+    //                     let op1_val = store.get(var1).unwrap();
+    //                     let op2_val = store.get(var2).unwrap();
+    //                     res_val = op1_val.cmp(op2_val, rop);
+    //                 }
+    //                 (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
+    //                     let op1_val = store.get(var).unwrap();
+    //                     let op2_val = domain::Constant::CInt(*c);
+    //                     res_val = op1_val.cmp(&op2_val, rop);
+    //                 }
+    //                 (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
+    //                     let op1_val = domain::Constant::CInt(*c);
+    //                     let op2_val = store.get(var).unwrap();
+    //                     res_val = op1_val.cmp(op2_val, rop);
+    //                 }
+    //                 (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
+    //                     let op1_val = domain::Constant::CInt(*c1);
+    //                     let op2_val = domain::Constant::CInt(*c2);
+    //                     res_val = op1_val.cmp(&op2_val, rop);
+    //                 }
+    //             }
+    //             store.set(lhs.clone(), res_val);
+    //         }
+    //         lir::Instruction::CallExt {
+    //             lhs,
+    //             ext_callee,
+    //             args,
+    //         } => {
+    //             // {"CallExt": {"lhs": "xxx", "ext_callee": "xxx", "args": ["xxx", "xxx"]}}
+    //             let mut arg_vals: Vec<T> = Vec::new();
+    //             for arg in args {
+    //                 arg_vals.push(store.get(arg).unwrap().clone());
+    //             }
+    //         }
+    //     }
+    // }
     //                 arg_vals.push(store.get(arg).unwrap().clone());
     //             }
     //         }
@@ -624,6 +814,7 @@ pub mod execution {
 #[cfg(test)]
 mod test {
     use super::domain::Interval;
+    use crate::utils;
 
     #[test]
     fn test_interval_output() {

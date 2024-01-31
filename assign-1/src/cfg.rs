@@ -1,10 +1,13 @@
 use crate::lir;
 use std::collections::{HashMap, HashSet};
 
+#[derive(Debug, Clone)]
 pub struct ControlFlowGraph {
     // A DAG representing the control flow of a program
-    pub nodes: HashMap<String, lir::Block>, // it is in the same type of lir::Function.body
-    pub edges: Vec<(String, String)>,
+    // HashMap<String, lir::Block> is in the same type of lir::Function.body
+    // Suppose the node label is the same as the block id
+    nodes: HashMap<String, lir::Block>,
+    edges: Vec<(String, String)>,
 }
 
 impl ControlFlowGraph {
@@ -178,17 +181,12 @@ impl ControlFlowGraph {
         result.insert(label.clone(), order);
     }
 
-    pub fn to_sequence(&self) -> Vec<&lir::Block> {
+    pub fn to_sequence(&self) -> Vec<lir::Block> {
         // convert nodes.values() to a sequence according to topological order of this CFG
-        let mut result: Vec<&lir::Block> = Vec::new();
-        // for (label, _) in self.topological_sort() {
-        //     result.push(self.nodes.get(label).unwrap());
-        // }
-        let orders = self.topological_sort();
-        let result = orders
-            .iter()
-            .map(|(label, _)| self.nodes.get(label).unwrap())
-            .collect();
+        let mut result: Vec<lir::Block> = Vec::new();
+        for (label, _) in self.topological_sort() {
+            result.push(self.nodes.get(&label).unwrap().clone());
+        }
         result
     }
 }
@@ -269,7 +267,6 @@ mod test {
         println!("all block labels: {:?}", cfg.nodes.keys());
         println!("all edges: {:?}", cfg.edges);
         println!("topo orders of blocks: {:?}", cfg.topological_sort());
-
     }
 
     fn constr_demo_cfg() -> ControlFlowGraph {

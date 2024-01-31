@@ -105,7 +105,7 @@ The result of each analysis should be, for the analyzed function, a map from eac
 ...and so on
 ```
 
-Where the blocks are printed in alphabetical order and, for each block, the variables are printed in alphabetical order. Whitespace doesn't matter (e.g., exact number of spaces, etc).
+<u>Where the blocks are printed in alphabetical order and, for each block, the variables are printed in alphabetical order</u>. Whitespace doesn't matter (e.g., exact number of spaces, etc).
 
 ## REFERENCE SOLUTIONS
 

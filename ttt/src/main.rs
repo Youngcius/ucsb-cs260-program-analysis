@@ -110,10 +110,16 @@ fn main() {
         name: Some("zhangsan".to_string()),
         score: Some(100),
     };
-    let s2 = Student {
+    let mut s2 = Student {
         name: Some("zhangsan".to_string()),
         score: Some(100),
     };
     println!("s1 =? s2: {}", s1 == s2);
     println!("s1 =? s1: {}", s1 == s1);
+
+    s2.score = Some(1100);
+    println!("{:?}", s2); // Student { name: Some("zhangsan"), score: Some(1100) }
+
+    s2.add_score_with_10();
+    s1.add_score_with_10();
 }

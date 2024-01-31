@@ -41,6 +41,7 @@ pub struct Variable {
 
 impl Variable {
     pub fn new(name: &str) -> Variable {
+        // Only support Int type for now
         Variable {
             name: name.to_string(),
             typ: Type::Int,

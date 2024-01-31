@@ -1,6 +1,3 @@
-l:int
-n:int
-
 fn main() -> int {
 entry:
   $ret 0

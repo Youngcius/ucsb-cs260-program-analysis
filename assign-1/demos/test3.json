@@ -1,1 +1,210 @@
-{"structs":{},"globals":[{"name":"l","typ":"Int","scope":null},{"name":"n","typ":"Int","scope":null}],"functions":{"main":{"id":"main","ret_ty":"Int","params":[],"locals":[],"body":{"entry":{"id":"entry","insts":[],"term":{"Ret":{"CInt":0}}}}},"test":{"id":"test","ret_ty":"Int","params":[{"name":"l","typ":"Int","scope":"test"}],"locals":[{"name":"_t1","typ":"Int","scope":"test"},{"name":"_t2","typ":"Int","scope":"test"},{"name":"_t3","typ":"Int","scope":"test"},{"name":"n","typ":"Int","scope":"test"}],"body":{"bb1":{"id":"bb1","insts":[{"Cmp":{"lhs":{"name":"_t1","typ":"Int","scope":"test"},"rop":"Greater","op1":{"Var":{"name":"l","typ":"Int","scope":"test"}},"op2":{"CInt":0}}}],"term":{"Branch":{"cond":{"Var":{"name":"_t1","typ":"Int","scope":"test"}},"tt":"bb2","ff":"bb3"}}},"bb2":{"id":"bb2","insts":[{"Arith":{"lhs":{"name":"_t2","typ":"Int","scope":"test"},"aop":"Subtract","op1":{"Var":{"name":"l","typ":"Int","scope":"test"}},"op2":{"CInt":1}}},{"Copy":{"lhs":{"name":"l","typ":"Int","scope":"test"},"op":{"Var":{"name":"_t2","typ":"Int","scope":"test"}}}},{"Arith":{"lhs":{"name":"_t3","typ":"Int","scope":"test"},"aop":"Multiply","op1":{"Var":{"name":"n","typ":"Int","scope":"test"}},"op2":{"CInt":2}}},{"Copy":{"lhs":{"name":"n","typ":"Int","scope":"test"},"op":{"Var":{"name":"_t3","typ":"Int","scope":"test"}}}}],"term":{"Jump":"bb1"}},"bb3":{"id":"bb3","insts":[],"term":{"Ret":{"Var":{"name":"n","typ":"Int","scope":"test"}}}},"entry":{"id":"entry","insts":[{"Copy":{"lhs":{"name":"n","typ":"Int","scope":"test"},"op":{"CInt":1}}}],"term":{"Jump":"bb1"}}}}},"externs":{}}
+{
+    "structs": {},
+    "globals": [],
+    "functions": {
+        "main": {
+            "id": "main",
+            "ret_ty": "Int",
+            "params": [],
+            "locals": [],
+            "body": {
+                "entry": {
+                    "id": "entry",
+                    "insts": [],
+                    "term": {
+                        "Ret": {
+                            "CInt": 0
+                        }
+                    }
+                }
+            }
+        },
+        "test": {
+            "id": "test",
+            "ret_ty": "Int",
+            "params": [
+                {
+                    "name": "l",
+                    "typ": "Int",
+                    "scope": "test"
+                }
+            ],
+            "locals": [
+                {
+                    "name": "_t1",
+                    "typ": "Int",
+                    "scope": "test"
+                },
+                {
+                    "name": "_t2",
+                    "typ": "Int",
+                    "scope": "test"
+                },
+                {
+                    "name": "_t3",
+                    "typ": "Int",
+                    "scope": "test"
+                },
+                {
+                    "name": "n",
+                    "typ": "Int",
+                    "scope": "test"
+                }
+            ],
+            "body": {
+                "bb1": {
+                    "id": "bb1",
+                    "insts": [
+                        {
+                            "Cmp": {
+                                "lhs": {
+                                    "name": "_t1",
+                                    "typ": "Int",
+                                    "scope": "test"
+                                },
+                                "rop": "Greater",
+                                "op1": {
+                                    "Var": {
+                                        "name": "l",
+                                        "typ": "Int",
+                                        "scope": "test"
+                                    }
+                                },
+                                "op2": {
+                                    "CInt": 0
+                                }
+                            }
+                        }
+                    ],
+                    "term": {
+                        "Branch": {
+                            "cond": {
+                                "Var": {
+                                    "name": "_t1",
+                                    "typ": "Int",
+                                    "scope": "test"
+                                }
+                            },
+                            "tt": "bb2",
+                            "ff": "bb3"
+                        }
+                    }
+                },
+                "bb2": {
+                    "id": "bb2",
+                    "insts": [
+                        {
+                            "Arith": {
+                                "lhs": {
+                                    "name": "_t2",
+                                    "typ": "Int",
+                                    "scope": "test"
+                                },
+                                "aop": "Subtract",
+                                "op1": {
+                                    "Var": {
+                                        "name": "l",
+                                        "typ": "Int",
+                                        "scope": "test"
+                                    }
+                                },
+                                "op2": {
+                                    "CInt": 1
+                                }
+                            }
+                        },
+                        {
+                            "Copy": {
+                                "lhs": {
+                                    "name": "l",
+                                    "typ": "Int",
+                                    "scope": "test"
+                                },
+                                "op": {
+                                    "Var": {
+                                        "name": "_t2",
+                                        "typ": "Int",
+                                        "scope": "test"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "Arith": {
+                                "lhs": {
+                                    "name": "_t3",
+                                    "typ": "Int",
+                                    "scope": "test"
+                                },
+                                "aop": "Multiply",
+                                "op1": {
+                                    "Var": {
+                                        "name": "n",
+                                        "typ": "Int",
+                                        "scope": "test"
+                                    }
+                                },
+                                "op2": {
+                                    "CInt": 2
+                                }
+                            }
+                        },
+                        {
+                            "Copy": {
+                                "lhs": {
+                                    "name": "n",
+                                    "typ": "Int",
+                                    "scope": "test"
+                                },
+                                "op": {
+                                    "Var": {
+                                        "name": "_t3",
+                                        "typ": "Int",
+                                        "scope": "test"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "term": {
+                        "Jump": "bb1"
+                    }
+                },
+                "bb3": {
+                    "id": "bb3",
+                    "insts": [],
+                    "term": {
+                        "Ret": {
+                            "Var": {
+                                "name": "n",
+                                "typ": "Int",
+                                "scope": "test"
+                            }
+                        }
+                    }
+                },
+                "entry": {
+                    "id": "entry",
+                    "insts": [
+                        {
+                            "Copy": {
+                                "lhs": {
+                                    "name": "n",
+                                    "typ": "Int",
+                                    "scope": "test"
+                                },
+                                "op": {
+                                    "CInt": 1
+                                }
+                            }
+                        }
+                    ],
+                    "term": {
+                        "Jump": "bb1"
+                    }
+                }
+            }
+        }
+    },
+    "externs": {}
+}
