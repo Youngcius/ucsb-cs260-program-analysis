@@ -3,6 +3,7 @@ Utils functions
 */
 
 use crate::{abs::semantics::AbstractSemantics, store};
+use crate::lir;
 use std::collections::HashMap;
 
 pub fn display_bb2store<T>(bb2store: HashMap<String, store::Store<T>>)
@@ -14,9 +15,18 @@ where
     let mut bbs: Vec<String> = bb2store.keys().cloned().collect();
     bbs.sort();
     for bb in bbs {
+        if bb == "dummy_entry" {
+            continue;
+        } // TODO: why is this necessary?
         println!("{}:", bb);
         println!("{}", bb2store.get(&bb).unwrap());
     }
+}
+
+pub fn able_to_reach_int(to: &Box<lir::Type>) -> bool {
+    // while ...
+    
+    false
 }
 
 #[cfg(test)]

@@ -116,6 +116,10 @@ impl ControlFlowGraph {
         None
     }
 
+    pub fn get_all_block_labels(&self) -> Vec<String> {
+        self.nodes.keys().cloned().collect()
+    }
+
     pub fn get_predecessor_labels(&self, label: &str) -> Vec<String> {
         self.edges
             .iter()

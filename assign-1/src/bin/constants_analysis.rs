@@ -22,7 +22,7 @@ fn main() {
     println!("func_name: {}", func_name);
 
     let prog = lir::Program::parse_json(&json_fname);
-    let mut analyzer = abs::execution::ConstantAnalyzer::new(&prog); // TODO: "mut" is necessary?
+    let mut analyzer = abs::execution::ConstantAnalyzer::new(prog, &func_name); // TODO: "mut" is necessary?
     analyzer.mfp();
     utils::display_bb2store(analyzer.bb2store);
 

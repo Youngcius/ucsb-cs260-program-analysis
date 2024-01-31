@@ -6,7 +6,7 @@ use crate::abs::semantics::AbstractSemantics;
 use crate::lir;
 use std::collections::HashMap;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Store<T> {
     status: HashMap<lir::Variable, T>,
 }

@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 #[allow(dead_code)]
 #[allow(unused_variables)]
 use serde::{Deserialize, Serialize};
@@ -121,5 +123,22 @@ fn main() {
     println!("{:?}", s2); // Student { name: Some("zhangsan"), score: Some(1100) }
 
     s2.add_score_with_10();
-    s1.add_score_with_10();
+
+
+    let mut s3 = &mut s2;
+    s3.add_score_with_10();
+
+    println!("{:?}", s3); // Student { name: Some("zhangsan"), score: Some(1120) }
+    println!("{:?}", s2); // Student { name: Some("zhangsan"), score: Some(1120) }
+
+
+    let mut dict1 = HashMap::new();
+    let mut dict2 = HashMap::new();
+    dict2.insert("name", "zhangsan");
+    dict2.insert("score", "100");
+    dict1.insert("score", "100");
+    dict1.insert("name", "zhangsan");
+    println!("{:?}", dict1); // {"name": "zhangsan", "score": "100"}
+    println!("{:?}", dict2); // {"name": "zhangsan", "score": "100"}
+    println!("{:?}", dict1 == dict2); // true
 }
