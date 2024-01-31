@@ -585,6 +585,7 @@ pub mod execution {
                     // {"Store": {"dst": "xxx", "op": "xxx"}}
                     // if op is Operand::CInt or in-type Variable, do something
                     match op {
+                        // TODO: 有点问题
                         lir::Operand::CInt(c) => {
                             let op_val = domain::Constant::CInt(*c);
                             let mut new_store = store::ConstantStore::new();
@@ -594,7 +595,7 @@ pub mod execution {
                             println!("In Store instruction, joining store with new_store");
                             println!("Before joining:");
                             println!("{}", store);
-                            *store = store.join(&new_store);
+                            *store = store.join(&new_store); // TODO: 检查下有没有毛病
                             println!("After joining:");
                             println!("{}", store);
                         }
