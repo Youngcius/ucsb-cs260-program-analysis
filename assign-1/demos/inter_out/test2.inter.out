@@ -1,0 +1,5 @@
+entry:
+_t1 -> [0, 1]
+_t2 -> [-1, 0]
+x -> (NegInf, PosInf)
+

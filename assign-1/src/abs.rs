@@ -64,29 +64,6 @@ pub mod domain {
                 }
             }
         }
-    }
-
-    impl std::fmt::Display for Interval {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            match self {
-                Self::Bottom => write!(f, "None"),
-                Self::Top => write!(f, "(NegInf, PosInf)"),
-                Self::Range(l, u) => {
-                    if *l == i32::MIN && *u == i32::MAX {
-                        write!(f, "(NegInf, PosInf)")
-                    } else if *l == i32::MIN {
-                        write!(f, "(NegInf, {}]", u)
-                    } else if *u == i32::MAX {
-                        write!(f, "[{}, PosInf)", l)
-                    } else {
-                        write!(f, "[{}, {}]", l, u)
-                    }
-                }
-            }
-        }
-    }
-
-    impl Interval {
         pub fn widen(&self, other: &Self) -> Self {
             match (self, other) {
                 (Self::Bottom, _) => other.clone(),
@@ -101,7 +78,6 @@ pub mod domain {
                 }
             }
         }
-
         pub fn has_overlap(&self, other: &Self) -> bool {
             match (self, other) {
                 (Self::Bottom, _) => false,
@@ -125,7 +101,39 @@ pub mod domain {
         }
     }
 
+    impl std::fmt::Display for Interval {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Bottom => write!(f, "⊥"),
+                Self::Top => write!(f, "(NegInf, PosInf)"),
+                Self::Range(l, u) => {
+                    if *l == i32::MIN && *u == i32::MAX {
+                        write!(f, "(NegInf, PosInf)")
+                    } else if *l == i32::MIN {
+                        write!(f, "(NegInf, {}]", u)
+                    } else if *u == i32::MAX {
+                        write!(f, "[{}, PosInf)", l)
+                    } else {
+                        write!(f, "[{}, {}]", l, u)
+                    }
+                }
+            }
+        }
+    }
+
     impl AbstractSemantics for Constant {
+        fn is_bottom(&self) -> bool {
+            match self {
+                Self::Bottom => true,
+                _ => false,
+            }
+        }
+        fn is_top(&self) -> bool {
+            match self {
+                Self::Top => true,
+                _ => false,
+            }
+        }
         fn join(&self, other: &Self) -> Self {
             match (self, other) {
                 (Self::Bottom, _) => other.clone(),
@@ -186,6 +194,18 @@ pub mod domain {
     }
 
     impl AbstractSemantics for Interval {
+        fn is_bottom(&self) -> bool {
+            match self {
+                Self::Bottom => true,
+                _ => false,
+            }
+        }
+        fn is_top(&self) -> bool {
+            match self {
+                Self::Top => true,
+                _ => false,
+            }
+        }
         fn join(&self, other: &Self) -> Self {
             match (self, other) {
                 (Self::Bottom, _) => other.clone(),
@@ -339,6 +359,8 @@ pub mod semantics {
     use crate::lir;
 
     pub trait AbstractSemantics {
+        fn is_bottom(&self) -> bool;
+        fn is_top(&self) -> bool;
         fn join(&self, other: &Self) -> Self;
         fn arith(&self, other: &Self, op: &lir::ArithOp) -> Self;
         fn cmp(&self, other: &Self, op: &lir::RelaOp) -> Self;
@@ -351,9 +373,9 @@ pub mod execution {
     use super::semantics::AbstractSemantics;
     use crate::cfg;
     use crate::lir;
+    use crate::lir::Variable;
     use crate::store;
     use crate::utils;
-    use crate::lir::Variable;
     use log::warn;
     use std::collections::HashMap;
     use std::collections::VecDeque;
@@ -375,7 +397,10 @@ pub mod execution {
         pub fn new(prog: lir::Program, func_name: &str) -> Self {
             // Initialized the constant analyzer
             // TODO: check following code
+            // println!("{:#?}", prog);
+
             let cfg = cfg::ControlFlowGraph::from_function(&prog, func_name);
+            println!("CFG edges: {:?}", cfg.edges);
             let mut worklist: VecDeque<lir::Block> = VecDeque::new();
             let mut bb2store: HashMap<String, store::ConstantStore> = HashMap::new();
             let mut entry_store = store::ConstantStore::new();
@@ -396,16 +421,24 @@ pub mod execution {
                     _ => entry_store.set(parameter.clone(), domain::Constant::Bottom),
                 }
             }
-            worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
-            bb2store.insert("dummy_entry".to_string(), entry_store);
+            // worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
+            worklist.push_back(cfg.get_entry().unwrap().clone());
+            println!("worklist: {:?}", worklist);
             for bb_label in &cfg.get_all_block_labels() {
                 bb2store.insert(bb_label.clone(), store::ConstantStore::new());
             }
-            println!("bb2store.len: {}", bb2store.len());
+            // bb2store.insert("dummy_entry".to_string(), entry_store);
+            bb2store.insert("entry".to_string(), entry_store);
+            println!(
+                "bb2store.len: {}, {:?}",
+                bb2store.len(),
+                bb2store.keys().collect::<Vec<&String>>()
+            );
             print!("global_ints: ");
             for var in global_ints.iter() {
                 print!("{}, ", var.name);
             }
+            println!();
             Self {
                 prog,
                 bb2store,
@@ -442,11 +475,19 @@ pub mod execution {
                     _ => entry_store.set(parameter.clone(), domain::Interval::Bottom),
                 }
             }
-            worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
-            bb2store.insert("dummy_entry".to_string(), entry_store);
+            // worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
+            worklist.push_back(cfg.get_entry().unwrap().clone());
+            println!("worklist: {:?}", worklist);
             for bb_label in &cfg.get_all_block_labels() {
                 bb2store.insert(bb_label.clone(), store::IntervalStore::new());
             }
+            // bb2store.insert("dummy_entry".to_string(), entry_store);
+            bb2store.insert("entry".to_string(), entry_store);
+            println!(
+                "bb2store.len: {}, {:?}",
+                bb2store.len(),
+                cfg.get_all_block_labels()
+            );
             Self {
                 prog,
                 bb2store,
@@ -485,12 +526,14 @@ pub mod execution {
                 // }
 
                 let block = self.worklist.pop_front().unwrap();
+                println!("Pop block id={} from worklist", block.id);
                 self.exe_block(&block);
 
                 self.cfg
                     .get_successor_labels(&block.id)
                     .iter()
                     .for_each(|succ_label| {
+                        println!("successor label of {}: {}", block.id, succ_label);
                         let succ = self.cfg.get_block(succ_label).unwrap();
                         let succ_store = self.bb2store.get(succ_label).unwrap();
                         let new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
@@ -505,17 +548,20 @@ pub mod execution {
         }
 
         fn exe_block(&mut self, block: &lir::Block) {
+            println!("Executing block {}", block.id);
             for instr in &block.insts {
                 self.exe_instr(instr, &block.id);
             }
             self.exe_term(&block.term, &block.id);
+            println!();
         }
 
         fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str) {
             // execute an instruction on the store
             // current support: no-function no-pointer
             // op: Operand::CInt(i32), or Operand::Var { name: String, typ: Type::Int, scope: ...}
-            let mut store = self.bb2store.get_mut(bb_label).unwrap();
+            println!("executing instruction: {:?}", instr);
+            let store = self.bb2store.get_mut(bb_label).unwrap();
             match instr {
                 lir::Instruction::AddrOf { lhs, rhs } => {
                     // {"AddrOf": {"lhs": "xxx", "rhs": "xxx"}}
@@ -655,11 +701,11 @@ pub mod execution {
                 } => {
                     // {"CallExt": {"lhs": "xxx", "ext_callee": "xxx", "args": ["xxx", "xxx"]}}
                     // set all global_ints to Top
-                    for var in self.global_ints.iter() { 
+                    for var in self.global_ints.iter() {
                         store.set(var.clone(), domain::Constant::Top);
                     }
                     // if lhs is int-type Variable, set it to Top
-                    match lhs { 
+                    match lhs {
                         Some(lsh) => {
                             if let lir::Type::Int = lsh.typ {
                                 store.set(lsh.clone(), domain::Constant::Top);
@@ -667,11 +713,11 @@ pub mod execution {
                         }
                         None => {}
                     }
-                   // for any argument that is a pointer able to reach an int-type Variable var, set it to Top
-                   for arg in args.iter() {
+                    // for any argument that is a pointer able to reach an int-type Variable var, set it to Top
+                    for arg in args.iter() {
                         if let lir::Operand::Var(var) = arg {
                             if let lir::Type::Pointer(to) = &var.typ {
-                                if utils::able_to_reach_int(to){
+                                if utils::able_to_reach_int(to) {
                                     for var in self.addrof_ints.iter() {
                                         store.set(var.clone(), domain::Constant::Top);
                                     }
@@ -684,12 +730,339 @@ pub mod execution {
             }
         }
         fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str) {
+            println!("executing terminal: {:?}", term);
+            let store = self.bb2store.get_mut(bb_label).unwrap();
             match term {
-                lir::Terminal::CallDirect { lhs, callee, args, next_bb } => {
-                    panic!("Not implemented")
+                lir::Terminal::CallDirect {
+                    lhs,
+                    callee,
+                    args,
+                    next_bb,
+                } => {
+                    for var in self.global_ints.iter() {
+                        store.set(var.clone(), domain::Constant::Top);
+                    }
+                    match lhs {
+                        Some(lsh) => {
+                            if let lir::Type::Int = lsh.typ {
+                                store.set(lsh.clone(), domain::Constant::Top);
+                            }
+                        }
+                        None => {}
+                    }
+                    for arg in args.iter() {
+                        if let lir::Operand::Var(var) = arg {
+                            if let lir::Type::Pointer(to) = &var.typ {
+                                if utils::able_to_reach_int(to) {
+                                    for var in self.addrof_ints.iter() {
+                                        store.set(var.clone(), domain::Constant::Top);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
-                lir::Terminal::CallIndirect { lhs, callee, args, next_bb } => {
-                    panic!("Not implemented")
+                lir::Terminal::CallIndirect {
+                    lhs,
+                    callee,
+                    args,
+                    next_bb,
+                } => {
+                    for var in self.global_ints.iter() {
+                        store.set(var.clone(), domain::Constant::Top);
+                    }
+                    match lhs {
+                        Some(lsh) => {
+                            if let lir::Type::Int = lsh.typ {
+                                store.set(lsh.clone(), domain::Constant::Top);
+                            }
+                        }
+                        None => {}
+                    }
+                    for arg in args.iter() {
+                        if let lir::Operand::Var(var) = arg {
+                            if let lir::Type::Pointer(to) = &var.typ {
+                                if utils::able_to_reach_int(to) {
+                                    for var in self.addrof_ints.iter() {
+                                        store.set(var.clone(), domain::Constant::Top);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                _ => {}
+            }
+        }
+    }
+
+    impl AbstractExecution for IntervalAnalyzer {
+        fn mfp(&mut self) {
+            if self.executed {
+                warn!("Already executed");
+                return;
+            }
+            self.executed = true;
+            while !self.worklist.is_empty() {
+                let block = self.worklist.pop_front().unwrap();
+                self.exe_block(&block);
+
+                self.cfg
+                    .get_successor_labels(&block.id)
+                    .iter()
+                    .for_each(|succ_label| {
+                        let succ = self.cfg.get_block(succ_label).unwrap();
+                        let succ_store = self.bb2store.get(succ_label).unwrap();
+                        let new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
+                        if new_store != succ_store.clone() {
+                            self.bb2store.insert(succ_label.clone(), new_store.clone());
+                            self.worklist.push_back(succ.clone());
+                        }
+                    });
+            }
+
+            // TODO: 找到 loop header, 执行 widening
+        }
+        fn exe_block(&mut self, block: &lir::Block) {
+            for instr in &block.insts {
+                self.exe_instr(instr, &block.id);
+            }
+            self.exe_term(&block.term, &block.id);
+        }
+        fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str) {
+            let store = self.bb2store.get_mut(bb_label).unwrap();
+            //     match instr {
+            //         lir::Instruction::AddrOf { lhs, rhs } => {
+            //             // {"AddrOf": {"lhs": "xxx", "rhs": "xxx"}}
+            //             if let lir::Type::Int = rhs.typ {
+            //                 self.addrof_ints.push(rhs.clone());
+            //                 println!("added {} to addrof_ints", rhs.name);
+            //             }
+            //         }
+            //         lir::Instruction::Alloc { lhs, num, id } => {
+            //             // {"Alloc": {"lhs": "xxx", "num": "xxx", "id": "xxx"}}
+            //             // let num_val = store.get(num).unwrap();
+            //             // let id_val = store.get(id).unwrap();
+            //             // store.set(lhs.clone(), id_val.clone());
+            //         }
+            //         lir::Instruction::Copy { lhs, op } => {
+            //             // {"Copy": {"lhs": "xxx", "op": "xxx"}}
+            //             match op {
+            //                 lir::Operand::Var(var) => {
+            //                     store.set(lhs.clone(), store.get(var).unwrap().clone());
+            //                 }
+            //                 lir::Operand::CInt(c) => {
+            //                     store.set(lhs.clone(), domain::Constant::CInt(*c));
+            //                 }
+            //             }
+            //         }
+            //         lir::Instruction::Gep { lhs, src, idx } => {
+            //             // {"Gep": {"lhs": "xxx", "src": "xxx", "idx": "xxx"}}
+            //             // let src_val = store.get(src).unwrap();
+            //             // let idx_val = store.get(idx).unwrap();
+            //             // store.set(lhs.clone(), src_val.clone());
+            //         }
+            //         lir::Instruction::Arith { lhs, aop, op1, op2 } => {
+            //             // {"Arith": {"lhs": "xxx", "aop": "xxx", "op1": "xxx", "op2": "xxx"}}
+            //             let res_val: domain::Constant;
+            //             match (op1, op2) {
+            //                 (lir::Operand::Var(var1), lir::Operand::Var(var2)) => {
+            //                     let op1_val = store.get(var1).unwrap();
+            //                     let op2_val = store.get(var2).unwrap();
+            //                     res_val = op1_val.arith(op2_val, aop);
+            //                 }
+            //                 (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
+            //                     let op1_val = store.get(var).unwrap();
+            //                     let op2_val = domain::Constant::CInt(*c);
+            //                     res_val = op1_val.arith(&op2_val, aop);
+            //                 }
+            //                 (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
+            //                     let op1_val = domain::Constant::CInt(*c);
+            //                     let op2_val = store.get(var).unwrap();
+            //                     res_val = op1_val.arith(op2_val, aop);
+            //                 }
+            //                 (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
+            //                     let op1_val = domain::Constant::CInt(*c1);
+            //                     let op2_val = domain::Constant::CInt(*c2);
+            //                     res_val = op1_val.arith(&op2_val, aop);
+            //                 }
+            //             }
+            //             store.set(lhs.clone(), res_val);
+            //         }
+            //         lir::Instruction::Load { lhs, src } => {
+            //             // {"Load": {"lhs": "xxx", "src": "xxx"}
+            //             let src_val = store.get(src).unwrap();
+            //             if let lir::Type::Int = src.typ {
+            //                 store.set(lhs.clone(), domain::Constant::Top);
+            //             }
+            //         }
+            //         lir::Instruction::Store { dst, op } => {
+            //             // {"Store": {"dst": "xxx", "op": "xxx"}}
+            //             // if op is Operand::CInt or in-type Variable, do something
+            //             match op {
+            //                 // TODO: 有点问题
+            //                 lir::Operand::CInt(c) => {
+            //                     let op_val = domain::Constant::CInt(*c);
+            //                     let mut new_store = store::ConstantStore::new();
+            //                     for var in self.addrof_ints.iter() {
+            //                         new_store.set(var.clone(), op_val.clone());
+            //                     }
+            //                     println!("In Store instruction, joining store with new_store");
+            //                     println!("Before joining:");
+            //                     println!("{}", store);
+            //                     *store = store.join(&new_store); // TODO: 检查下有没有毛病
+            //                     println!("After joining:");
+            //                     println!("{}", store);
+            //                 }
+            //                 lir::Operand::Var(var) => {
+            //                     let op_val = store.get(var).unwrap().clone();
+            //                     let mut new_store = store::ConstantStore::new();
+            //                     if let lir::Type::Int = var.typ {
+            //                         new_store.set(var.clone(), op_val.clone());
+            //                     }
+            //                     println!("In Store instruction, joining store with new_store");
+            //                     println!("Before joining:");
+            //                     println!("{}", store);
+            //                     *store = store.join(&new_store);
+            //                     println!("After joining:");
+            //                     println!("{}", store);
+            //                 }
+            //                 _ => {}
+            //             }
+            //         }
+            //         lir::Instruction::Gfp { lhs, src, field } => {
+            //             // {"Gfp": {"lhs": "xxx", "src": "xxx", "field": "xxx"}}
+            //             // let src_val = store.get(src).unwrap();
+            //             // let field_val = store.get(field).unwrap();
+            //             // store.set(lhs.clone(), src_val.clone());
+            //         }
+            //         lir::Instruction::Cmp { lhs, rop, op1, op2 } => {
+            //             // {"Cmp": {"lhs": "xxx", "rop": "xxx", "op1": "xxx", "op2": "xxx"}}
+            //             let res_val: domain::Constant;
+            //             match (op1, op2) {
+            //                 (lir::Operand::Var(var1), lir::Operand::VConstantar(var2)) => {
+            //                     let op1_val = store.get(var1).unwrap();
+            //                     let op2_val = store.get(var2).unwrap();
+            //                     res_val = op1_val.cmp(op2_val, rop);
+            //                 }
+            //                 (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
+            //                     let op1_val = store.get(var).unwrap();
+            //                     let op2_val = domain::Constant::CInt(*c);
+            //                     res_val = op1_val.cmp(&op2_val, rop);
+            //                 }
+            //                 (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
+            //                     let op1_val = domain::Constant::CInt(*c);
+            //                     let op2_val = store.get(var).unwrap();
+            //                     res_val = op1_val.cmp(op2_val, rop);
+            //                 }
+            //                 (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
+            //                     let op1_val = domain::Constant::CInt(*c1);
+            //                     let op2_val = domain::Constant::CInt(*c2);
+            //                     res_val = op1_val.cmp(&op2_val, rop);
+            //                 }
+            //             }
+            //             store.set(lhs.clone(), res_val);
+            //         }
+            //         lir::Instruction::CallExt {
+            //             lhs,
+            //             ext_callee,
+            //             args,
+            //         } => {
+            //             // {"CallExt": {"lhs": "xxx", "ext_callee": "xxx", "args": ["xxx", "xxx"]}}
+            //             // set all global_ints to Top
+            //             for var in self.global_ints.iter() {
+            //                 store.set(var.clone(), domain::Constant::Top);
+            //             }
+            //             // if lhs is int-type Variable, set it to Top
+            //             match lhs {
+            //                 Some(lsh) => {
+            //                     if let lir::Type::Int = lsh.typ {
+            //                         store.set(lsh.clone(), domain::Constant::Top);
+            //                     }
+            //                 }
+            //                 None => {}
+            //             }
+            //             // for any argument that is a pointer able to reach an int-type Variable var, set it to Top
+            //             for arg in args.iter() {
+            //                 if let lir::Operand::Var(var) = arg {
+            //                     if let lir::Type::Pointer(to) = &var.typ {
+            //                         if utils::able_to_reach_int(to) {
+            //                             for var in self.addrof_ints.iter() {
+            //                                 store.set(var.clone(), domain::Constant::Top);
+            //                             }
+            //                             break;
+            //                         }
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //     }
+            panic!("Not implemented")
+        }
+        fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str) {
+            let store = self.bb2store.get_mut(bb_label).unwrap();
+            match term {
+                lir::Terminal::CallDirect {
+                    lhs,
+                    callee,
+                    args,
+                    next_bb,
+                } => {
+                    for var in self.global_ints.iter() {
+                        store.set(var.clone(), domain::Interval::Top);
+                    }
+                    match lhs {
+                        Some(lsh) => {
+                            if let lir::Type::Int = lsh.typ {
+                                store.set(lsh.clone(), domain::Interval::Top);
+                            }
+                        }
+                        None => {}
+                    }
+                    for arg in args.iter() {
+                        if let lir::Operand::Var(var) = arg {
+                            if let lir::Type::Pointer(to) = &var.typ {
+                                if utils::able_to_reach_int(to) {
+                                    for var in self.addrof_ints.iter() {
+                                        store.set(var.clone(), domain::Interval::Top);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                lir::Terminal::CallIndirect {
+                    lhs,
+                    callee,
+                    args,
+                    next_bb,
+                } => {
+                    for var in self.global_ints.iter() {
+                        store.set(var.clone(), domain::Interval::Top);
+                    }
+                    match lhs {
+                        Some(lsh) => {
+                            if let lir::Type::Int = lsh.typ {
+                                store.set(lsh.clone(), domain::Interval::Top);
+                            }
+                        }
+                        None => {}
+                    }
+                    for arg in args.iter() {
+                        if let lir::Operand::Var(var) = arg {
+                            if let lir::Type::Pointer(to) = &var.typ {
+                                if utils::able_to_reach_int(to) {
+                                    for var in self.addrof_ints.iter() {
+                                        store.set(var.clone(), domain::Interval::Top);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
                 _ => {}
             }
@@ -707,7 +1080,6 @@ pub mod execution {
 #[cfg(test)]
 mod test {
     use super::domain::Interval;
-    use crate::utils;
 
     #[test]
     fn test_interval_output() {
@@ -731,7 +1103,7 @@ mod test {
             range.get_upper()
         );
 
-        assert_eq!(bottom.to_string(), "None");
+        assert_eq!(bottom.to_string(), "⊥");
         assert_eq!(top.to_string(), "(NegInf, PosInf)");
         assert_eq!(range.to_string(), "[1, 2]");
     }

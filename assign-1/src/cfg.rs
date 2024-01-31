@@ -6,8 +6,8 @@ pub struct ControlFlowGraph {
     // A DAG representing the control flow of a program
     // HashMap<String, lir::Block> is in the same type of lir::Function.body
     // Suppose the node label is the same as the block id
-    nodes: HashMap<String, lir::Block>,
-    edges: Vec<(String, String)>,
+    pub nodes: HashMap<String, lir::Block>,
+    pub edges: Vec<(String, String)>,
 }
 
 impl ControlFlowGraph {
@@ -52,10 +52,10 @@ impl ControlFlowGraph {
         // function.body.get("entry").unwrap();
 
         // add dummy entry and exit blocks
-        let dummy_entry = lir::Block::new("dummy_entry", &lir::Terminal::Jump("entry".to_string())); // TODO
-        cfg.nodes.insert("dummy_entry".to_string(), dummy_entry);
-        let dummy_exit = lir::Block::new("dummy_exit", &lir::Terminal::Ret(None));
-        cfg.nodes.insert("dummy_exit".to_string(), dummy_exit);
+        // let dummy_entry = lir::Block::new("dummy_entry", &lir::Terminal::Jump("entry".to_string())); // TODO
+        // cfg.nodes.insert("dummy_entry".to_string(), dummy_entry);
+        // let dummy_exit = lir::Block::new("dummy_exit", &lir::Terminal::Ret(None));
+        // cfg.nodes.insert("dummy_exit".to_string(), dummy_exit);
 
         // insert all blocks in function.body into cfg
         // let blocks: Vec<&lir::Block> = function.body.values().collect();
@@ -63,9 +63,9 @@ impl ControlFlowGraph {
             cfg.nodes.insert(label.clone(), block.clone());
         }
 
-        // add edge: <dummy_entry, entry block>
-        cfg.edges
-            .push(("dummy_entry".to_string(), "entry".to_string()));
+        // // add edge: <dummy_entry, entry block>
+        // cfg.edges
+        //     .push(("dummy_entry".to_string(), "entry".to_string()));
 
         // construct relationships between blocks in function.body
         for (label, block) in &function.body {
@@ -84,10 +84,23 @@ impl ControlFlowGraph {
 
                 lir::Terminal::Ret(_) => {
                     // add edge: <block with ret terminal, dummy_exit>
-                    cfg.edges.push((label.clone(), "dummy_exit".to_string()));
+                    // cfg.edges.push((label.clone(), "dummy_exit".to_string()));
                 }
-                _ => {
-                    panic!("TODO");
+                lir::Terminal::CallDirect {
+                    ref lhs,
+                    ref callee,
+                    ref args,
+                    ref next_bb,
+                } => {
+                    cfg.edges.push((label.clone(), next_bb.clone()));
+                }
+                lir::Terminal::CallIndirect {
+                    ref lhs,
+                    ref callee,
+                    ref args,
+                    ref next_bb,
+                } => {
+                    cfg.edges.push((label.clone(), next_bb.clone()));
                 }
             }
         }
@@ -100,6 +113,10 @@ impl ControlFlowGraph {
 
     pub fn get_dummy_entry(&self) -> Option<&lir::Block> {
         self.nodes.get("dummy_entry")
+    }
+
+    pub fn get_entry(&self) -> Option<&lir::Block> {
+        self.nodes.get("entry")
     }
 
     pub fn get_dummy_exit(&self) -> Option<&lir::Block> {
@@ -262,12 +279,10 @@ mod test {
 
     #[test]
     fn test_example_function() {
-        let prog = lir::Program::parse_json("./demos/test3.json");
+        let prog = lir::Program::parse_json("./demos/json/test3.json");
         let cfg: ControlFlowGraph = ControlFlowGraph::from_function(&prog, "test");
 
-        println!("Testing function: {}", "test");
         // println!("{:#?}", prog);
-        println!("topo orders of blocks: {:?}", cfg.topological_sort());
         println!("all block labels: {:?}", cfg.nodes.keys());
         println!("all edges: {:?}", cfg.edges);
         println!("topo orders of blocks: {:?}", cfg.topological_sort());

@@ -73,15 +73,14 @@ where
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         // print variable names in alphabetical order
+        // if abstract value is ⊥, does not print
         let mut var_names = self.get_var_names();
         var_names.sort();
         for var_name in &var_names {
-            write!(
-                f,
-                "{} -> {}\n",
-                var_name,
-                self.get_by_name(var_name).unwrap()
-            )?;
+            let abs_val = self.get_by_name(var_name).unwrap();
+            if !abs_val.is_bottom() {
+                write!(f, "{} -> {}\n", var_name, abs_val)?;
+            }
         }
         Ok(())
     }
@@ -92,48 +91,19 @@ pub type IntervalStore = Store<domain::Interval>;
 
 #[cfg(test)]
 mod test {
+    use super::*;
+    use crate::abs::domain::Constant;
+    use crate::lir;
+
     #[test]
     fn test_generic_construction() {
-        use super::Store;
-        use crate::abs::domain::Constant;
-        use crate::lir;
         let mut store = Store::<Constant>::new();
         let var = lir::Variable::new("x");
         let value = Constant::CInt(100);
         store.set(var.clone(), value.clone());
         println!("{:?}", store.get(&var).unwrap());
-        // assert_eq!(store.get(&var).unwrap(), 1);
-    }
-
-    #[test]
-    fn test_get_set() {
-        use super::Store;
-        use crate::abs::domain::Constant;
-        use crate::lir;
-        let mut store = Store::<Constant>::new();
-        let var = lir::Variable::new("x");
-        let var1 = lir::Variable::new("y");
-        let value = Constant::CInt(100);
-        store.set(var.clone(), value.clone());
-        println!("getting var: {:?}", store.get(&var).unwrap());
-        // println!("getting var1: {:?}", store.get(&var1).unwrap());
-
-        if let Some(val) = store.get(&var) {
-            // 处理存在的值
-            println!("Value: {:?}", val);
-        } else {
-            // 处理不存在的键
-            println!("Key not found");
+        if let Some(Constant::CInt(c)) = store.get(&var) {
+            assert_eq!(*c, 100);
         }
-
-        if let Some(val) = store.get(&var1) {
-            // 处理存在的值
-            println!("Value: {:?}", val);
-        } else {
-            // 处理不存在的键
-            println!("Key not found");
-        }
-
-        // assert_eq!(store.get(&var).unwrap(), 1);
     }
 }

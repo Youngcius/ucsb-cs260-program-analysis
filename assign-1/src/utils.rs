@@ -2,8 +2,8 @@
 Utils functions
 */
 
-use crate::{abs::semantics::AbstractSemantics, store};
 use crate::lir;
+use crate::{abs::semantics::AbstractSemantics, store};
 use std::collections::HashMap;
 
 pub fn display_bb2store<T>(bb2store: HashMap<String, store::Store<T>>)
@@ -15,7 +15,7 @@ where
     let mut bbs: Vec<String> = bb2store.keys().cloned().collect();
     bbs.sort();
     for bb in bbs {
-        if bb == "dummy_entry" {
+        if bb == "dummy_entry" || bb == "dummy_exit"{
             continue;
         } // TODO: why is this necessary?
         println!("{}:", bb);
@@ -24,19 +24,32 @@ where
 }
 
 pub fn able_to_reach_int(to: &Box<lir::Type>) -> bool {
-    // while ...
-    
-    false
+    // "to" is the target pointed by a pointer
+    /*
+        pub enum Type {
+        Int,                         // "Int"
+        Struct(String),              // {"Struct": "xxx"}
+        Function(Box<FunctionType>), // {"Function": "xxx"}
+        Pointer(Box<Type>),          // {"Pointer": "xxx"}
+    }
+     */
+    // we want to know if we can reach an integer from "to" (e.g., &&&int )
+    match to.as_ref() {
+        lir::Type::Int => true,
+        lir::Type::Pointer(p) => able_to_reach_int(p),
+        _ => false,
+    }
 }
 
 #[cfg(test)]
 mod test {
+    use super::*;
+    use crate::abs::domain;
+    use crate::lir;
+    use crate::store::ConstantStore;
 
     #[test]
     fn test_display_constant_bb2store() {
-        use super::*;
-        use crate::abs::domain;
-        use crate::lir;
         /*
 
            bb1:
@@ -58,23 +71,23 @@ mod test {
            n -> 1
 
         */
-        let mut bb2store: HashMap<String, store::ConstantStore> = HashMap::new();
+        let mut bb2store: HashMap<String, ConstantStore> = HashMap::new();
 
-        let mut store1 = store::ConstantStore::new();
+        let mut store1 = ConstantStore::new();
         store1.set(lir::Variable::new("t1"), domain::Constant::Top);
         store1.set(lir::Variable::new("t2"), domain::Constant::Top);
         store1.set(lir::Variable::new("t3"), domain::Constant::Top);
         store1.set(lir::Variable::new("l"), domain::Constant::Top);
         store1.set(lir::Variable::new("n"), domain::Constant::Top);
 
-        let mut store2 = store::ConstantStore::new();
+        let mut store2 = ConstantStore::new();
         store2.set(lir::Variable::new("t1"), domain::Constant::Top);
         store2.set(lir::Variable::new("t2"), domain::Constant::Top);
         store2.set(lir::Variable::new("t3"), domain::Constant::Top);
         store2.set(lir::Variable::new("l"), domain::Constant::Top);
         store2.set(lir::Variable::new("n"), domain::Constant::Bottom);
 
-        let mut entry_store = store::ConstantStore::new();
+        let mut entry_store = ConstantStore::new();
         entry_store.set(lir::Variable::new("l"), domain::Constant::Top);
         entry_store.set(lir::Variable::new("n"), domain::Constant::CInt(1));
 
@@ -82,5 +95,17 @@ mod test {
         bb2store.insert("bb2".to_string(), store2);
         bb2store.insert("entry".to_string(), entry_store);
         display_bb2store(bb2store);
+    }
+
+    #[test]
+    fn test_able_to_reach_int() {
+        let i = lir::Type::Int;
+        let p = lir::Type::Pointer(Box::new(lir::Type::Int));
+        let pp = lir::Type::Pointer(Box::new(lir::Type::Pointer(Box::new(lir::Type::Int))));
+        let ppp = lir::Type::Pointer(Box::new(lir::Type::Pointer(Box::new(lir::Type::Pointer(Box::new(lir::Type::Int))))));
+        println!("i can reach int?: {}", able_to_reach_int(&Box::new(i)));
+        println!("p can reach int?: {}", able_to_reach_int(&Box::new(p)));
+        println!("pp can reach int?: {}", able_to_reach_int(&Box::new(pp)));
+        println!("ppp can reach int?: {}", able_to_reach_int(&Box::new(ppp)));
     }
 }
