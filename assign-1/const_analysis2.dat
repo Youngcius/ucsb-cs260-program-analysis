@@ -1,5 +1,5 @@
 ─────────────────────────────────────────────────── union_find ────────────────────────────────────────────────────
-union
+...... function: union ......
 bb1:
 _t1 -> Top
 _t2 -> Top
@@ -106,12 +106,12 @@ rA -> Top
 rB -> Top
 
 
-mkUF
+...... function: mkUF ......
 entry:
 n -> Top
 
 
-find
+...... function: find ......
 bb1:
 _lo1 -> Top
 _t11 -> Top
@@ -188,7 +188,7 @@ p -> Top
 r -> Top
 
 
-main
+...... function: main ......
 bb1:
 n -> 10
 
@@ -228,7 +228,7 @@ n -> 10
 
 
 ───────────────────────────────────────────────────── lambda ──────────────────────────────────────────────────────
-printE
+...... function: printE ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -695,7 +695,7 @@ _t9 -> Top
 indent -> Top
 
 
-lookup
+...... function: lookup ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -781,7 +781,7 @@ _t4 -> Top
 indent -> Top
 
 
-var
+...... function: var ......
 entry:
 ADD -> Top
 APP -> Top
@@ -793,7 +793,7 @@ VAR -> Top
 indent -> Top
 
 
-printV
+...... function: printV ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -974,7 +974,7 @@ _t1 -> Top
 indent -> Top
 
 
-add
+...... function: add ......
 entry:
 ADD -> Top
 APP -> Top
@@ -986,7 +986,7 @@ VAR -> Top
 indent -> Top
 
 
-init
+...... function: init ......
 entry:
 ADD -> 4
 APP -> 1
@@ -998,7 +998,7 @@ VAR -> 0
 indent -> Top
 
 
-apply
+...... function: apply ......
 entry:
 ADD -> Top
 APP -> Top
@@ -1010,7 +1010,7 @@ VAR -> Top
 indent -> Top
 
 
-bind
+...... function: bind ......
 entry:
 ADD -> Top
 APP -> Top
@@ -1022,7 +1022,7 @@ VAR -> Top
 indent -> Top
 
 
-const
+...... function: const ......
 entry:
 ADD -> Top
 APP -> Top
@@ -1035,7 +1035,7 @@ indent -> Top
 n -> Top
 
 
-main
+...... function: main ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -1263,7 +1263,7 @@ VAR -> Top
 indent -> Top
 
 
-printI
+...... function: printI ......
 entry:
 ADD -> Top
 APP -> Top
@@ -1276,7 +1276,7 @@ indent -> Top
 n -> Top
 
 
-lambda
+...... function: lambda ......
 entry:
 ADD -> Top
 APP -> Top
@@ -1288,7 +1288,7 @@ VAR -> Top
 indent -> Top
 
 
-eval
+...... function: eval ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -1661,7 +1661,7 @@ indent -> Top
 
 
 ──────────────────────────────────────────────────── matrices ─────────────────────────────────────────────────────
-zero
+...... function: zero ......
 bb1:
 _t11 -> Top
 _t5 -> Top
@@ -1688,7 +1688,7 @@ m -> Top
 n -> Top
 
 
-complexRepr
+...... function: complexRepr ......
 bb1:
 _t12 -> Top
 a -> Top
@@ -1699,7 +1699,7 @@ a -> Top
 b -> Top
 
 
-add
+...... function: add ......
 bb1:
 _t2 -> Top
 _t4 -> Top
@@ -1823,7 +1823,7 @@ _t2 -> Top
 _t4 -> Top
 
 
-printM
+...... function: printM ......
 bb1:
 _t12 -> Top
 _t13 -> Top
@@ -1875,7 +1875,7 @@ j -> Top
 entry:
 
 
-neg
+...... function: neg ......
 bb1:
 _t2 -> Top
 _t4 -> Top
@@ -1951,7 +1951,7 @@ _t2 -> Top
 _t4 -> Top
 
 
-assertEq
+...... function: assertEq ......
 bb1:
 _t1 -> Top
 a -> Top
@@ -1968,7 +1968,7 @@ a -> Top
 b -> Top
 
 
-trace
+...... function: trace ......
 bb1:
 _t2 -> Top
 _t4 -> Top
@@ -1996,7 +1996,7 @@ _t2 -> Top
 _t4 -> Top
 
 
-mul
+...... function: mul ......
 bb1:
 _t2 -> Top
 _t4 -> Top
@@ -2194,7 +2194,7 @@ _t2 -> Top
 _t4 -> Top
 
 
-I
+...... function: I ......
 bb1:
 n -> Top
 
@@ -2223,7 +2223,7 @@ entry:
 n -> Top
 
 
-main
+...... function: main ......
 bb1:
 
 bb2:
@@ -2244,7 +2244,7 @@ entry:
 
 
 ──────────────────────────────────────────────── heap_array_based ─────────────────────────────────────────────────
-mod
+...... function: mod ......
 entry:
 K -> Top
 _t1 -> Top
@@ -2254,7 +2254,7 @@ a -> Top
 b -> Top
 
 
-percolateDown
+...... function: percolateDown ......
 bb1:
 K -> Top
 _t2 -> Top
@@ -2858,7 +2858,7 @@ l -> Top
 r -> Top
 
 
-percolateUp
+...... function: percolateUp ......
 bb1:
 K -> Top
 _lo1 -> Top
@@ -3068,7 +3068,7 @@ _t3 -> Top
 i -> Top
 
 
-left
+...... function: left ......
 entry:
 K -> Top
 _t1 -> Top
@@ -3076,14 +3076,14 @@ _t2 -> Top
 n -> Top
 
 
-swap
+...... function: swap ......
 entry:
 K -> Top
 i -> Top
 j -> Top
 
 
-exp2
+...... function: exp2 ......
 bb1:
 K -> Top
 _t1 -> Top
@@ -3114,7 +3114,7 @@ l -> Top
 n -> 1
 
 
-popMin
+...... function: popMin ......
 bb1:
 K -> Top
 _t15 -> Top
@@ -3150,7 +3150,7 @@ _t6 -> Top
 _t7 -> Top
 
 
-main
+...... function: main ......
 bb1:
 K -> 107
 i -> 0
@@ -3253,7 +3253,7 @@ K -> Top
 i -> 0
 
 
-log2
+...... function: log2 ......
 bb1:
 K -> Top
 _t1 -> Top
@@ -3284,7 +3284,7 @@ l -> 0
 n -> Top
 
 
-parent
+...... function: parent ......
 entry:
 K -> Top
 _t1 -> Top
@@ -3292,7 +3292,7 @@ _t2 -> Top
 n -> Top
 
 
-right
+...... function: right ......
 entry:
 K -> Top
 _t1 -> Top
@@ -3300,7 +3300,7 @@ _t2 -> Top
 n -> Top
 
 
-insert
+...... function: insert ......
 bb1:
 K -> Top
 _t11 -> Top
@@ -3321,12 +3321,12 @@ entry:
 K -> Top
 
 
-findMin
+...... function: findMin ......
 entry:
 K -> Top
 
 
-grow
+...... function: grow ......
 bb1:
 K -> Top
 _t11 -> Top
@@ -3383,13 +3383,13 @@ _t4 -> Top
 _t5 -> Top
 
 
-emptyHeap
+...... function: emptyHeap ......
 entry:
 K -> Top
 
 
 ──────────────────────────────────────────────── tortoise_and_hare ────────────────────────────────────────────────
-main
+...... function: main ......
 bb1:
 _t1 -> Top
 _t7 -> Top
@@ -3466,7 +3466,7 @@ i -> 10
 
 
 ────────────────────────────────────────────────── binary_trees ───────────────────────────────────────────────────
-log2
+...... function: log2 ......
 bb1:
 _t1 -> Top
 _t2 -> Top
@@ -3493,7 +3493,7 @@ l -> 0
 n -> Top
 
 
-insert
+...... function: insert ......
 bb1:
 _t15 -> Top
 _t3 -> Top
@@ -3741,7 +3741,7 @@ next -> Top
 v -> Top
 
 
-main
+...... function: main ......
 bb1:
 _t1 -> Top
 _t2 -> Top
@@ -3811,7 +3811,7 @@ entry:
 i -> 0
 
 
-mod
+...... function: mod ......
 entry:
 _t1 -> Top
 _t2 -> Top
@@ -3820,7 +3820,7 @@ a -> Top
 b -> Top
 
 
-readAndRemove
+...... function: readAndRemove ......
 bb1:
 _t1 -> Top
 _t2 -> Top
@@ -4002,7 +4002,7 @@ depth -> Top
 i -> Top
 
 
-exp2
+...... function: exp2 ......
 bb1:
 _t1 -> Top
 _t2 -> Top
@@ -4029,7 +4029,7 @@ l -> Top
 n -> 1
 
 
-getBit
+...... function: getBit ......
 bb1:
 _t1 -> Top
 _t2 -> Top
@@ -4061,7 +4061,7 @@ n -> Top
 
 
 ───────────────────────────────────────────────── heap_ptr_based ──────────────────────────────────────────────────
-main
+...... function: main ......
 bb1:
 K -> 107
 i -> 0
@@ -4164,12 +4164,12 @@ K -> Top
 i -> 0
 
 
-emptyHeap
+...... function: emptyHeap ......
 entry:
 K -> Top
 
 
-percolateUp
+...... function: percolateUp ......
 bb1:
 K -> Top
 _t11 -> Top
@@ -4213,7 +4213,7 @@ entry:
 K -> Top
 
 
-getBit
+...... function: getBit ......
 bb1:
 K -> Top
 _t1 -> Top
@@ -4248,7 +4248,7 @@ bit -> Top
 n -> Top
 
 
-insert
+...... function: insert ......
 bb1:
 K -> Top
 _t11 -> Top
@@ -4518,7 +4518,7 @@ next -> Top
 x -> Top
 
 
-mod
+...... function: mod ......
 entry:
 K -> Top
 _t1 -> Top
@@ -4528,13 +4528,13 @@ a -> Top
 b -> Top
 
 
-findMin
+...... function: findMin ......
 entry:
 K -> Top
 _t4 -> Top
 
 
-percolateDown
+...... function: percolateDown ......
 bb1:
 K -> Top
 _t6 -> Top
@@ -4778,7 +4778,7 @@ _t9 -> Top
 tmp -> Top
 
 
-popMin
+...... function: popMin ......
 bb1:
 K -> Top
 _t11 -> Top
@@ -5057,7 +5057,7 @@ depth -> Top
 min -> Top
 
 
-log2
+...... function: log2 ......
 bb1:
 K -> Top
 _t1 -> Top
@@ -5088,7 +5088,7 @@ l -> 0
 n -> Top
 
 
-exp2
+...... function: exp2 ......
 bb1:
 K -> Top
 _t1 -> Top
@@ -5120,7 +5120,7 @@ n -> 1
 
 
 ───────────────────────────────────────────── lambda_array_of_fn_ptrs ─────────────────────────────────────────────
-evalP
+...... function: evalP ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -5155,7 +5155,7 @@ VAR -> Top
 indent -> Top
 
 
-printI
+...... function: printI ......
 entry:
 ADD -> Top
 APP -> Top
@@ -5168,7 +5168,7 @@ indent -> Top
 n -> Top
 
 
-evalL
+...... function: evalL ......
 entry:
 ADD -> Top
 APP -> Top
@@ -5180,7 +5180,7 @@ VAR -> Top
 indent -> Top
 
 
-init
+...... function: init ......
 entry:
 ADD -> 4
 APP -> 1
@@ -5192,7 +5192,7 @@ VAR -> 0
 indent -> Top
 
 
-printV
+...... function: printV ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -5404,7 +5404,7 @@ _t1 -> Top
 indent -> Top
 
 
-var
+...... function: var ......
 entry:
 ADD -> Top
 APP -> Top
@@ -5416,7 +5416,7 @@ VAR -> Top
 indent -> Top
 
 
-main
+...... function: main ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -5644,7 +5644,7 @@ VAR -> Top
 indent -> Top
 
 
-evalN
+...... function: evalN ......
 entry:
 ADD -> Top
 APP -> Top
@@ -5657,7 +5657,7 @@ _t4 -> Top
 indent -> Top
 
 
-bind
+...... function: bind ......
 entry:
 ADD -> Top
 APP -> Top
@@ -5669,7 +5669,7 @@ VAR -> Top
 indent -> Top
 
 
-lookup
+...... function: lookup ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -5755,7 +5755,7 @@ _t4 -> Top
 indent -> Top
 
 
-eval
+...... function: eval ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -5782,7 +5782,7 @@ _t4 -> Top
 indent -> Top
 
 
-evalA
+...... function: evalA ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -5834,7 +5834,7 @@ VAR -> Top
 indent -> Top
 
 
-const
+...... function: const ......
 entry:
 ADD -> Top
 APP -> Top
@@ -5847,7 +5847,7 @@ indent -> Top
 n -> Top
 
 
-add
+...... function: add ......
 entry:
 ADD -> Top
 APP -> Top
@@ -5859,7 +5859,7 @@ VAR -> Top
 indent -> Top
 
 
-apply
+...... function: apply ......
 entry:
 ADD -> Top
 APP -> Top
@@ -5871,7 +5871,7 @@ VAR -> Top
 indent -> Top
 
 
-lambda
+...... function: lambda ......
 entry:
 ADD -> Top
 APP -> Top
@@ -5883,7 +5883,7 @@ VAR -> Top
 indent -> Top
 
 
-evalX
+...... function: evalX ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -5905,7 +5905,7 @@ VAR -> Top
 indent -> Top
 
 
-printE
+...... function: printE ......
 bb1:
 ADD -> Top
 APP -> Top
@@ -6373,7 +6373,7 @@ indent -> Top
 
 
 ────────────────────────────────────────────────────── draw ───────────────────────────────────────────────────────
-mkCanvas
+...... function: mkCanvas ......
 bb1:
 _t1 -> Top
 _t4 -> Top
@@ -6401,7 +6401,7 @@ x -> Top
 y -> Top
 
 
-main
+...... function: main ......
 bb1:
 i -> 0
 
@@ -6452,7 +6452,7 @@ entry:
 i -> 0
 
 
-drawRectangle
+...... function: drawRectangle ......
 bb1:
 _lo1 -> Top
 _t11 -> Top
@@ -6966,14 +6966,14 @@ i -> 0
 j -> 0
 
 
-circle
+...... function: circle ......
 entry:
 r -> Top
 x -> Top
 y -> Top
 
 
-drawCircle
+...... function: drawCircle ......
 bb1:
 _lo1 -> Top
 _t10 -> Top
@@ -7826,7 +7826,7 @@ i -> Top
 r -> Top
 
 
-printCanvas
+...... function: printCanvas ......
 bb1:
 _t2 -> Top
 _t3 -> Top
@@ -8030,7 +8030,7 @@ i -> 0
 j -> 0
 
 
-rectangle
+...... function: rectangle ......
 entry:
 h -> Top
 w -> Top
