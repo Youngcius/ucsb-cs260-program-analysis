@@ -124,13 +124,11 @@ fn main() {
 
     s2.add_score_with_10();
 
-
     let mut s3 = &mut s2;
     s3.add_score_with_10();
 
     println!("{:?}", s3); // Student { name: Some("zhangsan"), score: Some(1120) }
     println!("{:?}", s2); // Student { name: Some("zhangsan"), score: Some(1120) }
-
 
     let mut dict1 = HashMap::new();
     let mut dict2 = HashMap::new();
@@ -141,4 +139,14 @@ fn main() {
     println!("{:?}", dict1); // {"name": "zhangsan", "score": "100"}
     println!("{:?}", dict2); // {"name": "zhangsan", "score": "100"}
     println!("{:?}", dict1 == dict2); // true
+
+    #[cfg(debug_assertions)]
+    {
+        println!("debug mode");
+    }
+
+    println!("normal mode");
+    #[cfg(debug_assertions)]
+    println!("debug mode");
+    println!("normal mode");
 }
