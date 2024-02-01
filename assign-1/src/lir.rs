@@ -208,18 +208,62 @@ impl Program {
         }
     }
 
-    pub fn get_all_globals(&self) -> &Vec<Variable> {
-        &self.globals
+    pub fn get_int_globals(&self) -> Vec<Variable> {
+        let global_ints: Vec<Variable> = self
+            .globals
+            .iter()
+            .filter(|v| match v.typ {
+                Type::Int => true,
+                _ => false,
+            })
+            .cloned()
+            .collect();
+        global_ints
     }
 
-    pub fn get_all_parameters(&self) -> Vec<&Variable> {
-        let mut params = Vec::new();
-        for func in self.functions.values() {
-            for param in &func.params {
-                params.push(param);
-            }
-        }
-        params
+    // pub fn get_int_parameters(&self) -> Vec<Variable> {
+    //     let mut params = Vec::new();
+    //     for func in self.functions.values() {
+    //         for param in &func.params {
+    //             params.push(param.clone());
+    //         }
+    //     }
+    //     let param_ints: Vec<Variable> = params
+    //         .iter()
+    //         .filter(|v| match v.typ {
+    //             Type::Int => true,
+    //             _ => false,
+    //         })
+    //         .cloned()
+    //         .collect();
+    //     param_ints
+    // }
+    pub fn get_int_parameters(&self, func_name: &str) -> Vec<Variable> {
+        let func = self.functions.get(func_name).unwrap();
+        let param_ints = func
+            .params
+            .iter()
+            .filter(|v| match v.typ {
+                Type::Int => true,
+                _ => false,
+            })
+            .cloned()
+            .collect();
+        param_ints
+    }
+
+    pub fn get_int_locals(&self, func_name: &str) -> Vec<Variable> {
+        let func = self.functions.get(func_name).unwrap();
+        let local_ints = func
+            .locals
+            .iter()
+            .filter(|v| match v.typ {
+                Type::Int => true,
+                _ => false,
+            })
+            .cloned()
+            .collect();
+        local_ints
     }
 
     pub fn get_all_basic_blocks(&self) -> Vec<&Block> {
@@ -464,5 +508,26 @@ impl Program {
             })
             .count() as u32;
         num_ptr_ptrs
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_get_globals() {
+        let prog_name = "./examples/json/lambda.json";
+        let prog = Program::parse_json(prog_name);
+        let global_ints = prog.get_int_globals();
+        // let gg = prog.globals;
+
+        println!(
+            "======= globals of {} =======",
+            prog_name
+        );
+        for var in global_ints {
+            println!("{:?}", var);
+        }
     }
 }

@@ -7,6 +7,8 @@ pub mod domain {
     use crate::lir;
     use crate::store;
 
+    use colored::*;
+
     #[derive(Debug, Clone)]
     pub enum DomainType {
         Constant,
@@ -376,6 +378,7 @@ pub mod execution {
     use crate::lir::Variable;
     use crate::store;
     use crate::utils;
+    use colored::Colorize;
     use log::warn;
     use std::collections::HashMap;
     use std::collections::VecDeque;
@@ -405,22 +408,20 @@ pub mod execution {
             let mut bb2store: HashMap<String, store::ConstantStore> = HashMap::new();
             let mut entry_store = store::ConstantStore::new();
             // set content of entry_store
-            let globals = prog.get_all_globals();
-            let parameters = prog.get_all_parameters();
-            let mut global_ints: Vec<Variable> = Vec::new();
-            let mut addrof_ints: Vec<Variable> = Vec::new();
-            for global in globals {
+            let global_ints = prog.get_int_globals();
+            let param_ints = prog.get_int_parameters(func_name);
+            let local_ints = prog.get_int_locals(func_name);
+            let addrof_ints = prog.get_int_globals();
+            for global in &global_ints {
                 entry_store.set(global.clone(), domain::Constant::Top);
-                global_ints.push(global.clone());
-                addrof_ints.push(global.clone()); // global_ints is a subset of addrof_ints
             }
-            for parameter in parameters {
-                // set all "int" parameters to Top; otherwise set to Bottom
-                match parameter.typ {
-                    lir::Type::Int => entry_store.set(parameter.clone(), domain::Constant::Top),
-                    _ => entry_store.set(parameter.clone(), domain::Constant::Bottom),
-                }
+            for param in &param_ints {
+                entry_store.set(param.clone(), domain::Constant::Top);
             }
+            for local in &local_ints {
+                entry_store.set(local.clone(), domain::Constant::Bottom);
+            }
+
             // worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
             worklist.push_back(cfg.get_entry().unwrap().clone());
             println!("worklist: {:?}", worklist);
@@ -428,6 +429,8 @@ pub mod execution {
                 bb2store.insert(bb_label.clone(), store::ConstantStore::new());
             }
             // bb2store.insert("dummy_entry".to_string(), entry_store);
+            println!("entry_store:");
+            println!("{}", entry_store);
             bb2store.insert("entry".to_string(), entry_store);
             println!(
                 "bb2store.len: {}, {:?}",
@@ -436,7 +439,7 @@ pub mod execution {
             );
             print!("global_ints: ");
             for var in global_ints.iter() {
-                print!("{}, ", var.name);
+                print!("{}, ", var.name.green());
             }
             println!();
             Self {
@@ -459,21 +462,18 @@ pub mod execution {
             let mut bb2store: HashMap<String, store::IntervalStore> = HashMap::new();
             let mut entry_store = store::IntervalStore::new();
             // set content of entry_store
-            let globals = prog.get_all_globals();
-            let parameters = prog.get_all_parameters();
-            let mut global_ints: Vec<Variable> = Vec::new();
-            let mut addrof_ints: Vec<Variable> = Vec::new();
-            for global in globals {
+            let global_ints = prog.get_int_globals();
+            let param_ints = prog.get_int_parameters(func_name);
+            let local_ints = prog.get_int_locals(func_name);
+            let addrof_ints = prog.get_int_globals();
+            for global in &global_ints {
                 entry_store.set(global.clone(), domain::Interval::Top);
-                global_ints.push(global.clone());
-                addrof_ints.push(global.clone()); // global_ints is a subset of addrof_ints
             }
-            for parameter in parameters {
-                // set all "int" parameters to Top; otherwise set to Bottom
-                match parameter.typ {
-                    lir::Type::Int => entry_store.set(parameter.clone(), domain::Interval::Top),
-                    _ => entry_store.set(parameter.clone(), domain::Interval::Bottom),
-                }
+            for param in &param_ints {
+                entry_store.set(param.clone(), domain::Interval::Top);
+            }
+            for local in &local_ints {
+                entry_store.set(local.clone(), domain::Interval::Bottom);
             }
             // worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
             worklist.push_back(cfg.get_entry().unwrap().clone());
@@ -526,7 +526,7 @@ pub mod execution {
                 // }
 
                 let block = self.worklist.pop_front().unwrap();
-                println!("Pop block id={} from worklist", block.id);
+                println!("Pop block id={} from worklist", block.id.blue());
                 self.exe_block(&block);
 
                 self.cfg
@@ -548,7 +548,7 @@ pub mod execution {
         }
 
         fn exe_block(&mut self, block: &lir::Block) {
-            println!("Executing block {}", block.id);
+            println!("Executing block {}", block.id.blue());
             for instr in &block.insts {
                 self.exe_instr(instr, &block.id);
             }
@@ -560,7 +560,7 @@ pub mod execution {
             // execute an instruction on the store
             // current support: no-function no-pointer
             // op: Operand::CInt(i32), or Operand::Var { name: String, typ: Type::Int, scope: ...}
-            println!("executing instruction: {:?}", instr);
+            // println!("executing instruction: {:#?}", instr);
             let store = self.bb2store.get_mut(bb_label).unwrap();
             match instr {
                 lir::Instruction::AddrOf { lhs, rhs } => {
@@ -578,13 +578,23 @@ pub mod execution {
                 }
                 lir::Instruction::Copy { lhs, op } => {
                     // {"Copy": {"lhs": "xxx", "op": "xxx"}}
-                    match op {
-                        lir::Operand::Var(var) => {
-                            store.set(lhs.clone(), store.get(var).unwrap().clone());
+                    if let lir::Type::Int = lhs.typ {
+                        let res_val: domain::Constant;
+                        match op {
+                            lir::Operand::Var(var) => {
+                                if let lir::Type::Int = var.typ {
+                                    res_val = store.get(var).unwrap().clone();
+                                    // store.set(lhs.clone(), store.get(var).unwrap().clone());
+                                } else {
+                                    res_val = domain::Constant::Top;
+                                }
+                            }
+                            lir::Operand::CInt(c) => {
+                                res_val = domain::Constant::CInt(*c);
+                                // store.set(lhs.clone(), domain::Constant::CInt(*c));
+                            }
                         }
-                        lir::Operand::CInt(c) => {
-                            store.set(lhs.clone(), domain::Constant::CInt(*c));
-                        }
+                        store.set(lhs.clone(), res_val);
                     }
                 }
                 lir::Instruction::Gep { lhs, src, idx } => {
@@ -598,19 +608,44 @@ pub mod execution {
                     let res_val: domain::Constant;
                     match (op1, op2) {
                         (lir::Operand::Var(var1), lir::Operand::Var(var2)) => {
-                            let op1_val = store.get(var1).unwrap();
-                            let op2_val = store.get(var2).unwrap();
-                            res_val = op1_val.arith(op2_val, aop);
+                            if let lir::Type::Int = var1.typ {
+                                if let lir::Type::Int = var2.typ {
+                                    let op1_val = store.get(var1).unwrap();
+                                    let op2_val = store.get(var2).unwrap();
+                                    res_val = op1_val.arith(op2_val, aop);
+                                } else {
+                                    res_val = domain::Constant::Top;
+                                }
+                            } else {
+                                res_val = domain::Constant::Top;
+                            }
+                            // let op1_val = store.get(var1).unwrap();
+                            // let op2_val = store.get(var2).unwrap();
+                            // res_val = op1_val.arith(op2_val, aop);
                         }
                         (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
-                            let op1_val = store.get(var).unwrap();
-                            let op2_val = domain::Constant::CInt(*c);
-                            res_val = op1_val.arith(&op2_val, aop);
+                            if let lir::Type::Int = var.typ {
+                                let op1_val = store.get(var).unwrap();
+                                let op2_val = domain::Constant::CInt(*c);
+                                res_val = op1_val.arith(&op2_val, aop);
+                            } else {
+                                res_val = domain::Constant::Top;
+                            }
+                            // let op1_val = store.get(var).unwrap();
+                            // let op2_val = domain::Constant::CInt(*c);
+                            // res_val = op1_val.arith(&op2_val, aop);
                         }
                         (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
-                            let op1_val = domain::Constant::CInt(*c);
-                            let op2_val = store.get(var).unwrap();
-                            res_val = op1_val.arith(op2_val, aop);
+                            if let lir::Type::Int = var.typ {
+                                let op1_val = domain::Constant::CInt(*c);
+                                let op2_val = store.get(var).unwrap();
+                                res_val = op1_val.arith(op2_val, aop);
+                            } else {
+                                res_val = domain::Constant::Top;
+                            }
+                            // let op1_val = domain::Constant::CInt(*c);
+                            // let op2_val = store.get(var).unwrap();
+                            // res_val = op1_val.arith(op2_val, aop);
                         }
                         (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
                             let op1_val = domain::Constant::CInt(*c1);
@@ -622,8 +657,7 @@ pub mod execution {
                 }
                 lir::Instruction::Load { lhs, src } => {
                     // {"Load": {"lhs": "xxx", "src": "xxx"}
-                    let src_val = store.get(src).unwrap();
-                    if let lir::Type::Int = src.typ {
+                    if let lir::Type::Int = lhs.typ {
                         store.set(lhs.clone(), domain::Constant::Top);
                     }
                 }
@@ -646,17 +680,19 @@ pub mod execution {
                             println!("{}", store);
                         }
                         lir::Operand::Var(var) => {
-                            let op_val = store.get(var).unwrap().clone();
-                            let mut new_store = store::ConstantStore::new();
                             if let lir::Type::Int = var.typ {
-                                new_store.set(var.clone(), op_val.clone());
+                                let op_val = store.get(var).unwrap().clone();
+                                let mut new_store = store::ConstantStore::new();
+                                if let lir::Type::Int = var.typ {
+                                    new_store.set(var.clone(), op_val.clone());
+                                }
+                                println!("In Store instruction, joining store with new_store");
+                                println!("Before joining:");
+                                println!("{}", store);
+                                *store = store.join(&new_store);
+                                println!("After joining:");
+                                println!("{}", store);
                             }
-                            println!("In Store instruction, joining store with new_store");
-                            println!("Before joining:");
-                            println!("{}", store);
-                            *store = store.join(&new_store);
-                            println!("After joining:");
-                            println!("{}", store);
                         }
                         _ => {}
                     }
@@ -669,30 +705,51 @@ pub mod execution {
                 }
                 lir::Instruction::Cmp { lhs, rop, op1, op2 } => {
                     // {"Cmp": {"lhs": "xxx", "rop": "xxx", "op1": "xxx", "op2": "xxx"}}
-                    let res_val: domain::Constant;
-                    match (op1, op2) {
-                        (lir::Operand::Var(var1), lir::Operand::Var(var2)) => {
-                            let op1_val = store.get(var1).unwrap();
-                            let op2_val = store.get(var2).unwrap();
-                            res_val = op1_val.cmp(op2_val, rop);
+                    if let lir::Type::Int = lhs.typ {
+                        let res_val: domain::Constant;
+                        match (op1, op2) {
+                            (lir::Operand::Var(var1), lir::Operand::Var(var2)) => {
+                                if let lir::Type::Int = var1.typ {
+                                    if let lir::Type::Int = var2.typ {
+                                        let op1_val = store.get(var1).unwrap();
+                                        let op2_val = store.get(var2).unwrap();
+                                        res_val = op1_val.cmp(op2_val, rop);
+                                    } else {
+                                        res_val = domain::Constant::Top;
+                                    }
+                                } else {
+                                    res_val = domain::Constant::Top;
+                                }
+                            }
+                            (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
+                                if let lir::Type::Int = var.typ {
+                                    let op1_val = store.get(var).unwrap();
+                                    let op2_val = domain::Constant::CInt(*c);
+                                    res_val = op1_val.cmp(&op2_val, rop);
+                                } else {
+                                    res_val = domain::Constant::Top;
+                                }
+                            }
+                            (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
+                                // let op1_val = domain::Constant::CInt(*c);
+                                // let op2_val = store.get(var).unwrap();
+                                // res_val = op1_val.cmp(op2_val, rop);
+                                if let lir::Type::Int = var.typ {
+                                    let op1_val = domain::Constant::CInt(*c);
+                                    let op2_val = store.get(var).unwrap();
+                                    res_val = op1_val.cmp(op2_val, rop);
+                                } else {
+                                    res_val = domain::Constant::Top;
+                                }
+                            }
+                            (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
+                                let op1_val = domain::Constant::CInt(*c1);
+                                let op2_val = domain::Constant::CInt(*c2);
+                                res_val = op1_val.cmp(&op2_val, rop);
+                            }
                         }
-                        (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
-                            let op1_val = store.get(var).unwrap();
-                            let op2_val = domain::Constant::CInt(*c);
-                            res_val = op1_val.cmp(&op2_val, rop);
-                        }
-                        (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
-                            let op1_val = domain::Constant::CInt(*c);
-                            let op2_val = store.get(var).unwrap();
-                            res_val = op1_val.cmp(op2_val, rop);
-                        }
-                        (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
-                            let op1_val = domain::Constant::CInt(*c1);
-                            let op2_val = domain::Constant::CInt(*c2);
-                            res_val = op1_val.cmp(&op2_val, rop);
-                        }
+                        store.set(lhs.clone(), res_val);
                     }
-                    store.set(lhs.clone(), res_val);
                 }
                 lir::Instruction::CallExt {
                     lhs,

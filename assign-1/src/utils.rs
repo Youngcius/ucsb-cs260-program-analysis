@@ -6,7 +6,7 @@ use crate::lir;
 use crate::{abs::semantics::AbstractSemantics, store};
 use std::collections::HashMap;
 
-pub fn display_bb2store<T>(bb2store: HashMap<String, store::Store<T>>)
+pub fn display_bb2store<T>(bb2store: &HashMap<String, store::Store<T>>)
 where
     T: std::fmt::Display + Clone + AbstractSemantics,
 {
