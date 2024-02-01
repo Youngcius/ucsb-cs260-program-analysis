@@ -3,11 +3,9 @@ Abstract domain, abstract semantics, and abstract execution.
 */
 
 pub mod domain {
-    use super::{execution::AbstractExecution, semantics::AbstractSemantics};
+    use super::semantics::AbstractSemantics;
     use crate::lir;
-    use crate::store;
 
-    use colored::*;
 
     #[derive(Debug, Clone)]
     pub enum DomainType {
@@ -375,7 +373,6 @@ pub mod execution {
     use super::semantics::AbstractSemantics;
     use crate::cfg;
     use crate::lir;
-    use crate::lir::Variable;
     use crate::store;
     use crate::utils;
     use colored::Colorize;
@@ -403,7 +400,10 @@ pub mod execution {
             // println!("{:#?}", prog);
 
             let cfg = cfg::ControlFlowGraph::from_function(&prog, func_name);
-            println!("CFG edges: {:?}", cfg.edges);
+            #[cfg(debug_assertions)]
+            {
+                println!("CFG edges: {:?}", cfg.edges);
+            }
             let mut worklist: VecDeque<lir::Block> = VecDeque::new();
             let mut bb2store: HashMap<String, store::ConstantStore> = HashMap::new();
             let mut entry_store = store::ConstantStore::new();
@@ -424,24 +424,31 @@ pub mod execution {
 
             // worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
             worklist.push_back(cfg.get_entry().unwrap().clone());
-            println!("worklist: {:?}", worklist);
+            #[cfg(debug_assertions)]
+            {
+                println!("worklist: {:?}", worklist);
+                println!("entry_store:");
+                println!("{}", entry_store);
+            }
             for bb_label in &cfg.get_all_block_labels() {
                 bb2store.insert(bb_label.clone(), store::ConstantStore::new());
             }
             // bb2store.insert("dummy_entry".to_string(), entry_store);
-            println!("entry_store:");
-            println!("{}", entry_store);
+
             bb2store.insert("entry".to_string(), entry_store);
-            println!(
-                "bb2store.len: {}, {:?}",
-                bb2store.len(),
-                bb2store.keys().collect::<Vec<&String>>()
-            );
-            print!("global_ints: ");
-            for var in global_ints.iter() {
-                print!("{}, ", var.name.green());
+            #[cfg(debug_assertions)]
+            {
+                println!(
+                    "bb2store.len: {}, {:?}",
+                    bb2store.len(),
+                    bb2store.keys().collect::<Vec<&String>>()
+                );
+                print!("global_ints: ");
+                for var in global_ints.iter() {
+                    print!("{}, ", var.name.green());
+                }
+                println!();
             }
-            println!();
             Self {
                 prog,
                 bb2store,
@@ -477,17 +484,29 @@ pub mod execution {
             }
             // worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
             worklist.push_back(cfg.get_entry().unwrap().clone());
-            println!("worklist: {:?}", worklist);
-            for bb_label in &cfg.get_all_block_labels() {
+            #[cfg(debug_assertions)]
+            {
+                println!("worklist: {:?}", worklist);
+                println!("entry_store:");
+                println!("{}", entry_store);
+            }            for bb_label in &cfg.get_all_block_labels() {
                 bb2store.insert(bb_label.clone(), store::IntervalStore::new());
             }
             // bb2store.insert("dummy_entry".to_string(), entry_store);
             bb2store.insert("entry".to_string(), entry_store);
-            println!(
-                "bb2store.len: {}, {:?}",
-                bb2store.len(),
-                cfg.get_all_block_labels()
-            );
+            #[cfg(debug_assertions)]
+            {
+                println!(
+                    "bb2store.len: {}, {:?}",
+                    bb2store.len(),
+                    cfg.get_all_block_labels()
+                );
+                print!("global_ints: ");
+                for var in global_ints.iter() {
+                    print!("{}, ", var.name.green());
+                }
+                println!();
+            }
             Self {
                 prog,
                 bb2store,
@@ -526,14 +545,20 @@ pub mod execution {
                 // }
 
                 let block = self.worklist.pop_front().unwrap();
-                println!("Pop block id={} from worklist", block.id.blue());
+                #[cfg(debug_assertions)]
+                {
+                    println!("Pop block id={} from worklist", block.id.blue());
+                }
                 self.exe_block(&block);
 
                 self.cfg
                     .get_successor_labels(&block.id)
                     .iter()
                     .for_each(|succ_label| {
-                        println!("successor label of {}: {}", block.id, succ_label);
+                        #[cfg(debug_assertions)]
+                        {
+                            println!("successor label of {}: {}", block.id, succ_label);
+                        }
                         let succ = self.cfg.get_block(succ_label).unwrap();
                         let succ_store = self.bb2store.get(succ_label).unwrap();
                         let new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
@@ -548,12 +573,18 @@ pub mod execution {
         }
 
         fn exe_block(&mut self, block: &lir::Block) {
-            println!("Executing block {}", block.id.blue());
+            #[cfg(debug_assertions)]
+            {
+                println!("Executing block {}", block.id.blue());
+            }
             for instr in &block.insts {
                 self.exe_instr(instr, &block.id);
             }
             self.exe_term(&block.term, &block.id);
-            println!();
+            #[cfg(debug_assertions)]
+            {
+                println!()
+            }
         }
 
         fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str) {
@@ -567,7 +598,10 @@ pub mod execution {
                     // {"AddrOf": {"lhs": "xxx", "rhs": "xxx"}}
                     if let lir::Type::Int = rhs.typ {
                         self.addrof_ints.push(rhs.clone());
-                        println!("added {} to addrof_ints", rhs.name);
+                        #[cfg(debug_assertions)]
+                        {
+                            println!("added {} to addrof_ints", rhs.name);
+                        }
                     }
                 }
                 lir::Instruction::Alloc { lhs, num, id } => {
@@ -672,12 +706,19 @@ pub mod execution {
                             for var in self.addrof_ints.iter() {
                                 new_store.set(var.clone(), op_val.clone());
                             }
-                            println!("In Store instruction, joining store with new_store");
-                            println!("Before joining:");
-                            println!("{}", store);
+                            #[cfg(debug_assertions)]
+                            {
+                                println!("In Store instruction, joining store with new_store");
+                                println!("Before joining:");
+                                println!("{}", store);
+                            }
+
                             *store = store.join(&new_store); // TODO: 检查下有没有毛病
-                            println!("After joining:");
-                            println!("{}", store);
+                            #[cfg(debug_assertions)]
+                            {
+                                println!("After joining:");
+                                println!("{}", store);
+                            }
                         }
                         lir::Operand::Var(var) => {
                             if let lir::Type::Int = var.typ {
@@ -686,12 +727,18 @@ pub mod execution {
                                 if let lir::Type::Int = var.typ {
                                     new_store.set(var.clone(), op_val.clone());
                                 }
-                                println!("In Store instruction, joining store with new_store");
-                                println!("Before joining:");
-                                println!("{}", store);
+                                #[cfg(debug_assertions)]
+                                {
+                                    println!("In Store instruction, joining store with new_store");
+                                    println!("Before joining:");
+                                    println!("{}", store);
+                                }
                                 *store = store.join(&new_store);
-                                println!("After joining:");
-                                println!("{}", store);
+                                #[cfg(debug_assertions)]
+                                {
+                                    println!("After joining:");
+                                    println!("{}", store);
+                                }
                             }
                         }
                         _ => {}
@@ -787,7 +834,10 @@ pub mod execution {
             }
         }
         fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str) {
-            println!("executing terminal: {:?}", term);
+            #[cfg(debug_assertions)]
+            {
+                println!("executing terminal: {:?}", term);
+            }
             let store = self.bb2store.get_mut(bb_label).unwrap();
             match term {
                 lir::Terminal::CallDirect {

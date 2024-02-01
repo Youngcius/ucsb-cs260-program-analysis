@@ -18,9 +18,12 @@ fn main() {
     let json_fname = &args[1];
     let func_name = &args[2];
 
-    println!("json_fname: {}", json_fname);
-    println!("func_name: {}", func_name);
-
+    #[cfg(debug_assertions)]
+    {
+        println!("json_fname: {}", json_fname);
+        println!("func_name: {}", func_name);
+    }
+    
     let prog = lir::Program::parse_json(&json_fname);
     let mut analyzer = abs::execution::IntervalAnalyzer::new(prog, &func_name); // TODO: "mut" is necessary?
     analyzer.mfp();

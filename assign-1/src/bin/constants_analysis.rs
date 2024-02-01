@@ -3,6 +3,7 @@
 
 use cs260::abs;
 use cs260::abs::execution::AbstractExecution;
+use cs260::cfg;
 use cs260::lir;
 use cs260::store;
 use cs260::utils;
@@ -18,9 +19,12 @@ fn main() {
     let json_fname = &args[1];
     let func_name = &args[2];
 
-    println!("json_fname: {}", json_fname);
-    println!("func_name: {}", func_name);
-
+    #[cfg(debug_assertions)]
+    {
+        println!("json_fname: {}", json_fname);
+        println!("func_name: {}", func_name);
+    }
+    
     let prog = lir::Program::parse_json(&json_fname);
     let mut analyzer = abs::execution::ConstantAnalyzer::new(prog, &func_name); // TODO: "mut" is necessary?
     analyzer.mfp();

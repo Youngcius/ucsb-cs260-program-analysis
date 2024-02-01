@@ -11,8 +11,8 @@ with open('./examples/prog_funcs.json', 'r') as f:
 i = 0
 for prog, funcs in prog_funcs.items():
     i += 1
-    if i > 1:
-        break
+    # if i > 1:
+        # break
     console.rule(prog, style="bold red")
     for func in funcs:
         console.print(func, style="bold green")
