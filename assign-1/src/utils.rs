@@ -18,8 +18,12 @@ where
         if bb == "dummy_entry" || bb == "dummy_exit"{
             continue;
         } // TODO: why is this necessary?
-        println!("{}:", bb);
-        println!("{}", bb2store.get(&bb).unwrap());
+        // if bb2store has elements, print the block
+        if bb2store.get(&bb).unwrap().len() > 0 {
+            println!("{}:", bb);
+            println!("{}", bb2store.get(&bb).unwrap());
+        }
+
     }
 }
 
@@ -94,7 +98,7 @@ mod test {
         bb2store.insert("bb1".to_string(), store1);
         bb2store.insert("bb2".to_string(), store2);
         bb2store.insert("entry".to_string(), entry_store);
-        display_bb2store(bb2store);
+        display_bb2store(&bb2store);
     }
 
     #[test]

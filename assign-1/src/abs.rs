@@ -6,7 +6,6 @@ pub mod domain {
     use super::semantics::AbstractSemantics;
     use crate::lir;
 
-
     #[derive(Debug, Clone)]
     pub enum DomainType {
         Constant,
@@ -383,6 +382,7 @@ pub mod execution {
     pub struct Analyzer<T> {
         pub prog: lir::Program,
         pub bb2store: HashMap<String, store::Store<T>>,
+        pub reachable_successors: HashMap<String, Vec<String>>,
         pub cfg: cfg::ControlFlowGraph,
         pub worklist: VecDeque<lir::Block>,
         pub global_ints: Vec<lir::Variable>,
@@ -404,6 +404,7 @@ pub mod execution {
             {
                 println!("CFG edges: {:?}", cfg.edges);
             }
+            let reachable_successors: HashMap<String, Vec<String>> = HashMap::new();
             let mut worklist: VecDeque<lir::Block> = VecDeque::new();
             let mut bb2store: HashMap<String, store::ConstantStore> = HashMap::new();
             let mut entry_store = store::ConstantStore::new();
@@ -452,6 +453,7 @@ pub mod execution {
             Self {
                 prog,
                 bb2store,
+                reachable_successors,
                 cfg,
                 worklist,
                 global_ints,
@@ -465,6 +467,7 @@ pub mod execution {
         pub fn new(prog: lir::Program, func_name: &str) -> Self {
             // Initialized the interval analyzer
             let cfg = cfg::ControlFlowGraph::from_function(&prog, func_name);
+            let reachable_successors: HashMap<String, Vec<String>> = HashMap::new();
             let mut worklist: VecDeque<lir::Block> = VecDeque::new();
             let mut bb2store: HashMap<String, store::IntervalStore> = HashMap::new();
             let mut entry_store = store::IntervalStore::new();
@@ -489,7 +492,8 @@ pub mod execution {
                 println!("worklist: {:?}", worklist);
                 println!("entry_store:");
                 println!("{}", entry_store);
-            }            for bb_label in &cfg.get_all_block_labels() {
+            }
+            for bb_label in &cfg.get_all_block_labels() {
                 bb2store.insert(bb_label.clone(), store::IntervalStore::new());
             }
             // bb2store.insert("dummy_entry".to_string(), entry_store);
@@ -510,6 +514,7 @@ pub mod execution {
             Self {
                 prog,
                 bb2store,
+                reachable_successors,
                 cfg,
                 worklist,
                 global_ints,
@@ -551,22 +556,38 @@ pub mod execution {
                 }
                 self.exe_block(&block);
 
-                self.cfg
-                    .get_successor_labels(&block.id)
-                    .iter()
-                    .for_each(|succ_label| {
-                        #[cfg(debug_assertions)]
-                        {
-                            println!("successor label of {}: {}", block.id, succ_label);
-                        }
-                        let succ = self.cfg.get_block(succ_label).unwrap();
-                        let succ_store = self.bb2store.get(succ_label).unwrap();
-                        let new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
-                        if new_store != succ_store.clone() {
-                            self.bb2store.insert(succ_label.clone(), new_store.clone());
-                            self.worklist.push_back(succ.clone());
-                        }
-                    });
+                // self.get_reachable_successors_from_terminal(&block.term, &block.id);
+
+                // self.cfg
+                //     .get_successor_labels(&block.id)
+                //     .iter()
+                //     .for_each(|succ_label| {
+                //         #[cfg(debug_assertions)]
+                //         {
+                //             println!("successor label of {}: {}", block.id, succ_label);
+                //         }
+                //         let succ = self.cfg.get_block(succ_label).unwrap();
+                //         let succ_store = self.bb2store.get(succ_label).unwrap();
+                //         let new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
+                //         if new_store != succ_store.clone() {
+                //             self.bb2store.insert(succ_label.clone(), new_store.clone());
+                //             self.worklist.push_back(succ.clone());
+                //         }
+                //     });
+
+                for succ_label in self.reachable_successors.get(&block.id).unwrap() {
+                    #[cfg(debug_assertions)]
+                    {
+                        println!("successor label of {}: {}", block.id, succ_label);
+                    }
+                    let succ = self.cfg.get_block(&succ_label).unwrap();
+                    let succ_store = self.bb2store.get(succ_label).unwrap();
+                    let new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
+                    if new_store != succ_store.clone() {
+                        self.bb2store.insert(succ_label.clone(), new_store.clone());
+                        self.worklist.push_back(succ.clone());
+                    }
+                }
 
                 // TODO: 判断循环到不动点就结束
             }
@@ -869,6 +890,8 @@ pub mod execution {
                             }
                         }
                     }
+                    self.reachable_successors
+                        .insert(bb_label.to_string(), vec![next_bb.clone()]);
                 }
                 lir::Terminal::CallIndirect {
                     lhs,
@@ -899,8 +922,41 @@ pub mod execution {
                             }
                         }
                     }
+                    self.reachable_successors
+                        .insert(bb_label.to_string(), vec![next_bb.clone()]);
                 }
-                _ => {}
+                lir::Terminal::Jump(label) => {
+                    self.reachable_successors
+                        .insert(bb_label.to_string(), vec![label.clone()]);
+                }
+                lir::Terminal::Branch { cond, tt, ff } => {
+                    if let lir::Operand::Var(var) = cond {
+                        if let lir::Type::Int = var.typ {
+                            let cond_val = store.get(var).unwrap();
+                            if cond_val.is_bottom() {
+                                self.reachable_successors
+                                    .insert(bb_label.to_string(), vec![]);
+                            } else if cond_val.is_top() {
+                                self.reachable_successors
+                                    .insert(bb_label.to_string(), vec![tt.clone(), ff.clone()]);
+                            } else {
+                                if let domain::Constant::CInt(c) = cond_val {
+                                    if *c == 0 {
+                                        self.reachable_successors
+                                            .insert(bb_label.to_string(), vec![ff.clone()]);
+                                    } else {
+                                        self.reachable_successors
+                                            .insert(bb_label.to_string(), vec![tt.clone()]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                lir::Terminal::Ret(_) => {
+                    self.reachable_successors
+                        .insert(bb_label.to_string(), vec![]);
+                }
             }
         }
     }

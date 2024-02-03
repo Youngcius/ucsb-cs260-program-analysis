@@ -15,6 +15,6 @@ for prog, funcs in prog_funcs.items():
         # break
     console.rule(prog, style="bold red")
     for func in funcs:
-        console.print("...... function: {} ......".format(func), style="bold green")
+        console.print("...... {}: {} ......".format(prog, func), style="bold green")
         print()
         os.system("./constants ./examples/lir/{}.lir {}".format(prog, func))

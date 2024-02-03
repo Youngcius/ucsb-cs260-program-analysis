@@ -65,6 +65,10 @@ where
     pub fn set(&mut self, var: lir::Variable, domain: T) {
         self.status.insert(var.clone(), domain);
     }
+
+    pub fn len(&self) -> usize {
+        self.status.len()
+    }
 }
 
 impl<T> std::fmt::Display for Store<T>
