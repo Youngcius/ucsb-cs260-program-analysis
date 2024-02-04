@@ -1,3 +1,6 @@
+/*
+Statistics all function names of all programs in the examples/json directory
+*/
 use cs260::lir;
 use std::collections::HashMap;
 use std::fs;

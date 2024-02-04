@@ -404,15 +404,13 @@ pub mod execution {
 
     use super::domain;
     use super::semantics::AbstractSemantics;
-    use crate::abs::domain::Constant;
     use crate::cfg;
     use crate::lir;
     use crate::store;
-    use crate::store::ConstantStore;
     use crate::utils;
     use colored::Colorize;
     use log::warn;
-    use std::collections::{HashMap, HashSet, VecDeque};
+    use std::collections::{HashMap, VecDeque};
 
     #[derive(Debug, Clone)]
     pub struct Analyzer<T> {
@@ -591,7 +589,6 @@ pub mod execution {
     }
 
     impl AbstractExecution for ConstantAnalyzer {
-        // TODO: set a store with a <k,v> 跟 join 还是有区别的！！！
         fn mfp(&mut self) {
             if self.executed {
                 warn!("Already executed");
@@ -609,33 +606,8 @@ pub mod execution {
                 {
                     println!("Pop block id={} from worklist", block.id.blue());
                 }
-                
-                // if block.id == "bb4" {
-                //     println!("[before executing bb4] bb14 store: \n{}", self.bb2store.get("bb4").unwrap().to_string().blue());
-                // }
-
 
                 self.exe_block(&block);
-
-
-                // if block.id == "bb4" {
-                //     println!("[after executing bb4] bb14 store: \n{}", self.bb2store.get("bb4").unwrap().to_string().red());
-                // }
-
-
-                // if block.id == "bb10" {
-                //     println!("[1] bb10 store after executing: \n{}", self.bb2store.get("bb10").unwrap().to_string().green());
-                // }
-                // if  self.bb2store.contains_key("bb10") {
-                //     match self.bb2store.get("bb10").unwrap().get_by_name("id3") {
-                //         Some(val) => {
-                //             println!("!!! NOW bb2store[bb10].id3 = {}", val.to_string().green());
-                //         },
-                //         None => {
-                //             println!("!!! NOW bb2store[bb10].id3 = None");
-                //         }
-                //     }
-                // }
 
                 visited.insert(block.id.clone(), visited.get(&block.id).unwrap() + 1);
 
@@ -676,38 +648,32 @@ pub mod execution {
                             self.bb2store.get(&succ_label).unwrap().to_string().blue()
                         );
                     }
-                    // println!("{}", self.bb2store.get(&block.id).unwrap().to_string().blue());
-                    // println!("{}", self.bb2store.get(succ_label).unwrap().to_string().blue());
 
                     let succ = self.cfg.get_block(&succ_label).unwrap().clone();
                     let succ_store = self.bb2store.get(&succ_label).unwrap().clone(); // succ_store before joining and executing
-                    // let mut new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
+                                                                                      // let mut new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
                     let store_joined = succ_store.join(&self.bb2store.get(&block.id).unwrap());
                     let mut new_store = store_joined.clone(); // it may be executed virtually
-                    // let new_store = execute_block_on_store(self.cfg.get_block(&succ_label).unwrap(), &new_store);
-                    // self.bb2store.insert(succ_label.clone(), new_store.clone());
-                    // self.exe_block(&succ);
 
                     // self.exe_block(&succ);
-                    if visited.get(&block.id).unwrap() > &1 && visited.get(&succ_label).unwrap() > &0 {
+                    if visited.get(&block.id).unwrap() > &1
+                        && visited.get(&succ_label).unwrap() > &0
+                    {
                         // it is a block in a loop
                         #[cfg(debug_assertions)]
                         {
-                            println!("\n{} is a block in a loop\n", succ_label.red());    
+                            println!("\n{} is a block in a loop\n", succ_label.red());
                         }
                         let mut analyzer_duplicate = self.clone();
-                        analyzer_duplicate.bb2store.insert(succ_label.clone(), new_store.clone());
+                        analyzer_duplicate
+                            .bb2store
+                            .insert(succ_label.clone(), new_store.clone());
                         analyzer_duplicate.exe_block(&succ);
                         new_store = analyzer_duplicate
                             .bb2store
                             .get(&succ_label)
                             .unwrap()
                             .clone();
-
-                            // if succ_label == "bb10" {
-                            //     println!("拷贝CFG内 bb10 store after executing: \n{}", analyzer_duplicate.bb2store.get("bb10").unwrap().to_string().green());
-                            // }
-                        
                     }
 
                     if new_store != succ_store {
@@ -719,26 +685,16 @@ pub mod execution {
                                 succ_label.green()
                             );
                         }
-                        self.bb2store.insert(succ_label.clone(), store_joined.clone());
+                        self.bb2store
+                            .insert(succ_label.clone(), store_joined.clone());
 
                         self.worklist.push_back(succ.clone());
                     }
-                    // if block.id == "bb10" {
-                    //     println!("[2.x] bb10 store after executing: \n{}", self.bb2store.get("bb10").unwrap().to_string().green());
-                    // }
-    
                 }
-                // if block.id == "bb10" {
-                //     println!("[3] bb10 store after executing: \n{}", self.bb2store.get("bb10").unwrap().to_string().green());
-                // }
-
             }
-            // println!("最终 bb10 store after executing: \n{}", self.bb2store.get("bb10").unwrap().to_string().green());
-
         }
 
         fn exe_block(&mut self, block: &lir::Block) {
-            // println!();
             #[cfg(debug_assertions)]
             {
                 println!("Executing block {}", block.id.blue());
@@ -895,7 +851,6 @@ pub mod execution {
                     // {"Store": {"dst": "xxx", "op": "xxx"}}
                     // if op is Operand::CInt or in-type Variable, do something
                     match op {
-                        // TODO: 有点问题
                         lir::Operand::CInt(c) => {
                             let op_val = domain::Constant::CInt(*c);
                             let mut new_store = store::ConstantStore::new();
@@ -913,7 +868,7 @@ pub mod execution {
                                 println!("{}", store.to_string().green());
                             }
 
-                            *store = store.join(&new_store); // TODO: 检查下有没有毛病
+                            *store = store.join(&new_store);
                             #[cfg(debug_assertions)]
                             {
                                 println!("After joining:");
@@ -924,15 +879,12 @@ pub mod execution {
                             if let lir::Type::Int = var.typ {
                                 let op_val = store.get(var).unwrap().clone();
                                 let mut new_store = store::ConstantStore::new();
-                                // if let lir::Type::Int = var.typ {
-                                //     new_store.set(var.clone(), op_val.clone());
-                                // }
                                 for var in self.addrof_ints.iter() {
                                     new_store.set(var.clone(), op_val.clone());
                                 }
                                 #[cfg(debug_assertions)]
                                 {
-                                   println!("Now new_store: {}", new_store.to_string().blue());
+                                    println!("Now new_store: {}", new_store.to_string().blue());
                                 }
                                 #[cfg(debug_assertions)]
                                 {
@@ -1000,9 +952,6 @@ pub mod execution {
                                 }
                             }
                             (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
-                                // let op1_val = domain::Constant::CInt(*c);
-                                // let op2_val = store.get(var).unwrap();
-                                // res_val = op1_val.cmp(op2_val, rop);
                                 if let lir::Type::Int = var.typ {
                                     let op1_val = domain::Constant::CInt(*c);
                                     let op2_val = store.get(var).unwrap();
@@ -1115,8 +1064,6 @@ pub mod execution {
                     for arg in args.iter() {
                         // println!("traversing arg (op) {:?}", arg);
                         if let lir::Operand::Var(var) = arg {
-                            // println!("traversing arg (var) {:?}", arg);
-
                             if let lir::Type::Pointer(to) = &var.typ {
                                 // println!("traversing arg (ptr) {:?}", arg);
                                 if utils::able_to_reach_int(to) {
@@ -1125,16 +1072,7 @@ pub mod execution {
                                     }
                                     break;
                                 }
-                            } 
-                            
-                            // else if let lir::Type::Int = var.typ {
-                            //     warn!("traversing arg (int) {:?}", arg);
-                            //     // println!("traversing arg (int) {:?}", arg);
-                            //     for var in self.addrof_ints.iter() {
-                            //         store.set(var.clone(), domain::Constant::Top);
-                            //     }
-                            //     break;
-                            // }
+                            }
                         }
                     }
                     self.reachable_successors
@@ -1295,16 +1233,6 @@ pub mod execution {
         fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str);
         fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str);
     }
-
-    // pub fn execute_block_on_const_store(block: &lir::Block, store: &store::ConstantStore) -> store::ConstantStore {
-    //     let mut new_store = store.clone();
-    //     for instr in &block.insts {
-    //         execute_instr_on_const_store(instr, &mut new_store);
-    //     }
-    //     execute_term_on_const_store(&block.term, &mut new_store);
-    //     new_store
-
-    // }
 }
 
 #[cfg(test)]
