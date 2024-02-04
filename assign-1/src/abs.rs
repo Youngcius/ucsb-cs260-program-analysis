@@ -451,12 +451,6 @@ pub mod execution {
                 // println!("adding {} to addrof_ints", global.name);
                 addrof_ints.push(global.clone());
             }
-            #[cfg(debug_assertions)]
-            {
-                println!("---------------------------------");
-                println!("addrof_ints: {:?}", addrof_ints);
-                println!("---------------------------------");
-            }
 
             for local in &local_ints {
                 // println!("adding {} to entry_store (BOTTOM)", local.name);
@@ -487,7 +481,6 @@ pub mod execution {
                 println!("---------------------------------");
             }
 
-            // worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
             worklist.push_back(cfg.get_entry().unwrap().clone());
             #[cfg(debug_assertions)]
             {
@@ -560,7 +553,6 @@ pub mod execution {
             for bb_label in &cfg.get_all_block_labels() {
                 bb2store.insert(bb_label.clone(), store::IntervalStore::new());
             }
-            // bb2store.insert("dummy_entry".to_string(), entry_store);
             bb2store.insert("entry".to_string(), entry_store);
             #[cfg(debug_assertions)]
             {
@@ -620,7 +612,7 @@ pub mod execution {
                     );
                 }
 
-                for succ_label in self.reachable_successors.get(&block.id).unwrap().clone() {
+                for succ_label in self.reachable_successors.get(&block.id).unwrap() {
                     #[cfg(debug_assertions)]
                     {
                         println!("successor label of {}: {}", block.id, succ_label);
@@ -645,19 +637,17 @@ pub mod execution {
                         println!();
                         println!(
                             "{}",
-                            self.bb2store.get(&succ_label).unwrap().to_string().blue()
+                            self.bb2store.get(succ_label).unwrap().to_string().blue()
                         );
                     }
 
                     let succ = self.cfg.get_block(&succ_label).unwrap().clone();
-                    let succ_store = self.bb2store.get(&succ_label).unwrap().clone(); // succ_store before joining and executing
-                                                                                      // let mut new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
+                    let succ_store = self.bb2store.get(succ_label).unwrap(); // succ_store before joining and executing
                     let store_joined = succ_store.join(&self.bb2store.get(&block.id).unwrap());
                     let mut new_store = store_joined.clone(); // it may be executed virtually
 
                     // self.exe_block(&succ);
-                    if visited.get(&block.id).unwrap() > &1
-                        && visited.get(&succ_label).unwrap() > &0
+                    if visited.get(&block.id).unwrap() > &1 && visited.get(succ_label).unwrap() > &0
                     {
                         // it is a block in a loop
                         #[cfg(debug_assertions)]
@@ -669,14 +659,10 @@ pub mod execution {
                             .bb2store
                             .insert(succ_label.clone(), new_store.clone());
                         analyzer_duplicate.exe_block(&succ);
-                        new_store = analyzer_duplicate
-                            .bb2store
-                            .get(&succ_label)
-                            .unwrap()
-                            .clone();
+                        new_store = analyzer_duplicate.bb2store.get(succ_label).unwrap().clone();
                     }
 
-                    if new_store != succ_store {
+                    if &new_store != succ_store {
                         #[cfg(debug_assertions)]
                         {
                             println!(
@@ -685,9 +671,7 @@ pub mod execution {
                                 succ_label.green()
                             );
                         }
-                        self.bb2store
-                            .insert(succ_label.clone(), store_joined.clone());
-
+                        self.bb2store.insert(succ_label.clone(), store_joined);
                         self.worklist.push_back(succ.clone());
                     }
                 }

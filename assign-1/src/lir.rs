@@ -243,13 +243,7 @@ impl Program {
         {
             println!("get_int_parameters: {}", func_name);
         }
-
         let func = self.functions.get(func_name).unwrap();
-
-        #[cfg(debug_assertions)]
-        {
-            println!("func: {:?}", func);
-        }
         let param_ints = func
             .params
             .iter()
@@ -267,27 +261,6 @@ impl Program {
             println!("------------------------------------------");
         }
         param_ints
-
-        // let mut params = func.params.clone();
-
-
-        // #[cfg(debug_assertions)]
-        // {
-        //     println!("params: {:?}", params);
-        // }
-        // let param_ints: Vec<Variable> = params
-        //     .iter()
-        //     .filter(|v| match v.typ {
-        //         Type::Int => true,
-        //         _ => false,
-        //     })
-        //     .cloned()
-        //     .collect();
-        // #[cfg(debug_assertions)]
-        // {
-        //     println!("param_ints: {:?}", param_ints);
-        // }
-        // param_ints
     }
 
     pub fn get_int_locals(&self, func_name: &str) -> Vec<Variable> {
