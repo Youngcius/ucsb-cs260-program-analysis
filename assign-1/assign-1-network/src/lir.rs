@@ -259,6 +259,13 @@ impl Program {
             })
             .cloned()
             .collect();
+
+        #[cfg(debug_assertions)]
+        {
+            println!("------------------------------------------");
+            println!("param_ints: {:?}", param_ints);
+            println!("------------------------------------------");
+        }
         param_ints
 
         // let mut params = func.params.clone();

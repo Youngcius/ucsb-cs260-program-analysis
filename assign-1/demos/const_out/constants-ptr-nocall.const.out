@@ -11,9 +11,6 @@ _t28 -> Top
 _t31 -> Top
 _t34 -> -6
 _t36 -> Top
-id11 -> Top
-id13 -> Top
-id15 -> Top
 id3 -> Top
 id7 -> Top
 
@@ -440,15 +437,9 @@ id3 -> Top
 id7 -> Top
 
 bb2:
-_lo1 -> Top
 _t17 -> Top
 _t18 -> Top
 _t19 -> Top
-id11 -> Top
-id13 -> Top
-id15 -> Top
-id3 -> Top
-id7 -> Top
 
 bb20:
 _lo1 -> Top
@@ -874,8 +865,6 @@ _t28 -> Top
 _t31 -> Top
 _t34 -> -6
 _t36 -> Top
-id11 -> Top
-id13 -> Top
 id15 -> Top
 id3 -> Top
 id7 -> Top
@@ -1347,9 +1336,6 @@ _t28 -> Top
 _t31 -> Top
 _t34 -> -6
 _t36 -> Top
-id11 -> Top
-id13 -> Top
-id15 -> Top
 id3 -> Top
 id7 -> Top
 
@@ -2099,9 +2085,6 @@ _t28 -> Top
 _t31 -> Top
 _t34 -> -6
 _t36 -> Top
-id11 -> Top
-id13 -> Top
-id15 -> Top
 id3 -> Top
 id7 -> Top
 
@@ -2233,9 +2216,4 @@ _lo1 -> Top
 _t17 -> Top
 _t18 -> Top
 _t19 -> Top
-id11 -> Top
-id13 -> Top
-id15 -> Top
-id3 -> Top
-id7 -> Top
 

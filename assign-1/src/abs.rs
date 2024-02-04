@@ -404,15 +404,17 @@ pub mod execution {
 
     use super::domain;
     use super::semantics::AbstractSemantics;
+    use crate::abs::domain::Constant;
     use crate::cfg;
     use crate::lir;
     use crate::store;
+    use crate::store::ConstantStore;
     use crate::utils;
     use colored::Colorize;
     use log::warn;
-    use std::collections::HashMap;
-    use std::collections::VecDeque;
+    use std::collections::{HashMap, HashSet, VecDeque};
 
+    #[derive(Debug, Clone)]
     pub struct Analyzer<T> {
         pub prog: lir::Program,
         pub bb2store: HashMap<String, store::Store<T>>,
@@ -466,13 +468,25 @@ pub mod execution {
                 // println!("adding {} to entry_store as (TOP", global.name);
                 entry_store.set(global.clone(), domain::Constant::Top);
             }
-            for addr_int in &addrof_ints {
-                // println!("adding {} to entry_store (TOP)", addr_int.name);
-                entry_store.set(addr_int.clone(), domain::Constant::Top);
-            }
+            // for addr_int in &addrof_ints {
+            //     // println!("adding {} to entry_store (TOP)", addr_int.name);
+            //     entry_store.set(addr_int.clone(), domain::Constant::Top);
+            // }
             for param in &param_ints {
                 // println!("adding {} to entry_store (TOP)", param.name);
                 entry_store.set(param.clone(), domain::Constant::Top);
+            }
+
+            #[cfg(debug_assertions)]
+            {
+                println!("ENTRY_STORE:");
+                let mut var_names = entry_store.get_var_names();
+                var_names.sort();
+                for var_name in &var_names {
+                    let abs_val = entry_store.get_by_name(var_name).unwrap();
+                    println!("{} -> {}\n", var_name, abs_val);
+                }
+                println!("---------------------------------");
             }
 
             // worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
@@ -583,30 +597,47 @@ pub mod execution {
                 warn!("Already executed");
                 return;
             }
+            let mut visited: HashMap<String, u32> = HashMap::new(); // <bb_label, count>
+            for bb_label in self.cfg.get_all_block_labels() {
+                visited.insert(bb_label.clone(), 0);
+            }
             self.executed = true;
             while !self.worklist.is_empty() {
-                // let bb = self.worklist.pop_front().unwrap();
-                // let store = self.bb2store.get(&bb.id).unwrap();
-                // let mut new_store = store.clone();
-                // for succ in &bb.succs {
-                //     let succ_store = self.bb2store.get(succ).unwrap();
-                //     new_store = new_store.join(succ_store);
-                // }
-                // if !new_store.equals(store) {
-                //     self.bb2store.insert(bb.id.clone(), new_store.clone());
-                //     for pred in &bb.preds {
-                //         if !self.worklist.contains(pred) {
-                //             self.worklist.push_back(pred.clone());
-                //         }
-                //     }
-                // }
-
                 let block = self.worklist.pop_front().unwrap();
+
                 #[cfg(debug_assertions)]
                 {
                     println!("Pop block id={} from worklist", block.id.blue());
                 }
+                
+                // if block.id == "bb4" {
+                //     println!("[before executing bb4] bb14 store: \n{}", self.bb2store.get("bb4").unwrap().to_string().blue());
+                // }
+
+
                 self.exe_block(&block);
+
+
+                // if block.id == "bb4" {
+                //     println!("[after executing bb4] bb14 store: \n{}", self.bb2store.get("bb4").unwrap().to_string().red());
+                // }
+
+
+                // if block.id == "bb10" {
+                //     println!("[1] bb10 store after executing: \n{}", self.bb2store.get("bb10").unwrap().to_string().green());
+                // }
+                // if  self.bb2store.contains_key("bb10") {
+                //     match self.bb2store.get("bb10").unwrap().get_by_name("id3") {
+                //         Some(val) => {
+                //             println!("!!! NOW bb2store[bb10].id3 = {}", val.to_string().green());
+                //         },
+                //         None => {
+                //             println!("!!! NOW bb2store[bb10].id3 = None");
+                //         }
+                //     }
+                // }
+
+                visited.insert(block.id.clone(), visited.get(&block.id).unwrap() + 1);
 
                 #[cfg(debug_assertions)]
                 {
@@ -617,55 +648,97 @@ pub mod execution {
                     );
                 }
 
-                // self.get_reachable_successors_from_terminal(&block.term, &block.id);
-
-                // self.cfg
-                //     .get_successor_labels(&block.id)
-                //     .iter()
-                //     .for_each(|succ_label| {
-                //         #[cfg(debug_assertions)]
-                //         {
-                //             println!("successor label of {}: {}", block.id, succ_label);
-                //         }
-                //         let succ = self.cfg.get_block(succ_label).unwrap();
-                //         let succ_store = self.bb2store.get(succ_label).unwrap();
-                //         let new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
-                //         if new_store != succ_store.clone() {
-                //             self.bb2store.insert(succ_label.clone(), new_store.clone());
-                //             self.worklist.push_back(succ.clone());
-                //         }
-                //     });
-
-                for succ_label in self.reachable_successors.get(&block.id).unwrap() {
+                for succ_label in self.reachable_successors.get(&block.id).unwrap().clone() {
                     #[cfg(debug_assertions)]
                     {
                         println!("successor label of {}: {}", block.id, succ_label);
+                        println!(
+                            "Joining store {} (just executed) --> store {}",
+                            block.id.green(),
+                            succ_label.green()
+                        );
                     }
-                    println!("Joining store {} (just executed) --> store {}", block.id.green(), succ_label.green());
-                    if block.id == "bb8" && succ_label == "bb9" || block.id == "bb9" && succ_label == "bb8"{
-                        println!("Joining store {} (just executed) --> store {}", block.id.green(), succ_label.green());
-                        println!("{}", self.bb2store.get(&block.id).unwrap().to_string().blue());
+
+                    #[cfg(debug_assertions)]
+                    {
+                        println!(
+                            "Joining store {} (just executed) --> store {}",
+                            block.id.green(),
+                            succ_label.green()
+                        );
+                        println!(
+                            "{}",
+                            self.bb2store.get(&block.id).unwrap().to_string().blue()
+                        );
                         println!();
-                        println!("{}", self.bb2store.get(succ_label).unwrap().to_string().blue());
+                        println!(
+                            "{}",
+                            self.bb2store.get(&succ_label).unwrap().to_string().blue()
+                        );
                     }
                     // println!("{}", self.bb2store.get(&block.id).unwrap().to_string().blue());
                     // println!("{}", self.bb2store.get(succ_label).unwrap().to_string().blue());
-                    
-                    let succ = self.cfg.get_block(&succ_label).unwrap();
-                    let succ_store = self.bb2store.get(succ_label).unwrap();
-                    let new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
+
+                    let succ = self.cfg.get_block(&succ_label).unwrap().clone();
+                    let succ_store = self.bb2store.get(&succ_label).unwrap().clone(); // succ_store before joining and executing
+                    // let mut new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
+                    let store_joined = succ_store.join(&self.bb2store.get(&block.id).unwrap());
+                    let mut new_store = store_joined.clone(); // it may be executed virtually
                     // let new_store = execute_block_on_store(self.cfg.get_block(&succ_label).unwrap(), &new_store);
-                    // self.exe_block(succ);
-                    if new_store != succ_store.clone() {
-                        println!("\t store {} changed, pushing block {} to worklist", succ_label.green(), succ_label.green());
-                        self.bb2store.insert(succ_label.clone(), new_store.clone());
+                    // self.bb2store.insert(succ_label.clone(), new_store.clone());
+                    // self.exe_block(&succ);
+
+                    // self.exe_block(&succ);
+                    if visited.get(&block.id).unwrap() > &1 && visited.get(&succ_label).unwrap() > &0 {
+                        // it is a block in a loop
+                        #[cfg(debug_assertions)]
+                        {
+                            println!("\n{} is a block in a loop\n", succ_label.red());    
+                        }
+                        let mut analyzer_duplicate = self.clone();
+                        analyzer_duplicate.bb2store.insert(succ_label.clone(), new_store.clone());
+                        analyzer_duplicate.exe_block(&succ);
+                        new_store = analyzer_duplicate
+                            .bb2store
+                            .get(&succ_label)
+                            .unwrap()
+                            .clone();
+
+                            // if succ_label == "bb10" {
+                            //     println!("拷贝CFG内 bb10 store after executing: \n{}", analyzer_duplicate.bb2store.get("bb10").unwrap().to_string().green());
+                            // }
+                        
+                    }
+
+                    if new_store != succ_store {
+                        #[cfg(debug_assertions)]
+                        {
+                            println!(
+                                "\t store {} changed, pushing block {} to worklist",
+                                succ_label.green(),
+                                succ_label.green()
+                            );
+                        }
+                        self.bb2store.insert(succ_label.clone(), store_joined.clone());
+
                         self.worklist.push_back(succ.clone());
                     }
+                    // if block.id == "bb10" {
+                    //     println!("[2.x] bb10 store after executing: \n{}", self.bb2store.get("bb10").unwrap().to_string().green());
+                    // }
+    
                 }
+                // if block.id == "bb10" {
+                //     println!("[3] bb10 store after executing: \n{}", self.bb2store.get("bb10").unwrap().to_string().green());
+                // }
+
             }
+            // println!("最终 bb10 store after executing: \n{}", self.bb2store.get("bb10").unwrap().to_string().green());
+
         }
 
         fn exe_block(&mut self, block: &lir::Block) {
+            // println!();
             #[cfg(debug_assertions)]
             {
                 println!("Executing block {}", block.id.blue());
@@ -694,14 +767,16 @@ pub mod execution {
             match instr {
                 lir::Instruction::AddrOf { lhs, rhs } => {
                     // {"AddrOf": {"lhs": "xxx", "rhs": "xxx"}}
-                    // if let lir::Type::Int = rhs.typ {
-                    //     self.addrof_ints.push(rhs.clone());
-                    //     store.set(rhs.clone(), domain::Constant::Top);
-                    //     #[cfg(debug_assertions)]
-                    //     {
-                    //         println!("added {} to addrof_ints", rhs.name.red());
-                    //     }
-                    // }
+                    if let lir::Type::Int = rhs.typ {
+                        // self.addrof_ints.push(rhs.clone());
+                        assert!(self.addrof_ints.contains(rhs));
+                        // 直到这时才设置其 abstract value 为 Top???
+                        // store.set(rhs.clone(), domain::Constant::Top);
+                        #[cfg(debug_assertions)]
+                        {
+                            println!("added {} to addrof_ints", rhs.name.red());
+                        }
+                    }
                 }
                 lir::Instruction::Alloc { lhs, num, id } => {
                     // {"Alloc": {"lhs": "xxx", "num": "xxx", "id": "xxx"}}
@@ -717,25 +792,39 @@ pub mod execution {
                             lir::Operand::Var(var) => {
                                 if let lir::Type::Int = var.typ {
                                     res_val = store.get(var).unwrap().clone();
-                                    println!(
-                                        "[COPY] lhs: {}, op: {:?}, res_val: {} (block: {})",
-                                        lhs.name,
-                                        var.name,
-                                        res_val.to_string().green(),
-                                        bb_label
-                                    );
-                                    // store.set(lhs.clone(), store.get(var).unwrap().clone());
+                                    #[cfg(debug_assertions)]
+                                    {
+                                        println!(
+                                            "[COPY] lhs: {}, op: {:?}, res_val: {} (block: {})",
+                                            lhs.name,
+                                            var.name,
+                                            res_val.to_string().green(),
+                                            bb_label
+                                        );
+                                    }
+                                    store.set(lhs.clone(), store.get(var).unwrap().clone());
                                 } else {
-                                    panic!("Copy: lhs and op type mismatch");
+                                    warn!("Copy: lhs and op type mismatch");
                                     res_val = domain::Constant::Top;
                                 }
                             }
                             lir::Operand::CInt(c) => {
                                 res_val = domain::Constant::CInt(*c);
                                 // store.set(lhs.clone(), domain::Constant::CInt(*c));
+                                #[cfg(debug_assertions)]
+                                {
+                                    println!(
+                                        "[COPY] lhs: {}, op: {:?}, res_val: {} (block: {})",
+                                        lhs.name,
+                                        c,
+                                        res_val.to_string().green(),
+                                        bb_label
+                                    );
+                                }
                             }
                         }
                         store.set(lhs.clone(), res_val);
+                        // println!("after COPY:\n{}", store.to_string().red());
                     }
                 }
                 lir::Instruction::Gep { lhs, src, idx } => {
@@ -815,36 +904,47 @@ pub mod execution {
                             }
                             #[cfg(debug_assertions)]
                             {
+                                println!("Now new_store: {}", new_store.to_string().blue());
+                            }
+                            #[cfg(debug_assertions)]
+                            {
                                 println!("In Store instruction, joining store with new_store");
                                 println!("Before joining:");
-                                println!("{}", store);
+                                println!("{}", store.to_string().green());
                             }
 
                             *store = store.join(&new_store); // TODO: 检查下有没有毛病
                             #[cfg(debug_assertions)]
                             {
                                 println!("After joining:");
-                                println!("{}", store);
+                                println!("{}", store.to_string().red());
                             }
                         }
                         lir::Operand::Var(var) => {
                             if let lir::Type::Int = var.typ {
                                 let op_val = store.get(var).unwrap().clone();
                                 let mut new_store = store::ConstantStore::new();
-                                if let lir::Type::Int = var.typ {
+                                // if let lir::Type::Int = var.typ {
+                                //     new_store.set(var.clone(), op_val.clone());
+                                // }
+                                for var in self.addrof_ints.iter() {
                                     new_store.set(var.clone(), op_val.clone());
+                                }
+                                #[cfg(debug_assertions)]
+                                {
+                                   println!("Now new_store: {}", new_store.to_string().blue());
                                 }
                                 #[cfg(debug_assertions)]
                                 {
                                     println!("In Store instruction, joining store with new_store");
                                     println!("Before joining:");
-                                    println!("{}", store);
+                                    println!("{}", store.to_string().green());
                                 }
                                 *store = store.join(&new_store);
                                 #[cfg(debug_assertions)]
                                 {
                                     println!("After joining:");
-                                    println!("{}", store);
+                                    println!("{}", store.to_string().red());
                                 }
                             }
                         }
@@ -866,7 +966,10 @@ pub mod execution {
                     //     res_val.to_string().green(),
                     //     bb_label
                     // );
-                    println!("[CMP] executing instruction: {:?}", instr);
+                    #[cfg(debug_assertions)]
+                    {
+                        println!("[CMP] executing instruction: {:?}", instr);
+                    }
                     if let lir::Type::Int = lhs.typ {
                         let res_val: domain::Constant;
                         match (op1, op2) {
@@ -876,7 +979,10 @@ pub mod execution {
                                         let op1_val = store.get(var1).unwrap();
                                         let op2_val = store.get(var2).unwrap();
                                         res_val = op1_val.cmp(op2_val, rop);
-                                        println!("\t[CMP] comparing two int-type variables: ({} -> {}), ({} -> {})", var1.name, op1_val.to_string().green(), var2.name, op2_val.to_string().green());
+                                        #[cfg(debug_assertions)]
+                                        {
+                                            println!("\t[CMP] comparing two int-type variables: ({} -> {}), ({} -> {})", var1.name, op1_val.to_string().green(), var2.name, op2_val.to_string().green());
+                                        }
                                     } else {
                                         res_val = domain::Constant::Top;
                                     }
@@ -952,6 +1058,7 @@ pub mod execution {
         fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str) {
             #[cfg(debug_assertions)]
             {
+                println!();
                 println!("executing terminal: {:?}", term);
             }
             let store = self.bb2store.get_mut(bb_label).unwrap();
@@ -1006,15 +1113,28 @@ pub mod execution {
                         None => {}
                     }
                     for arg in args.iter() {
+                        // println!("traversing arg (op) {:?}", arg);
                         if let lir::Operand::Var(var) = arg {
+                            // println!("traversing arg (var) {:?}", arg);
+
                             if let lir::Type::Pointer(to) = &var.typ {
+                                // println!("traversing arg (ptr) {:?}", arg);
                                 if utils::able_to_reach_int(to) {
                                     for var in self.addrof_ints.iter() {
                                         store.set(var.clone(), domain::Constant::Top);
                                     }
                                     break;
                                 }
-                            }
+                            } 
+                            
+                            // else if let lir::Type::Int = var.typ {
+                            //     warn!("traversing arg (int) {:?}", arg);
+                            //     // println!("traversing arg (int) {:?}", arg);
+                            //     for var in self.addrof_ints.iter() {
+                            //         store.set(var.clone(), domain::Constant::Top);
+                            //     }
+                            //     break;
+                            // }
                         }
                     }
                     self.reachable_successors
@@ -1176,20 +1296,15 @@ pub mod execution {
         fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str);
     }
 
-    pub fn execute_block_on_const_store(block: &lir::Block, store: &store::ConstantStore) -> store::ConstantStore {
-        let mut new_store = store.clone();
-        for instr in &block.insts {
-            execute_instr_on_const_store(instr, &mut new_store);
-        }
-        execute_term_on_const_store(&block.term, &mut new_store);
-        new_store
+    // pub fn execute_block_on_const_store(block: &lir::Block, store: &store::ConstantStore) -> store::ConstantStore {
+    //     let mut new_store = store.clone();
+    //     for instr in &block.insts {
+    //         execute_instr_on_const_store(instr, &mut new_store);
+    //     }
+    //     execute_term_on_const_store(&block.term, &mut new_store);
+    //     new_store
 
-    }
-
-
-
-
-
+    // }
 }
 
 #[cfg(test)]
