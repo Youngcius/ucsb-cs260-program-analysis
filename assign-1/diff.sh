@@ -27,3 +27,12 @@ diff ./demos/std_const_out/constants-5.const.out ./demos/const_out/constants-5.c
 
 echo "Diffing constants-6.const.out"
 diff ./demos/std_const_out/constants-6.const.out ./demos/const_out/constants-6.const.out
+
+echo "Diffing constants-7.const.out"
+diff ./demos/std_const_out/constants-7.const.out ./demos/const_out/constants-7.const.out
+
+echo "Diffing constants-8.const.out"
+diff ./demos/std_const_out/constants-8.const.out ./demos/const_out/constants-8.const.out
+
+echo "Diffing constants-9.const.out"
+diff ./demos/std_const_out/constants-9.const.out ./demos/const_out/constants-9.const.out
