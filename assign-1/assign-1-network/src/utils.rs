@@ -15,15 +15,13 @@ where
     let mut bbs: Vec<String> = bb2store.keys().cloned().collect();
     bbs.sort();
     for bb in bbs {
-        if bb == "dummy_entry" || bb == "dummy_exit"{
-            continue;
-        } // TODO: why is this necessary?
-        // if bb2store has elements, print the block
-        if bb2store.get(&bb).unwrap().len() > 0 {
+        // if bb == "dummy_entry" || bb == "dummy_exit" {
+        //     continue;
+        // }
+        if bb2store.get(&bb).unwrap().len() > 0 || bb == "entry" {
             println!("{}:", bb);
             println!("{}", bb2store.get(&bb).unwrap());
         }
-
     }
 }
 
@@ -106,7 +104,9 @@ mod test {
         let i = lir::Type::Int;
         let p = lir::Type::Pointer(Box::new(lir::Type::Int));
         let pp = lir::Type::Pointer(Box::new(lir::Type::Pointer(Box::new(lir::Type::Int))));
-        let ppp = lir::Type::Pointer(Box::new(lir::Type::Pointer(Box::new(lir::Type::Pointer(Box::new(lir::Type::Int))))));
+        let ppp = lir::Type::Pointer(Box::new(lir::Type::Pointer(Box::new(lir::Type::Pointer(
+            Box::new(lir::Type::Int),
+        )))));
         println!("i can reach int?: {}", able_to_reach_int(&Box::new(i)));
         println!("p can reach int?: {}", able_to_reach_int(&Box::new(p)));
         println!("pp can reach int?: {}", able_to_reach_int(&Box::new(pp)));

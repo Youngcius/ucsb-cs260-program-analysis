@@ -1,77 +1,80 @@
+test:&(int, int) -> int
+
 fn main() -> int {
 entry:
   $ret 0
 }
 
-fn test() -> int {
-let _lo1:int, _lo2:int, _t10:int, _t11:int, _t12:int, _t13:int, _t14:int, _t15:int, _t3:int, _t4:int, _t5:int, _t6:int, _t7:int, _t8:int, _t9:int, id0:int, id1:int, id2:int, id3:int, id4:int
+fn test(p:int, q:int) -> int {
+let _lo1:int, _lo2:int, _lo3:int, _lo4:int, _t10:int, _t11:int, _t12:int, _t13:int, _t14:int, _t15:int, _t16:int, _t17:int, _t18:int, _t5:int, _t6:int, _t7:int, _t8:int, _t9:int, id0:int, id1:int, id2:int
 bb1:
-  _t5 = $arith sub 0 8
-  _t6 = $cmp gte _t5 id1
-  _t7 = $arith sub 0 _t6
-  _t8 = $arith sub 0 id0
-  _t9 = $arith div _lo1 _t8
-  _t10 = $arith mul _t7 _t9
-  id0 = $copy _t10
-  id1 = $copy id1
-  id1 = $copy id2
-  _t11 = $arith sub 0 2
-  $branch _t11 bb5 bb6
+  _lo1 = $copy _lo2
+  _t5 = $cmp neq _lo1 0
+  $branch _t5 bb5 bb4
 
 bb10:
-  _t12 = $arith sub 0 id4
-  _t13 = $arith sub 0 _lo2
-  _t14 = $cmp lte _t12 _t13
-  id3 = $copy _t14
-  $jump bb7
+  _t17 = $arith sub 0 7
+  _t18 = $arith sub 0 _t17
+  $branch _t18 bb12 bb13
 
 bb11:
-  _lo2 = $copy 0
-  $jump bb10
+  $ret _lo4
 
 bb12:
-  _lo2 = $copy 1
-  $jump bb10
+  _lo4 = $copy 0
+  $jump bb11
+
+bb13:
+  _lo4 = $copy 1
+  $jump bb11
 
 bb2:
-  _lo1 = $copy 0
+  _lo2 = $copy 0
   $jump bb1
 
 bb3:
-  _lo1 = $copy 1
+  _lo2 = $copy 1
   $jump bb1
 
 bb4:
-  id4 = $copy 0
-  $ret id3
+  _t6 = $arith sub 0 6
+  _lo3 = $copy _t6
+  _t7 = $cmp eq _lo3 0
+  $branch _t7 bb7 bb6
 
 bb5:
-  $jump bb7
+  _lo1 = $copy 0
+  $jump bb4
 
 bb6:
-  id0 = $copy id4
-  id3 = $copy 6
-  id3 = $copy id2
-  _t15 = $arith sub 0 6
-  id0 = $copy _t15
-  $jump bb4
+  _t8 = $cmp lte id0 _lo3
+  _t9 = $cmp gt _lo1 _t8
+  id2 = $copy _t9
+  _t10 = $arith sub 0 6
+  id0 = $copy _t10
+  id1 = $copy id2
+  $jump bb8
 
 bb7:
-  $branch id3 bb8 bb9
+  _lo3 = $copy 0
+  $jump bb6
 
 bb8:
-  id2 = $copy id4
-  id1 = $copy 4
-  $branch id4 bb11 bb12
+  $branch p bb9 bb10
 
 bb9:
-  $jump bb4
+  _t11 = $arith sub 0 9
+  _t12 = $arith sub 0 4
+  _t13 = $arith sub _t11 _t12
+  _t14 = $cmp lt id2 _t13
+  id1 = $copy _t14
+  _t15 = $arith sub 0 3
+  id2 = $copy _t15
+  _t16 = $arith sub 0 q
+  p = $copy _t16
+  $jump bb8
 
 entry:
-  _t3 = $arith sub 0 1
-  id1 = $copy _t3
-  _t4 = $arith sub 0 9
-  id3 = $copy _t4
-  id4 = $copy id3
-  $branch 10 bb2 bb3
+  id1 = $copy 3
+  $branch q bb2 bb3
 }

@@ -1,0 +1,141 @@
+bb1:
+_lo1 -> Top
+_t4 -> Top
+_t5 -> Top
+_t6 -> 1
+id0 -> 1
+id1 -> 9
+id2 -> 9
+id3 -> Top
+id4 -> 10
+
+bb2:
+_lo1 -> 0
+_t4 -> Top
+id0 -> 9
+id1 -> 9
+id2 -> 9
+
+bb3:
+_lo1 -> 1
+_t4 -> Top
+id0 -> 9
+id1 -> 9
+id2 -> 9
+
+bb4:
+_lo1 -> Top
+_lo2 -> 8
+_t10 -> Top
+_t11 -> Top
+_t12 -> Top
+_t13 -> -10
+_t14 -> Top
+_t15 -> Top
+_t16 -> Top
+_t4 -> Top
+_t5 -> Top
+_t6 -> 1
+_t7 -> -4
+_t8 -> 0
+_t9 -> 1
+id0 -> 1
+id1 -> Top
+id2 -> Top ///////////////////
+id3 -> Top
+id4 -> 10
+
+bb5:
+_lo1 -> Top
+_lo2 -> 0
+_t10 -> Top
+_t11 -> Top
+_t12 -> Top
+_t13 -> -10
+_t14 -> Top
+_t15 -> Top
+_t16 -> Top
+_t4 -> Top
+_t5 -> Top
+_t6 -> 1
+_t7 -> -4
+_t8 -> 0
+_t9 -> 1
+id0 -> 1
+id1 -> Top
+id2 -> Top
+id3 -> Top
+id4 -> 10
+
+bb7:
+_lo1 -> Top
+_lo2 -> 8
+_t10 -> Top
+_t11 -> Top
+_t12 -> Top
+_t13 -> -10
+_t14 -> Top
+_t15 -> Top
+_t16 -> Top
+_t4 -> Top
+_t5 -> Top
+_t6 -> 1
+_t7 -> -4
+_t8 -> 0
+_t9 -> 1
+id0 -> 1
+id1 -> Top
+id2 -> Top
+id3 -> Top
+id4 -> 10
+
+bb8:
+_lo1 -> Top
+_lo2 -> 8
+_t10 -> Top
+_t11 -> Top
+_t12 -> Top
+_t13 -> -10
+_t14 -> Top
+_t15 -> Top
+_t16 -> Top
+_t4 -> Top
+_t5 -> Top
+_t6 -> 1
+_t7 -> -4
+_t8 -> 0
+_t9 -> 1
+id0 -> 1
+id1 -> Top
+id2 -> Top
+id3 -> Top
+id4 -> 10
+
+bb9:
+_lo1 -> Top
+_lo2 -> 8
+_t10 -> Top
+_t11 -> Top
+_t12 -> Top
+_t13 -> -10
+_t14 -> Top
+_t15 -> Top
+_t16 -> Top
+_t4 -> Top
+_t5 -> Top
+_t6 -> 1
+_t7 -> -4
+_t8 -> 0
+_t9 -> 1
+id0 -> 1
+id1 -> Top
+id2 -> Top
+id3 -> Top
+id4 -> 10
+
+entry:
+_t4 -> Top
+id0 -> 9
+id1 -> 9
+id2 -> 9
+

@@ -149,11 +149,45 @@ pub mod domain {
         }
         fn arith(&self, other: &Self, op: &lir::ArithOp) -> Self {
             match (self, other) {
-                (Self::Top, Self::Top) => Self::Top,
-                (Self::Top, Self::CInt(_)) => Self::Top,
-                (Self::CInt(_), Self::Top) => Self::Top,
                 (Self::Bottom, _) => Self::Bottom,
                 (_, Self::Bottom) => Self::Bottom,
+                (Self::Top, Self::Top) => Self::Top,
+                (Self::CInt(c), Self::Top) => match op {
+                    lir::ArithOp::Add => Self::Top,
+                    lir::ArithOp::Subtract => Self::Top,
+                    lir::ArithOp::Multiply => {
+                        if *c == 0 {
+                            Self::CInt(0)
+                        } else {
+                            Self::Top
+                        }
+                    }
+                    lir::ArithOp::Divide => {
+                        if *c == 0 {
+                            Self::CInt(0)
+                        } else {
+                            Self::Top
+                        }
+                    }
+                },
+                (Self::Top, Self::CInt(c)) => match op {
+                    lir::ArithOp::Add => Self::Top,
+                    lir::ArithOp::Subtract => Self::Top,
+                    lir::ArithOp::Multiply => {
+                        if *c == 0 {
+                            Self::CInt(0)
+                        } else {
+                            Self::Top
+                        }
+                    }
+                    lir::ArithOp::Divide => {
+                        if *c == 0 {
+                            Self::Bottom
+                        } else {
+                            Self::Top
+                        }
+                    }
+                },
                 (Self::CInt(c1), Self::CInt(c2)) => {
                     let c = match op {
                         lir::ArithOp::Add => c1 + c2,
@@ -408,16 +442,37 @@ pub mod execution {
             // set content of entry_store
             let global_ints = prog.get_int_globals();
             let param_ints = prog.get_int_parameters(func_name);
+
             let local_ints = prog.get_int_locals(func_name);
-            let addrof_ints = prog.get_int_globals();
+            // let addrof_ints = prog.get_int_globals();
+            let mut addrof_ints = prog.get_addrof_ints(func_name);
+            // add global to addrof_ints
             for global in &global_ints {
+                // println!("adding {} to addrof_ints", global.name);
+                addrof_ints.push(global.clone());
+            }
+            #[cfg(debug_assertions)]
+            {
+                println!("---------------------------------");
+                println!("addrof_ints: {:?}", addrof_ints);
+                println!("---------------------------------");
+            }
+
+            for local in &local_ints {
+                // println!("adding {} to entry_store (BOTTOM)", local.name);
+                entry_store.set(local.clone(), domain::Constant::Bottom);
+            }
+            for global in &global_ints {
+                // println!("adding {} to entry_store as (TOP", global.name);
                 entry_store.set(global.clone(), domain::Constant::Top);
             }
-            for param in &param_ints {
-                entry_store.set(param.clone(), domain::Constant::Top);
+            for addr_int in &addrof_ints {
+                // println!("adding {} to entry_store (TOP)", addr_int.name);
+                entry_store.set(addr_int.clone(), domain::Constant::Top);
             }
-            for local in &local_ints {
-                entry_store.set(local.clone(), domain::Constant::Bottom);
+            for param in &param_ints {
+                // println!("adding {} to entry_store (TOP)", param.name);
+                entry_store.set(param.clone(), domain::Constant::Top);
             }
 
             // worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
@@ -426,7 +481,7 @@ pub mod execution {
             {
                 println!("worklist: {:?}", worklist);
                 println!("entry_store:");
-                println!("{}", entry_store);
+                println!("{}", &entry_store);
             }
             for bb_label in &cfg.get_all_block_labels() {
                 bb2store.insert(bb_label.clone(), store::ConstantStore::new());
@@ -434,6 +489,7 @@ pub mod execution {
             // bb2store.insert("dummy_entry".to_string(), entry_store);
 
             bb2store.insert("entry".to_string(), entry_store);
+
             #[cfg(debug_assertions)]
             {
                 println!(
@@ -585,10 +641,23 @@ pub mod execution {
                     {
                         println!("successor label of {}: {}", block.id, succ_label);
                     }
+                    println!("Joining store {} (just executed) --> store {}", block.id.green(), succ_label.green());
+                    if block.id == "bb8" && succ_label == "bb9" || block.id == "bb9" && succ_label == "bb8"{
+                        println!("Joining store {} (just executed) --> store {}", block.id.green(), succ_label.green());
+                        println!("{}", self.bb2store.get(&block.id).unwrap().to_string().blue());
+                        println!();
+                        println!("{}", self.bb2store.get(succ_label).unwrap().to_string().blue());
+                    }
+                    // println!("{}", self.bb2store.get(&block.id).unwrap().to_string().blue());
+                    // println!("{}", self.bb2store.get(succ_label).unwrap().to_string().blue());
+                    
                     let succ = self.cfg.get_block(&succ_label).unwrap();
                     let succ_store = self.bb2store.get(succ_label).unwrap();
                     let new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
+                    // let new_store = execute_block_on_store(self.cfg.get_block(&succ_label).unwrap(), &new_store);
+                    // self.exe_block(succ);
                     if new_store != succ_store.clone() {
+                        println!("\t store {} changed, pushing block {} to worklist", succ_label.green(), succ_label.green());
                         self.bb2store.insert(succ_label.clone(), new_store.clone());
                         self.worklist.push_back(succ.clone());
                     }
@@ -619,19 +688,20 @@ pub mod execution {
             */
             #[cfg(debug_assertions)]
             {
-                println!("executing instruction: {:#?}", instr);
+                println!("executing instruction: {:?}", instr);
             }
             let store = self.bb2store.get_mut(bb_label).unwrap();
             match instr {
                 lir::Instruction::AddrOf { lhs, rhs } => {
                     // {"AddrOf": {"lhs": "xxx", "rhs": "xxx"}}
-                    if let lir::Type::Int = rhs.typ {
-                        self.addrof_ints.push(rhs.clone());
-                        #[cfg(debug_assertions)]
-                        {
-                            println!("added {} to addrof_ints", rhs.name);
-                        }
-                    }
+                    // if let lir::Type::Int = rhs.typ {
+                    //     self.addrof_ints.push(rhs.clone());
+                    //     store.set(rhs.clone(), domain::Constant::Top);
+                    //     #[cfg(debug_assertions)]
+                    //     {
+                    //         println!("added {} to addrof_ints", rhs.name.red());
+                    //     }
+                    // }
                 }
                 lir::Instruction::Alloc { lhs, num, id } => {
                     // {"Alloc": {"lhs": "xxx", "num": "xxx", "id": "xxx"}}
@@ -647,8 +717,16 @@ pub mod execution {
                             lir::Operand::Var(var) => {
                                 if let lir::Type::Int = var.typ {
                                     res_val = store.get(var).unwrap().clone();
+                                    println!(
+                                        "[COPY] lhs: {}, op: {:?}, res_val: {} (block: {})",
+                                        lhs.name,
+                                        var.name,
+                                        res_val.to_string().green(),
+                                        bb_label
+                                    );
                                     // store.set(lhs.clone(), store.get(var).unwrap().clone());
                                 } else {
+                                    panic!("Copy: lhs and op type mismatch");
                                     res_val = domain::Constant::Top;
                                 }
                             }
@@ -781,6 +859,14 @@ pub mod execution {
                 }
                 lir::Instruction::Cmp { lhs, rop, op1, op2 } => {
                     // {"Cmp": {"lhs": "xxx", "rop": "xxx", "op1": "xxx", "op2": "xxx"}}
+                    // println!(
+                    //     "[CMP] lhs: {}, op1: {:?}, op2: {}, res_val: {} (block: {})",
+                    //     lhs.name,
+                    //     var.name,
+                    //     res_val.to_string().green(),
+                    //     bb_label
+                    // );
+                    println!("[CMP] executing instruction: {:?}", instr);
                     if let lir::Type::Int = lhs.typ {
                         let res_val: domain::Constant;
                         match (op1, op2) {
@@ -790,6 +876,7 @@ pub mod execution {
                                         let op1_val = store.get(var1).unwrap();
                                         let op2_val = store.get(var2).unwrap();
                                         res_val = op1_val.cmp(op2_val, rop);
+                                        println!("\t[CMP] comparing two int-type variables: ({} -> {}), ({} -> {})", var1.name, op1_val.to_string().green(), var2.name, op2_val.to_string().green());
                                     } else {
                                         res_val = domain::Constant::Top;
                                     }
@@ -1088,6 +1175,21 @@ pub mod execution {
         fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str);
         fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str);
     }
+
+    pub fn execute_block_on_const_store(block: &lir::Block, store: &store::ConstantStore) -> store::ConstantStore {
+        let mut new_store = store.clone();
+        for instr in &block.insts {
+            execute_instr_on_const_store(instr, &mut new_store);
+        }
+        execute_term_on_const_store(&block.term, &mut new_store);
+        new_store
+
+    }
+
+
+
+
+
 }
 
 #[cfg(test)]

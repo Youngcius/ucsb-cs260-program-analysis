@@ -239,7 +239,17 @@ impl Program {
     //     param_ints
     // }
     pub fn get_int_parameters(&self, func_name: &str) -> Vec<Variable> {
+        #[cfg(debug_assertions)]
+        {
+            println!("get_int_parameters: {}", func_name);
+        }
+
         let func = self.functions.get(func_name).unwrap();
+
+        #[cfg(debug_assertions)]
+        {
+            println!("func: {:?}", func);
+        }
         let param_ints = func
             .params
             .iter()
@@ -249,7 +259,35 @@ impl Program {
             })
             .cloned()
             .collect();
+
+        #[cfg(debug_assertions)]
+        {
+            println!("------------------------------------------");
+            println!("param_ints: {:?}", param_ints);
+            println!("------------------------------------------");
+        }
         param_ints
+
+        // let mut params = func.params.clone();
+
+
+        // #[cfg(debug_assertions)]
+        // {
+        //     println!("params: {:?}", params);
+        // }
+        // let param_ints: Vec<Variable> = params
+        //     .iter()
+        //     .filter(|v| match v.typ {
+        //         Type::Int => true,
+        //         _ => false,
+        //     })
+        //     .cloned()
+        //     .collect();
+        // #[cfg(debug_assertions)]
+        // {
+        //     println!("param_ints: {:?}", param_ints);
+        // }
+        // param_ints
     }
 
     pub fn get_int_locals(&self, func_name: &str) -> Vec<Variable> {
@@ -264,6 +302,30 @@ impl Program {
             .cloned()
             .collect();
         local_ints
+    }
+
+    pub fn get_addrof_ints(&self, func_name: &str) -> Vec<Variable> {
+        let func = self.functions.get(func_name).unwrap();
+        let mut addrof_ints = Vec::new();
+        for block in func.body.values() {
+            for inst in &block.insts {
+                match inst {
+                    Instruction::AddrOf { lhs, rhs } => {
+                        if let Type::Int = rhs.typ {
+                            addrof_ints.push(rhs.clone());
+                        }
+                    }
+                    _ => {}
+                }
+            }
+        }
+        #[cfg(debug_assertions)]
+        {
+            println!("---------------------------------");
+            println!("addrof_ints: {:?}", addrof_ints);
+            println!("---------------------------------");
+        }
+        addrof_ints
     }
 
     pub fn get_all_basic_blocks(&self) -> Vec<&Block> {
@@ -522,10 +584,7 @@ mod test {
         let global_ints = prog.get_int_globals();
         // let gg = prog.globals;
 
-        println!(
-            "======= globals of {} =======",
-            prog_name
-        );
+        println!("======= globals of {} =======", prog_name);
         for var in global_ints {
             println!("{:?}", var);
         }

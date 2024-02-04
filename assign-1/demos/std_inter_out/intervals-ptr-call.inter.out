@@ -1,0 +1,14 @@
+entry:
+_t1 -> (NegInf, PosInf)
+_t10 -> [0, 1]
+_t11 -> [0, 0]
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+id0 -> (NegInf, PosInf)
+id2 -> [6, 6]
+id5 -> [0, 1]
+id6 -> (NegInf, PosInf)
+

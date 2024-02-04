@@ -149,11 +149,45 @@ pub mod domain {
         }
         fn arith(&self, other: &Self, op: &lir::ArithOp) -> Self {
             match (self, other) {
-                (Self::Top, Self::Top) => Self::Top,
-                (Self::Top, Self::CInt(_)) => Self::Top,
-                (Self::CInt(_), Self::Top) => Self::Top,
                 (Self::Bottom, _) => Self::Bottom,
                 (_, Self::Bottom) => Self::Bottom,
+                (Self::Top, Self::Top) => Self::Top,
+                (Self::CInt(c), Self::Top) => match op {
+                    lir::ArithOp::Add => Self::Top,
+                    lir::ArithOp::Subtract => Self::Top,
+                    lir::ArithOp::Multiply => {
+                        if *c == 0 {
+                            Self::CInt(0)
+                        } else {
+                            Self::Top
+                        }
+                    }
+                    lir::ArithOp::Divide => {
+                        if *c == 0 {
+                            Self::CInt(0)
+                        } else {
+                            Self::Top
+                        }
+                    }
+                },
+                (Self::Top, Self::CInt(c)) => match op {
+                    lir::ArithOp::Add => Self::Top,
+                    lir::ArithOp::Subtract => Self::Top,
+                    lir::ArithOp::Multiply => {
+                        if *c == 0 {
+                            Self::CInt(0)
+                        } else {
+                            Self::Top
+                        }
+                    }
+                    lir::ArithOp::Divide => {
+                        if *c == 0 {
+                            Self::Bottom
+                        } else {
+                            Self::Top
+                        }
+                    }
+                },
                 (Self::CInt(c1), Self::CInt(c2)) => {
                     let c = match op {
                         lir::ArithOp::Add => c1 + c2,
@@ -395,9 +429,6 @@ pub mod execution {
     impl ConstantAnalyzer {
         pub fn new(prog: lir::Program, func_name: &str) -> Self {
             // Initialized the constant analyzer
-            // TODO: check following code
-            // println!("{:#?}", prog);
-
             let cfg = cfg::ControlFlowGraph::from_function(&prog, func_name);
             #[cfg(debug_assertions)]
             {
@@ -410,8 +441,21 @@ pub mod execution {
             // set content of entry_store
             let global_ints = prog.get_int_globals();
             let param_ints = prog.get_int_parameters(func_name);
+            #[cfg(debug_assertions)]
+            {
+                println!("------------------------------------------");
+                println!("param_ints: {:?}", param_ints);
+                println!("------------------------------------------");
+            }
+
             let local_ints = prog.get_int_locals(func_name);
-            let addrof_ints = prog.get_int_globals();
+            // let addrof_ints = prog.get_int_globals();
+            let mut addrof_ints = prog.get_addrof_ints(func_name);
+            // add global to addrof_ints
+            for global in &global_ints {
+                addrof_ints.push(global.clone());
+            }
+
             for global in &global_ints {
                 entry_store.set(global.clone(), domain::Constant::Top);
             }
@@ -436,19 +480,7 @@ pub mod execution {
             // bb2store.insert("dummy_entry".to_string(), entry_store);
 
             bb2store.insert("entry".to_string(), entry_store);
-            #[cfg(debug_assertions)]
-            {
-                println!(
-                    "bb2store.len: {}, {:?}",
-                    bb2store.len(),
-                    bb2store.keys().collect::<Vec<&String>>()
-                );
-                print!("global_ints: ");
-                for var in global_ints.iter() {
-                    print!("{}, ", var.name);
-                }
-                println!();
-            }
+
             Self {
                 prog,
                 bb2store,
@@ -484,7 +516,6 @@ pub mod execution {
             for local in &local_ints {
                 entry_store.set(local.clone(), domain::Interval::Bottom);
             }
-            // worklist.push_back(cfg.get_dummy_entry().unwrap().clone());
             worklist.push_back(cfg.get_entry().unwrap().clone());
             #[cfg(debug_assertions)]
             {
@@ -497,19 +528,7 @@ pub mod execution {
             }
             // bb2store.insert("dummy_entry".to_string(), entry_store);
             bb2store.insert("entry".to_string(), entry_store);
-            #[cfg(debug_assertions)]
-            {
-                println!(
-                    "bb2store.len: {}, {:?}",
-                    bb2store.len(),
-                    cfg.get_all_block_labels()
-                );
-                print!("global_ints: ");
-                for var in global_ints.iter() {
-                    print!("{}, ", var.name);
-                }
-                println!();
-            }
+
             Self {
                 prog,
                 bb2store,
@@ -553,6 +572,7 @@ pub mod execution {
                 self.exe_block(&block);
 
 
+
                 // self.get_reachable_successors_from_terminal(&block.term, &block.id);
 
                 // self.cfg
@@ -585,8 +605,6 @@ pub mod execution {
                         self.worklist.push_back(succ.clone());
                     }
                 }
-
-                // TODO: 判断循环到不动点就结束
             }
         }
 
@@ -603,21 +621,27 @@ pub mod execution {
         }
 
         fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str) {
-            // execute an instruction on the store
-            // current support: no-function no-pointer
-            // op: Operand::CInt(i32), or Operand::Var { name: String, typ: Type::Int, scope: ...}
-            // println!("executing instruction: {:#?}", instr);
+            /*
+            execute an instruction on the store
+            current support: no-function no-pointer
+            op: Operand::CInt(i32), or Operand::Var { name: String, typ: Type::Int, scope: ...}
+            */
+            #[cfg(debug_assertions)]
+            {
+                println!("executing instruction: {:?}", instr);
+            }
             let store = self.bb2store.get_mut(bb_label).unwrap();
             match instr {
                 lir::Instruction::AddrOf { lhs, rhs } => {
                     // {"AddrOf": {"lhs": "xxx", "rhs": "xxx"}}
-                    if let lir::Type::Int = rhs.typ {
-                        self.addrof_ints.push(rhs.clone());
-                        #[cfg(debug_assertions)]
-                        {
-                            println!("added {} to addrof_ints", rhs.name);
-                        }
-                    }
+                    // if let lir::Type::Int = rhs.typ {
+                    //     self.addrof_ints.push(rhs.clone());
+                    //     store.set(rhs.clone(), domain::Constant::Top);
+                    //     #[cfg(debug_assertions)]
+                    //     {
+                    //         println!("added {} to addrof_ints", rhs.name.red());
+                    //     }
+                    // }
                 }
                 lir::Instruction::Alloc { lhs, num, id } => {
                     // {"Alloc": {"lhs": "xxx", "num": "xxx", "id": "xxx"}}
@@ -998,173 +1022,6 @@ pub mod execution {
             self.exe_term(&block.term, &block.id);
         }
         fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str) {
-            let store = self.bb2store.get_mut(bb_label).unwrap();
-            //     match instr {
-            //         lir::Instruction::AddrOf { lhs, rhs } => {
-            //             // {"AddrOf": {"lhs": "xxx", "rhs": "xxx"}}
-            //             if let lir::Type::Int = rhs.typ {
-            //                 self.addrof_ints.push(rhs.clone());
-            //                 println!("added {} to addrof_ints", rhs.name);
-            //             }
-            //         }
-            //         lir::Instruction::Alloc { lhs, num, id } => {
-            //             // {"Alloc": {"lhs": "xxx", "num": "xxx", "id": "xxx"}}
-            //             // let num_val = store.get(num).unwrap();
-            //             // let id_val = store.get(id).unwrap();
-            //             // store.set(lhs.clone(), id_val.clone());
-            //         }
-            //         lir::Instruction::Copy { lhs, op } => {
-            //             // {"Copy": {"lhs": "xxx", "op": "xxx"}}
-            //             match op {
-            //                 lir::Operand::Var(var) => {
-            //                     store.set(lhs.clone(), store.get(var).unwrap().clone());
-            //                 }
-            //                 lir::Operand::CInt(c) => {
-            //                     store.set(lhs.clone(), domain::Constant::CInt(*c));
-            //                 }
-            //             }
-            //         }
-            //         lir::Instruction::Gep { lhs, src, idx } => {
-            //             // {"Gep": {"lhs": "xxx", "src": "xxx", "idx": "xxx"}}
-            //             // let src_val = store.get(src).unwrap();
-            //             // let idx_val = store.get(idx).unwrap();
-            //             // store.set(lhs.clone(), src_val.clone());
-            //         }
-            //         lir::Instruction::Arith { lhs, aop, op1, op2 } => {
-            //             // {"Arith": {"lhs": "xxx", "aop": "xxx", "op1": "xxx", "op2": "xxx"}}
-            //             let res_val: domain::Constant;
-            //             match (op1, op2) {
-            //                 (lir::Operand::Var(var1), lir::Operand::Var(var2)) => {
-            //                     let op1_val = store.get(var1).unwrap();
-            //                     let op2_val = store.get(var2).unwrap();
-            //                     res_val = op1_val.arith(op2_val, aop);
-            //                 }
-            //                 (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
-            //                     let op1_val = store.get(var).unwrap();
-            //                     let op2_val = domain::Constant::CInt(*c);
-            //                     res_val = op1_val.arith(&op2_val, aop);
-            //                 }
-            //                 (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
-            //                     let op1_val = domain::Constant::CInt(*c);
-            //                     let op2_val = store.get(var).unwrap();
-            //                     res_val = op1_val.arith(op2_val, aop);
-            //                 }
-            //                 (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
-            //                     let op1_val = domain::Constant::CInt(*c1);
-            //                     let op2_val = domain::Constant::CInt(*c2);
-            //                     res_val = op1_val.arith(&op2_val, aop);
-            //                 }
-            //             }
-            //             store.set(lhs.clone(), res_val);
-            //         }
-            //         lir::Instruction::Load { lhs, src } => {
-            //             // {"Load": {"lhs": "xxx", "src": "xxx"}
-            //             let src_val = store.get(src).unwrap();
-            //             if let lir::Type::Int = src.typ {
-            //                 store.set(lhs.clone(), domain::Constant::Top);
-            //             }
-            //         }
-            //         lir::Instruction::Store { dst, op } => {
-            //             // {"Store": {"dst": "xxx", "op": "xxx"}}
-            //             // if op is Operand::CInt or in-type Variable, do something
-            //             match op {
-            //                 // TODO: 有点问题
-            //                 lir::Operand::CInt(c) => {
-            //                     let op_val = domain::Constant::CInt(*c);
-            //                     let mut new_store = store::ConstantStore::new();
-            //                     for var in self.addrof_ints.iter() {
-            //                         new_store.set(var.clone(), op_val.clone());
-            //                     }
-            //                     println!("In Store instruction, joining store with new_store");
-            //                     println!("Before joining:");
-            //                     println!("{}", store);
-            //                     *store = store.join(&new_store); // TODO: 检查下有没有毛病
-            //                     println!("After joining:");
-            //                     println!("{}", store);
-            //                 }
-            //                 lir::Operand::Var(var) => {
-            //                     let op_val = store.get(var).unwrap().clone();
-            //                     let mut new_store = store::ConstantStore::new();
-            //                     if let lir::Type::Int = var.typ {
-            //                         new_store.set(var.clone(), op_val.clone());
-            //                     }
-            //                     println!("In Store instruction, joining store with new_store");
-            //                     println!("Before joining:");
-            //                     println!("{}", store);
-            //                     *store = store.join(&new_store);
-            //                     println!("After joining:");
-            //                     println!("{}", store);
-            //                 }
-            //                 _ => {}
-            //             }
-            //         }
-            //         lir::Instruction::Gfp { lhs, src, field } => {
-            //             // {"Gfp": {"lhs": "xxx", "src": "xxx", "field": "xxx"}}
-            //             // let src_val = store.get(src).unwrap();
-            //             // let field_val = store.get(field).unwrap();
-            //             // store.set(lhs.clone(), src_val.clone());
-            //         }
-            //         lir::Instruction::Cmp { lhs, rop, op1, op2 } => {
-            //             // {"Cmp": {"lhs": "xxx", "rop": "xxx", "op1": "xxx", "op2": "xxx"}}
-            //             let res_val: domain::Constant;
-            //             match (op1, op2) {
-            //                 (lir::Operand::Var(var1), lir::Operand::VConstantar(var2)) => {
-            //                     let op1_val = store.get(var1).unwrap();
-            //                     let op2_val = store.get(var2).unwrap();
-            //                     res_val = op1_val.cmp(op2_val, rop);
-            //                 }
-            //                 (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
-            //                     let op1_val = store.get(var).unwrap();
-            //                     let op2_val = domain::Constant::CInt(*c);
-            //                     res_val = op1_val.cmp(&op2_val, rop);
-            //                 }
-            //                 (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
-            //                     let op1_val = domain::Constant::CInt(*c);
-            //                     let op2_val = store.get(var).unwrap();
-            //                     res_val = op1_val.cmp(op2_val, rop);
-            //                 }
-            //                 (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
-            //                     let op1_val = domain::Constant::CInt(*c1);
-            //                     let op2_val = domain::Constant::CInt(*c2);
-            //                     res_val = op1_val.cmp(&op2_val, rop);
-            //                 }
-            //             }
-            //             store.set(lhs.clone(), res_val);
-            //         }
-            //         lir::Instruction::CallExt {
-            //             lhs,
-            //             ext_callee,
-            //             args,
-            //         } => {
-            //             // {"CallExt": {"lhs": "xxx", "ext_callee": "xxx", "args": ["xxx", "xxx"]}}
-            //             // set all global_ints to Top
-            //             for var in self.global_ints.iter() {
-            //                 store.set(var.clone(), domain::Constant::Top);
-            //             }
-            //             // if lhs is int-type Variable, set it to Top
-            //             match lhs {
-            //                 Some(lsh) => {
-            //                     if let lir::Type::Int = lsh.typ {
-            //                         store.set(lsh.clone(), domain::Constant::Top);
-            //                     }
-            //                 }
-            //                 None => {}
-            //             }
-            //             // for any argument that is a pointer able to reach an int-type Variable var, set it to Top
-            //             for arg in args.iter() {
-            //                 if let lir::Operand::Var(var) = arg {
-            //                     if let lir::Type::Pointer(to) = &var.typ {
-            //                         if utils::able_to_reach_int(to) {
-            //                             for var in self.addrof_ints.iter() {
-            //                                 store.set(var.clone(), domain::Constant::Top);
-            //                             }
-            //                             break;
-            //                         }
-            //                     }
-            //                 }
-            //             }
-            //         }
-            //     }
             panic!("Not implemented")
         }
         fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str) {
