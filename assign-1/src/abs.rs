@@ -1323,7 +1323,7 @@ pub mod execution {
                 return;
             }
             let loop_headers = self.cfg.get_loop_headers();
-            println!("loop headers: {:?}", loop_headers);
+            // println!("loop headers: {:?}", loop_headers);
             let mut visited: HashMap<String, u32> = HashMap::new(); // <bb_label, count>
             for bb_label in self.cfg.get_all_block_labels() {
                 visited.insert(bb_label.clone(), 0);
@@ -1339,11 +1339,11 @@ pub mod execution {
 
                 self.exe_block(&block);
 
-                {
-                    if block.id == "bb1" {
-                        println!("bb1 store (after executing){}", self.bb2store.get("bb1").unwrap());
-                    }
-                }
+                // {
+                    // if block.id == "bb1" {
+                        // println!("bb1 store (after executing){}", self.bb2store.get("bb1").unwrap());
+                    // }
+                // }
 
                 visited.insert(block.id.clone(), visited.get(&block.id).unwrap() + 1);
 
@@ -1378,59 +1378,66 @@ pub mod execution {
 
                     let succ = self.cfg.get_block(&succ_label).unwrap().clone();
                     let succ_store = self.bb2store.get(succ_label).unwrap(); // succ_store before joining and executing
-
-                    let store_joined: store::Store<domain::Interval>; // it might be joined or widened
+                    let store_updated: store::Store<domain::Interval>; // 需要执行时真正加入的 store
+                    let store_joined: store::Store<domain::Interval>;
+                    let store_widened: store::Store<domain::Interval>;
+                    let mut new_store: store::Store<domain::Interval>; // 判断是否需要加入 worklist
                     if visited.contains_key(succ_label) && loop_headers.contains(succ_label) {
-                        println!("{} is a loop header", succ_label);
+                        // println!("{} is a loop header", succ_label);
                         // println!("{} \n▽\n {}", succ_store.to_string(), self.bb2store.get(&block.id).unwrap().to_string());
-                        store_joined = succ_store.widen(&self.bb2store.get(&block.id).unwrap());
-                        println!("After widening: \n{}", store_joined.to_string());
+                        store_widened = succ_store.widen(&self.bb2store.get(&block.id).unwrap());
+                        // println!("After widening: \n{}", store_widened.to_string());
+                        store_updated = store_widened.clone();
+                        new_store = store_widened.clone();
                     } else {
                         store_joined = succ_store.join(&self.bb2store.get(&block.id).unwrap());
+                        store_updated = succ_store.update(&self.bb2store.get(&block.id).unwrap());
+                        new_store = store_joined.clone(); // it may be executed virtually
                     }
 
-                    let mut new_store = store_joined.clone(); // it may be executed virtually
+                    // let mut new_store = store_joined.clone(); // it may be executed virtually
 
-                    // self.exe_block(&succ);
-                    if visited.get(&block.id).unwrap() > &1 && visited.get(succ_label).unwrap() > &0
-                    {
-                        // it is a block in a loop
-                        #[cfg(debug_assertions)]
-                        {
-                            println!("\n{} is a block in a loop\n", succ_label);
-                        }
-                        let mut analyzer_duplicate = self.clone();
-                        analyzer_duplicate
-                            .bb2store
-                            .insert(succ_label.clone(), new_store.clone());
-                        println!("______ in duplicate _____");
-                        analyzer_duplicate.exe_block(&succ);
-                        println!("------ duplicate ------");
-                        new_store = analyzer_duplicate.bb2store.get(succ_label).unwrap().clone();
-                    }
+                    // if visited.get(&block.id).unwrap() > &1 && visited.get(succ_label).unwrap() > &0
+                    // {
+                    //     // it is a block in a loop
+                    //     #[cfg(debug_assertions)]
+                    //     {
+                    //         println!("\n{} is a block in a loop\n", succ_label);
+                    //     }
+                    //     let mut analyzer_duplicate = self.clone();
+                    //     analyzer_duplicate
+                    //         .bb2store
+                    //         .insert(succ_label.clone(), store_updated.clone());
+                    //     // println!("______ in duplicate _____");
+                    //     analyzer_duplicate.exe_block(&succ);
+                    //     // println!("------ duplicate ------");
+                    //     new_store = analyzer_duplicate.bb2store.get(succ_label).unwrap().clone();
+                    // }
+
 
                     if &new_store != succ_store {
-                        // #[cfg(debug_assertions)]
+                        #[cfg(debug_assertions)]
                         {
                             println!(
                                 "\t store {} to be changed (after executing {}), pushed to worklist",
                                 succ_label, block.id
                             );
                         }
-                        self.bb2store.insert(succ_label.clone(), store_joined);
+                        // if self.cfg.is_edge_in_cycle(&block.id, succ_label){
+                            self.bb2store.insert(succ_label.clone(), new_store);
+                        // } else {
+                            // self.bb2store.insert(succ_label.clone(), store_updated);
+                        // }
                         self.worklist.push_back(succ.clone());
                     } 
-                    // else if &store_joined != succ_store {
-                        // self.bb2store.insert(succ_label.clone(), store_joined);
-                        // self.worklist.push_back(succ.clone());
-                    // }
+
                 }
             }
         }
 
         fn exe_block(&mut self, block: &lir::Block) {
-                println!("Executing block ({})", block.id);
-            // #[cfg(debug_assertions)]
+                // println!("Executing block ({})", block.id);
+            #[cfg(debug_assertions)]
             {   
                 if block.id == "bb3" {
                     println!("executing bb3");
@@ -1441,7 +1448,7 @@ pub mod execution {
                 self.exe_instr(instr, &block.id);
             }
             self.exe_term(&block.term, &block.id);
-            // #[cfg(debug_assertions)]
+            #[cfg(debug_assertions)]
             {   
                 if block.id == "bb3" {
                     println!("bb3 store (after){}", self.bb2store.get("bb3").unwrap());

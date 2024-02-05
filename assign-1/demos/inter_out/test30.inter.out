@@ -18,7 +18,7 @@ q -> (NegInf, PosInf)
 
 bb10:
 _lo1 -> (NegInf, PosInf)
-_lo2 -> [0, 1]
+_lo2 -> [1, 1]
 _lo3 -> [0, 0]
 _lo4 -> [1, 1]
 _t10 -> [0, 1]
@@ -46,7 +46,7 @@ q -> (NegInf, PosInf)
 
 bb12:
 _lo1 -> (NegInf, PosInf)
-_lo2 -> [0, 1]
+_lo2 -> [1, 1]
 _lo3 -> [0, 0]
 _lo4 -> [1, 1]
 _t10 -> [0, 1]
@@ -104,7 +104,7 @@ q -> (NegInf, PosInf)
 
 bb4:
 _lo1 -> (NegInf, PosInf)
-_lo2 -> [0, 1]
+_lo2 -> [1, 1]
 _t10 -> [0, 1]
 _t11 -> [6, 6]
 _t12 -> [1, 1]
@@ -162,7 +162,7 @@ q -> (NegInf, PosInf)
 
 bb7:
 _lo1 -> (NegInf, PosInf)
-_lo2 -> [0, 1]
+_lo2 -> [1, 1]
 _lo3 -> [0, 0]
 _t10 -> [0, 1]
 _t11 -> [6, 6]
@@ -183,7 +183,7 @@ q -> (NegInf, PosInf)
 
 bb8:
 _lo1 -> (NegInf, PosInf)
-_lo2 -> [0, 1]
+_lo2 -> [1, 1]
 _lo3 -> [0, 0]
 _t10 -> [0, 1]
 _t11 -> [6, 6]

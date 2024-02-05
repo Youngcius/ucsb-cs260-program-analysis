@@ -669,7 +669,6 @@ _t2 -> [0, 1]
 _t20 -> [0, 1]
 _t26 -> (NegInf, PosInf)
 _t27 -> [0, 1]
-_t3 -> [-1, -1]
 _t31 -> (NegInf, PosInf)
 _t35 -> (NegInf, PosInf)
 _t36 -> [0, 1]
@@ -790,10 +789,8 @@ LAM -> (NegInf, PosInf)
 NUM -> (NegInf, PosInf)
 VAR -> (NegInf, PosInf)
 _t1 -> [0, 1]
-_t10 -> (NegInf, PosInf)
 _t14 -> (NegInf, PosInf)
 _t17 -> (NegInf, PosInf)
-_t2 -> [-1, -1]
 _t4 -> (NegInf, PosInf)
 _t5 -> (NegInf, PosInf)
 _t7 -> (NegInf, PosInf)
@@ -892,7 +889,6 @@ LAM -> (NegInf, PosInf)
 NUM -> (NegInf, PosInf)
 VAR -> (NegInf, PosInf)
 _t1 -> [0, 1]
-_t10 -> (NegInf, PosInf)
 _t14 -> (NegInf, PosInf)
 _t17 -> (NegInf, PosInf)
 _t4 -> (NegInf, PosInf)
@@ -2082,8 +2078,6 @@ _t47 -> [0, 1]
 _t48 -> [0, 1]
 _t49 -> [0, 1]
 _t5 -> [0, 1]
-_t50 -> (NegInf, PosInf)
-_t51 -> (NegInf, PosInf)
 _t52 -> (NegInf, PosInf)
 _t53 -> (NegInf, PosInf)
 _t6 -> (NegInf, PosInf)
@@ -2435,13 +2429,7 @@ i -> (NegInf, PosInf)
 exit:
 K -> (NegInf, PosInf)
 _lo1 -> [0, 1]
-_t15 -> (NegInf, PosInf)
-_t18 -> (NegInf, PosInf)
 _t2 -> (NegInf, PosInf)
-_t22 -> (NegInf, PosInf)
-_t23 -> [0, 1]
-_t24 -> (NegInf, PosInf)
-_t25 -> (NegInf, PosInf)
 _t31 -> (NegInf, PosInf)
 _t34 -> (NegInf, PosInf)
 _t38 -> (NegInf, PosInf)
@@ -2453,8 +2441,6 @@ _t47 -> [0, 1]
 _t48 -> [0, 1]
 _t49 -> [0, 1]
 _t5 -> [0, 1]
-_t50 -> (NegInf, PosInf)
-_t51 -> (NegInf, PosInf)
 _t52 -> (NegInf, PosInf)
 _t53 -> (NegInf, PosInf)
 _t6 -> (NegInf, PosInf)
@@ -3315,9 +3301,7 @@ _t21 -> (NegInf, PosInf)
 _t24 -> [0, 1]
 _t3 -> [0, 1]
 _t34 -> [0, 1]
-_t4 -> [0, 1]
 _t42 -> (NegInf, PosInf)
-_t8 -> (NegInf, PosInf)
 bits -> (NegInf, PosInf)
 depth -> (NegInf, PosInf)
 k -> (NegInf, PosInf)
@@ -3342,8 +3326,8 @@ bb3:
 _t1 -> [0, 1]
 _t2 -> [0, PosInf)
 _t3 -> [1, PosInf)
-_t4 -> [-2, PosInf)  /////////////////////
-i -> [-2, PosInf)  //////////////////////
+_t4 -> [-1, PosInf)
+i -> [-1, PosInf)
 
 bb4:
 _t1 -> [0, 1]
@@ -3355,7 +3339,7 @@ bb5:
 _t1 -> [0, 1]
 _t2 -> [0, PosInf)
 _t3 -> [1, PosInf)
-_t4 -> (NegInf, PosInf) ////////////////////////
+_t4 -> [-1, PosInf)
 _t5 -> [0, 1]
 _t6 -> (NegInf, PosInf)
 _t7 -> (NegInf, PosInf)
@@ -3365,7 +3349,7 @@ bb6:
 _t1 -> [0, 1]
 _t2 -> [0, PosInf)
 _t3 -> [1, PosInf)
-_t4 -> (NegInf, PosInf) ////////////////////////
+_t4 -> [-1, PosInf)
 _t5 -> [0, 1]
 _t6 -> (NegInf, PosInf)
 _t7 -> (NegInf, PosInf)
@@ -3375,7 +3359,7 @@ bb7:
 _t1 -> [0, 1]
 _t2 -> [0, PosInf)
 _t3 -> [1, PosInf)
-_t4 -> (NegInf, PosInf)
+_t4 -> [-1, PosInf)
 _t5 -> [0, 1]
 _t6 -> (NegInf, PosInf)
 _t7 -> (NegInf, PosInf)
@@ -3385,7 +3369,7 @@ bb8:
 _t1 -> [0, 1]
 _t2 -> [0, PosInf)
 _t3 -> [1, PosInf)
-_t4 -> (NegInf, PosInf)
+_t4 -> [-1, PosInf)
 _t5 -> [0, 1]
 _t6 -> (NegInf, PosInf)
 _t7 -> (NegInf, PosInf)
@@ -3574,7 +3558,6 @@ _ret32 -> (NegInf, PosInf)
 _t1 -> (NegInf, PosInf)
 _t12 -> (NegInf, PosInf)
 _t15 -> [0, 1]
-_t18 -> (NegInf, PosInf)
 _t2 -> (NegInf, PosInf)
 _t23 -> [0, 1]
 _t3 -> (NegInf, PosInf)
@@ -4166,8 +4149,6 @@ _t41 -> [0, 1]
 _t45 -> (NegInf, PosInf)
 _t49 -> (NegInf, PosInf)
 _t50 -> [0, 1]
-_t52 -> (NegInf, PosInf)
-_t57 -> (NegInf, PosInf)
 _t6 -> [0, 1]
 _t64 -> (NegInf, PosInf)
 _t69 -> (NegInf, PosInf)
@@ -4338,11 +4319,6 @@ _t6 -> [0, 1]
 exit:
 K -> (NegInf, PosInf)
 _lo1 -> [0, 1]
-_t11 -> (NegInf, PosInf)
-_t15 -> (NegInf, PosInf)
-_t16 -> [0, 1]
-_t18 -> (NegInf, PosInf)
-_t23 -> (NegInf, PosInf)
 _t28 -> (NegInf, PosInf)
 _t32 -> (NegInf, PosInf)
 _t33 -> [0, 1]
@@ -4353,8 +4329,6 @@ _t41 -> [0, 1]
 _t45 -> (NegInf, PosInf)
 _t49 -> (NegInf, PosInf)
 _t50 -> [0, 1]
-_t52 -> (NegInf, PosInf)
-_t57 -> (NegInf, PosInf)
 _t6 -> [0, 1]
 _t64 -> (NegInf, PosInf)
 _t69 -> (NegInf, PosInf)
@@ -4790,7 +4764,6 @@ _t10 -> (NegInf, PosInf)
 _t12 -> (NegInf, PosInf)
 _t13 -> [0, 1]
 _t17 -> (NegInf, PosInf)
-_t2 -> [-1, -1]
 _t20 -> (NegInf, PosInf)
 _t4 -> (NegInf, PosInf)
 _t5 -> (NegInf, PosInf)
@@ -5943,7 +5916,6 @@ _t2 -> [0, 1]
 _t20 -> [0, 1]
 _t26 -> (NegInf, PosInf)
 _t27 -> [0, 1]
-_t3 -> [-1, -1]
 _t31 -> (NegInf, PosInf)
 _t35 -> (NegInf, PosInf)
 _t36 -> [0, 1]
@@ -7421,7 +7393,7 @@ j -> [0, PosInf)
 bb10:
 _t10 -> [0, 1]
 _t16 -> (NegInf, PosInf)
-_t17 -> [2, PosInf)
+_t17 -> [1, PosInf)
 _t18 -> [1, PosInf)
 _t2 -> (NegInf, PosInf)
 _t3 -> [0, 1]
@@ -7430,7 +7402,7 @@ _t6 -> (NegInf, PosInf)
 _t7 -> [0, 1]
 _t9 -> (NegInf, PosInf)
 i -> [0, PosInf)
-j -> [2, PosInf)
+j -> [1, PosInf)
 
 bb11:
 _t10 -> [0, 1]
@@ -7599,14 +7571,14 @@ bb9:
 _t10 -> [0, 1]
 _t16 -> (NegInf, PosInf)
 _t17 -> [1, PosInf)
-_t18 -> [2, PosInf)
+_t18 -> [1, PosInf)
 _t2 -> (NegInf, PosInf)
 _t3 -> [0, 1]
 _t4 -> [1, PosInf)
 _t6 -> (NegInf, PosInf)
 _t7 -> [0, 1]
 _t9 -> (NegInf, PosInf)
-i -> [2, PosInf)
+i -> [1, PosInf)
 j -> [0, PosInf)
 
 entry:

@@ -41,6 +41,20 @@ where
         res
     }
 
+    pub fn update(&self, other: &Self) -> Self {
+        let mut res = Self::new();
+        // insert all <k,v> from self to res
+        for (var, domain) in self.status.iter() {
+            res.status.insert(var.clone(), domain.clone());
+        }
+        // insert all <k,v> from other to res, which might overwrite the previous value
+
+        for (var, domain) in other.status.iter() {
+            res.status.insert(var.clone(), domain.clone());
+        }
+        res
+    }
+
     pub fn get(&self, var: &lir::Variable) -> Option<&T> {
         self.status.get(var)
     }

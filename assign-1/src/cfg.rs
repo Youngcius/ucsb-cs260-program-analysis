@@ -234,7 +234,7 @@ impl ControlFlowGraph {
         }
         loop_headers
     }
-    
+
     pub fn dfs_loop_headers(
         &self,
         label: &String,
@@ -255,6 +255,45 @@ impl ControlFlowGraph {
         }
         in_current_path.remove(label);
         stack.pop();
+    }
+
+    pub fn is_edge_in_cycle(&self, src: &str, dst: &str) -> bool {
+        if self.is_path(src, dst) && self.is_path(dst, src) {
+            return true;
+        }
+        false
+    }
+
+    pub fn is_path(&self, src: &str, dst: &str) -> bool {
+        let mut visited = HashSet::new();
+        self.dfs_path(src, dst, &mut visited)
+    }
+
+    pub fn dfs_path(&self, src: &str, dst: &str, visited: &mut HashSet<String>) -> bool {
+        if src == dst {
+            return true;
+        }
+
+        if visited.contains(src) {
+            return false;
+        }
+
+        visited.insert(src.to_string());
+
+        // if let Some(neighbors) = self.edges.get(&src) {
+        //     for &neighbor in neighbors {
+        //         if self.dfs_path(neighbor, dst, visited) {
+        //             return true;
+        //         }
+        //     }
+        // }
+        for succ in self.get_successor_labels(src) {
+            if self.dfs_path(&succ, dst, visited) {
+                return true;
+            }
+        }
+
+        false
     }
 
     pub fn to_sequence(&self) -> Vec<lir::Block> {
@@ -417,6 +456,11 @@ mod test {
         let loop_headers = cfg.get_loop_headers();
 
         println!("Loop headers: {:?}", loop_headers);
+
+
+        for (src, dst) in &cfg.edges {
+            println!("{} -> {}, is_in_cycle: {}", src, dst, cfg.is_edge_in_cycle(src, dst));
+        }
 
         assert_eq!(
             loop_headers,
