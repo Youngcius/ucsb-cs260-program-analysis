@@ -5,6 +5,7 @@ Abstract domain, abstract semantics, and abstract execution.
 pub mod domain {
     use super::semantics::AbstractSemantics;
     use crate::lir;
+    use std::ops::{Add, Div, Mul, Sub};
 
     #[derive(Debug, Clone)]
     pub enum DomainType {
@@ -19,11 +20,147 @@ pub mod domain {
         CInt(i32),
     }
 
+    #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+    pub enum Number {
+        NInfinity,
+        Integer(i32),
+        Infinity,
+    }
+
+    pub const NUM_ZERO: Number = Number::Integer(0);
+    pub const NUM_ONE: Number = Number::Integer(1);
+    pub const NUM_MINUS_ONE: Number = Number::Integer(-1);
+    pub const TRUE_INTERVAL: Interval = Interval::Range(NUM_ONE, NUM_ONE);
+    pub const FALSE_INTERVAL: Interval = Interval::Range(NUM_ZERO, NUM_ZERO);
+    pub const UNDECIDED_INTERVAL: Interval = Interval::Range(NUM_ZERO, NUM_ONE);
+
+    impl std::fmt::Display for Number {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Number::Integer(x) => write!(f, "{}", x),
+                Number::Infinity => write!(f, "PosInf"),
+                Number::NInfinity => write!(f, "NegInf"),
+            }
+        }
+    }
+
+    impl Add for Number {
+        type Output = Number;
+
+        fn add(self, other: Number) -> Number {
+            match (self, other) {
+                (Number::Integer(x), Number::Integer(y)) => Number::Integer(x + y),
+                (Number::Infinity, Number::Integer(_)) => Number::Infinity,
+                (Number::Integer(_), Number::Infinity) => Number::Infinity,
+                (Number::NInfinity, Number::Integer(_)) => Number::NInfinity,
+                (Number::Integer(_), Number::NInfinity) => Number::NInfinity,
+                (Number::Infinity, Number::Infinity) => Number::Infinity,
+                (Number::NInfinity, Number::NInfinity) => Number::NInfinity,
+                _ => panic!("Addition of infinities is undefined"),
+            }
+        }
+    }
+
+    impl Sub for Number {
+        type Output = Number;
+
+        fn sub(self, rhs: Self) -> Self::Output {
+            match (self, rhs) {
+                (Number::Integer(x), Number::Integer(y)) => Number::Integer(x - y),
+                (Number::Infinity, Number::Integer(_)) => Number::Infinity,
+                (Number::Integer(_), Number::Infinity) => Number::NInfinity,
+                (Number::NInfinity, Number::Integer(_)) => Number::NInfinity,
+                (Number::Integer(_), Number::NInfinity) => Number::Infinity,
+                (Number::Infinity, Number::NInfinity) => Number::Infinity,
+                (Number::NInfinity, Number::Infinity) => Number::NInfinity,
+                _ => panic!("Subtraction of infinities is undefined"),
+            }
+        }
+    }
+
+    impl Mul for Number {
+        type Output = Number;
+
+        fn mul(self, rhs: Self) -> Self::Output {
+            match (self, rhs) {
+                (_, Number::Integer(0)) => Number::Integer(0),
+                (Number::Integer(0), _) => Number::Integer(0),
+                (Number::Integer(x), Number::Integer(y)) => Number::Integer(x * y),
+                (Number::Infinity, Number::Integer(x)) => {
+                    if x >= 0 {
+                        Number::Infinity
+                    } else {
+                        Number::NInfinity
+                    }
+                }
+                (Number::Integer(x), Number::Infinity) => {
+                    if x >= 0 {
+                        Number::Infinity
+                    } else {
+                        Number::NInfinity
+                    }
+                }
+                (Number::NInfinity, Number::Integer(x)) => {
+                    if x >= 0 {
+                        Number::NInfinity
+                    } else {
+                        Number::Infinity
+                    }
+                }
+                (Number::Integer(x), Number::NInfinity) => {
+                    if x >= 0 {
+                        Number::NInfinity
+                    } else {
+                        Number::Infinity
+                    }
+                }
+                (Number::Infinity, Number::Infinity) => Number::Infinity,
+                (Number::NInfinity, Number::NInfinity) => Number::Infinity,
+                (Number::Infinity, Number::NInfinity) => Number::NInfinity,
+                (Number::NInfinity, Number::Infinity) => Number::NInfinity,
+            }
+        }
+    }
+
+    impl Div for Number {
+        type Output = Number;
+
+        fn div(self, other: Number) -> Number {
+            match (self, other) {
+                (Number::Integer(x), Number::Integer(0)) => {
+                    if x >= 0 {
+                        Number::Infinity
+                    } else {
+                        Number::NInfinity
+                    }
+                }
+                (Number::Infinity, Number::Integer(x)) => {
+                    if x >= 0 {
+                        Number::Infinity
+                    } else {
+                        Number::NInfinity
+                    }
+                }
+                (Number::NInfinity, Number::Integer(x)) => {
+                    if x >= 0 {
+                        Number::NInfinity
+                    } else {
+                        Number::Infinity
+                    }
+                }
+                (Number::Integer(_), Number::Infinity) => Number::Integer(0),
+                (Number::Integer(_), Number::NInfinity) => Number::Integer(0),
+                (Number::Integer(x), Number::Integer(y)) => Number::Integer(x / y),
+                _ => panic!("Division of infinities is undefined"),
+            }
+        }
+    }
+
     #[derive(Debug, Clone, PartialEq, Eq)]
     pub enum Interval {
         Top,
         Bottom,
-        Range(i32, i32),
+        Range(Number, Number),
     }
 
     impl std::fmt::Display for Constant {
@@ -37,30 +174,18 @@ pub mod domain {
     }
 
     impl Interval {
-        pub fn get_lower(&self) -> String {
+        pub fn get_lower(&self) -> Option<Number> {
             match self {
-                Self::Top => "NegInf".to_string(),
-                Self::Bottom => "None".to_string(),
-                Self::Range(l, _) => {
-                    if *l == i32::MIN {
-                        "NegInf".to_string()
-                    } else {
-                        l.to_string()
-                    }
-                }
+                Self::Top => Some(Number::NInfinity),
+                Self::Bottom => None,
+                Self::Range(l, _) => Some(l.clone()),
             }
         }
-        pub fn get_upper(&self) -> String {
+        pub fn get_upper(&self) -> Option<Number> {
             match self {
-                Self::Top => "PosInf".to_string(),
-                Self::Bottom => "None".to_string(),
-                Self::Range(_, u) => {
-                    if *u == i32::MAX {
-                        "PosInf".to_string()
-                    } else {
-                        u.to_string()
-                    }
-                }
+                Self::Top => Some(Number::Infinity),
+                Self::Bottom => None,
+                Self::Range(_, u) => Some(u.clone()),
             }
         }
         pub fn widen(&self, other: &Self) -> Self {
@@ -71,8 +196,8 @@ pub mod domain {
                 (Self::Top, Self::Range(_, _)) => Self::Top,
                 (Self::Range(_, _), Self::Top) => Self::Top,
                 (Self::Range(l1, u1), Self::Range(l2, u2)) => {
-                    let l = if l1 < l2 { *l1 } else { i32::MIN };
-                    let u = if u1 > u2 { *u1 } else { i32::MAX };
+                    let l = if l1 <= l2 { *l1 } else { Number::NInfinity };
+                    let u = if u1 >= u2 { *u1 } else { Number::Infinity };
                     Self::Range(l, u)
                 }
             }
@@ -106,11 +231,11 @@ pub mod domain {
                 Self::Bottom => write!(f, "⊥"),
                 Self::Top => write!(f, "(NegInf, PosInf)"),
                 Self::Range(l, u) => {
-                    if *l == i32::MIN && *u == i32::MAX {
+                    if *l == Number::NInfinity && *u == Number::Infinity {
                         write!(f, "(NegInf, PosInf)")
-                    } else if *l == i32::MIN {
+                    } else if *l == Number::NInfinity {
                         write!(f, "(NegInf, {}]", u)
-                    } else if *u == i32::MAX {
+                    } else if *u == Number::Infinity {
                         write!(f, "[{}, PosInf)", l)
                     } else {
                         write!(f, "[{}, {}]", l, u)
@@ -247,8 +372,8 @@ pub mod domain {
                 (Self::Top, Self::Range(_, _)) => Self::Top,
                 (Self::Range(_, _), Self::Top) => Self::Top,
                 (Self::Range(l1, u1), Self::Range(l2, u2)) => {
-                    let l = if l1 < l2 { l1 } else { l2 };
-                    let u = if u1 > u2 { u1 } else { u2 };
+                    let l = if l1 <= l2 { l1 } else { l2 };
+                    let u = if u1 >= u2 { u1 } else { u2 };
                     Self::Range(*l, *u)
                 }
             }
@@ -256,39 +381,100 @@ pub mod domain {
 
         fn arith(&self, other: &Self, op: &lir::ArithOp) -> Self {
             match (self, other) {
-                (Self::Bottom, _) => other.clone(),
-                (_, Self::Bottom) => self.clone(),
+                (Self::Bottom, _) => Self::Bottom,
+                (_, Self::Bottom) => Self::Bottom,
                 (Self::Top, Self::Top) => Self::Top,
-                (Self::Top, Self::Range(_, _)) => Self::Top,
-                (Self::Range(_, _), Self::Top) => Self::Top,
-                (Self::Range(l1, u1), Self::Range(l2, u2)) => match op {
-                    lir::ArithOp::Add => Self::Range(l1 + l2, u1 + u2),
-                    lir::ArithOp::Subtract => Self::Range(l1 - u2, u1 - l2),
+                (Self::Top, Self::Range(l, u)) => match op {
+                    lir::ArithOp::Add => Self::Top,
+                    lir::ArithOp::Subtract => Self::Top,
                     lir::ArithOp::Multiply => {
-                        let mut v = vec![l1 * l2, l1 * u2, u1 * l2, u1 * u2];
+                        if let Number::Integer(0) = l {
+                            if let Number::Integer(0) = u {
+                                Self::Range(Number::Integer(0), Number::Integer(0))
+                            } else {
+                                Self::Top
+                            }
+                        } else {
+                            Self::Top
+                        }
+                    }
+                    lir::ArithOp::Divide => {
+                        if let Number::Integer(0) = l {
+                            if let Number::Integer(0) = u {
+                                Self::Bottom
+                            } else {
+                                Self::Top
+                            }
+                        } else {
+                            Self::Top
+                        }
+                    }
+                },
+                (Self::Range(l, u), Self::Top) => match op {
+                    lir::ArithOp::Add => Self::Top,
+                    lir::ArithOp::Subtract => Self::Top,
+                    lir::ArithOp::Multiply => {
+                        if let Number::Integer(0) = l {
+                            if let Number::Integer(0) = u {
+                                Self::Range(Number::Integer(0), Number::Integer(0))
+                            } else {
+                                Self::Top
+                            }
+                        } else {
+                            Self::Top
+                        }
+                    }
+                    lir::ArithOp::Divide => {
+                        if let Number::Integer(0) = l {
+                            if let Number::Integer(0) = u {
+                                Self::Range(Number::Integer(0), Number::Integer(0))
+                            } else {
+                                // I1 ÷ [-1, 1]
+                                let mut v = vec![*l / NUM_MINUS_ONE, *l, *u / NUM_MINUS_ONE, *u];
+                                v.sort();
+                                Self::Range(v[0], v[3])
+                            }
+                        } else {
+                            // I1 ÷ [-1, 1]
+                            let mut v = vec![*l / NUM_MINUS_ONE, *l, *u / NUM_MINUS_ONE, *u];
+                            v.sort();
+                            Self::Range(v[0].clone(), v[3].clone())
+                        }
+                    }
+                },
+                (Self::Range(l1, u1), Self::Range(l2, u2)) => match op {
+                    lir::ArithOp::Add => Self::Range(*l1 + *l2, *u1 + *u2),
+                    lir::ArithOp::Subtract => Self::Range(*l1 - *u2, *u1 - *l2),
+                    lir::ArithOp::Multiply => {
+                        let mut v = vec![*l1 * *l2, *l1 * *u2, *u1 * *l2, *u1 * *u2];
                         v.sort();
                         Self::Range(v[0], v[3])
                     }
                     lir::ArithOp::Divide => {
-                        if *l2 == 0 && *u2 == 0 {
+                        if *l2 == Number::Integer(0) && *u2 == Number::Integer(0) {
                             Self::Bottom
-                        } else if *l2 == 0 {
+                        } else if *l2 == Number::Integer(0) {
                             // I1 ÷ [1, I2.high]
-                            let mut v: Vec<i32> = vec![*l1, l1 / u2, *u1, u1 / u2];
+                            let mut v = vec![*l1, *l1 / *u2, *u1, *u1 / *u2];
                             v.sort();
                             Self::Range(v[0], v[3])
-                        } else if *u2 == 0 {
+                        } else if *u2 == Number::Integer(0) {
                             // I1 ÷ [I2.low, -1]
-                            let mut v = vec![l1 / l2, -l1, u1 / l2, -u1];
+                            let mut v = vec![
+                                *l1 / *l2,
+                                *l1 / NUM_MINUS_ONE,
+                                *u1 / *l2,
+                                *u1 / NUM_MINUS_ONE,
+                            ];
                             v.sort();
                             Self::Range(v[0], v[3])
-                        } else if *l2 < 0 && *u2 > 0 {
+                        } else if *l2 < Number::Integer(0) && *u2 > Number::Integer(0) {
                             // I1 ÷ [-1, 1]
-                            let mut v: Vec<i32> = vec![-l1, *l1, -u1, *u1];
+                            let mut v = vec![*l1 / NUM_MINUS_ONE, *l1, *u1 / NUM_MINUS_ONE, *u1];
                             v.sort();
                             Self::Range(v[0], v[3])
                         } else {
-                            let mut v: Vec<i32> = vec![l1 / l2, l1 / u2, u1 / l2, u1 / u2];
+                            let mut v = vec![*l1 / *l2, *l1 / *u2, *u1 / *l2, *u1 / *u2];
                             v.sort();
                             Self::Range(v[0], v[3])
                         }
@@ -298,88 +484,117 @@ pub mod domain {
         }
 
         fn cmp(&self, other: &Self, op: &lir::RelaOp) -> Self {
-            let true_interval = Self::Range(1, 1);
-            let false_interval = Self::Range(0, 0);
-            let undecided_interval = Self::Range(0, 1);
             match (self, other) {
                 (Self::Bottom, _) => Self::Bottom,
                 (_, Self::Bottom) => Self::Bottom,
-                (Self::Top, Self::Top) => undecided_interval,
-                (Self::Top, Self::Range(_, _)) => undecided_interval,
-                (Self::Range(_, _), Self::Top) => undecided_interval,
+                (Self::Top, Self::Top) => UNDECIDED_INTERVAL,
+                (Self::Top, Self::Range(_, _)) => UNDECIDED_INTERVAL, // TODO
+                (Self::Range(_, _), Self::Top) => UNDECIDED_INTERVAL, // TODO
                 (Self::Range(l1, u1), Self::Range(l2, u2)) => match op {
                     lir::RelaOp::Eq => {
                         if l1 == l2 && u1 == u2 && l1 == u1 {
-                            true_interval
+                            TRUE_INTERVAL
                         } else if self.has_overlap(other) {
-                            undecided_interval
+                            UNDECIDED_INTERVAL
                         } else {
-                            false_interval
+                            FALSE_INTERVAL
                         }
                     }
                     lir::RelaOp::Neq => {
                         if l1 == l2 && u1 == u2 && l1 == u1 {
-                            false_interval
+                            FALSE_INTERVAL
                         } else if self.has_overlap(other) {
-                            undecided_interval
+                            UNDECIDED_INTERVAL
                         } else {
-                            true_interval
+                            TRUE_INTERVAL
                         }
                     }
                     lir::RelaOp::Less => {
-                        if self.has_overlap(other) {
-                            undecided_interval
+                        if u1 < l2 {
+                            TRUE_INTERVAL
+                        } else if l1 >= u2 {
+                            FALSE_INTERVAL
                         } else {
-                            if u1 < l2 {
-                                true_interval
-                            } else {
-                                false_interval
-                            }
+                            UNDECIDED_INTERVAL
                         }
+                        // if self.has_overlap(other) {
+                        //     if l1 == u1 || l2 == u2 {
+                        //         FALSE_INTERVAL
+                        //     } else {
+                        //         UNDECIDED_INTERVAL
+                        //     }
+                        // } else {
+                        //     if u1 < l2 {
+                        //         TRUE_INTERVAL
+                        //     } else {
+                        //         FALSE_INTERVAL
+                        //     }
+                        // }
                     }
                     lir::RelaOp::LessEq => {
-                        if self.has_overlap(other) {
-                            if u1 == l2 {
-                                true_interval
-                            } else if l1 == u2 {
-                                false_interval
-                            } else {
-                                undecided_interval
-                            }
+                        // if self.has_overlap(other) {
+                        //     if u1 == l2 {
+                        //         TRUE_INTERVAL
+                        //     } else if l1 == u2 {
+                        //         FALSE_INTERVAL
+                        //     } else {
+                        //         UNDECIDED_INTERVAL
+                        //     }
+                        // } else {
+                        //     if u1 <= l2 {
+                        //         TRUE_INTERVAL
+                        //     } else {
+                        //         FALSE_INTERVAL
+                        //     }
+                        // }
+                        if  u1 <= l2 {
+                            TRUE_INTERVAL
+                        } else if l1 > u2 {
+                            FALSE_INTERVAL
                         } else {
-                            if u1 <= l2 {
-                                true_interval
-                            } else {
-                                false_interval
-                            }
+                            UNDECIDED_INTERVAL
                         }
                     }
                     lir::RelaOp::Greater => {
-                        if self.has_overlap(other) {
-                            undecided_interval
+                        // if self.has_overlap(other) {
+                        //     UNDECIDED_INTERVAL
+                        // } else {
+                        //     if l1 > u2 {
+                        //         TRUE_INTERVAL
+                        //     } else {
+                        //         FALSE_INTERVAL
+                        //     }
+                        // }
+                        if   l1 > u2 {
+                            TRUE_INTERVAL
+                        } else if u1 <= l2 {
+                            FALSE_INTERVAL
                         } else {
-                            if l1 > u2 {
-                                true_interval
-                            } else {
-                                false_interval
-                            }
+                            UNDECIDED_INTERVAL
                         }
                     }
                     lir::RelaOp::GreaterEq => {
-                        if self.has_overlap(other) {
-                            if l1 == u2 {
-                                true_interval
-                            } else if u1 == l2 {
-                                false_interval
-                            } else {
-                                undecided_interval
-                            }
+                        // if self.has_overlap(other) {
+                        //     if l1 == u2 {
+                        //         TRUE_INTERVAL
+                        //     } else if u1 == l2 {
+                        //         FALSE_INTERVAL
+                        //     } else {
+                        //         UNDECIDED_INTERVAL
+                        //     }
+                        // } else {
+                        //     if l1 >= u2 {
+                        //         TRUE_INTERVAL
+                        //     } else {
+                        //         FALSE_INTERVAL
+                        //     }
+                        // }
+                        if l1 >= u2 {
+                            TRUE_INTERVAL
+                        } else if u1 < l2 {
+                            FALSE_INTERVAL
                         } else {
-                            if l1 >= u2 {
-                                true_interval
-                            } else {
-                                false_interval
-                            }
+                            UNDECIDED_INTERVAL
                         }
                     }
                 },
@@ -403,12 +618,12 @@ pub mod semantics {
 pub mod execution {
 
     use super::domain;
+    use super::domain::Number;
     use super::semantics::AbstractSemantics;
     use crate::cfg;
     use crate::lir;
     use crate::store;
     use crate::utils;
-    use colored::Colorize;
     use log::warn;
     use std::collections::{HashMap, VecDeque};
 
@@ -491,7 +706,6 @@ pub mod execution {
             for bb_label in &cfg.get_all_block_labels() {
                 bb2store.insert(bb_label.clone(), store::ConstantStore::new());
             }
-            // bb2store.insert("dummy_entry".to_string(), entry_store);
 
             bb2store.insert("entry".to_string(), entry_store);
 
@@ -504,7 +718,7 @@ pub mod execution {
                 );
                 print!("global_ints: ");
                 for var in global_ints.iter() {
-                    print!("{}, ", var.name.green());
+                    print!("{}, ", var.name);
                 }
                 println!();
             }
@@ -523,7 +737,7 @@ pub mod execution {
 
     impl IntervalAnalyzer {
         pub fn new(prog: lir::Program, func_name: &str) -> Self {
-            // Initialized the interval analyzer
+            // Initialized the constant analyzer
             let cfg = cfg::ControlFlowGraph::from_function(&prog, func_name);
             let reachable_successors: HashMap<String, Vec<String>> = HashMap::new();
             let mut worklist: VecDeque<lir::Block> = VecDeque::new();
@@ -533,40 +747,46 @@ pub mod execution {
             let global_ints = prog.get_int_globals();
             let param_ints = prog.get_int_parameters(func_name);
             let local_ints = prog.get_int_locals(func_name);
-            let addrof_ints = prog.get_int_globals();
+            let mut addrof_ints = prog.get_addrof_ints(func_name);
+            // add global to addrof_ints
+            for global in &global_ints {
+                addrof_ints.push(global.clone());
+            }
+            for local in &local_ints {
+                entry_store.set(local.clone(), domain::Interval::Bottom);
+            }
             for global in &global_ints {
                 entry_store.set(global.clone(), domain::Interval::Top);
             }
             for param in &param_ints {
                 entry_store.set(param.clone(), domain::Interval::Top);
             }
-            for local in &local_ints {
-                entry_store.set(local.clone(), domain::Interval::Bottom);
+
+            #[cfg(debug_assertions)]
+            {
+                println!("ENTRY_STORE:");
+                let mut var_names = entry_store.get_var_names();
+                var_names.sort();
+                for var_name in &var_names {
+                    let abs_val = entry_store.get_by_name(var_name).unwrap();
+                    println!("{} -> {}\n", var_name, abs_val);
+                }
+                println!("---------------------------------");
             }
+
             worklist.push_back(cfg.get_entry().unwrap().clone());
             #[cfg(debug_assertions)]
             {
                 println!("worklist: {:?}", worklist);
                 println!("entry_store:");
-                println!("{}", entry_store);
+                println!("{}", &entry_store);
             }
             for bb_label in &cfg.get_all_block_labels() {
                 bb2store.insert(bb_label.clone(), store::IntervalStore::new());
             }
+
             bb2store.insert("entry".to_string(), entry_store);
-            #[cfg(debug_assertions)]
-            {
-                println!(
-                    "bb2store.len: {}, {:?}",
-                    bb2store.len(),
-                    cfg.get_all_block_labels()
-                );
-                print!("global_ints: ");
-                for var in global_ints.iter() {
-                    print!("{}, ", var.name.green());
-                }
-                println!();
-            }
+
             Self {
                 prog,
                 bb2store,
@@ -596,7 +816,7 @@ pub mod execution {
 
                 #[cfg(debug_assertions)]
                 {
-                    println!("Pop block id={} from worklist", block.id.blue());
+                    println!("Pop block id={} from worklist", block.id);
                 }
 
                 self.exe_block(&block);
@@ -607,8 +827,7 @@ pub mod execution {
                 {
                     println!(
                         "reachable_successors of {}: {:?}",
-                        block.id.blue(),
-                        self.reachable_successors
+                        block.id, self.reachable_successors
                     );
                 }
 
@@ -618,8 +837,7 @@ pub mod execution {
                         println!("successor label of {}: {}", block.id, succ_label);
                         println!(
                             "Joining store {} (just executed) --> store {}",
-                            block.id.green(),
-                            succ_label.green()
+                            block.id, succ_label
                         );
                     }
 
@@ -627,18 +845,11 @@ pub mod execution {
                     {
                         println!(
                             "Joining store {} (just executed) --> store {}",
-                            block.id.green(),
-                            succ_label.green()
+                            block.id, succ_label
                         );
-                        println!(
-                            "{}",
-                            self.bb2store.get(&block.id).unwrap().to_string().blue()
-                        );
+                        println!("{}", self.bb2store.get(&block.id).unwrap().to_string());
                         println!();
-                        println!(
-                            "{}",
-                            self.bb2store.get(succ_label).unwrap().to_string().blue()
-                        );
+                        println!("{}", self.bb2store.get(succ_label).unwrap().to_string());
                     }
 
                     let succ = self.cfg.get_block(&succ_label).unwrap().clone();
@@ -652,7 +863,7 @@ pub mod execution {
                         // it is a block in a loop
                         #[cfg(debug_assertions)]
                         {
-                            println!("\n{} is a block in a loop\n", succ_label.red());
+                            println!("\n{} is a block in a loop\n", succ_label);
                         }
                         let mut analyzer_duplicate = self.clone();
                         analyzer_duplicate
@@ -667,8 +878,7 @@ pub mod execution {
                         {
                             println!(
                                 "\t store {} changed, pushing block {} to worklist",
-                                succ_label.green(),
-                                succ_label.green()
+                                succ_label, succ_label
                             );
                         }
                         self.bb2store.insert(succ_label.clone(), store_joined);
@@ -681,7 +891,7 @@ pub mod execution {
         fn exe_block(&mut self, block: &lir::Block) {
             #[cfg(debug_assertions)]
             {
-                println!("Executing block {}", block.id.blue());
+                println!("Executing block {}", block.id);
             }
             for instr in &block.insts {
                 self.exe_instr(instr, &block.id);
@@ -696,7 +906,6 @@ pub mod execution {
         fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str) {
             /*
             execute an instruction on the store
-            current support: no-function no-pointer
             op: Operand::CInt(i32), or Operand::Var { name: String, typ: Type::Int, scope: ...}
             */
             #[cfg(debug_assertions)]
@@ -714,7 +923,7 @@ pub mod execution {
                         // store.set(rhs.clone(), domain::Constant::Top);
                         #[cfg(debug_assertions)]
                         {
-                            println!("added {} to addrof_ints", rhs.name.red());
+                            println!("added {} to addrof_ints", rhs.name);
                         }
                     }
                 }
@@ -738,11 +947,11 @@ pub mod execution {
                                             "[COPY] lhs: {}, op: {:?}, res_val: {} (block: {})",
                                             lhs.name,
                                             var.name,
-                                            res_val.to_string().green(),
+                                            res_val.to_string(),
                                             bb_label
                                         );
                                     }
-                                    store.set(lhs.clone(), store.get(var).unwrap().clone());
+                                    // store.set(lhs.clone(), store.get(var).unwrap().clone());
                                 } else {
                                     warn!("Copy: lhs and op type mismatch");
                                     res_val = domain::Constant::Top;
@@ -757,14 +966,14 @@ pub mod execution {
                                         "[COPY] lhs: {}, op: {:?}, res_val: {} (block: {})",
                                         lhs.name,
                                         c,
-                                        res_val.to_string().green(),
+                                        res_val.to_string(),
                                         bb_label
                                     );
                                 }
                             }
                         }
                         store.set(lhs.clone(), res_val);
-                        // println!("after COPY:\n{}", store.to_string().red());
+                        // println!("after COPY:\n{}", store.to_string());
                     }
                 }
                 lir::Instruction::Gep { lhs, src, idx } => {
@@ -843,20 +1052,20 @@ pub mod execution {
                             }
                             #[cfg(debug_assertions)]
                             {
-                                println!("Now new_store: {}", new_store.to_string().blue());
+                                println!("Now new_store: {}", new_store.to_string());
                             }
                             #[cfg(debug_assertions)]
                             {
                                 println!("In Store instruction, joining store with new_store");
                                 println!("Before joining:");
-                                println!("{}", store.to_string().green());
+                                println!("{}", store.to_string());
                             }
 
                             *store = store.join(&new_store);
                             #[cfg(debug_assertions)]
                             {
                                 println!("After joining:");
-                                println!("{}", store.to_string().red());
+                                println!("{}", store.to_string());
                             }
                         }
                         lir::Operand::Var(var) => {
@@ -868,23 +1077,22 @@ pub mod execution {
                                 }
                                 #[cfg(debug_assertions)]
                                 {
-                                    println!("Now new_store: {}", new_store.to_string().blue());
+                                    println!("Now new_store: {}", new_store.to_string());
                                 }
                                 #[cfg(debug_assertions)]
                                 {
                                     println!("In Store instruction, joining store with new_store");
                                     println!("Before joining:");
-                                    println!("{}", store.to_string().green());
+                                    println!("{}", store.to_string());
                                 }
                                 *store = store.join(&new_store);
                                 #[cfg(debug_assertions)]
                                 {
                                     println!("After joining:");
-                                    println!("{}", store.to_string().red());
+                                    println!("{}", store.to_string());
                                 }
                             }
                         }
-                        _ => {}
                     }
                 }
                 lir::Instruction::Gfp { lhs, src, field } => {
@@ -899,7 +1107,7 @@ pub mod execution {
                     //     "[CMP] lhs: {}, op1: {:?}, op2: {}, res_val: {} (block: {})",
                     //     lhs.name,
                     //     var.name,
-                    //     res_val.to_string().green(),
+                    //     res_val.to_string(),
                     //     bb_label
                     // );
                     #[cfg(debug_assertions)]
@@ -917,7 +1125,7 @@ pub mod execution {
                                         res_val = op1_val.cmp(op2_val, rop);
                                         #[cfg(debug_assertions)]
                                         {
-                                            println!("\t[CMP] comparing two int-type variables: ({} -> {}), ({} -> {})", var1.name, op1_val.to_string().green(), var2.name, op2_val.to_string().green());
+                                            println!("\t[CMP] comparing two int-type variables: ({} -> {}), ({} -> {})", var1.name, op1_val.to_string(), var2.name, op2_val.to_string());
                                         }
                                     } else {
                                         res_val = domain::Constant::Top;
@@ -988,6 +1196,7 @@ pub mod execution {
                 }
             }
         }
+
         fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str) {
             #[cfg(debug_assertions)]
             {
@@ -1113,36 +1322,438 @@ pub mod execution {
                 warn!("Already executed");
                 return;
             }
+            let loop_headers = self.cfg.get_loop_headers();
+            println!("loop headers: {:?}", loop_headers);
+            let mut visited: HashMap<String, u32> = HashMap::new(); // <bb_label, count>
+            for bb_label in self.cfg.get_all_block_labels() {
+                visited.insert(bb_label.clone(), 0);
+            }
             self.executed = true;
             while !self.worklist.is_empty() {
                 let block = self.worklist.pop_front().unwrap();
+
+                #[cfg(debug_assertions)]
+                {
+                    println!("Pop block id={} from worklist", block.id);
+                }
+
                 self.exe_block(&block);
 
-                self.cfg
-                    .get_successor_labels(&block.id)
-                    .iter()
-                    .for_each(|succ_label| {
-                        let succ = self.cfg.get_block(succ_label).unwrap();
-                        let succ_store = self.bb2store.get(succ_label).unwrap();
-                        let new_store = succ_store.join(&self.bb2store.get(&block.id).unwrap());
-                        if new_store != succ_store.clone() {
-                            self.bb2store.insert(succ_label.clone(), new_store.clone());
-                            self.worklist.push_back(succ.clone());
-                        }
-                    });
-            }
+                {
+                    if block.id == "bb1" {
+                        println!("bb1 store (after executing){}", self.bb2store.get("bb1").unwrap());
+                    }
+                }
 
-            // TODO: 找到 loop header, 执行 widening
+                visited.insert(block.id.clone(), visited.get(&block.id).unwrap() + 1);
+
+                #[cfg(debug_assertions)]
+                {
+                    println!(
+                        "reachable_successors of {}: {:?}",
+                        block.id, self.reachable_successors
+                    );
+                }
+
+                for succ_label in self.reachable_successors.get(&block.id).unwrap() {
+                    #[cfg(debug_assertions)]
+                    {
+                        println!("successor label of {}: {}", block.id, succ_label);
+                        println!(
+                            "Joining store {} (just executed) --> store {}",
+                            block.id, succ_label
+                        );
+                    }
+
+                    #[cfg(debug_assertions)]
+                    {
+                        println!(
+                            "Joining store {} (just executed) --> store {}",
+                            block.id, succ_label
+                        );
+                        println!("{}", self.bb2store.get(&block.id).unwrap().to_string());
+                        println!();
+                        println!("{}", self.bb2store.get(succ_label).unwrap().to_string());
+                    }
+
+                    let succ = self.cfg.get_block(&succ_label).unwrap().clone();
+                    let succ_store = self.bb2store.get(succ_label).unwrap(); // succ_store before joining and executing
+
+                    let store_joined: store::Store<domain::Interval>; // it might be joined or widened
+                    if visited.contains_key(succ_label) && loop_headers.contains(succ_label) {
+                        println!("{} is a loop header", succ_label);
+                        // println!("{} \n▽\n {}", succ_store.to_string(), self.bb2store.get(&block.id).unwrap().to_string());
+                        store_joined = succ_store.widen(&self.bb2store.get(&block.id).unwrap());
+                        println!("After widening: \n{}", store_joined.to_string());
+                    } else {
+                        store_joined = succ_store.join(&self.bb2store.get(&block.id).unwrap());
+                    }
+
+                    let mut new_store = store_joined.clone(); // it may be executed virtually
+
+                    // self.exe_block(&succ);
+                    if visited.get(&block.id).unwrap() > &1 && visited.get(succ_label).unwrap() > &0
+                    {
+                        // it is a block in a loop
+                        #[cfg(debug_assertions)]
+                        {
+                            println!("\n{} is a block in a loop\n", succ_label);
+                        }
+                        let mut analyzer_duplicate = self.clone();
+                        analyzer_duplicate
+                            .bb2store
+                            .insert(succ_label.clone(), new_store.clone());
+                        println!("______ in duplicate _____");
+                        analyzer_duplicate.exe_block(&succ);
+                        println!("------ duplicate ------");
+                        new_store = analyzer_duplicate.bb2store.get(succ_label).unwrap().clone();
+                    }
+
+                    if &new_store != succ_store {
+                        // #[cfg(debug_assertions)]
+                        {
+                            println!(
+                                "\t store {} to be changed (after executing {}), pushed to worklist",
+                                succ_label, block.id
+                            );
+                        }
+                        self.bb2store.insert(succ_label.clone(), store_joined);
+                        self.worklist.push_back(succ.clone());
+                    } 
+                    // else if &store_joined != succ_store {
+                        // self.bb2store.insert(succ_label.clone(), store_joined);
+                        // self.worklist.push_back(succ.clone());
+                    // }
+                }
+            }
         }
+
         fn exe_block(&mut self, block: &lir::Block) {
+                println!("Executing block ({})", block.id);
+            // #[cfg(debug_assertions)]
+            {   
+                if block.id == "bb3" {
+                    println!("executing bb3");
+                    println!("bb3 store (before){}", self.bb2store.get("bb3").unwrap());
+                }
+            }
             for instr in &block.insts {
                 self.exe_instr(instr, &block.id);
             }
             self.exe_term(&block.term, &block.id);
+            // #[cfg(debug_assertions)]
+            {   
+                if block.id == "bb3" {
+                    println!("bb3 store (after){}", self.bb2store.get("bb3").unwrap());
+                }
+                // println!("Executing block {}", block.id);
+            }
         }
+
         fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str) {
-            panic!("Not implemented")
+            /*
+            execute an instruction on the store
+            op: Operand::CInt(i32), or Operand::Var { name: String, typ: Type::Int, scope: ...}
+            */
+            #[cfg(debug_assertions)]
+            {
+                println!("executing instruction: {:?}", instr);
+            }
+            let store = self.bb2store.get_mut(bb_label).unwrap();
+            match instr {
+                lir::Instruction::AddrOf { lhs, rhs } => {
+                    // {"AddrOf": {"lhs": "xxx", "rhs": "xxx"}}
+                    if let lir::Type::Int = rhs.typ {
+                        assert!(self.addrof_ints.contains(rhs));
+                        #[cfg(debug_assertions)]
+                        {
+                            println!("added {} to addrof_ints", rhs.name);
+                        }
+                    }
+                }
+                lir::Instruction::Alloc { lhs, num, id } => {
+                    // {"Alloc": {"lhs": "xxx", "num": "xxx", "id": "xxx"}}
+                    // let num_val = store.get(num).unwrap();
+                    // let id_val = store.get(id).unwrap();
+                    // store.set(lhs.clone(), id_val.clone());
+                }
+                lir::Instruction::Copy { lhs, op } => {
+                    // {"Copy": {"lhs": "xxx", "op": "xxx"}}
+                    if let lir::Type::Int = lhs.typ {
+                        let res_val: domain::Interval;
+                        match op {
+                            lir::Operand::Var(var) => {
+                                if let lir::Type::Int = var.typ {
+                                    res_val = store.get(var).unwrap().clone();
+                                    #[cfg(debug_assertions)]
+                                    {
+                                        println!(
+                                            "[COPY] lhs: {}, op: {:?}, res_val: {} (block: {})",
+                                            lhs.name,
+                                            var.name,
+                                            res_val.to_string(),
+                                            bb_label
+                                        );
+                                    }
+                                } else {
+                                    warn!("Copy: lhs and op type mismatch");
+                                    res_val = domain::Interval::Top;
+                                }
+                            }
+                            lir::Operand::CInt(c) => {
+                                res_val = domain::Interval::Range(
+                                    Number::Integer(*c),
+                                    Number::Integer(*c),
+                                );
+                                #[cfg(debug_assertions)]
+                                {
+                                    println!(
+                                        "[COPY] lhs: {}, op: {:?}, res_val: {} (block: {})",
+                                        lhs.name,
+                                        c,
+                                        res_val.to_string(),
+                                        bb_label
+                                    );
+                                }
+                            }
+                        }
+                        store.set(lhs.clone(), res_val);
+                        // println!("after COPY:\n{}", store.to_string());
+                    }
+                }
+                lir::Instruction::Gep { lhs, src, idx } => {
+                    // {"Gep": {"lhs": "xxx", "src": "xxx", "idx": "xxx"}}
+                    // let src_val = store.get(src).unwrap();
+                    // let idx_val = store.get(idx).unwrap();
+                    // store.set(lhs.clone(), src_val.clone());
+                }
+                lir::Instruction::Arith { lhs, aop, op1, op2 } => {
+                    // {"Arith": {"lhs": "xxx", "aop": "xxx", "op1": "xxx", "op2": "xxx"}}
+                    let res_val: domain::Interval;
+                    match (op1, op2) {
+                        (lir::Operand::Var(var1), lir::Operand::Var(var2)) => {
+                            if let lir::Type::Int = var1.typ {
+                                if let lir::Type::Int = var2.typ {
+                                    let op1_val = store.get(var1).unwrap();
+                                    let op2_val = store.get(var2).unwrap();
+                                    res_val = op1_val.arith(op2_val, aop);
+                                } else {
+                                    res_val = domain::Interval::Top;
+                                }
+                            } else {
+                                res_val = domain::Interval::Top;
+                            }
+                        }
+                        (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
+                            if let lir::Type::Int = var.typ {
+                                let op1_val = store.get(var).unwrap();
+                                let op2_val = domain::Interval::Range(
+                                    Number::Integer(*c),
+                                    Number::Integer(*c),
+                                );
+                                res_val = op1_val.arith(&op2_val, aop);
+                            } else {
+                                res_val = domain::Interval::Top;
+                            }
+                        }
+                        (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
+                            if let lir::Type::Int = var.typ {
+                                let op1_val = domain::Interval::Range(
+                                    Number::Integer(*c),
+                                    Number::Integer(*c),
+                                );
+                                let op2_val = store.get(var).unwrap();
+                                res_val = op1_val.arith(op2_val, aop);
+                            } else {
+                                res_val = domain::Interval::Top;
+                            }
+                        }
+                        (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
+                            let op1_val =
+                                domain::Interval::Range(Number::Integer(*c1), Number::Integer(*c1));
+                            let op2_val =
+                                domain::Interval::Range(Number::Integer(*c2), Number::Integer(*c2));
+                            res_val = op1_val.arith(&op2_val, aop);
+                        }
+                    }
+                    store.set(lhs.clone(), res_val);
+                }
+                lir::Instruction::Load { lhs, src } => {
+                    // {"Load": {"lhs": "xxx", "src": "xxx"}
+                    if let lir::Type::Int = lhs.typ {
+                        store.set(lhs.clone(), domain::Interval::Top);
+                    }
+                }
+                lir::Instruction::Store { dst, op } => {
+                    // {"Store": {"dst": "xxx", "op": "xxx"}}
+                    // if op is Operand::CInt or in-type Variable, do something
+                    match op {
+                        lir::Operand::CInt(c) => {
+                            let op_val =
+                                domain::Interval::Range(Number::Integer(*c), Number::Integer(*c));
+                            let mut new_store = store::IntervalStore::new();
+                            for var in self.addrof_ints.iter() {
+                                new_store.set(var.clone(), op_val.clone());
+                            }
+                            #[cfg(debug_assertions)]
+                            {
+                                println!("Now new_store: {}", new_store.to_string());
+                            }
+                            #[cfg(debug_assertions)]
+                            {
+                                println!("In Store instruction, joining store with new_store");
+                                println!("Before joining:");
+                                println!("{}", store.to_string());
+                            }
+
+                            *store = store.join(&new_store);
+                            #[cfg(debug_assertions)]
+                            {
+                                println!("After joining:");
+                                println!("{}", store.to_string());
+                            }
+                        }
+                        lir::Operand::Var(var) => {
+                            if let lir::Type::Int = var.typ {
+                                let op_val = store.get(var).unwrap().clone();
+                                let mut new_store = store::IntervalStore::new();
+                                for var in self.addrof_ints.iter() {
+                                    new_store.set(var.clone(), op_val.clone());
+                                }
+                                #[cfg(debug_assertions)]
+                                {
+                                    println!("Now new_store: {}", new_store.to_string());
+                                }
+                                #[cfg(debug_assertions)]
+                                {
+                                    println!("In Store instruction, joining store with new_store");
+                                    println!("Before joining:");
+                                    println!("{}", store.to_string());
+                                }
+                                *store = store.join(&new_store);
+                                #[cfg(debug_assertions)]
+                                {
+                                    println!("After joining:");
+                                    println!("{}", store.to_string());
+                                }
+                            }
+                        }
+                    }
+                }
+                lir::Instruction::Gfp { lhs, src, field } => {
+                    // {"Gfp": {"lhs": "xxx", "src": "xxx", "field": "xxx"}}
+                    // let src_val = store.get(src).unwrap();
+                    // let field_val = store.get(field).unwrap();
+                    // store.set(lhs.clone(), src_val.clone());
+                }
+                lir::Instruction::Cmp { lhs, rop, op1, op2 } => {
+                    // {"Cmp": {"lhs": "xxx", "rop": "xxx", "op1": "xxx", "op2": "xxx"}}
+                    // println!(
+                    //     "[CMP] lhs: {}, op1: {:?}, op2: {}, res_val: {} (block: {})",
+                    //     lhs.name,
+                    //     var.name,
+                    //     res_val.to_string(),
+                    //     bb_label
+                    // );
+                    #[cfg(debug_assertions)]
+                    {
+                        println!("[CMP] executing instruction: {:?}", instr);
+                    }
+                    if let lir::Type::Int = lhs.typ {
+                        let res_val: domain::Interval;
+                        match (op1, op2) {
+                            (lir::Operand::Var(var1), lir::Operand::Var(var2)) => {
+                                if let lir::Type::Int = var1.typ {
+                                    if let lir::Type::Int = var2.typ {
+                                        let op1_val = store.get(var1).unwrap();
+                                        let op2_val = store.get(var2).unwrap();
+                                        res_val = op1_val.cmp(op2_val, rop);
+                                        #[cfg(debug_assertions)]
+                                        {
+                                            println!("\t[CMP] comparing two int-type variables: ({} -> {}), ({} -> {})", var1.name, op1_val.to_string(), var2.name, op2_val.to_string());
+                                        }
+                                    } else {
+                                        res_val = domain::UNDECIDED_INTERVAL;
+                                    }
+                                } else {
+                                    res_val = domain::UNDECIDED_INTERVAL;
+                                }
+                            }
+                            (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
+                                if let lir::Type::Int = var.typ {
+                                    let op1_val = store.get(var).unwrap();
+                                    let op2_val = domain::Interval::Range(
+                                        Number::Integer(*c),
+                                        Number::Integer(*c),
+                                    );
+                                    res_val = op1_val.cmp(&op2_val, rop);
+                                } else {
+                                    res_val = domain::UNDECIDED_INTERVAL;
+                                }
+                            }
+                            (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
+                                if let lir::Type::Int = var.typ {
+                                    let op1_val = domain::Interval::Range(
+                                        Number::Integer(*c),
+                                        Number::Integer(*c),
+                                    );
+                                    let op2_val = store.get(var).unwrap();
+                                    res_val = op1_val.cmp(op2_val, rop);
+                                } else {
+                                    res_val = domain::UNDECIDED_INTERVAL;
+                                }
+                            }
+                            (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
+                                let op1_val = domain::Interval::Range(
+                                    Number::Integer(*c1),
+                                    Number::Integer(*c1),
+                                );
+                                let op2_val = domain::Interval::Range(
+                                    Number::Integer(*c2),
+                                    Number::Integer(*c2),
+                                );
+                                res_val = op1_val.cmp(&op2_val, rop);
+                            }
+                        }
+                        store.set(lhs.clone(), res_val);
+                    }
+                }
+                lir::Instruction::CallExt {
+                    lhs,
+                    ext_callee,
+                    args,
+                } => {
+                    // {"CallExt": {"lhs": "xxx", "ext_callee": "xxx", "args": ["xxx", "xxx"]}}
+                    // set all global_ints to Top
+                    for var in self.global_ints.iter() {
+                        store.set(var.clone(), domain::Interval::Top);
+                    }
+                    // if lhs is int-type Variable, set it to Top
+                    match lhs {
+                        Some(lsh) => {
+                            if let lir::Type::Int = lsh.typ {
+                                store.set(lsh.clone(), domain::Interval::Top);
+                            }
+                        }
+                        None => {}
+                    }
+                    // for any argument that is a pointer able to reach an int-type Variable var, set it to Top
+                    for arg in args.iter() {
+                        if let lir::Operand::Var(var) = arg {
+                            if let lir::Type::Pointer(to) = &var.typ {
+                                if utils::able_to_reach_int(to) {
+                                    for var in self.addrof_ints.iter() {
+                                        store.set(var.clone(), domain::Interval::Top);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+
         fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str) {
             let store = self.bb2store.get_mut(bb_label).unwrap();
             match term {
@@ -1175,6 +1786,8 @@ pub mod execution {
                             }
                         }
                     }
+                    self.reachable_successors
+                        .insert(bb_label.to_string(), vec![next_bb.clone()]);
                 }
                 lir::Terminal::CallIndirect {
                     lhs,
@@ -1205,8 +1818,62 @@ pub mod execution {
                             }
                         }
                     }
+                    self.reachable_successors
+                        .insert(bb_label.to_string(), vec![next_bb.clone()]);
                 }
-                _ => {}
+                lir::Terminal::Jump(label) => {
+                    self.reachable_successors
+                        .insert(bb_label.to_string(), vec![label.clone()]);
+                }
+                lir::Terminal::Branch { cond, tt, ff } => match cond {
+                    lir::Operand::Var(var) => {
+                        if let lir::Type::Int = var.typ {
+                            let cond_val = store.get(var).unwrap();
+                            match cond_val {
+                                domain::Interval::Bottom => {
+                                    self.reachable_successors
+                                        .insert(bb_label.to_string(), vec![]);
+                                }
+                                domain::Interval::Top => {
+                                    self.reachable_successors
+                                        .insert(bb_label.to_string(), vec![tt.clone(), ff.clone()]);
+                                }
+                                domain::Interval::Range(l, u) => {
+                                    if l == u {
+                                        if *l == Number::Integer(0) {
+                                            self.reachable_successors
+                                                .insert(bb_label.to_string(), vec![ff.clone()]);
+                                        } else {
+                                            self.reachable_successors
+                                                .insert(bb_label.to_string(), vec![tt.clone()]);
+                                        }
+                                    } else if *l <= Number::Integer(0) && *u >= Number::Integer(0) {
+                                        self.reachable_successors.insert(
+                                            bb_label.to_string(),
+                                            vec![tt.clone(), ff.clone()],
+                                        );
+                                    } else {
+                                        self.reachable_successors
+                                            .insert(bb_label.to_string(), vec![tt.clone()]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    lir::Operand::CInt(c) => {
+                        if *c == 0 {
+                            self.reachable_successors
+                                .insert(bb_label.to_string(), vec![ff.clone()]);
+                        } else {
+                            self.reachable_successors
+                                .insert(bb_label.to_string(), vec![tt.clone()]);
+                        }
+                    }
+                },
+                lir::Terminal::Ret(_) => {
+                    self.reachable_successors
+                        .insert(bb_label.to_string(), vec![]);
+                }
             }
         }
     }
@@ -1222,27 +1889,28 @@ pub mod execution {
 #[cfg(test)]
 mod test {
     use super::domain::Interval;
+    use super::domain::Number;
 
     #[test]
     fn test_interval_output() {
         let bottom = Interval::Bottom;
         let top = Interval::Top;
-        let range = Interval::Range(1, 2);
+        let range = Interval::Range(Number::Integer(1), Number::Integer(2));
 
         println!(
-            "lower of bottom: {}, upper of bottom: {}",
+            "lower of bottom: {:?}, upper of bottom: {:?}",
             bottom.get_lower(),
             bottom.get_upper()
         );
         println!(
             "lower of top: {}, upper of top: {}",
-            top.get_lower(),
-            top.get_upper()
+            top.get_lower().unwrap(),
+            top.get_upper().unwrap()
         );
         println!(
             "lower of range: {}, upper of range: {}",
-            range.get_lower(),
-            range.get_upper()
+            range.get_lower().unwrap(),
+            range.get_upper().unwrap()
         );
 
         assert_eq!(bottom.to_string(), "⊥");

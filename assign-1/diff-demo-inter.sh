@@ -81,3 +81,15 @@ diff ./demos/std_inter_out/test27.inter.out ./demos/inter_out/test27.inter.out
 
 echo "Diffing test28"
 diff ./demos/std_inter_out/test28.inter.out ./demos/inter_out/test28.inter.out
+
+echo "Diffing test29"
+diff ./demos/std_inter_out/test29.inter.out ./demos/inter_out/test29.inter.out
+
+echo "Diffing test30"
+diff ./demos/std_inter_out/test30.inter.out ./demos/inter_out/test30.inter.out
+
+echo "Diffing test31"
+diff ./demos/std_inter_out/test31.inter.out ./demos/inter_out/test31.inter.out
+
+echo "Diffing test32"
+diff ./demos/std_inter_out/test32.inter.out ./demos/inter_out/test32.inter.out

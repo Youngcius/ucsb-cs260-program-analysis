@@ -26,6 +26,10 @@
 ./constants ./demos/lir/test26.lir test > ./demos/std_const_out/test26.const.out
 ./constants ./demos/lir/test27.lir test > ./demos/std_const_out/test27.const.out
 ./constants ./demos/lir/test28.lir test > ./demos/std_const_out/test28.const.out
+./constants ./demos/lir/test29.lir test > ./demos/std_const_out/test29.const.out
+./constants ./demos/lir/test30.lir test > ./demos/std_const_out/test30.const.out
+./constants ./demos/lir/test31.lir test > ./demos/std_const_out/test31.const.out
+./constants ./demos/lir/test32.lir test > ./demos/std_const_out/test32.const.out
 
 
 ./constants_analysis ./demos/json/test1.json test > ./demos/const_out/test1.const.out
@@ -56,6 +60,8 @@
 ./constants_analysis ./demos/json/test26.json test > ./demos/const_out/test26.const.out
 ./constants_analysis ./demos/json/test27.json test > ./demos/const_out/test27.const.out
 ./constants_analysis ./demos/json/test28.json test > ./demos/const_out/test28.const.out
-
-
+./constants_analysis ./demos/json/test29.json test > ./demos/const_out/test29.const.out
+./constants_analysis ./demos/json/test30.json test > ./demos/const_out/test30.const.out
+./constants_analysis ./demos/json/test31.json test > ./demos/const_out/test31.const.out
+./constants_analysis ./demos/json/test32.json test > ./demos/const_out/test32.const.out
 

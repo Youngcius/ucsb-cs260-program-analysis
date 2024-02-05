@@ -1,0 +1,7624 @@
+─────────────────────────────────────────────────── union_find ────────────────────────────────────────────────────
+>>>>>> union_find: union <<<<<<
+bb1:
+_t1 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+bb2:
+_t1 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+bb3:
+_t1 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+rA -> (NegInf, PosInf)
+rB -> (NegInf, PosInf)
+
+bb4:
+_t1 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+bb5:
+_t1 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+rA -> (NegInf, PosInf)
+rB -> (NegInf, PosInf)
+
+bb6:
+_t1 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+rA -> (NegInf, PosInf)
+rB -> (NegInf, PosInf)
+
+bb7:
+_t1 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+rA -> (NegInf, PosInf)
+rB -> (NegInf, PosInf)
+
+bb8:
+_t1 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+rA -> (NegInf, PosInf)
+rB -> (NegInf, PosInf)
+
+entry:
+_t1 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+exit:
+_t1 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+rA -> (NegInf, PosInf)
+rB -> (NegInf, PosInf)
+
+
+>>>>>> union_find: mkUF <<<<<<
+entry:
+n -> (NegInf, PosInf)
+
+
+>>>>>> union_find: find <<<<<<
+bb1:
+_lo1 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+n -> (NegInf, PosInf)
+
+bb2:
+_lo1 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+n -> (NegInf, PosInf)
+
+bb4:
+_lo1 -> [0, 1]
+_ret21 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+n -> (NegInf, PosInf)
+
+bb5:
+_lo1 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+n -> (NegInf, PosInf)
+p -> (NegInf, PosInf)
+
+bb6:
+_lo1 -> [0, 1]
+_ret21 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+n -> (NegInf, PosInf)
+p -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+entry:
+_lo1 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+n -> (NegInf, PosInf)
+
+exit:
+_lo1 -> [0, 1]
+_ret21 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+n -> (NegInf, PosInf)
+p -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+
+>>>>>> union_find: main <<<<<<
+bb1:
+n -> [10, 10]
+
+bb2:
+n -> [10, 10]
+
+bb3:
+n -> [10, 10]
+
+bb4:
+n -> [10, 10]
+
+bb5:
+n -> [10, 10]
+
+bb6:
+n -> [10, 10]
+
+bb7:
+n -> [10, 10]
+
+entry:
+n -> [10, 10]
+
+
+───────────────────────────────────────────────────── lambda ──────────────────────────────────────────────────────
+>>>>>> lambda: printE <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+bb10:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb11:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb12:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb13:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb14:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t35 -> (NegInf, PosInf)
+_t36 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb15:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb16:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb17:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb18:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t35 -> (NegInf, PosInf)
+_t36 -> [0, 1]
+_t38 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb19:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t35 -> (NegInf, PosInf)
+_t36 -> [0, 1]
+_t38 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb2:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t3 -> [-1, -1]
+indent -> (NegInf, PosInf)
+
+bb20:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t35 -> (NegInf, PosInf)
+_t36 -> [0, 1]
+_t38 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb3:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t3 -> [-1, -1]
+indent -> (NegInf, PosInf)
+
+bb4:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb5:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t2 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb6:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb7:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb8:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb9:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+exit:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [-1, -1]
+_t31 -> (NegInf, PosInf)
+_t35 -> (NegInf, PosInf)
+_t36 -> [0, 1]
+_t38 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda: lookup <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb2:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb3:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> [-1, -1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb4:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb5:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+exit:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> [-1, -1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda: var <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda: printV <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb10:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb11:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb2:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> [-1, -1]
+indent -> (NegInf, PosInf)
+
+bb3:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+bb4:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> [-1, -1]
+indent -> (NegInf, PosInf)
+
+bb5:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb6:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb7:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb8:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb9:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda: add <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda: init <<<<<<
+entry:
+ADD -> [4, 4]
+APP -> [1, 1]
+CLO -> [1, 1]
+CONST -> [3, 3]
+LAM -> [2, 2]
+NUM -> [0, 0]
+VAR -> [0, 0]
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda: apply <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda: bind <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda: const <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+
+>>>>>> lambda: main <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb10:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb11:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb12:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb13:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb14:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb15:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb16:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb17:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb18:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb2:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb3:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb4:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb5:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb6:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb7:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb8:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb9:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda: printI <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+
+>>>>>> lambda: lambda <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda: eval <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb10:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb11:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t37 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb12:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t37 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb13:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t37 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb14:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t37 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb15:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t37 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb16:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t37 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb17:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t37 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb2:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb3:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb4:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb5:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb6:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb7:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb8:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t37 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb9:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+exit:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [0, 1]
+_t37 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+
+──────────────────────────────────────────────────── matrices ─────────────────────────────────────────────────────
+>>>>>> matrices: zero <<<<<<
+bb1:
+_t11 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+m -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+bb2:
+_t11 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+m -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+bb3:
+_t11 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+m -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+entry:
+m -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+
+>>>>>> matrices: complexRepr <<<<<<
+bb1:
+_t12 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+entry:
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+
+>>>>>> matrices: add <<<<<<
+bb1:
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+
+bb2:
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+
+bb3:
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+
+bb4:
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+
+entry:
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+
+
+>>>>>> matrices: printM <<<<<<
+bb1:
+_t2 -> (NegInf, PosInf)
+
+entry:
+
+
+>>>>>> matrices: neg <<<<<<
+bb1:
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+
+bb2:
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+
+entry:
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+
+
+>>>>>> matrices: assertEq <<<<<<
+bb1:
+_t1 -> [0, 1]
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+bb2:
+_t1 -> [0, 1]
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+entry:
+_t1 -> [0, 1]
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+
+>>>>>> matrices: trace <<<<<<
+bb1:
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+
+bb2:
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+
+entry:
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+
+
+>>>>>> matrices: mul <<<<<<
+bb1:
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+
+bb2:
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+
+bb3:
+_t11 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+
+entry:
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+
+
+>>>>>> matrices: I <<<<<<
+bb1:
+n -> (NegInf, PosInf)
+
+bb2:
+_t10 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+bb3:
+_t10 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+bb4:
+_t10 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+entry:
+n -> (NegInf, PosInf)
+
+
+>>>>>> matrices: main <<<<<<
+bb1:
+
+bb2:
+
+bb3:
+
+bb4:
+
+bb5:
+
+bb6:
+_t5 -> (NegInf, PosInf)
+
+bb7:
+_t5 -> (NegInf, PosInf)
+
+entry:
+
+
+──────────────────────────────────────────────── heap_array_based ─────────────────────────────────────────────────
+>>>>>> heap_array_based: mod <<<<<<
+entry:
+K -> (NegInf, PosInf)
+_t1 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+
+>>>>>> heap_array_based: percolateDown <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+i -> (NegInf, PosInf)
+
+bb10:
+K -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t22 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> (NegInf, PosInf)
+
+bb11:
+K -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t22 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> (NegInf, PosInf)
+
+bb12:
+K -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t22 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> (NegInf, PosInf)
+
+bb13:
+K -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t22 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> (NegInf, PosInf)
+
+bb14:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+
+bb15:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb16:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb17:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb18:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb19:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb20:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t50 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t53 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb21:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t50 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb22:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t52 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb23:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t50 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb24:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t50 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb25:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t50 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb26:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t50 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb27:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t52 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb28:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t52 -> (NegInf, PosInf)
+_t53 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb29:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t52 -> (NegInf, PosInf)
+_t53 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+i -> (NegInf, PosInf)
+
+bb30:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t52 -> (NegInf, PosInf)
+_t53 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb4:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> (NegInf, PosInf)
+
+bb5:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb6:
+K -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> (NegInf, PosInf)
+
+bb7:
+K -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t22 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> (NegInf, PosInf)
+
+bb8:
+K -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t22 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> (NegInf, PosInf)
+
+bb9:
+K -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t22 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> (NegInf, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+exit:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t18 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t22 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t34 -> (NegInf, PosInf)
+_t38 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> [0, 1]
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t50 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t53 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+current -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+
+>>>>>> heap_array_based: percolateUp <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t2 -> [0, 1]
+_t3 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb10:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t21 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t34 -> (NegInf, PosInf)
+_t35 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb11:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t21 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t34 -> (NegInf, PosInf)
+_t35 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb12:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t21 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t34 -> (NegInf, PosInf)
+_t35 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> [0, 1]
+_t3 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t2 -> [0, 1]
+_t3 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb4:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t21 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t34 -> (NegInf, PosInf)
+_t35 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb5:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t21 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t34 -> (NegInf, PosInf)
+_t35 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb6:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t21 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t34 -> (NegInf, PosInf)
+_t35 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb7:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t21 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t34 -> (NegInf, PosInf)
+_t35 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb8:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t21 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t34 -> (NegInf, PosInf)
+_t35 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb9:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t21 -> [0, 1]
+_t24 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t34 -> (NegInf, PosInf)
+_t35 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t2 -> [0, 1]
+_t3 -> [0, 1]
+i -> (NegInf, PosInf)
+
+
+>>>>>> heap_array_based: left <<<<<<
+entry:
+K -> (NegInf, PosInf)
+_t1 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+
+>>>>>> heap_array_based: swap <<<<<<
+entry:
+K -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+
+
+>>>>>> heap_array_based: exp2 <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [1, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [2, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [1, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+n -> [1, 1]
+
+
+>>>>>> heap_array_based: popMin <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+
+bb2:
+K -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+
+bb3:
+K -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+
+entry:
+K -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+
+exit:
+K -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+
+
+>>>>>> heap_array_based: main <<<<<<
+bb1:
+K -> [107, 107]
+i -> [0, 0]
+
+bb10:
+K -> (NegInf, PosInf)
+_t10 -> (NegInf, PosInf)
+_t11 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb4:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb5:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb6:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [1, PosInf)
+i -> [1, PosInf)
+
+bb7:
+K -> (NegInf, PosInf)
+_t10 -> (NegInf, PosInf)
+_t11 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb8:
+K -> (NegInf, PosInf)
+_t10 -> (NegInf, PosInf)
+_t11 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb9:
+K -> (NegInf, PosInf)
+_t10 -> (NegInf, PosInf)
+_t11 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [1, PosInf)
+i -> [0, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+i -> [0, 0]
+
+
+>>>>>> heap_array_based: log2 <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> [1, PosInf)
+_t3 -> (NegInf, PosInf)
+l -> [0, PosInf)
+n -> (NegInf, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> [1, PosInf)
+_t3 -> (NegInf, PosInf)
+l -> [1, PosInf)
+n -> (NegInf, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> [1, PosInf)
+_t3 -> (NegInf, PosInf)
+l -> [0, PosInf)
+n -> (NegInf, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+l -> [0, 0]
+n -> (NegInf, PosInf)
+
+
+>>>>>> heap_array_based: parent <<<<<<
+entry:
+K -> (NegInf, PosInf)
+_t1 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+
+>>>>>> heap_array_based: right <<<<<<
+entry:
+K -> (NegInf, PosInf)
+_t1 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+
+>>>>>> heap_array_based: insert <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+
+
+>>>>>> heap_array_based: findMin <<<<<<
+entry:
+K -> (NegInf, PosInf)
+
+
+>>>>>> heap_array_based: grow <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+
+bb2:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+
+
+>>>>>> heap_array_based: emptyHeap <<<<<<
+entry:
+K -> (NegInf, PosInf)
+
+
+──────────────────────────────────────────────── tortoise_and_hare ────────────────────────────────────────────────
+>>>>>> tortoise_and_hare: main <<<<<<
+bb1:
+_t1 -> [0, 1]
+_t7 -> (NegInf, 9]
+i -> (NegInf, 10]
+
+bb2:
+_t1 -> [0, 1]
+_t7 -> (NegInf, 9]
+i -> (NegInf, 9]
+
+bb3:
+_t1 -> [0, 1]
+_t7 -> (NegInf, 9]
+i -> (NegInf, 10]
+
+bb4:
+_t1 -> [0, 1]
+_t10 -> [0, 1]
+_t11 -> [0, 1]
+_t12 -> [0, 1]
+_t13 -> [0, 1]
+_t14 -> [0, 1]
+_t19 -> [0, 1]
+_t7 -> (NegInf, 9]
+i -> (NegInf, 10]
+
+bb5:
+_t1 -> [0, 1]
+_t10 -> [0, 1]
+_t11 -> [0, 1]
+_t12 -> [0, 1]
+_t13 -> [0, 1]
+_t14 -> [0, 1]
+_t19 -> [0, 1]
+_t7 -> (NegInf, 9]
+i -> (NegInf, 10]
+
+bb6:
+_t1 -> [0, 1]
+_t10 -> [0, 1]
+_t11 -> [0, 1]
+_t12 -> [0, 1]
+_t13 -> [0, 1]
+_t14 -> [0, 1]
+_t19 -> [0, 1]
+_t22 -> [0, 1]
+_t7 -> (NegInf, 9]
+i -> (NegInf, 10]
+
+bb7:
+_t1 -> [0, 1]
+_t10 -> [0, 1]
+_t11 -> [0, 1]
+_t12 -> [0, 1]
+_t13 -> [0, 1]
+_t14 -> [0, 1]
+_t19 -> [0, 1]
+_t7 -> (NegInf, 9]
+i -> (NegInf, 10]
+
+bb8:
+_t1 -> [0, 1]
+_t10 -> [0, 1]
+_t11 -> [0, 1]
+_t12 -> [0, 1]
+_t13 -> [0, 1]
+_t14 -> [0, 1]
+_t19 -> [0, 1]
+_t7 -> (NegInf, 9]
+i -> (NegInf, 10]
+
+entry:
+i -> [10, 10]
+
+
+────────────────────────────────────────────────── binary_trees ───────────────────────────────────────────────────
+>>>>>> binary_trees: log2 <<<<<<
+bb1:
+_t1 -> [0, 1]
+_t2 -> [1, PosInf)
+_t3 -> (NegInf, PosInf)
+l -> [0, PosInf)
+n -> (NegInf, PosInf)
+
+bb2:
+_t1 -> [0, 1]
+_t2 -> [1, PosInf)
+_t3 -> (NegInf, PosInf)
+l -> [1, PosInf)
+n -> (NegInf, PosInf)
+
+bb3:
+_t1 -> [0, 1]
+_t2 -> [1, PosInf)
+_t3 -> (NegInf, PosInf)
+l -> [0, PosInf)
+n -> (NegInf, PosInf)
+
+entry:
+l -> [0, 0]
+n -> (NegInf, PosInf)
+
+
+>>>>>> binary_trees: insert <<<<<<
+bb1:
+_t15 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb10:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb11:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb12:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb13:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb14:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb15:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb16:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb17:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb2:
+_t3 -> [0, 1]
+_t4 -> [0, 1]
+k -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb3:
+_t3 -> [0, 1]
+_t4 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb4:
+_t3 -> [0, 1]
+_t4 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb5:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb6:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb7:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb8:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+bb9:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+entry:
+_t3 -> [0, 1]
+k -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+exit:
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t20 -> [0, 1]
+_t21 -> (NegInf, PosInf)
+_t24 -> [0, 1]
+_t3 -> [0, 1]
+_t34 -> [0, 1]
+_t4 -> [0, 1]
+_t42 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+k -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+v -> (NegInf, PosInf)
+
+
+>>>>>> binary_trees: main <<<<<<
+bb1:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb2:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb3:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> [-2, PosInf)  /////////////////////
+i -> [-2, PosInf)  //////////////////////
+
+bb4:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+i -> [1, PosInf)
+
+bb5:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> (NegInf, PosInf) ////////////////////////
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb6:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> (NegInf, PosInf) ////////////////////////
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb7:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb8:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+entry:
+i -> [0, 0]
+
+
+>>>>>> binary_trees: mod <<<<<<
+entry:
+_t1 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+
+>>>>>> binary_trees: readAndRemove <<<<<<
+bb1:
+_t1 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb10:
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t3 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb11:
+_ret32 -> (NegInf, PosInf)
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb12:
+_ret32 -> (NegInf, PosInf)
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t3 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb13:
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t3 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb14:
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t3 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb2:
+_t1 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb3:
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb4:
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb5:
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb6:
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb7:
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb8:
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb9:
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+entry:
+_t1 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+exit:
+_ret32 -> (NegInf, PosInf)
+_t1 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t23 -> [0, 1]
+_t3 -> (NegInf, PosInf)
+_t31 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+
+>>>>>> binary_trees: exp2 <<<<<<
+bb1:
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [1, PosInf)
+
+bb2:
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [2, PosInf)
+
+bb3:
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [1, PosInf)
+
+entry:
+l -> (NegInf, PosInf)
+n -> [1, 1]
+
+
+>>>>>> binary_trees: getBit <<<<<<
+bb1:
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+bit -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+bb2:
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+bit -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+bb3:
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bit -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+entry:
+bit -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+
+───────────────────────────────────────────────── heap_ptr_based ──────────────────────────────────────────────────
+>>>>>> heap_ptr_based: main <<<<<<
+bb1:
+K -> [107, 107]
+i -> [0, 0]
+
+bb10:
+K -> (NegInf, PosInf)
+_t10 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [0, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [1, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> [0, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [0, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [0, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb4:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [0, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb5:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [0, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb6:
+K -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [0, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [1, PosInf)
+i -> [1, PosInf)
+
+bb7:
+K -> (NegInf, PosInf)
+_t10 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [0, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [1, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> [0, PosInf)
+
+bb8:
+K -> (NegInf, PosInf)
+_t10 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [0, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [1, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> [0, PosInf)
+
+bb9:
+K -> (NegInf, PosInf)
+_t10 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [0, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [1, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+i -> [0, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+i -> [0, 0]
+
+
+>>>>>> heap_ptr_based: emptyHeap <<<<<<
+entry:
+K -> (NegInf, PosInf)
+
+
+>>>>>> heap_ptr_based: percolateUp <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> [0, 1]
+_t15 -> [0, 1]
+_t17 -> (NegInf, PosInf)
+_t22 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> [0, 1]
+_t15 -> [0, 1]
+_t17 -> (NegInf, PosInf)
+_t22 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> [0, 1]
+_t15 -> [0, 1]
+_t17 -> (NegInf, PosInf)
+_t22 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+
+
+>>>>>> heap_ptr_based: getBit <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+bit -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+bit -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bit -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+bit -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+
+>>>>>> heap_ptr_based: insert <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb10:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb11:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb12:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb13:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb14:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb15:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb16:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t3 -> [0, 1]
+_t39 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t3 -> [0, 1]
+x -> (NegInf, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb4:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb5:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb6:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb7:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb8:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+bb9:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+_t3 -> [0, 1]
+x -> (NegInf, PosInf)
+
+exit:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t18 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t3 -> [0, 1]
+_t39 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+next -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+
+
+>>>>>> heap_ptr_based: mod <<<<<<
+entry:
+K -> (NegInf, PosInf)
+_t1 -> (NegInf, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> (NegInf, PosInf)
+a -> (NegInf, PosInf)
+b -> (NegInf, PosInf)
+
+
+>>>>>> heap_ptr_based: findMin <<<<<<
+entry:
+K -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+
+
+>>>>>> heap_ptr_based: percolateDown <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+
+bb10:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> [0, 1]
+_t34 -> [0, 1]
+_t36 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> [0, 1]
+_t45 -> (NegInf, PosInf)
+_t49 -> (NegInf, PosInf)
+_t50 -> [0, 1]
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+
+bb11:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> [0, 1]
+_t34 -> [0, 1]
+_t36 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> [0, 1]
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+
+bb12:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> [0, 1]
+_t34 -> [0, 1]
+_t36 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> [0, 1]
+_t45 -> (NegInf, PosInf)
+_t49 -> (NegInf, PosInf)
+_t50 -> [0, 1]
+_t52 -> (NegInf, PosInf)
+_t57 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t64 -> (NegInf, PosInf)
+_t69 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+bb13:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> [0, 1]
+_t34 -> [0, 1]
+_t36 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> [0, 1]
+_t45 -> (NegInf, PosInf)
+_t49 -> (NegInf, PosInf)
+_t50 -> [0, 1]
+_t52 -> (NegInf, PosInf)
+_t57 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+bb14:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> [0, 1]
+_t34 -> [0, 1]
+_t36 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> [0, 1]
+_t45 -> (NegInf, PosInf)
+_t49 -> (NegInf, PosInf)
+_t50 -> [0, 1]
+_t6 -> [0, 1]
+_t64 -> (NegInf, PosInf)
+_t69 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+bb15:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> [0, 1]
+_t34 -> [0, 1]
+_t36 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> [0, 1]
+_t45 -> (NegInf, PosInf)
+_t49 -> (NegInf, PosInf)
+_t50 -> [0, 1]
+_t52 -> (NegInf, PosInf)
+_t57 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+bb16:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> [0, 1]
+_t34 -> [0, 1]
+_t36 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> [0, 1]
+_t45 -> (NegInf, PosInf)
+_t49 -> (NegInf, PosInf)
+_t50 -> [0, 1]
+_t6 -> [0, 1]
+_t64 -> (NegInf, PosInf)
+_t69 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t6 -> [0, 1]
+
+bb3:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> [0, 1]
+_t34 -> [0, 1]
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+
+bb4:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+
+bb5:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+bb6:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+bb7:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+bb8:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> [0, 1]
+_t34 -> [0, 1]
+_t36 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> [0, 1]
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+
+bb9:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> [0, 1]
+_t34 -> [0, 1]
+_t36 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> [0, 1]
+_t6 -> [0, 1]
+_t9 -> [0, 1]
+
+entry:
+K -> (NegInf, PosInf)
+_t6 -> [0, 1]
+
+exit:
+K -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> [0, 1]
+_t34 -> [0, 1]
+_t36 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> [0, 1]
+_t45 -> (NegInf, PosInf)
+_t49 -> (NegInf, PosInf)
+_t50 -> [0, 1]
+_t52 -> (NegInf, PosInf)
+_t57 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t64 -> (NegInf, PosInf)
+_t69 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+tmp -> (NegInf, PosInf)
+
+
+>>>>>> heap_ptr_based: popMin <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+min -> (NegInf, PosInf)
+
+bb10:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb11:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb12:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t34 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb13:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t34 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb14:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t34 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb15:
+K -> (NegInf, PosInf)
+_ret48 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t34 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_ret48 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+min -> (NegInf, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb4:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb5:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb6:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb7:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t34 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb8:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+bb9:
+K -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+min -> (NegInf, PosInf)
+
+exit:
+K -> (NegInf, PosInf)
+_ret48 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t14 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t34 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+bits -> (NegInf, PosInf)
+depth -> (NegInf, PosInf)
+min -> (NegInf, PosInf)
+
+
+>>>>>> heap_ptr_based: log2 <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> [1, PosInf)
+_t3 -> (NegInf, PosInf)
+l -> [0, PosInf)
+n -> (NegInf, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> [1, PosInf)
+_t3 -> (NegInf, PosInf)
+l -> [1, PosInf)
+n -> (NegInf, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> [1, PosInf)
+_t3 -> (NegInf, PosInf)
+l -> [0, PosInf)
+n -> (NegInf, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+l -> [0, 0]
+n -> (NegInf, PosInf)
+
+
+>>>>>> heap_ptr_based: exp2 <<<<<<
+bb1:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [1, PosInf)
+
+bb2:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [2, PosInf)
+
+bb3:
+K -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [1, PosInf)
+
+entry:
+K -> (NegInf, PosInf)
+l -> (NegInf, PosInf)
+n -> [1, 1]
+
+
+───────────────────────────────────────────── lambda_array_of_fn_ptrs ─────────────────────────────────────────────
+>>>>>> lambda_array_of_fn_ptrs: evalP <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+bb2:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: printI <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: evalL <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: init <<<<<<
+entry:
+ADD -> [4, 4]
+APP -> [1, 1]
+CLO -> [2, 2]
+CONST -> [3, 3]
+LAM -> [2, 2]
+NUM -> [1, 1]
+VAR -> [0, 0]
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: printV <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t17 -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t20 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb10:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t17 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb11:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t17 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb12:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t17 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb2:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> [-1, -1]
+indent -> (NegInf, PosInf)
+
+bb3:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+bb4:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t2 -> [-1, -1]
+indent -> (NegInf, PosInf)
+
+bb5:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb6:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb7:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb8:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb9:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t17 -> (NegInf, PosInf)
+_t20 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+_t8 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: var <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: main <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb10:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb11:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb12:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb13:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb14:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb15:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb16:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb17:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb18:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb2:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb3:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb4:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb5:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb6:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb7:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb8:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+bb9:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [-1, -1]
+_t4 -> [-2, -2]
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: evalN <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: bind <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: lookup <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb2:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb3:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> [-1, -1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb4:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb5:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+exit:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> [0, 1]
+_t10 -> [-1, -1]
+_t4 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: eval <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t1 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: evalA <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+bb2:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+bb3:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+bb4:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: const <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+n -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: add <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: apply <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: lambda <<<<<<
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: evalX <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+
+>>>>>> lambda_array_of_fn_ptrs: printE <<<<<<
+bb1:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+indent -> (NegInf, PosInf)
+
+bb10:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb11:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb12:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb13:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb14:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t35 -> (NegInf, PosInf)
+_t36 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb15:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb16:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb17:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb18:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t35 -> (NegInf, PosInf)
+_t36 -> [0, 1]
+_t38 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb19:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t35 -> (NegInf, PosInf)
+_t36 -> [0, 1]
+_t38 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb2:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t3 -> [-1, -1]
+indent -> (NegInf, PosInf)
+
+bb20:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t31 -> (NegInf, PosInf)
+_t35 -> (NegInf, PosInf)
+_t36 -> [0, 1]
+_t38 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb3:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t3 -> [-1, -1]
+indent -> (NegInf, PosInf)
+
+bb4:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb5:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t2 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb6:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb7:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb8:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+bb9:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+entry:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_t2 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+exit:
+ADD -> (NegInf, PosInf)
+APP -> (NegInf, PosInf)
+CLO -> (NegInf, PosInf)
+CONST -> (NegInf, PosInf)
+LAM -> (NegInf, PosInf)
+NUM -> (NegInf, PosInf)
+VAR -> (NegInf, PosInf)
+_lo1 -> [0, 1]
+_t13 -> (NegInf, PosInf)
+_t15 -> (NegInf, PosInf)
+_t16 -> [0, 1]
+_t17 -> [0, 1]
+_t19 -> (NegInf, PosInf)
+_t2 -> [0, 1]
+_t20 -> [0, 1]
+_t26 -> (NegInf, PosInf)
+_t27 -> [0, 1]
+_t3 -> [-1, -1]
+_t31 -> (NegInf, PosInf)
+_t35 -> (NegInf, PosInf)
+_t36 -> [0, 1]
+_t38 -> (NegInf, PosInf)
+_t39 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [0, 1]
+indent -> (NegInf, PosInf)
+
+
+────────────────────────────────────────────────────── draw ───────────────────────────────────────────────────────
+>>>>>> draw: mkCanvas <<<<<<
+bb1:
+_t1 -> [0, 1]
+_t4 -> [1, PosInf)
+i -> [0, PosInf)
+x -> (NegInf, PosInf)
+y -> (NegInf, PosInf)
+
+bb2:
+_t1 -> [0, 1]
+_t4 -> [1, PosInf)
+i -> [1, PosInf)
+x -> (NegInf, PosInf)
+y -> (NegInf, PosInf)
+
+bb3:
+_t1 -> [0, 1]
+_t4 -> [1, PosInf)
+i -> [0, PosInf)
+x -> (NegInf, PosInf)
+y -> (NegInf, PosInf)
+
+entry:
+i -> [0, 0]
+x -> (NegInf, PosInf)
+y -> (NegInf, PosInf)
+
+
+>>>>>> draw: main <<<<<<
+bb1:
+i -> [0, 0]
+
+bb10:
+_t14 -> [0, 1]
+_t21 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb11:
+_t14 -> [0, 1]
+_t21 -> [1, PosInf)
+i -> [1, PosInf)
+
+bb12:
+_t14 -> [0, 1]
+_t21 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb2:
+i -> [0, 0]
+
+bb3:
+i -> [0, 0]
+
+bb4:
+i -> [0, 0]
+
+bb5:
+i -> [0, 0]
+
+bb6:
+i -> [0, 0]
+
+bb7:
+i -> [0, 0]
+
+bb8:
+_t14 -> [0, 1]
+_t21 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb9:
+_t14 -> [0, 1]
+_t21 -> [1, PosInf)
+i -> [0, PosInf)
+
+entry:
+i -> [0, 0]
+
+
+>>>>>> draw: drawRectangle <<<<<<
+bb1:
+_lo1 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [0, 0]
+j -> [0, 0]
+
+bb10:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [1, PosInf)
+j -> [0, PosInf)
+
+bb11:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [1, PosInf)
+
+bb12:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [1, PosInf)
+
+bb13:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [1, PosInf)
+j -> [0, PosInf)
+
+bb14:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [1, PosInf)
+j -> [0, PosInf)
+
+bb2:
+_lo1 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [0, 0]
+j -> [0, 0]
+
+bb3:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, PosInf)
+
+bb4:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, 0]
+
+bb5:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, PosInf)
+
+bb6:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, 0]
+
+bb7:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, 0]
+
+bb8:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, PosInf)
+
+bb9:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t11 -> (NegInf, PosInf)
+_t12 -> [0, 1]
+_t14 -> (NegInf, PosInf)
+_t15 -> [0, 1]
+_t16 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> (NegInf, PosInf)
+_t21 -> (NegInf, PosInf)
+_t22 -> [0, 1]
+_t27 -> (NegInf, PosInf)
+_t28 -> (NegInf, PosInf)
+_t32 -> (NegInf, PosInf)
+_t33 -> (NegInf, PosInf)
+_t34 -> [1, PosInf)
+_t36 -> (NegInf, PosInf)
+_t37 -> [0, 1]
+_t38 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> [0, 1]
+_t45 -> [1, PosInf)
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> [0, 1]
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t6 -> [0, 1]
+_t8 -> (NegInf, PosInf)
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [1, PosInf)
+
+entry:
+_lo1 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> [0, 1]
+i -> [0, 0]
+j -> [0, 0]
+
+
+>>>>>> draw: circle <<<<<<
+entry:
+r -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+y -> (NegInf, PosInf)
+
+
+>>>>>> draw: drawCircle <<<<<<
+bb1:
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb10:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb11:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb12:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb13:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb14:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb15:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb16:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb17:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb18:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb2:
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb3:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb4:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb5:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb6:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb7:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb8:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+bb9:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> [0, 1]
+_t15 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> [0, 1]
+_t18 -> (NegInf, PosInf)
+_t19 -> [0, 1]
+_t20 -> [0, 1]
+_t22 -> (NegInf, PosInf)
+_t23 -> (NegInf, PosInf)
+_t25 -> (NegInf, PosInf)
+_t26 -> [0, 1]
+_t28 -> (NegInf, PosInf)
+_t29 -> (NegInf, PosInf)
+_t30 -> [0, 1]
+_t35 -> (NegInf, PosInf)
+_t36 -> (NegInf, PosInf)
+_t4 -> (NegInf, PosInf)
+_t40 -> (NegInf, PosInf)
+_t41 -> (NegInf, PosInf)
+_t42 -> (NegInf, PosInf)
+_t43 -> (NegInf, PosInf)
+_t44 -> (NegInf, PosInf)
+_t45 -> (NegInf, PosInf)
+_t46 -> [0, 1]
+_t47 -> (NegInf, PosInf)
+_t48 -> [0, 1]
+_t49 -> [0, 1]
+_t5 -> (NegInf, PosInf)
+_t51 -> (NegInf, PosInf)
+_t52 -> (NegInf, PosInf)
+_t54 -> (NegInf, PosInf)
+_t55 -> [0, 1]
+_t56 -> (NegInf, PosInf)
+_t57 -> [0, 1]
+_t58 -> [0, 1]
+_t6 -> [0, 1]
+_t60 -> (NegInf, PosInf)
+_t61 -> (NegInf, PosInf)
+_t63 -> (NegInf, PosInf)
+_t64 -> [0, 1]
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+j -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+entry:
+_lo1 -> [0, 1]
+_t4 -> (NegInf, PosInf)
+_t5 -> (NegInf, PosInf)
+_t6 -> [0, 1]
+_t7 -> [0, 1]
+i -> (NegInf, PosInf)
+r -> (NegInf, PosInf)
+
+
+>>>>>> draw: printCanvas <<<<<<
+bb1:
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+i -> [0, 0]
+j -> [0, PosInf)
+
+bb10:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [2, PosInf)
+_t18 -> [1, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [2, PosInf)
+
+bb11:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [1, PosInf)
+_t18 -> [1, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, PosInf)
+
+bb12:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [1, PosInf)
+_t18 -> [1, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, PosInf)
+
+bb13:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [1, PosInf)
+_t18 -> [1, PosInf)
+_t2 -> (NegInf, PosInf)
+_t20 -> (NegInf, PosInf)
+_t21 -> [0, 1]
+_t22 -> [1, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, PosInf)
+
+bb14:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [1, PosInf)
+_t18 -> [1, PosInf)
+_t2 -> (NegInf, PosInf)
+_t20 -> (NegInf, PosInf)
+_t21 -> [0, 1]
+_t22 -> [1, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [1, PosInf)
+
+bb15:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [1, PosInf)
+_t18 -> [1, PosInf)
+_t2 -> (NegInf, PosInf)
+_t20 -> (NegInf, PosInf)
+_t21 -> [0, 1]
+_t22 -> [1, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, PosInf)
+
+bb2:
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+i -> [0, 0]
+j -> [1, PosInf)
+
+bb3:
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+i -> [0, 0]
+j -> [0, PosInf)
+
+bb4:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [1, PosInf)
+_t18 -> [1, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, PosInf)
+
+bb5:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [1, PosInf)
+_t18 -> [1, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, 0]
+
+bb6:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [1, PosInf)
+_t18 -> [1, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, 0]
+
+bb7:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [1, PosInf)
+_t18 -> [1, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, PosInf)
+
+bb8:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [1, PosInf)
+_t18 -> [1, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [0, PosInf)
+j -> [0, PosInf)
+
+bb9:
+_t10 -> [0, 1]
+_t16 -> (NegInf, PosInf)
+_t17 -> [1, PosInf)
+_t18 -> [2, PosInf)
+_t2 -> (NegInf, PosInf)
+_t3 -> [0, 1]
+_t4 -> [1, PosInf)
+_t6 -> (NegInf, PosInf)
+_t7 -> [0, 1]
+_t9 -> (NegInf, PosInf)
+i -> [2, PosInf)
+j -> [0, PosInf)
+
+entry:
+i -> [0, 0]
+j -> [0, 0]
+
+
+>>>>>> draw: rectangle <<<<<<
+entry:
+h -> (NegInf, PosInf)
+w -> (NegInf, PosInf)
+x -> (NegInf, PosInf)
+y -> (NegInf, PosInf)
+
+

@@ -1,0 +1,270 @@
+loop headers: {"bb1", "bb5"}
+Executing block (entry)
+bb1 is a loop header
+After widening: 
+i -> [0, 0]
+
+	 store bb1 to be changed (after executing entry), pushed to worklist
+Executing block (bb1)
+bb1 store (after executing)_t1 -> [1, 1]
+i -> [0, 0]
+
+	 store bb2 to be changed (after executing bb1), pushed to worklist
+Executing block (bb2)
+	 store bb4 to be changed (after executing bb2), pushed to worklist
+Executing block (bb4)
+bb1 is a loop header
+After widening: 
+_t1 -> [1, 1]
+_t2 -> [0, 0]
+_t3 -> [1, 1]
+i -> [0, PosInf)
+
+	 store bb1 to be changed (after executing bb4), pushed to worklist
+Executing block (bb1)
+bb1 store (after executing)_t1 -> [0, 1]
+_t2 -> [0, 0]
+_t3 -> [1, 1]
+i -> [0, PosInf)
+
+______ in duplicate _____
+Executing block (bb2)
+------ duplicate ------
+	 store bb2 to be changed (after executing bb1), pushed to worklist
+	 store bb3 to be changed (after executing bb1), pushed to worklist
+Executing block (bb2)
+______ in duplicate _____
+Executing block (bb4)
+------ duplicate ------
+	 store bb4 to be changed (after executing bb2), pushed to worklist
+Executing block (bb3)
+executing bb3
+bb3 store (before)_t1 -> [0, 1]
+_t2 -> [0, 0]
+_t3 -> [1, 1]
+i -> [0, PosInf)
+
+bb3 store (after)_t1 -> [0, 1]
+_t2 -> [0, 0]
+_t3 -> [1, 1]
+_t4 -> [-1, PosInf)
+i -> [-1, PosInf)
+
+bb5 is a loop header
+After widening: 
+_t1 -> [0, 1]
+_t2 -> [0, 0]
+_t3 -> [1, 1]
+_t4 -> [-1, PosInf)
+i -> [-1, PosInf)
+
+	 store bb5 to be changed (after executing bb3), pushed to worklist
+Executing block (bb4)
+bb1 is a loop header
+After widening: 
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+i -> [0, PosInf)
+
+______ in duplicate _____
+Executing block (bb1)
+------ duplicate ------
+	 store bb1 to be changed (after executing bb4), pushed to worklist
+Executing block (bb5)
+	 store bb6 to be changed (after executing bb5), pushed to worklist
+	 store bb7 to be changed (after executing bb5), pushed to worklist
+Executing block (bb1)
+bb1 store (after executing)_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+i -> [0, PosInf)
+
+______ in duplicate _____
+Executing block (bb2)
+------ duplicate ------
+	 store bb2 to be changed (after executing bb1), pushed to worklist
+______ in duplicate _____
+Executing block (bb3)
+executing bb3
+bb3 store (before)_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> [-1, PosInf)
+i -> [-1, PosInf)
+
+bb3 store (after)_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> [-2, PosInf)
+i -> [-2, PosInf)
+
+------ duplicate ------
+	 store bb3 to be changed (after executing bb1), pushed to worklist
+Executing block (bb6)
+	 store bb8 to be changed (after executing bb6), pushed to worklist
+Executing block (bb7)
+Executing block (bb2)
+______ in duplicate _____
+Executing block (bb4)
+------ duplicate ------
+Executing block (bb3)
+executing bb3
+bb3 store (before)_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> [-1, PosInf)
+i -> [-1, PosInf)
+
+bb3 store (after)_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> [-2, PosInf)
+i -> [-2, PosInf)
+
+bb5 is a loop header
+After widening: 
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+i -> (NegInf, PosInf)
+
+______ in duplicate _____
+Executing block (bb5)
+------ duplicate ------
+	 store bb5 to be changed (after executing bb3), pushed to worklist
+Executing block (bb8)
+bb5 is a loop header
+After widening: 
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t7 -> [-2, PosInf)
+i -> (NegInf, PosInf)
+
+	 store bb5 to be changed (after executing bb8), pushed to worklist
+Executing block (bb5)
+______ in duplicate _____
+Executing block (bb6)
+------ duplicate ------
+	 store bb6 to be changed (after executing bb5), pushed to worklist
+______ in duplicate _____
+Executing block (bb7)
+------ duplicate ------
+	 store bb7 to be changed (after executing bb5), pushed to worklist
+Executing block (bb5)
+______ in duplicate _____
+Executing block (bb6)
+------ duplicate ------
+______ in duplicate _____
+Executing block (bb7)
+------ duplicate ------
+Executing block (bb6)
+______ in duplicate _____
+Executing block (bb8)
+------ duplicate ------
+	 store bb8 to be changed (after executing bb6), pushed to worklist
+Executing block (bb7)
+Executing block (bb8)
+bb5 is a loop header
+After widening: 
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+______ in duplicate _____
+Executing block (bb5)
+------ duplicate ------
+	 store bb5 to be changed (after executing bb8), pushed to worklist
+Executing block (bb5)
+______ in duplicate _____
+Executing block (bb6)
+------ duplicate ------
+	 store bb6 to be changed (after executing bb5), pushed to worklist
+______ in duplicate _____
+Executing block (bb7)
+------ duplicate ------
+	 store bb7 to be changed (after executing bb5), pushed to worklist
+Executing block (bb6)
+______ in duplicate _____
+Executing block (bb8)
+------ duplicate ------
+Executing block (bb7)
+bb1:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb2:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+i -> [0, PosInf)
+
+bb3:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> [-2, PosInf)
+i -> [-2, PosInf)
+
+bb4:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+i -> [1, PosInf)
+
+bb5:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb6:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb7:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+bb8:
+_t1 -> [0, 1]
+_t2 -> [0, PosInf)
+_t3 -> [1, PosInf)
+_t4 -> (NegInf, PosInf)
+_t5 -> [0, 1]
+_t6 -> (NegInf, PosInf)
+_t7 -> (NegInf, PosInf)
+i -> (NegInf, PosInf)
+
+entry:
+i -> [0, 0]
+

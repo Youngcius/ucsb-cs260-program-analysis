@@ -4,6 +4,7 @@ use std::collections::HashMap;
 #[allow(unused_variables)]
 use serde::{Deserialize, Serialize};
 use serde_json;
+use std::ops::{Add, Div, Mul, Sub};
 
 #[derive(Deserialize, Serialize, Debug)]
 // #[serde(untagged)]
@@ -149,4 +150,238 @@ fn main() {
     #[cfg(debug_assertions)]
     println!("debug mode");
     println!("normal mode");
+
+    println!("i32::MAX: {}", i32::MAX); // 2147483647
+    println!("i32::MIN: {}", i32::MIN); // -2147483648
+                                        // println!("i32::MAX + 1: {}", i32::MAX + 1); // -2147483648
+    println!("i32::MAX / 2 + 1: {}", i32::MAX / 2 + 1); // 1073741824
+    println!("i32::MIN / 2: {}", i32::MIN / 2); // -1073741824
+
+    let inf = f64::INFINITY;
+    let ninf = f64::NEG_INFINITY;
+
+    println!("inf: {}", inf); // inf
+    println!("ninf: {}", ninf); // -inf
+
+    println!("inf + 1: {}", inf + 1.0); // inf
+
+    println!("inf > 1000000: {}", inf > 1000000.0); // true
+
+    println!("0 / inf: {}", 0.0 / inf); // 0
+
+    println!("inf / 0: {}", inf / 0.0); // inf
+
+    println!("inf / inf: {}", inf / inf); // nan
+
+    println!("inf + ninf: {}", inf + ninf); // nan
+
+    // println!("0 / 0: {}", 0 / 0); // thread 'main' panicked at 'attempt to divide by zero', src/main.rs:123:5
+    // println!("10 / 0: {}", 10 / 0); // thread 'main' panicked at 'attempt to divide by zero', src/main.rs:123:5
+
+    println!();
+    println!("---------------------------------------------------------------");
+    println!();
+
+    let n0 = Number::Integer(0);
+    let n1m = Number::Integer(-1);
+    let n10 = Number::Integer(10);
+    let n20 = Number::Integer(20);
+    let n11m = Number::Integer(-11);
+    let n15m = Number::Integer(-15);
+    let inf = Number::Infinity;
+    let ninf = Number::NInfinity;
+
+    let mut v = vec![n0.clone(), n1m.clone(), n10.clone(), n20.clone(), n11m.clone(), n15m.clone(), inf.clone(), ninf.clone()];
+    v.sort();
+
+    println!("v: {:?}", v); // [NegInf, -15, -11, -1, 0, 10, 20, PosInf]
+
+
+    // test add operation of Number
+    println!();
+    println!("n10 + n20: {}", n10.clone() + n20.clone()); // 30
+    println!("n10 + n11m: {}", n10.clone() + n11m.clone()); // -1
+    println!("n10 + inf: {}", n10.clone() + inf.clone()); // PosInf
+    println!("n10 + ninf: {}", n10.clone() + ninf.clone()); // NegInf
+    // println!("inf + ninf: {}", inf.clone() + ninf.clone()); // PosInf
+
+    // test sub operation of Number
+    println!();
+    println!("n10 - n20: {}", n10.clone() - n20.clone()); // -10
+    println!("n10 - n11m: {}", n10.clone() - n11m.clone()); // 21
+    println!("n10 - inf: {}", n10.clone() - inf.clone()); // NegInf
+    println!("n10 - ninf: {}", n10.clone() - ninf.clone()); // PosInf
+    println!("inf - ninf: {}", inf.clone() - ninf.clone()); // PosInf
+    println!("ninf - inf: {}", ninf.clone() - inf.clone()); // NegInf
+
+    // test mul operation of Number
+    println!();
+    println!("n10 * n20: {}", n10.clone() * n20.clone()); // 200
+    println!("n10 * n11m: {}", n10.clone() * n11m.clone()); // -110
+    println!("n10 * inf: {}", n10.clone() * inf.clone()); // PosInf
+    println!("n10 * ninf: {}", n10.clone() * ninf.clone()); // NegInf
+    println!("inf * ninf: {}", inf.clone() * ninf.clone()); // NegInf
+    println!("ninf * inf: {}", ninf.clone() * inf.clone()); // NegInf
+    println!("n0 * inf: {}", n0.clone() * inf.clone()); // 0
+    println!("n0 * ninf: {}", n0.clone() * ninf.clone()); // 0
+
+    // test div operation of Number
+    println!();
+    println!("n10 / n20: {}", n10.clone() / n20.clone()); // 0
+    println!("n10 / n11m: {}", n10.clone() / n11m.clone()); // 0
+    println!("n10 / inf: {}", n10.clone() / inf.clone()); // 0
+    println!("n10 / ninf: {}", n10.clone() / ninf.clone()); // 0
+    println!("inf / n10: {}", inf.clone() / n10.clone()); // PosInf
+    println!("ninf / n10: {}", ninf.clone() / n10.clone()); // NegInf
+    // println!("inf / inf: {}", inf.clone() / inf.clone()); // PosInf
+    // println!("ninf / ninf: {}", ninf.clone() / ninf.clone()); // PosInf
+    println!("n0 / inf: {}", n0.clone() / inf.clone()); // 0
+    println!("n0 / ninf: {}", n0.clone() / ninf.clone()); // 0
+    // println!("inf / 0: {}", inf.clone() / n0.clone()); // 0
+
+    // test cmp operation
+    println!();
+    println!("n10 == n20: {}", n10 == n20); // false
+    println!("n10 == n10: {}", n10 == n10); // true
+    println!("n10 != n20: {}", n10 != n20); // true
+    println!("n10 < inf: {}", n10 < inf); // true
+    println!("n10 > ninf: {}", n10 > ninf); // true
+    println!("ninf < inf: {}", ninf <= inf); // true
+    println!("inf >= ninf: {}", inf >= ninf); // true
+
+
+    println!("inf / (-1): {}", inf / n1m.clone()); // NegInf
+    println!("ninf / (-1): {}", ninf / n1m.clone()); // PosInf
+
+
+
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+pub enum Number {
+    NInfinity,
+    Integer(i32),
+    Infinity,
+}
+
+impl std::fmt::Display for Number {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Number::Integer(x) => write!(f, "{}", x),
+            Number::Infinity => write!(f, "PosInf"),
+            Number::NInfinity => write!(f, "NegInf"),
+        }
+    }
+}
+
+impl Add for Number {
+    type Output = Number;
+
+    fn add(self, other: Number) -> Number {
+        match (self, other) {
+            (Number::Integer(x), Number::Integer(y)) => Number::Integer(x + y),
+            (Number::Infinity, Number::Integer(_)) => Number::Infinity,
+            (Number::Integer(_), Number::Infinity) => Number::Infinity,
+            (Number::NInfinity, Number::Integer(_)) => Number::NInfinity,
+            (Number::Integer(_), Number::NInfinity) => Number::NInfinity,
+            (Number::Infinity, Number::Infinity) => Number::Infinity,
+            (Number::NInfinity, Number::NInfinity) => Number::NInfinity,
+            _ => panic!("Addition of infinities is undefined"),
+        }
+    }
+}
+
+impl Sub for Number {
+    type Output = Number;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        match (self, rhs) {
+            (Number::Integer(x), Number::Integer(y)) => Number::Integer(x - y),
+            (Number::Infinity, Number::Integer(_)) => Number::Infinity,
+            (Number::Integer(_), Number::Infinity) => Number::NInfinity,
+            (Number::NInfinity, Number::Integer(_)) => Number::NInfinity,
+            (Number::Integer(_), Number::NInfinity) => Number::Infinity,
+            (Number::Infinity, Number::NInfinity) => Number::Infinity,
+            (Number::NInfinity, Number::Infinity) => Number::NInfinity,
+            _ => panic!("Subtraction of infinities is undefined"),
+        }
+    }
+}
+
+impl Mul for Number {
+    type Output = Number;
+
+    fn mul(self, rhs: Self) -> Self::Output {
+        match (self, rhs) {
+            (_, Number::Integer(0)) => Number::Integer(0),
+            (Number::Integer(0), _) => Number::Integer(0),
+            (Number::Integer(x), Number::Integer(y)) => Number::Integer(x * y),
+            (Number::Infinity, Number::Integer(x)) => {
+                if x >= 0 {
+                    Number::Infinity
+                } else {
+                    Number::NInfinity
+                }
+            }
+            (Number::Integer(x), Number::Infinity) => {
+                if x >= 0 {
+                    Number::Infinity
+                } else {
+                    Number::NInfinity
+                }
+            }
+            (Number::NInfinity, Number::Integer(x)) => {
+                if x >= 0 {
+                    Number::NInfinity
+                } else {
+                    Number::Infinity
+                }
+            }
+            (Number::Integer(x), Number::NInfinity) => {
+                if x >= 0 {
+                    Number::NInfinity
+                } else {
+                    Number::Infinity
+                }
+            }
+            (Number::Infinity, Number::Infinity) => Number::Infinity,
+            (Number::NInfinity, Number::NInfinity) => Number::Infinity,
+            (Number::Infinity, Number::NInfinity) => Number::NInfinity,
+            (Number::NInfinity, Number::Infinity) => Number::NInfinity,
+        }
+    }
+}
+
+impl Div for Number {
+    type Output = Number;
+
+    fn div(self, other: Number) -> Number {
+        match (self, other) {
+            (Number::Integer(x), Number::Integer(0)) => {
+                if x >= 0 {
+                    Number::Infinity
+                } else {
+                    Number::NInfinity
+                }
+            }
+            (Number::Infinity, Number::Integer(x)) => {
+                if x >= 0 {
+                    Number::Infinity
+                } else {
+                    Number::NInfinity
+                }
+            }
+            (Number::NInfinity, Number::Integer(x)) => {
+                if x >= 0 {
+                    Number::NInfinity
+                } else {
+                    Number::Infinity
+                }
+            }
+            (Number::Integer(_), Number::Infinity) => Number::Integer(0),
+            (Number::Integer(_), Number::NInfinity) => Number::Integer(0),
+            (Number::Integer(x), Number::Integer(y)) => Number::Integer(x / y),
+            _ => panic!("Division of infinities is undefined"),
+        }
+    }
 }

@@ -93,6 +93,28 @@ where
 pub type ConstantStore = Store<domain::Constant>;
 pub type IntervalStore = Store<domain::Interval>;
 
+impl IntervalStore {
+    pub fn widen(&self, other: &Self) -> Self {
+        let mut res = Self::new();
+        // insert all <k,v> from self to res
+        for (var, domain) in self.status.iter() {
+            res.status.insert(var.clone(), domain.clone());
+        }
+        // widen/insert all <k,v> from other to res
+        for (var, domain) in other.status.iter() {
+            if res.status.contains_key(var) {
+                // widen
+                res.status
+                    .insert(var.clone(), res.status.get(var).unwrap().widen(domain));
+            } else {
+                // insert
+                res.status.insert(var.clone(), domain.clone());
+            }
+        }
+        res
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;

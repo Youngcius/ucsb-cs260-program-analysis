@@ -1,5 +1,8 @@
 use crate::lir;
-use std::collections::{HashMap, HashSet};
+use std::{
+    collections::{HashMap, HashSet},
+    io::StderrLock,
+};
 
 #[derive(Debug, Clone)]
 pub struct ControlFlowGraph {
@@ -202,6 +205,58 @@ impl ControlFlowGraph {
         result.insert(label.clone(), order);
     }
 
+    pub fn get_loop_headers(&self) -> HashSet<String> {
+        // detect loop headers in the CFG
+        let mut loop_headers = HashSet::new();
+        let mut visited = HashSet::new();
+        let mut stack = Vec::new();
+        let mut in_current_path = HashSet::new();
+
+        let entry_label = "entry".to_string();
+        self.dfs_loop_headers(
+            &entry_label,
+            &mut visited,
+            &mut stack,
+            &mut in_current_path,
+            &mut loop_headers,
+        );
+
+        for (src, _) in &self.edges {
+            if !visited.contains(src) {
+                self.dfs_loop_headers(
+                    src,
+                    &mut visited,
+                    &mut stack,
+                    &mut in_current_path,
+                    &mut loop_headers,
+                );
+            }
+        }
+        loop_headers
+    }
+    
+    pub fn dfs_loop_headers(
+        &self,
+        label: &String,
+        visited: &mut HashSet<String>,
+        stack: &mut Vec<String>,
+        in_current_path: &mut HashSet<String>,
+        loop_headers: &mut HashSet<String>,
+    ) {
+        visited.insert(label.clone());
+        stack.push(label.clone());
+        in_current_path.insert(label.clone());
+        for succ_label in self.get_successor_labels(label) {
+            if !visited.contains(&succ_label) {
+                self.dfs_loop_headers(&succ_label, visited, stack, in_current_path, loop_headers);
+            } else if in_current_path.contains(&succ_label) {
+                loop_headers.insert(succ_label.clone());
+            }
+        }
+        in_current_path.remove(label);
+        stack.pop();
+    }
+
     pub fn to_sequence(&self) -> Vec<lir::Block> {
         // convert nodes.values() to a sequence according to topological order of this CFG
         let mut result: Vec<lir::Block> = Vec::new();
@@ -322,4 +377,68 @@ mod test {
 
         cfg
     }
+
+    #[test]
+    fn test_detect_loop_headers() {
+        let mut cfg = ControlFlowGraph::new();
+        let block0 = lir::Block::new("block0", &lir::Terminal::Jump("block1".to_string()));
+        let block1 = lir::Block::new("block1", &lir::Terminal::Jump("block2".to_string()));
+        let block2 = lir::Block::new("block2", &lir::Terminal::Jump("block3".to_string()));
+        let block3 = lir::Block::new("block3", &lir::Terminal::Jump("block1".to_string()));
+        let block4 = lir::Block::new("block4", &lir::Terminal::Jump("block5".to_string()));
+        let block5 = lir::Block::new("block5", &lir::Terminal::Jump("block4".to_string()));
+        let block6 = lir::Block::new("block6", &lir::Terminal::Jump("block6".to_string()));
+
+        let label0 = "bb0".to_string();
+        let label1 = "bb1".to_string();
+        let label2 = "bb2".to_string();
+        let label3 = "bb3".to_string();
+        let label4 = "bb4".to_string();
+        let label5 = "bb5".to_string();
+        let label6 = "bb6".to_string();
+
+        cfg.nodes.insert(label0.clone(), block0.clone());
+        cfg.nodes.insert(label1.clone(), block1.clone());
+        cfg.nodes.insert(label2.clone(), block2.clone());
+        cfg.nodes.insert(label3.clone(), block3.clone());
+        cfg.nodes.insert(label4.clone(), block4.clone());
+        cfg.nodes.insert(label5.clone(), block5.clone());
+        cfg.nodes.insert(label6.clone(), block6.clone());
+
+        cfg.edges.push((label0.clone(), label1.clone()));
+        cfg.edges.push((label1.clone(), label2.clone()));
+        cfg.edges.push((label2.clone(), label1.clone()));
+        cfg.edges.push((label2.clone(), label3.clone()));
+        cfg.edges.push((label3.clone(), label4.clone()));
+        cfg.edges.push((label4.clone(), label5.clone()));
+        cfg.edges.push((label5.clone(), label4.clone()));
+        cfg.edges.push((label4.clone(), label6.clone()));
+
+        let loop_headers = cfg.get_loop_headers();
+
+        println!("Loop headers: {:?}", loop_headers);
+
+        assert_eq!(
+            loop_headers,
+            HashSet::from_iter(vec!["bb1".to_string(), "bb4".to_string()])
+        );
+    }
+
+    // #[test]
+    // fn multiple_detecting(){
+    //     let mut res = HashMap::new();
+    //     res.insert("bb1".to_string(), 0);
+    //     res.insert("bb2".to_string(), 0);
+    //     for _ in 0..100 {
+    //         let loop_headers = test_detect_loop_headers();
+    //         println!("Loop headers: {:?}", loop_headers);
+    //         if loop_headers.contains(&"bb1".to_string()) {
+    //             res.insert("bb1".to_string(), res.get("bb1").unwrap() + 1);
+    //         }
+    //         if loop_headers.contains(&"bb2".to_string()) {
+    //             res.insert("bb2".to_string(), res.get("bb2").unwrap() + 1);
+    //         }
+    //     }
+    //     println!("bb1: {}, bb2: {}", res.get("bb1").unwrap(), res.get("bb2").unwrap());
+    // }
 }

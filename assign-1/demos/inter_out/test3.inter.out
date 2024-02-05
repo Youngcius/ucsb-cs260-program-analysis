@@ -1,0 +1,25 @@
+bb1:
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [1, PosInf)
+
+bb2:
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [2, PosInf)
+
+bb3:
+_t1 -> [0, 1]
+_t2 -> (NegInf, PosInf)
+_t3 -> [2, PosInf)
+l -> (NegInf, PosInf)
+n -> [1, PosInf)
+
+entry:
+l -> (NegInf, PosInf)
+n -> [1, 1]
+
