@@ -1,7 +1,6 @@
 use crate::lir;
 use std::{
     collections::{HashMap, HashSet},
-    io::StderrLock,
 };
 
 #[derive(Debug, Clone)]
