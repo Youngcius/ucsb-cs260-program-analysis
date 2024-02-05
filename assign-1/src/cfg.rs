@@ -1,7 +1,5 @@
 use crate::lir;
-use std::{
-    collections::{HashMap, HashSet},
-};
+use std::collections::{HashMap, HashSet};
 
 #[derive(Debug, Clone)]
 pub struct ControlFlowGraph {
@@ -76,7 +74,7 @@ impl ControlFlowGraph {
                     cfg.edges.push((label.clone(), next.clone()));
                 }
                 lir::Terminal::Branch {
-                    ref cond,
+                    cond: _,
                     ref tt,
                     ref ff,
                 } => {
@@ -89,17 +87,17 @@ impl ControlFlowGraph {
                     // cfg.edges.push((label.clone(), "dummy_exit".to_string()));
                 }
                 lir::Terminal::CallDirect {
-                    ref lhs,
-                    ref callee,
-                    ref args,
+                    lhs: _,
+                    callee: _,
+                    args: _,
                     ref next_bb,
                 } => {
                     cfg.edges.push((label.clone(), next_bb.clone()));
                 }
                 lir::Terminal::CallIndirect {
-                    ref lhs,
-                    ref callee,
-                    ref args,
+                    lhs: _,
+                    callee: _,
+                    args: _,
                     ref next_bb,
                 } => {
                     cfg.edges.push((label.clone(), next_bb.clone()));
@@ -279,13 +277,6 @@ impl ControlFlowGraph {
 
         visited.insert(src.to_string());
 
-        // if let Some(neighbors) = self.edges.get(&src) {
-        //     for &neighbor in neighbors {
-        //         if self.dfs_path(neighbor, dst, visited) {
-        //             return true;
-        //         }
-        //     }
-        // }
         for succ in self.get_successor_labels(src) {
             if self.dfs_path(&succ, dst, visited) {
                 return true;
@@ -456,9 +447,13 @@ mod test {
 
         println!("Loop headers: {:?}", loop_headers);
 
-
         for (src, dst) in &cfg.edges {
-            println!("{} -> {}, is_in_cycle: {}", src, dst, cfg.is_edge_in_cycle(src, dst));
+            println!(
+                "{} -> {}, is_in_cycle: {}",
+                src,
+                dst,
+                cfg.is_edge_in_cycle(src, dst)
+            );
         }
 
         assert_eq!(
@@ -466,22 +461,4 @@ mod test {
             HashSet::from_iter(vec!["bb1".to_string(), "bb4".to_string()])
         );
     }
-
-    // #[test]
-    // fn multiple_detecting(){
-    //     let mut res = HashMap::new();
-    //     res.insert("bb1".to_string(), 0);
-    //     res.insert("bb2".to_string(), 0);
-    //     for _ in 0..100 {
-    //         let loop_headers = test_detect_loop_headers();
-    //         println!("Loop headers: {:?}", loop_headers);
-    //         if loop_headers.contains(&"bb1".to_string()) {
-    //             res.insert("bb1".to_string(), res.get("bb1").unwrap() + 1);
-    //         }
-    //         if loop_headers.contains(&"bb2".to_string()) {
-    //             res.insert("bb2".to_string(), res.get("bb2").unwrap() + 1);
-    //         }
-    //     }
-    //     println!("bb1: {}, bb2: {}", res.get("bb1").unwrap(), res.get("bb2").unwrap());
-    // }
 }

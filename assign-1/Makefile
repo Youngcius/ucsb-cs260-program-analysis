@@ -21,7 +21,19 @@ intervals_analysis_debug: $(INTER_SRC)
 	cargo build --bin intervals_analysis
 	cp ./target/debug/intervals_analysis ./intervals_analysis
 
+package:
+	mkdir -p assign-1
+	cp -r src/ assign-1/
+	cp Cargo.toml assign-1/
+	cp Cargo.lock assign-1/
+	cp Makefile assign-1/
+	cp run-constants-analysis.sh assign-1/
+	cp run-intervals-analysis.sh assign-1/
+	cp build-analyses.sh assign-1/
+	cd assign-1 && zip -r ../assign-1.zip *
+
 .PHONY: clean
 clean:
 	rm -f constants_analysis intervals_analysis
+	rm -rf assign-1 assign-1.zip
 	cargo clean
