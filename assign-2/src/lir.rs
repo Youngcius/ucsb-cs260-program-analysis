@@ -198,6 +198,38 @@ pub enum Operand {
     CInt(i32),
 }
 
+// Additional LIR components for analysis instead of parsing
+
+#[derive(Debug, Clone)]
+pub struct ProgramPoint {
+    // pub function: String,
+    pub block: String,
+    pub location: Location,
+}
+
+impl std::fmt::Display for ProgramPoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self.location {
+            Location::Instruction(i) => write!(f, "{}.{}", self.block, i),
+            Location::Terminal => write!(f, "{}.term", self.block),
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum Location {
+    Instruction(usize),
+    Terminal,
+}
+
+#[derive(Debug, Clone)]
+pub struct LocalVariable {
+    pub func: String,
+    pub var: Variable,
+}
+
+pub type GlobalVariable = Variable;
+
 impl Program {
     pub fn new() -> Program {
         Program {
