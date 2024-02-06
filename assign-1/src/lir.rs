@@ -283,7 +283,7 @@ impl Program {
         for block in func.body.values() {
             for inst in &block.insts {
                 match inst {
-                    Instruction::AddrOf { lhs, rhs } => {
+                    Instruction::AddrOf { lhs: _, rhs } => {
                         if let Type::Int = rhs.typ {
                             addrof_ints.push(rhs.clone());
                         }

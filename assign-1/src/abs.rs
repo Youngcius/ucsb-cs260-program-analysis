@@ -1346,7 +1346,7 @@ pub mod execution {
                         store.set(lhs.clone(), domain::Interval::Top);
                     }
                 }
-                lir::Instruction::Store { dst, op } => {
+                lir::Instruction::Store { dst: _, op } => {
                     // {"Store": {"dst": "xxx", "op": "xxx"}}
                     // if op is Operand::CInt or in-type Variable, do something
                     match op {
