@@ -32,6 +32,6 @@ package:
 
 .PHONY: clean
 clean:
-	rm -f ...
+	rm -f reach_definition_analysis control_dependence_analysis
 	rm -rf assign-2 assign-2.zip
 	cargo clean
