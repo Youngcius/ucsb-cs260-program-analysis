@@ -1,5 +1,5 @@
 use crate::lir;
-use std::collections::{HashMap, HashSet};
+use std::{collections::{HashMap, HashSet}, io::Write};
 
 #[derive(Debug, Clone)]
 pub struct ControlFlowGraph {
@@ -293,6 +293,16 @@ impl ControlFlowGraph {
             result.push(self.nodes.get(&label).unwrap().clone());
         }
         result
+    }
+
+    pub fn to_dot_file(&self, filename: &str) -> std::io::Result<()> {
+        let mut file = std::fs::File::create(filename)?;
+        file.write_all(b"digraph G {\n")?;
+        for (src, dst) in &self.edges {
+            file.write_all(format!("  {} -> {};\n", src, dst).as_bytes())?;
+        }
+        file.write_all(b"}")?;
+        Ok(())
     }
 }
 

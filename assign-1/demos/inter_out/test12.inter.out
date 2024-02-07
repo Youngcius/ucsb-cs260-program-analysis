@@ -194,7 +194,7 @@ id1 -> [-10, -10]
 id12 -> (NegInf, PosInf)
 id3 -> [0, 1]
 id4 -> (NegInf, PosInf)
-id7 -> [-10, -10]
+id7 -> (NegInf, PosInf)
 
 bb17:
 _lo2 -> [0, 0]

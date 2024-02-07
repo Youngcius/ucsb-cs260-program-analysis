@@ -9,7 +9,6 @@ fn test() -> int {
 let _lo1:int, _lo2:int, _lo3:int, _lo4:int, _lo5:int, _lo6:int, _t10:int, _t100:int, _t101:&int, _t102:&int, _t103:&int, _t104:int, _t105:&&int, _t106:&int, _t107:&int, _t108:int, _t11:&int, _t12:int, _t13:&&&int, _t14:&&int, _t15:&int, _t16:&int, _t17:&&int, _t18:&&&&&&&int, _t19:&&&&&&int, _t20:&&&&&&&int, _t21:&&&&&&int, _t22:&&&&&&int, _t23:&&&&&int, _t24:int, _t25:&&&&&int, _t26:&&&&int, _t27:&&&int, _t28:&&int, _t29:int, _t30:int, _t31:int, _t32:int, _t33:&&&int, _t34:&&int, _t35:int, _t36:&int, _t37:&int, _t38:&&int, _t39:int, _t40:&int, _t41:int, _t42:&int, _t43:int, _t44:&&int, _t45:int, _t46:&int, _t47:&int, _t48:int, _t49:int, _t50:&&int, _t51:&int, _t52:int, _t53:&int, _t54:int, _t55:&int, _t56:int, _t57:int, _t58:int, _t59:int, _t60:&int, _t61:int, _t62:int, _t63:int, _t64:int, _t65:&int, _t66:int, _t67:int, _t68:&&int, _t69:&int, _t7:int, _t70:&int, _t71:int, _t72:&int, _t73:int, _t74:int, _t75:int, _t76:int, _t77:&&int, _t78:&int, _t79:int, _t8:&int, _t80:&int, _t81:int, _t82:int, _t83:int, _t84:&int, _t85:int, _t86:int, _t87:int, _t88:&&&&int, _t89:&&&int, _t9:int, _t90:int, _t91:&&&int, _t92:&&int, _t93:int, _t94:int, _t95:&&int, _t96:&int, _t97:&int, _t98:int, _t99:&&int, id0:&int, id1:int, id10:&&int, id11:&int, id12:int, id13:&&int, id14:&&&&int, id15:&&&&&&int, id16:&&&&&&&int, id17:&&&&&&&int, id18:&&&&&&int, id19:&&int, id2:&int, id20:&&&int, id21:&&int, id3:int, id4:int, id5:&int, id6:&&&int, id7:int, id8:&int, id9:&&int
 bb1:
   $store id5 id7
-  _t102 = $addrof id1
   _t103 = $addrof id4
   _t104 = $cmp neq _t102 _t103
   $store id5 _t104
@@ -56,6 +55,7 @@ bb16:
   _t74 = $arith sub 0 10
   id1 = $copy _t74
   id0 = $copy id5
+  id7 = $copy id1
   $branch id3 bb20 bb21
 
 bb17:

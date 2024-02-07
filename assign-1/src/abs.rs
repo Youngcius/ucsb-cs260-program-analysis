@@ -742,12 +742,14 @@ pub mod execution {
                         #[cfg(debug_assertions)]
                         {
                             println!(
-                                "\t store {} changed, pushing block {} to worklist",
-                                succ_label, succ_label
+                                "\t store {} to be changed (after executing {}), pushed to to worklist",
+                                succ_label, block.id
                             );
                         }
                         self.bb2store.insert(succ_label.clone(), store_joined);
-                        self.worklist.push_back(succ.clone());
+                        if !self.worklist.contains(&succ) {
+                            self.worklist.push_back(succ.clone());
+                        }
                     }
                 }
             }
@@ -762,10 +764,6 @@ pub mod execution {
                 self.exe_instr(instr, &block.id);
             }
             self.exe_term(&block.term, &block.id);
-            #[cfg(debug_assertions)]
-            {
-                println!()
-            }
         }
 
         fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str) {
@@ -935,7 +933,7 @@ pub mod execution {
                 }
                 lir::Instruction::Cmp { lhs, rop, op1, op2 } => {
                     // {"Cmp": {"lhs": "xxx", "rop": "xxx", "op1": "xxx", "op2": "xxx"}}
-                    #[cfg(debug_assertions)]
+                    // #[cfg(debug_assertions)]
                     {
                         println!("[CMP] executing instruction: {:?}", instr);
                     }
@@ -1173,52 +1171,73 @@ pub mod execution {
                     let store_joined: store::Store<domain::Interval>;
                     let store_widened: store::Store<domain::Interval>;
                     let mut new_store: store::Store<domain::Interval>; // 判断是否需要加入 worklist
-                    if visited.contains_key(succ_label) && loop_headers.contains(succ_label) {
+                    if visited.get(succ_label).unwrap() > &0 && loop_headers.contains(succ_label) {
                         // println!("{} is a loop header", succ_label);
                         // println!("{} \n▽\n {}", succ_store.to_string(), self.bb2store.get(&block.id).unwrap().to_string());
                         store_widened = succ_store.widen(&self.bb2store.get(&block.id).unwrap());
                         // println!("After widening: \n{}", store_widened.to_string());
-                        store_updated = store_widened.clone();
-                        new_store = store_widened.clone();
+                        // store_updated = store_widened.clone();
+                        store_joined = store_widened.clone();
+                        // new_store = store_widened.clone();
+                        // new_store = store_joined.clone();
                     } else {
                         store_joined = succ_store.join(&self.bb2store.get(&block.id).unwrap());
-                        store_updated = succ_store.update(&self.bb2store.get(&block.id).unwrap());
+                        // store_updated = succ_store.update(&self.bb2store.get(&block.id).unwrap());
+                        // store_updated = store_joined.clone();
+                        // new_store = store_joined.clone(); // it may be executed virtually
+                    }
+
+                    store_updated = succ_store.update(&self.bb2store.get(&block.id).unwrap());
+                    if loop_headers.contains(&block.id){
+                    // if loop_headers.contains(&block.id) && !self.cfg.is_edge_in_cycle(&block.id, succ_label) {
+                        new_store = store_updated.clone();
+                    } else {
                         new_store = store_joined.clone(); // it may be executed virtually
                     }
 
                     // let mut new_store = store_joined.clone(); // it may be executed virtually
 
-                    // if visited.get(&block.id).unwrap() > &1 && visited.get(succ_label).unwrap() > &0
-                    // {
-                    //     // it is a block in a loop
-                    //     #[cfg(debug_assertions)]
-                    //     {
-                    //         println!("\n{} is a block in a loop\n", succ_label);
-                    //     }
-                    //     let mut analyzer_duplicate = self.clone();
-                    //     analyzer_duplicate
-                    //         .bb2store
-                    //         .insert(succ_label.clone(), store_updated.clone());
-                    //     // println!("______ in duplicate _____");
-                    //     analyzer_duplicate.exe_block(&succ);
-                    //     // println!("------ duplicate ------");
-                    //     new_store = analyzer_duplicate.bb2store.get(succ_label).unwrap().clone();
-                    // }
+                    if visited.get(&block.id).unwrap() > &1 && visited.get(succ_label).unwrap() > &0
+                    {
+                        // it is a block in a loop
+                        #[cfg(debug_assertions)]
+                        {
+                            println!("\t{} is a block in a loop", succ_label);
+                        }
+                        let mut analyzer_duplicate = self.clone();
+                        analyzer_duplicate
+                            .bb2store
+                            .insert(succ_label.clone(), new_store.clone());
+                        // println!(">>>>>>>>>>>>>>>>>>>>>>>> in duplicate");
+                        analyzer_duplicate.exe_block(&succ);
+                        // println!("in duplicate <<<<<<<<<<<<<<<<<<<<<<<<");
+                        new_store = analyzer_duplicate.bb2store.get(succ_label).unwrap().clone();
+                    }
 
                     if &new_store != succ_store {
                         #[cfg(debug_assertions)]
                         {
-                            println!(
-                                "\t store {} to be changed (after executing {}), pushed to worklist",
+                            println!("\tstore {} to be changed (after executing {}), pushed to worklist",
                                 succ_label, block.id
                             );
                         }
+                        // self.bb2store.insert(succ_label.clone(), store_joined);
+                        if loop_headers.contains(&block.id) {
+                        // if loop_headers.contains(&block.id) && !self.cfg.is_edge_in_cycle(&block.id, succ_label){
+                            self.bb2store.insert(succ_label.clone(), store_updated);
+                        } else {
+                            self.bb2store.insert(succ_label.clone(), store_joined);
+                        }
+
                         // if self.cfg.is_edge_in_cycle(&block.id, succ_label){
-                        self.bb2store.insert(succ_label.clone(), new_store);
+                        //     self.bb2store.insert(succ_label.clone(), store_joined);
                         // } else {
                         // self.bb2store.insert(succ_label.clone(), store_updated);
                         // }
-                        self.worklist.push_back(succ.clone());
+                        if !self.worklist.contains(&succ) {
+                            self.worklist.push_back(succ.clone());
+                        }
+                        // self.worklist.push_back(succ.clone());
                     }
                 }
             }
@@ -1227,6 +1246,7 @@ pub mod execution {
         fn exe_block(&mut self, block: &lir::Block) {
             #[cfg(debug_assertions)]
             {
+                println!();
                 println!("Executing block {}", block.id);
             }
             for instr in &block.insts {
@@ -1420,6 +1440,7 @@ pub mod execution {
                                     );
                                     let op2_val = store.get(var).unwrap();
                                     res_val = op1_val.cmp(op2_val, rop);
+                                    // println!("op1_val: {}, op2_val: {}, res_val: {}", op1_val, op2_val, res_val);
                                 } else {
                                     res_val = domain::UNDECIDED_INTERVAL;
                                 }

@@ -21,6 +21,7 @@ fn main() {
 
     let prog = lir::Program::parse_json(&json_fname);
     let mut analyzer = abs::execution::ConstantAnalyzer::new(prog, &func_name);
+    let _ = analyzer.cfg.to_dot_file(format!("{}.dot", func_name).as_str());
     analyzer.mfp();
     utils::display_bb2store(&analyzer.bb2store);
     // println!("length of bb2store: {}", analyzer.bb2store.len());
