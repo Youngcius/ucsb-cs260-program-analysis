@@ -62,31 +62,6 @@ You must devise the abstract semantics for the arithmetic operators (`add`, `sub
 - If `I2.high` is 0: treat this as `I1 ÷ [I2.low, -1]` using the min/max method given above.
 - Otherwise just use the min/max method directly.
 
-**Abstract semantics**
-
-- arithmetic operators (`⊔`: `add`/`sub`/`mul`/`div`)
-
-  | ⊔      | $\bot$ | $I_2$       | $\top$ |
-  | ------ | ------ | ----------- | ------ |
-  | $\bot$ | $\bot$ | $\bot$      | $\bot$ |
-  | $I_1$  | $\bot$ | $T_1 ⊔ T_2$ | $\top$ |
-  | $\top$ | $\bot$ | $\top$      | $\top$ |
-
-    For the arithmetic operators (`add`, `sub`, `mul`, `div`), the abstract semantics using the join operation `⊔` are as follows:
-
-    - `add`: `X ⊔ Y`
-    - `sub`: `X ⊔ Y`
-    - `mul`: `X ⊔ Y`
-    - `div`: `X ⊔ Y`, where `Y ≠ 0`; $\bot$, where `Y = 0` 
-
-- comparison operators  (`⊔`: `eq`/`neq`/`lt`/`lte`/`gt`/`gte`)
-
-  | ⊔      | $\bot$ | $I_2$       | $\top$ |
-  | ------ | ------ | ----------- | ------ |
-  | $\bot$ | $\bot$ | $\bot$      | $\bot$ |
-  | $I_1$  | $\bot$ | $T_1 ⊔ T_2$ | $\top$ |
-  | $\top$ | $\bot$ | $\top$      | $\top$ |
-
 ## ANALYSIS OUTPUT
 
 The result of each analysis should be, for the analyzed function, a map from each basic block to the abstract values _at the end_ of that basic block for all variables that are not `⊥`. Your solution should print the analysis results to standard output in the following form:
