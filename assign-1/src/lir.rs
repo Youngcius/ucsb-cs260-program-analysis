@@ -219,23 +219,6 @@ impl Program {
         global_ints
     }
 
-    // pub fn get_int_parameters(&self) -> Vec<Variable> {
-    //     let mut params = Vec::new();
-    //     for func in self.functions.values() {
-    //         for param in &func.params {
-    //             params.push(param.clone());
-    //         }
-    //     }
-    //     let param_ints: Vec<Variable> = params
-    //         .iter()
-    //         .filter(|v| match v.typ {
-    //             Type::Int => true,
-    //             _ => false,
-    //         })
-    //         .cloned()
-    //         .collect();
-    //     param_ints
-    // }
     pub fn get_int_parameters(&self, func_name: &str) -> Vec<Variable> {
         #[cfg(debug_assertions)]
         {

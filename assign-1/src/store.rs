@@ -128,22 +128,3 @@ impl IntervalStore {
         res
     }
 }
-
-#[cfg(test)]
-mod test {
-    use super::*;
-    use crate::abs::domain::Constant;
-    use crate::lir;
-
-    #[test]
-    fn test_generic_construction() {
-        let mut store = Store::<Constant>::new();
-        let var = lir::Variable::new("x");
-        let value = Constant::CInt(100);
-        store.set(var.clone(), value.clone());
-        println!("{:?}", store.get(&var).unwrap());
-        if let Some(Constant::CInt(c)) = store.get(&var) {
-            assert_eq!(*c, 100);
-        }
-    }
-}

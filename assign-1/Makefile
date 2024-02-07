@@ -5,6 +5,8 @@ all: constants_analysis intervals_analysis
 
 debug: constants_analysis_debug intervals_analysis_debug
 
+test: test_constants_analysis test_intervals_analysis
+
 constants_analysis: $(CONST_SRC)
 	cargo build --release --bin constants_analysis
 	cp ./target/release/constants_analysis ./constants_analysis
@@ -20,6 +22,20 @@ constants_analysis_debug: $(CONST_SRC)
 intervals_analysis_debug: $(INTER_SRC)
 	cargo build --bin intervals_analysis
 	cp ./target/debug/intervals_analysis ./intervals_analysis
+
+test_constants_analysis: constants_analysis
+	@echo "Running constants analysis on test files from ./demos/"
+	@bash run-demo-const.sh
+	@echo "Comparing the output with the expected output"
+	@bash diff-demo-const.sh
+	@echo ""
+
+test_intervals_analysis: intervals_analysis
+	@echo "Running intervals analysis on test files from ./demos/"
+	@bash run-demo-inter.sh
+	@echo "Comparing the output with the expected output"
+	@bash diff-demo-inter.sh
+	@echo ""
 
 package:
 	mkdir -p assign-1

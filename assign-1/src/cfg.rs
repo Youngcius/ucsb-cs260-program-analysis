@@ -1,5 +1,8 @@
 use crate::lir;
-use std::{collections::{HashMap, HashSet}, io::Write};
+use std::{
+    collections::{HashMap, HashSet},
+    io::Write,
+};
 
 #[derive(Debug, Clone)]
 pub struct ControlFlowGraph {
@@ -18,6 +21,7 @@ impl ControlFlowGraph {
         }
     }
 
+    /*
     pub fn from_program(prog: &lir::Program) -> Self {
         let mut cfg = Self::new();
 
@@ -45,6 +49,7 @@ impl ControlFlowGraph {
 
         cfg
     }
+    */
 
     pub fn from_function(prog: &lir::Program, func_name: &str) -> Self {
         let mut cfg = Self::new();
@@ -52,7 +57,7 @@ impl ControlFlowGraph {
         // function.body.get("entry").unwrap();
 
         // add dummy entry and exit blocks
-        // let dummy_entry = lir::Block::new("dummy_entry", &lir::Terminal::Jump("entry".to_string())); // TODO
+        // let dummy_entry = lir::Block::new("dummy_entry", &lir::Terminal::Jump("entry".to_string()));
         // cfg.nodes.insert("dummy_entry".to_string(), dummy_entry);
         // let dummy_exit = lir::Block::new("dummy_exit", &lir::Terminal::Ret(None));
         // cfg.nodes.insert("dummy_exit".to_string(), dummy_exit);

@@ -933,7 +933,7 @@ pub mod execution {
                 }
                 lir::Instruction::Cmp { lhs, rop, op1, op2 } => {
                     // {"Cmp": {"lhs": "xxx", "rop": "xxx", "op1": "xxx", "op2": "xxx"}}
-                    // #[cfg(debug_assertions)]
+                    #[cfg(debug_assertions)]
                     {
                         println!("[CMP] executing instruction: {:?}", instr);
                     }
@@ -1167,35 +1167,25 @@ pub mod execution {
 
                     let succ = self.cfg.get_block(&succ_label).unwrap().clone();
                     let succ_store = self.bb2store.get(succ_label).unwrap(); // succ_store before joining and executing
-                    let store_updated: store::Store<domain::Interval>; // 需要执行时真正加入的 store
-                    let store_joined: store::Store<domain::Interval>;
-                    let store_widened: store::Store<domain::Interval>;
-                    let mut new_store: store::Store<domain::Interval>; // 判断是否需要加入 worklist
+                    let store_updated= succ_store.update(&self.bb2store.get(&block.id).unwrap()); // use .update() to update the store
+                    let store_joined: store::Store<domain::Interval>; // use .join() or .widen() to update the store
+                    let mut new_store: store::Store<domain::Interval>; // to distinguish if the successor needs to be added to worklist by dummy execution
                     if visited.get(succ_label).unwrap() > &0 && loop_headers.contains(succ_label) {
                         // println!("{} is a loop header", succ_label);
                         // println!("{} \n▽\n {}", succ_store.to_string(), self.bb2store.get(&block.id).unwrap().to_string());
-                        store_widened = succ_store.widen(&self.bb2store.get(&block.id).unwrap());
-                        // println!("After widening: \n{}", store_widened.to_string());
-                        // store_updated = store_widened.clone();
-                        store_joined = store_widened.clone();
-                        // new_store = store_widened.clone();
-                        // new_store = store_joined.clone();
+                        store_joined = succ_store.widen(&self.bb2store.get(&block.id).unwrap());
+                        // println!("After widening: \n{}", store_joined.to_string());
                     } else {
                         store_joined = succ_store.join(&self.bb2store.get(&block.id).unwrap());
-                        // store_updated = succ_store.update(&self.bb2store.get(&block.id).unwrap());
-                        // store_updated = store_joined.clone();
-                        // new_store = store_joined.clone(); // it may be executed virtually
                     }
 
-                    store_updated = succ_store.update(&self.bb2store.get(&block.id).unwrap());
-                    if loop_headers.contains(&block.id){
-                    // if loop_headers.contains(&block.id) && !self.cfg.is_edge_in_cycle(&block.id, succ_label) {
+                    if loop_headers.contains(&block.id) {
+                        // if current block is a loop header, use store_updated
                         new_store = store_updated.clone();
                     } else {
+                        // otherwise, use store_joined
                         new_store = store_joined.clone(); // it may be executed virtually
                     }
-
-                    // let mut new_store = store_joined.clone(); // it may be executed virtually
 
                     if visited.get(&block.id).unwrap() > &1 && visited.get(succ_label).unwrap() > &0
                     {
@@ -1217,27 +1207,23 @@ pub mod execution {
                     if &new_store != succ_store {
                         #[cfg(debug_assertions)]
                         {
-                            println!("\tstore {} to be changed (after executing {}), pushed to worklist",
+                            println!(
+                                "\tstore {} to be changed (after executing {}), pushed to worklist",
                                 succ_label, block.id
                             );
                         }
-                        // self.bb2store.insert(succ_label.clone(), store_joined);
                         if loop_headers.contains(&block.id) {
-                        // if loop_headers.contains(&block.id) && !self.cfg.is_edge_in_cycle(&block.id, succ_label){
+                            // if current block is a loop header, use store_updated
                             self.bb2store.insert(succ_label.clone(), store_updated);
                         } else {
+                            // otherwise, use store_joined
                             self.bb2store.insert(succ_label.clone(), store_joined);
                         }
 
-                        // if self.cfg.is_edge_in_cycle(&block.id, succ_label){
-                        //     self.bb2store.insert(succ_label.clone(), store_joined);
-                        // } else {
-                        // self.bb2store.insert(succ_label.clone(), store_updated);
-                        // }
                         if !self.worklist.contains(&succ) {
+                            // avoiding multiple consecutive executions on the same block
                             self.worklist.push_back(succ.clone());
                         }
-                        // self.worklist.push_back(succ.clone());
                     }
                 }
             }
