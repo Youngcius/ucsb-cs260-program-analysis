@@ -5,12 +5,16 @@ Abstract domain, abstract semantics, and abstract execution.
 pub mod domain {
     use super::semantics::AbstractSemantics;
     use crate::lir;
-    use std::ops::{Add, Div, Mul, Sub};
+    use std::{
+        collections::HashSet,
+        ops::{Add, Div, Mul, Sub},
+    };
 
     #[derive(Debug, Clone)]
     pub enum DomainType {
         Constant,
         Interval,
+        ProgramPoint,
     }
 
     #[derive(Debug, Clone, PartialEq, Eq)]
@@ -161,6 +165,13 @@ pub mod domain {
         Top,
         Bottom,
         Range(Number, Number),
+    }
+
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    pub enum ProgramPoint {
+        Bottom,
+        ProgramPointSet(HashSet<String>),
+        Top,
     }
 
     impl std::fmt::Display for Constant {

@@ -1,5 +1,5 @@
 RDEF_SRC = ./src/bin/rdef.rs ./src/abs.rs ./src/cfg.rs ./src/lir.rs ./src/store.rs ./src/utils.rs
-CTRL_SRC = ./src/bin/control.rs ./src/abs.rs ./src/cfg.rs ./src/lir.rs ./src/store.rs ./src/utils.rs
+CTRL_SRC = ./src/bin/ctrl.rs ./src/abs.rs ./src/cfg.rs ./src/lir.rs ./src/store.rs ./src/utils.rs
 
 all: reach_definition_analysis control_dependence_analysis
 

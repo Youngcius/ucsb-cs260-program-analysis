@@ -16,4 +16,4 @@ path = "src/bin/rdef.rs"
 
 [[bin]]
 name = "control_dependence_analysis"
-path = "src/bin/control.rs"
+path = "src/bin/ctrl.rs"
