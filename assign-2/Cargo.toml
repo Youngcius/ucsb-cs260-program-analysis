@@ -11,9 +11,9 @@ serde_json = "1.0"
 log = "0.4.14"
 
 [[bin]]
-name = "reach_definition_analysis"
+name = "rdef_analysis"
 path = "src/bin/rdef.rs"
 
 [[bin]]
-name = "control_dependence_analysis"
+name = "ctrl_analysis"
 path = "src/bin/ctrl.rs"

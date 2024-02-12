@@ -1,0 +1,13 @@
+bb1.0 -> {bb2.0, bb3.0}
+bb1.2 -> {bb1.1}
+bb1.3 -> {bb1.2}
+bb1.6 -> {bb1.0, bb1.5}
+bb1.7 -> {bb1.6}
+bb1.term -> {bb1.7}
+entry.1 -> {entry.0}
+entry.2 -> {entry.1}
+entry.3 -> {entry.2}
+entry.6 -> {entry.5}
+entry.7 -> {entry.6}
+entry.8 -> {entry.7}
+entry.term -> {entry.8}

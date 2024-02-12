@@ -221,13 +221,13 @@ pub enum Location {
     Terminal,
 }
 
-#[derive(Debug, Clone)]
-pub struct LocalVariable {
-    pub func: String,
-    pub var: Variable,
-}
-
-pub type GlobalVariable = Variable;
+// #[derive(Debug, Clone)]
+// pub struct LocalVariable {
+//     pub func: String,
+//     pub var: Variable,
+// }
+//
+// pub type GlobalVariable = Variable;
 
 impl Program {
     pub fn new() -> Program {
@@ -569,10 +569,22 @@ mod test {
         let prog_name = "./examples/json/lambda.json";
         let prog = Program::parse_json(prog_name);
         let global_ints = prog.get_int_globals();
+        let param_ints = prog.get_int_parameters("main");
+        let local_ints = prog.get_int_locals("main");
         // let gg = prog.globals;
 
-        println!("======= globals of {} =======", prog_name);
+        println!("======= int-type globals of {} =======", prog_name);
         for var in global_ints {
+            println!("{:?}", var);
+        }
+
+        println!("======= int-type parameters of {} =======", prog_name);
+        for var in param_ints {
+            println!("{:?}", var);
+        }
+
+        println!("======= int-type locals of {} =======", prog_name);
+        for var in local_ints {
             println!("{:?}", var);
         }
     }

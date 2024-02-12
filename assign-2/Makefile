@@ -1,25 +1,25 @@
 RDEF_SRC = ./src/bin/rdef.rs ./src/cfg.rs ./src/lir.rs ./src/store.rs ./src/utils.rs ./src/abs/domain.rs ./src/abs/semantics.rs ./src/abs/execution.rs
 CTRL_SRC = ./src/bin/ctrl.rs ./src/cfg.rs ./src/lir.rs ./src/store.rs ./src/utils.rs ./src/abs/domain.rs ./src/abs/semantics.rs ./src/abs/execution.rs
 
-all: reach_definition_analysis control_dependence_analysis
+all: rdef_analysis ctrl_analysis
 
-debug: reach_definition_analysis_debug control_dependence_analysis_debug
+debug: rdef_analysis_debug ctrl_analysis_debug
 
-reach_definition_analysis: $(RDEF_SRC)
-	cargo build --release --bin reach_definition_analysis
-	cp ./target/release/reach_definition_analysis ./reach_definition_analysis
+rdef_analysis: $(RDEF_SRC)
+	cargo build --release --bin rdef_analysis
+	cp ./target/release/rdef_analysis ./rdef_analysis
 
-control_dependence_analysis: $(CTRL_SRC)
-	cargo build --release --bin control_dependence_analysis
-	cp ./target/release/control_dependence_analysis ./control_dependence_analysis
+ctrl_analysis: $(CTRL_SRC)
+	cargo build --release --bin ctrl_analysis
+	cp ./target/release/ctrl_analysis ./ctrl_analysis
 
-reach_definition_analysis_debug: $(RDEF_SRC)
-	cargo build --bin reach_definition_analysis
-	cp ./target/debug/reach_definition_analysis ./reach_definition_analysis
+rdef_analysis_debug: $(RDEF_SRC)
+	cargo build --bin rdef_analysis
+	cp ./target/debug/rdef_analysis ./rdef_analysis
 
-control_dependence_analysis_debug: $(CTRL_SRC)
-	cargo build --bin control_dependence_analysis
-	cp ./target/debug/control_dependence_analysis ./control_dependence_analysis
+ctrl_analysis_debug: $(CTRL_SRC)
+	cargo build --bin ctrl_analysis
+	cp ./target/debug/ctrl_analysis ./ctrl_analysis
 
 package:
 	mkdir -p assign-2
@@ -32,6 +32,6 @@ package:
 
 .PHONY: clean
 clean:
-	rm -f reach_definition_analysis control_dependence_analysis *.out.tmp.*
+	rm -f rdef_analysis ctrl_analysis *.out.tmp.*
 	rm -rf assign-2 assign-2.zip
 	cargo clean
