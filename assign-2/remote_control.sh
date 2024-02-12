@@ -1,8 +1,9 @@
 #!/bin/bash
 
-REMOTE_HOST="csil.cs.ucsb.edu"
-REMOTE_USER="zhaohui"
-REMOTE_PASSWORD="mimawangle123A"
+source ../config.ini
+REMOTE_HOST=$CSIL_HOST
+REMOTE_USER=$CSIL_USER
+REMOTE_PASSWORD=$CSIL_PASSWORD
 REMOTE_EXECUTABLE="/cs/faculty/benh/260/control"
 LOCAL_PROGRAM=$1 # e.g., "./demos/lir/test1.lir"
 REMOTE_PROGRAM="test.control.lir"  # under ~/ directory

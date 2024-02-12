@@ -16,3 +16,5 @@ Cargo.lock
 .DS_Store
 .vscode
 .idea
+
+config.ini
