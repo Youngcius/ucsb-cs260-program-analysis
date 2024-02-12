@@ -5,16 +5,15 @@ REMOTE_USER="zhaohui"
 REMOTE_PASSWORD="mimawangle123A"
 REMOTE_EXECUTABLE="/cs/faculty/benh/260/constants"
 LOCAL_PROGRAM=$1 # e.g., "./demos/lir/test1.lir"
-REMOTE_PROGRAM="test.lir"  # under ~/ directory
+REMOTE_PROGRAM="test.const.lir"  # under ~/ directory
 FUNCTION=$2 # e.g., FUNCTION="test"
+REMOTE_OUTPUT_FILE="const.out.tmp.txt"
 
-# if has $3 argument, set REMOTE_OUTPUT_FILE to $3, esle set REMOTE_OUTPUT_FILE to "output.txt"
+# if has $3 argument, set LOCAL_OUTPUT_FILE to $3
 if [ -z "$3" ]
 then
-    REMOTE_OUTPUT_FILE="output.txt"
-    LOCAL_OUTPUT_FILE="output.txt"
+    LOCAL_OUTPUT_FILE="const.out.tmp.txt"
 else
-    REMOTE_OUTPUT_FILE=$3
     LOCAL_OUTPUT_FILE=$3
 fi
 
