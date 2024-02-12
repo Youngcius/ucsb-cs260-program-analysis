@@ -1,5 +1,5 @@
-CONST_SRC = ./src/bin/constants_analysis.rs ./src/abs.rs ./src/cfg.rs ./src/lir.rs ./src/store.rs ./src/utils.rs
-INTER_SRC = ./src/bin/intervals_analysis.rs ./src/abs.rs ./src/cfg.rs ./src/lir.rs ./src/store.rs ./src/utils.rs
+CONST_SRC = ./src/bin/constants_analysis.rs ./src/cfg.rs ./src/lir.rs ./src/store.rs ./src/utils.rs ./src/abs/domain.rs ./src/abs/semantics.rs ./src/abs/execution.rs
+INTER_SRC = ./src/bin/intervals_analysis.rs ./src/cfg.rs ./src/lir.rs ./src/store.rs ./src/utils.rs ./src/abs/domain.rs ./src/abs/semantics.rs ./src/abs/execution.rs
 
 all: constants_analysis intervals_analysis
 

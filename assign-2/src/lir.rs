@@ -7,8 +7,6 @@ use std::collections::HashMap;
 use std::fs::File;
 use std::io::{BufReader, BufWriter};
 
-// use super::abs::execution::AbstractExecution;
-
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Program {
     pub structs: HashMap<String, Vec<Field>>,
@@ -198,11 +196,10 @@ pub enum Operand {
     CInt(i32),
 }
 
-// Additional LIR components for analysis instead of parsing
+// Additional LIR components for analysis other than parsing
 
 #[derive(Debug, Clone)]
 pub struct ProgramPoint {
-    // pub function: String,
     pub block: String,
     pub location: Location,
 }
@@ -253,23 +250,6 @@ impl Program {
         global_ints
     }
 
-    // pub fn get_int_parameters(&self) -> Vec<Variable> {
-    //     let mut params = Vec::new();
-    //     for func in self.functions.values() {
-    //         for param in &func.params {
-    //             params.push(param.clone());
-    //         }
-    //     }
-    //     let param_ints: Vec<Variable> = params
-    //         .iter()
-    //         .filter(|v| match v.typ {
-    //             Type::Int => true,
-    //             _ => false,
-    //         })
-    //         .cloned()
-    //         .collect();
-    //     param_ints
-    // }
     pub fn get_int_parameters(&self, func_name: &str) -> Vec<Variable> {
         #[cfg(debug_assertions)]
         {
@@ -315,7 +295,7 @@ impl Program {
         for block in func.body.values() {
             for inst in &block.insts {
                 match inst {
-                    Instruction::AddrOf { lhs, rhs } => {
+                    Instruction::AddrOf { lhs: _, rhs } => {
                         if let Type::Int = rhs.typ {
                             addrof_ints.push(rhs.clone());
                         }
