@@ -1,0 +1,313 @@
+bb1:
+_lo1 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb10:
+_lo1 -> [0, 1]
+_lo2 -> [1, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb11:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb12:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb13:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> [-6, -6]
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb14:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> [-6, -6]
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb15:
+_lo1 -> [0, 0]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> [-6, -6]
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb16:
+_lo1 -> [1, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> [-6, -6]
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb17:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t26 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+id8 -> (NegInf, PosInf)
+
+bb2:
+_lo1 -> [0, 0]
+_t10 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb3:
+_lo1 -> [1, 1]
+_t10 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb4:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb5:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb6:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t24 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb7:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb8:
+_lo1 -> [0, 1]
+_lo2 -> [0, 1]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+bb9:
+_lo1 -> [0, 1]
+_lo2 -> [0, 0]
+_t10 -> (NegInf, PosInf)
+_t11 -> (NegInf, PosInf)
+_t12 -> (NegInf, PosInf)
+_t13 -> (NegInf, PosInf)
+_t16 -> (NegInf, PosInf)
+_t17 -> (NegInf, PosInf)
+_t18 -> [-9, -9]
+_t19 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+
+entry:
+_t10 -> (NegInf, PosInf)
+_t3 -> [-8, -8]
+_t6 -> (NegInf, PosInf)
+_t8 -> (NegInf, PosInf)
+_t9 -> [-6, -6]
+id1 -> (NegInf, PosInf)
+id6 -> [-6, -6]
+id7 -> [-6, -6]
+

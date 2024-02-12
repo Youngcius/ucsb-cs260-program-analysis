@@ -1,0 +1,11 @@
+test:&() -> int
+
+fn main() -> int {
+entry:
+  $ret 0
+}
+
+fn test() -> int {
+entry:
+  $ret 5
+}

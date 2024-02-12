@@ -21,36 +21,6 @@ impl ControlFlowGraph {
         }
     }
 
-    /*
-    pub fn from_program(prog: &lir::Program) -> Self {
-        let mut cfg = Self::new();
-
-        // add dummy entry and exit blocks
-        let dummy_entry = lir::Block::new("dummy_entry", &lir::Terminal::Jump("XXX".to_string()));
-        cfg.nodes.insert("dummy_entry".to_string(), dummy_entry);
-        let dummy_exit = lir::Block::new("dummy_exit", &lir::Terminal::Ret(None));
-        cfg.nodes.insert("dummy_exit".to_string(), dummy_exit);
-
-        // insert all blocks in prog into cfg
-
-        // for block in prog.get_blocks() {
-        //     cfg.nodes.insert(block.get_id(), block.clone());
-        // }
-
-        // for block in prog.get_blocks() {
-        //     let block_id = block.get_id();
-        //     let next_block_id = block.get_next_block_id();
-        //     cfg.edges.push((block_id, next_block_id));
-        // }
-
-        // construct dummy "exit" block and insert it to cfg
-
-        // TODO: add edges from all blocks to exit block
-
-        cfg
-    }
-    */
-
     pub fn from_function(prog: &lir::Program, func_name: &str) -> Self {
         let mut cfg = Self::new();
         let function = prog.functions.get(func_name).unwrap();

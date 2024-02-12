@@ -3,7 +3,7 @@ Low-level intermediate representation (LIR) for program analysis.
 */
 use serde::{Deserialize, Serialize};
 use serde_json as json;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::fs::File;
 use std::io::{BufReader, BufWriter};
 
@@ -200,8 +200,10 @@ pub enum Operand {
 
 #[derive(Debug, Clone)]
 pub struct ProgramPoint {
-    pub block: String,
-    pub location: Location,
+    pub block: String, // block id
+    pub location: Location, // i-th instruction or terminal
+    pub using: HashSet<Variable>, // variables used are extracted from Operand objects
+    pub defining: Option<Variable>,
 }
 
 impl std::fmt::Display for ProgramPoint {

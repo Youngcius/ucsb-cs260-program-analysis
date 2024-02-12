@@ -1,0 +1,108 @@
+test:&() -> int
+
+fn main() -> int {
+entry:
+  $ret 0
+}
+
+fn test() -> int {
+let _lo1:int, _lo10:int, _lo11:int, _lo12:int, _lo13:int, _lo14:int, _lo15:int, _lo2:int, _lo3:int, _lo4:int, _lo5:int, _lo6:int, _lo7:int, _lo8:int, _lo9:int, _t100:&int, _t101:&int, _t102:int, _t103:int, _t104:int, _t105:int, _t106:int, _t107:int, _t108:int, _t109:int, _t110:&int, _t111:int, _t112:&int, _t113:int, _t114:int, _t115:int, _t116:int, _t117:int, _t118:int, _t119:int, _t120:int, _t121:&int, _t122:int, _t123:int, _t124:int, _t125:int, _t126:int, _t127:&&&int, _t128:&&int, _t129:&&int, _t130:&int, _t131:&&int, _t132:&int, _t133:int, _t134:&&int, _t135:&int, _t136:int, _t137:&int, _t138:int, _t139:int, _t140:int, _t141:int, _t16:&int, _t17:int, _t18:int, _t19:int, _t20:int, _t21:&int, _t22:int, _t23:&&&int, _t24:&&int, _t25:int, _t26:&int, _t27:int, _t28:int, _t29:&&int, _t30:&int, _t31:int, _t32:&int, _t33:&&int, _t34:int, _t35:&int, _t36:int, _t37:int, _t38:&&&int, _t39:&&int, _t40:&int, _t41:int, _t42:&int, _t43:int, _t44:&&&int, _t45:&&int, _t46:&int, _t47:&int, _t48:int, _t49:int, _t50:&&int, _t51:&int, _t52:&int, _t53:int, _t54:&int, _t55:int, _t56:int, _t57:int, _t58:&&int, _t59:&int, _t60:int, _t61:&int, _t62:int, _t63:int, _t64:int, _t65:int, _t66:int, _t67:int, _t68:int, _t69:&int, _t70:int, _t71:int, _t72:int, _t73:int, _t74:int, _t75:&int, _t76:int, _t77:int, _t78:int, _t79:int, _t80:int, _t81:int, _t82:int, _t83:int, _t84:&&int, _t85:int, _t86:int, _t87:int, _t88:int, _t89:&int, _t90:int, _t91:&int, _t92:&&int, _t93:&int, _t94:int, _t95:&int, _t96:int, _t97:&&int, _t98:&int, _t99:int, id0:&int, id1:&&&int, id10:&&int, id11:int, id12:&&int, id13:int, id14:&&&int, id15:int, id16:&&int, id17:&&int, id18:&&int, id19:&&&int, id2:&&&int, id3:int, id4:&int, id5:&int, id6:&int, id7:int, id8:&&&int, id9:&int
+bb1:
+  _t20 = $arith sub 0 _lo1
+  id3 = $copy _t20
+  _t21 = $addrof id7
+  _t22 = $load _t21
+  _t23 = $gep id8 _t22
+  _t24 = $load _t23
+  _t25 = $arith sub 0 1
+  _t26 = $gep id9 _t25
+  _t27 = $load _t26
+  _t28 = $arith sub 0 _t27
+  _t29 = $gep _t24 _t28
+  _t30 = $load _t29
+  _t31 = $cmp neq _t30 id6
+  id7 = $copy _t31
+  _t32 = $addrof id7
+  id6 = $copy _t32
+  id5 = $copy id6
+  _t33 = $addrof id0
+  id10 = $copy _t33
+  _t34 = $arith sub 0 6
+  _t35 = $gep id0 _t34
+  _t36 = $load _t35
+  $branch _t36 bb4 bb5
+
+bb10:
+  _t50 = $gep id12 3
+  _t51 = $load _t50
+  _t52 = $addrof id13
+  _t53 = $cmp neq _t52 id5
+  _t54 = $gep _t51 _t53
+  _t55 = $load _t54
+  _t56 = $arith sub 0 9
+  _t57 = $cmp neq _t55 _t56
+  _lo3 = $copy _t57
+  $jump bb9
+
+bb2:
+  _lo1 = $copy id3
+  $jump bb1
+
+
+bb3:
+  id15 = $copy _lo2
+  id16 = $copy id17
+  id19 = $copy id8
+  $jump bb6
+
+
+bb4:
+  _lo2 = $copy 0
+  $jump bb3
+
+
+bb5:
+  _lo2 = $copy 1
+  $jump bb3
+
+bb6:
+  _t37 = $load id0
+  $branch _t37 bb7 bb8
+
+bb7:
+  _t38 = $gep id1 id3
+  _t39 = $load _t38
+  _t40 = $load _t39
+  _t41 = $cmp gte 2 id7
+  _t42 = $gep id5 _t41
+  _t43 = $load _t42
+  $store _t40 _t43 // id7 will be TOP
+  _t44 = $addrof id10
+  _t45 = $load _t44
+  _t46 = $load _t45
+  _t47 = $addrof id11
+  _t48 = $cmp neq _t46 _t47
+  _lo3 = $copy _t48
+  _t49 = $cmp eq _lo3 0
+  $branch _t49 bb10 bb9
+
+bb9:
+  id7 = $copy _lo3
+  _t58 = $load id14
+  $store _t58 id0
+  $jump bb6
+
+
+bb8:
+  $ret 0
+
+
+entry:
+  id1 = $copy id2
+  _t16 = $addrof id3
+  _t17 = $cmp neq _t16 id4
+  _t18 = $arith sub 0 _t17
+  _lo1 = $copy _t18
+  _t19 = $cmp eq _lo1 0
+  $branch _t19 bb2 bb1
+}

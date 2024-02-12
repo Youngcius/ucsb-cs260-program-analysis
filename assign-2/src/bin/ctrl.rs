@@ -20,7 +20,7 @@ fn main() {
     }
 
     let prog = lir::Program::parse_json(&json_fname);
-    let mut analyzer = abs::execution::IntervalAnalyzer::new(prog, &func_name);
+    let mut analyzer = abs::execution::ConstantAnalyzer::new(prog, &func_name);
     analyzer.mfp();
     utils::display_bb2store(&analyzer.bb2store);
     // println!("length of bb2store: {}", analyzer.bb2store.len());
