@@ -19,3 +19,17 @@ impl User {
 pub fn add(x: i32, y: i32) -> i32 {
     x + y 
 }
+
+#[macro_export]
+macro_rules! hashset {
+    ( $( $x:expr ),* ) => {
+        {
+            let mut temp_set = HashSet::new();
+            $(
+                temp_set.insert($x);
+            )*
+            temp_set
+        }
+    };
+
+}

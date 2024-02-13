@@ -1,7 +1,10 @@
 use super::domain;
 use super::semantics::AbstractSemantics;
 use crate::cfg;
+use crate::hashset;
 use crate::lir;
+use crate::lir::Instruction;
+use crate::lir::Terminal;
 use crate::store;
 use crate::utils;
 use log;
@@ -23,9 +26,11 @@ pub struct Analyzer<T> {
 #[derive(Debug, Clone)]
 pub struct ReachingDefinitionAnalyzer {
     pub prog: lir::Program,
-    pub store: store::ProgramPointStore,  // global store involving all variables
+    pub store: store::ProgramPointStore, // global store involving all variables
     pub solution: HashMap<String, domain::ProgramPoint>, // mapping from program points to program point sets
     pub cfg: cfg::ControlFlowGraph,
+    pub pp_def: HashMap<String, Option<lir::Variable>>,
+    pub pp_use: HashMap<String, HashSet<lir::Variable>>,
     pub worklist: VecDeque<lir::Block>,
     pub executed: bool,
 }
@@ -33,8 +38,8 @@ pub struct ReachingDefinitionAnalyzer {
 #[derive(Debug, Clone)]
 pub struct ControlDependenceAnalyzer {
     pub prog: lir::Program,
-    pub solution: HashMap<String, HashSet<String>>, // mapping from blocks to block sets
     pub cfg: cfg::ControlFlowGraph,
+    pub solution: HashMap<String, HashSet<String>>, // mapping from blocks to block sets
     pub executed: bool,
 }
 
@@ -94,13 +99,29 @@ impl ConstantAnalyzer {
     }
 }
 
-
 impl ReachingDefinitionAnalyzer {
     pub fn new(prog: lir::Program, func_name: &str) -> Self {
         // Initialized the constant analyzer
         let cfg = cfg::ControlFlowGraph::from_function(&prog, func_name);
         // let reachable_successors: HashMap<String, Vec<String>> = HashMap::new();
         let mut worklist: VecDeque<lir::Block> = VecDeque::new();
+
+        let mut solution = HashMap::new();
+        for bb_label in &cfg.get_all_block_labels() {
+            let block = cfg.get_block(bb_label).unwrap();
+            for (idx, instr) in block.insts.iter().enumerate() {
+                let pp = lir::ProgramPoint {
+                    block: bb_label.clone(),
+                    location: lir::Location::Instruction(idx),
+                };
+                solution.insert(pp.to_string(), domain::ProgramPoint::Bottom);
+            }
+            let pp = lir::ProgramPoint {
+                block: bb_label.clone(),
+                location: lir::Location::Terminal,
+            };
+            solution.insert(pp.to_string(), domain::ProgramPoint::Bottom);
+        }
 
         let mut store = store::ProgramPointStore::new();
 
@@ -109,15 +130,217 @@ impl ReachingDefinitionAnalyzer {
         Self {
             prog,
             store,
-            solution: HashMap::new(),
+            solution,
             cfg,
+            pp_def: HashMap::new(),
+            pp_use: HashMap::new(),
             worklist,
             executed: false,
         }
+    }
 
+    fn exe_pp(&mut self, pp: &lir::ProgramPoint) {
+        let block = self.cfg.get_block(&pp.block).unwrap();
+        match pp.location {
+            lir::Location::Instruction(idx) => {
+                // let instr = &block.insts[idx];
+                match &block.insts[idx] {
+                    Instruction::AddrOf { lhs, rhs: _ } => {
+                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
+                        self.store.set(
+                            lhs.clone(),
+                            domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                        );
+                    }
+                    Instruction::Arith {
+                        lhs,
+                        aop: _,
+                        op1,
+                        op2,
+                    } => {
+                        if let lir::Operand::Var(var) = op1 {
+                            self.pp_use
+                                .entry(pp.to_string())
+                                .or_insert(HashSet::new())
+                                .insert(var.clone());
+                        }
+                        if let lir::Operand::Var(var) = op2 {
+                            self.pp_use
+                                .entry(pp.to_string())
+                                .or_insert(HashSet::new())
+                                .insert(var.clone());
+                        }
+                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
+                        // TODO: update self.solution
+                        self.store.set(
+                            lhs.clone(),
+                            domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                        );
+                    }
+                    Instruction::Cmp {
+                        lhs,
+                        rop: _,
+                        op1,
+                        op2,
+                    } => {
+                        if let lir::Operand::Var(var) = op1 {
+                            self.pp_use
+                                .entry(pp.to_string())
+                                .or_insert(HashSet::new())
+                                .insert(var.clone());
+                        }
+                        if let lir::Operand::Var(var) = op2 {
+                            self.pp_use
+                                .entry(pp.to_string())
+                                .or_insert(HashSet::new())
+                                .insert(var.clone());
+                        }
+                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
+                        // TODO: update self.solution
+                        self.store.set(
+                            lhs.clone(),
+                            domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                        );
+                    }
+                    Instruction::Copy { lhs, op } => {
+                        if let lir::Operand::Var(var) = op {
+                            self.pp_use
+                                .entry(pp.to_string())
+                                .or_insert(HashSet::new())
+                                .insert(var.clone());
+                        }
+                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
+                        // TODO: update self.solution
+                        self.store.set(
+                            lhs.clone(),
+                            domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                        );
+                    }
+                    Instruction::Alloc { lhs, num, id } => {
+                        if let lir::Operand::Var(var) = num {
+                            self.pp_use
+                                .entry(pp.to_string())
+                                .or_insert(HashSet::new())
+                                .insert(var.clone());
+                        }
+                        self.pp_use
+                            .entry(pp.to_string())
+                            .or_insert(HashSet::new())
+                            .insert(id.clone()); // TODO: ?????????
+                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
+                        // TODO: update self.solution
+                        self.store.set(
+                            lhs.clone(),
+                            domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                        );
+                    }
+                    Instruction::Gep { lhs, src, idx } => {
+                        // get-element-pointer: `x = $gep y 10` takes `y` (which is a pointer to an
+                        // array of elements) and assigns to `x` the address of the 10th element of
+                        // the array. this is the only way to do pointer arithmetic.
+                        if let lir::Operand::Var(var) = idx {
+                            self.pp_use
+                                .entry(pp.to_string())
+                                .or_insert(HashSet::new())
+                                .insert(var.clone());
+                        }
+                        self.pp_use
+                            .entry(pp.to_string())
+                            .or_insert(HashSet::new())
+                            .insert(src.clone());
+                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
+                        // TODO: update self.solution
+                        self.store.set(
+                            lhs.clone(),
+                            domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                        );
+                    }
+                    Instruction::Gfp { lhs, src, field } => {
+                        // get-field-pointer: `x = $gfp y foo` takes `y` (which is a pointer to a struct)
+                        // and assigns to `x` the address of the `foo` field of the struct. the only way to
+                        // access fields of a struct is via a pointer.
+                        self.pp_use
+                            .entry(pp.to_string())
+                            .or_insert(HashSet::new())
+                            .insert(src.clone());
+                        self.pp_use
+                            .entry(pp.to_string())
+                            .or_insert(HashSet::new())
+                            .insert(field.clone());
+                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
+                        // TODO: update self.solution
+                        self.store.set(
+                            lhs.clone(),
+                            domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                        );
+                    }
+                    Instruction::Load { lhs, src } => {
+                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
+                        // ...... TODO
+
+                        self.store.set(
+                            lhs.clone(),
+                            domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                        );
+                    }
+                    Instruction::Store { dst, op } => {
+                        // TODO
+                    }
+                    Instruction::CallExt {
+                        lhs,
+                        ext_callee,
+                        args,
+                    } => {
+                        // TODO
+                    }
+                    _ => {}
+                }
+            }
+            lir::Location::Terminal => match &block.term {
+                Terminal::Jump(_) => {
+                    // TODO: set pp_use to empty???
+                    self.pp_def.insert(pp.to_string(), None);
+                }
+                Terminal::Branch { cond, tt, ff } => {
+                    if let lir::Operand::Var(var) = cond {
+                        self.pp_use
+                            .entry(pp.to_string())
+                            .or_insert(HashSet::new())
+                            .insert(var.clone());
+                    }
+                    self.pp_def.insert(pp.to_string(), None);
+                    // TODO: update self.solution
+                }
+                Terminal::Ret(ret) => {
+                    if let Some(lir::Operand::Var(var)) = ret {
+                        self.pp_use
+                            .entry(pp.to_string())
+                            .or_insert(HashSet::new())
+                            .insert(var.clone());
+                    }
+                    self.pp_def.insert(pp.to_string(), None);
+                    // TODO: update self.solution
+                }
+                Terminal::CallDirect {
+                    lhs,
+                    callee,
+                    args,
+                    next_bb,
+                } => {
+                    // TODO
+                }
+                Terminal::CallIndirect {
+                    lhs,
+                    callee,
+                    args,
+                    next_bb,
+                } => {
+                    // TODO
+                }
+            },
+        }
     }
 }
-
 
 impl AbstractExecution for ConstantAnalyzer {
     fn mfp(&mut self) {
@@ -563,25 +786,32 @@ impl AbstractExecution for ConstantAnalyzer {
     }
 }
 
-
 impl AbstractExecution for ReachingDefinitionAnalyzer {
-    fn mfp(&mut self) {
-        
-    }
+    fn mfp(&mut self) {}
 
     fn exe_block(&mut self, block: &lir::Block) {
-        
+        for (idx, instr) in block.insts.iter().enumerate() {
+            let pp = lir::ProgramPoint {
+                block: block.id.clone(),
+                location: lir::Location::Instruction(idx),
+            };
+            self.exe_pp(&pp);
+        }
+        let pp = lir::ProgramPoint {
+            block: block.id.clone(),
+            location: lir::Location::Terminal,
+        };
+        self.exe_pp(&pp);
     }
 
-    fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str) {
-        
+    fn exe_instr(&mut self, _instr: &lir::Instruction, _bb_label: &str) {
+        panic!("ReachingDefinitionAnalyzer does not support exe_instr method")
     }
 
-    fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str) {
-        
+    fn exe_term(&mut self, _term: &lir::Terminal, _bb_label: &str) {
+        panic!("ReachingDefinitionAnalyzer does not support exe_term method")
     }
 }
-
 
 pub trait AbstractExecution {
     fn mfp(&mut self);

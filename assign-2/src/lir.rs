@@ -198,12 +198,12 @@ pub enum Operand {
 
 // Additional LIR components for analysis other than parsing
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct ProgramPoint {
-    pub block: String, // block id
-    pub location: Location, // i-th instruction or terminal
-    pub using: HashSet<Variable>, // variables used are extracted from Operand objects
-    pub defining: Option<Variable>,
+    pub block: String,            // block id
+    pub location: Location,       // i-th instruction or terminal
+    // pub using: HashSet<Variable>, // variables used are extracted from Operand objects
+    // pub defining: Option<Variable>,
 }
 
 impl std::fmt::Display for ProgramPoint {
@@ -215,7 +215,43 @@ impl std::fmt::Display for ProgramPoint {
     }
 }
 
-#[derive(Debug, Clone)]
+// impl ProgramPoint {
+//     pub fn from_instr(bb_label: &str, instr: &Instruction, idx: usize) -> Self {
+//         let mut using = HashSet::new();
+//         let mut defining = None;
+//         match instr {
+//             Instruction::AddrOf { lhs, rhs: _ } => {
+//                 defining = Some(lhs.clone());
+//             }
+//             Instruction::Arith { lhs, aop, op1, op2 } => {
+//                 if let Operand::Var(v) = op1 {
+//                     using.insert(v);
+//                 }
+//                 if let Operand::Var(v) = op2 {
+//                     using.insert(v);
+//                 }
+//                 defining = Some(lhs.clone());
+//             }
+//         }
+//         Self {
+//             block: bb_label.to_string(),
+//             location: Location::Instruction(idx),
+//             using,
+//             defining,
+//         }
+//     }
+
+//     pub fn from_term(bb_label: &str, term: &Terminal) -> Self {
+//         Self {
+//             block: bb_label.to_string(),
+//             location: Location::Terminal,
+//             using,
+//             defining,
+//         }
+//     }
+// }
+
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Location {
     Instruction(usize),
     Terminal,

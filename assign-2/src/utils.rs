@@ -5,6 +5,21 @@ Utils functions
 use crate::lir;
 use crate::{abs::semantics::AbstractSemantics, store};
 use std::collections::HashMap;
+use crate::abs::domain;
+
+#[macro_export]
+macro_rules! hashset {
+    ( $( $x:expr ),* ) => {
+        {
+            let mut temp_set = HashSet::new();
+            $(
+                temp_set.insert($x);
+            )*
+            temp_set
+        }
+    };
+
+}
 
 pub fn display_bb2store<T>(bb2store: &HashMap<String, store::Store<T>>)
 where
@@ -22,6 +37,15 @@ where
             println!("{}:", bb);
             println!("{}", bb2store.get(&bb).unwrap());
         }
+    }
+}
+
+pub fn display_rdef_solution(solution: HashMap<String, domain::ProgramPoint>)
+{
+    let mut keys: Vec<String>= solution.keys().cloned().collect();
+    keys.sort();
+    for k in keys {
+        println!("{} -> {}", k, solution.get(&k).unwrap());
     }
 }
 

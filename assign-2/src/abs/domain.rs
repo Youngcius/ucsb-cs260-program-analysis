@@ -13,7 +13,7 @@ pub enum Constant {
 pub enum ProgramPoint {
     Bottom,
     Top,
-    ProgramPointSet(HashSet<String>),
+    ProgramPointSet(HashSet<lir::ProgramPoint>),
 }
 
 impl std::fmt::Display for Constant {
@@ -132,13 +132,28 @@ impl AbstractSemantics for Constant {
     }
 }
 
+// impl ProgramPoint {
+//     pub fn from_pp(pp: lir::ProgramPoint) -> Self {
+//         let mut pps = HashSet::new();
+//         pps.insert(pp);
+//         ProgramPoint::ProgramPointSet(pps)
+//     }
+//     pub fn from_pps(pps: Vec<lir::ProgramPoint>) -> Self {
+//         let mut pps_set = HashSet::new();
+//         for pp in pps {
+//             pps_set.insert(pp);
+//         }
+//         ProgramPoint::ProgramPointSet(pps_set)
+//     }
+// }
+
 impl std::fmt::Display for ProgramPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::Bottom => write!(f, "⊥"),
             Self::Top => write!(f, "Top"),
             Self::ProgramPointSet(pps) => {
-                let mut pps: Vec<&String> = pps.iter().collect();
+                let mut pps = pps.iter().map(|pp| pp.to_string()).collect::<Vec<String>>();
                 pps.sort();
                 write!(f, "{:?}", pps)
             }
@@ -168,7 +183,7 @@ impl AbstractSemantics for ProgramPoint {
             (ProgramPoint::Top, _) => ProgramPoint::Top,
             (_, ProgramPoint::Top) => ProgramPoint::Top,
             (ProgramPoint::ProgramPointSet(pps1), ProgramPoint::ProgramPointSet(pps2)) => {
-                let mut pps: HashSet<String> = pps1.clone();
+                let mut pps = pps1.clone();
                 pps.extend(pps2.clone());
                 ProgramPoint::ProgramPointSet(pps)
             }
