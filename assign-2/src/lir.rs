@@ -204,6 +204,8 @@ pub struct ProgramPoint {
     pub location: Location,       // i-th instruction or terminal
     // pub using: HashSet<Variable>, // variables used are extracted from Operand objects
     // pub defining: Option<Variable>,
+    // pub instr: Option<Instruction>,
+    // pub term: Option<Terminal>,
 }
 
 impl std::fmt::Display for ProgramPoint {

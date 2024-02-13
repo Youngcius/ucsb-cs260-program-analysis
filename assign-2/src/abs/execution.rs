@@ -113,12 +113,16 @@ impl ReachingDefinitionAnalyzer {
                 let pp = lir::ProgramPoint {
                     block: bb_label.clone(),
                     location: lir::Location::Instruction(idx),
+                    // instr: Some(instr.clone()),
+                    // term: None,
                 };
                 solution.insert(pp.to_string(), domain::ProgramPoint::Bottom);
             }
             let pp = lir::ProgramPoint {
                 block: bb_label.clone(),
                 location: lir::Location::Terminal,
+                // instr: None,
+                // term: Some(block.term.clone()),
             };
             solution.insert(pp.to_string(), domain::ProgramPoint::Bottom);
         }
