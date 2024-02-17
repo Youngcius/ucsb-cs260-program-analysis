@@ -26,12 +26,14 @@ pub struct Analyzer<T> {
 #[derive(Debug, Clone)]
 pub struct ReachingDefinitionAnalyzer {
     pub prog: lir::Program,
-    pub store: store::ProgramPointStore, // global store involving all variables
-    pub solution: HashMap<String, domain::ProgramPoint>, // mapping from program points to program point sets
+    // pub store: store::ProgramPointStore, // global store involving all variables
+    pub bb2store: HashMap<String, store::ProgramPointStore>, // mapping from block to store
     pub cfg: cfg::ControlFlowGraph,
-    pub pp_def: HashMap<String, Option<lir::Variable>>,
-    pub pp_use: HashMap<String, HashSet<lir::Variable>>,
     pub worklist: VecDeque<lir::Block>,
+    pub solution: HashMap<String, domain::ProgramPoint>, // mapping from program points to program point sets
+    pub pp_def: HashMap<String, HashSet<lir::Variable>>,
+    pub pp_use: HashMap<String, HashSet<lir::Variable>>,
+    pub addr_taken: Vec<lir::Variable>,
     pub executed: bool,
 }
 
@@ -45,66 +47,17 @@ pub struct ControlDependenceAnalyzer {
 
 pub type ConstantAnalyzer = Analyzer<domain::Constant>;
 
-impl ConstantAnalyzer {
-    pub fn new(prog: lir::Program, func_name: &str) -> Self {
-        // Initialized the constant analyzer
-        let cfg = cfg::ControlFlowGraph::from_function(&prog, func_name);
-        #[cfg(debug_assertions)]
-        {
-            println!("CFG edges: {:?}", cfg.edges);
-        }
-        let reachable_successors: HashMap<String, Vec<String>> = HashMap::new();
-        let mut worklist: VecDeque<lir::Block> = VecDeque::new();
-        let mut bb2store: HashMap<String, store::ConstantStore> = HashMap::new();
-        let mut entry_store = store::ConstantStore::new();
-        // set content of entry_store
-        let global_ints = prog.get_int_globals();
-        let param_ints = prog.get_int_parameters(func_name);
-        let local_ints = prog.get_int_locals(func_name);
-        let mut addrof_ints = prog.get_addrof_ints(func_name);
-        // add global to addrof_ints
-        for global in &global_ints {
-            addrof_ints.push(global.clone());
-        }
-
-        for local in &local_ints {
-            // println!("adding {} to entry_store (BOTTOM)", local.name);
-            entry_store.set(local.clone(), domain::Constant::Bottom);
-        }
-        for global in &global_ints {
-            // println!("adding {} to entry_store as (TOP", global.name);
-            entry_store.set(global.clone(), domain::Constant::Top);
-        }
-        for param in &param_ints {
-            // println!("adding {} to entry_store (TOP)", param.name);
-            entry_store.set(param.clone(), domain::Constant::Top);
-        }
-
-        worklist.push_back(cfg.get_entry().unwrap().clone());
-        for bb_label in &cfg.get_all_block_labels() {
-            bb2store.insert(bb_label.clone(), store::ConstantStore::new());
-        }
-        bb2store.insert("entry".to_string(), entry_store);
-
-        Self {
-            prog,
-            bb2store,
-            reachable_successors,
-            cfg,
-            worklist,
-            global_ints,
-            addrof_ints,
-            executed: false,
-        }
-    }
-}
-
 impl ReachingDefinitionAnalyzer {
     pub fn new(prog: lir::Program, func_name: &str) -> Self {
-        // Initialized the constant analyzer
+        // Initialized the reaching definition analyzer
         let cfg = cfg::ControlFlowGraph::from_function(&prog, func_name);
         // let reachable_successors: HashMap<String, Vec<String>> = HashMap::new();
+
         let mut worklist: VecDeque<lir::Block> = VecDeque::new();
+        let mut pp_use: HashMap<String, HashSet<lir::Variable>> = HashMap::new();
+        let mut pp_def: HashMap<String, HashSet<lir::Variable>> = HashMap::new();
+
+        let addr_taken = prog.get_addr_taken(func_name);
 
         let mut solution = HashMap::new();
         for bb_label in &cfg.get_all_block_labels() {
@@ -113,48 +66,125 @@ impl ReachingDefinitionAnalyzer {
                 let pp = lir::ProgramPoint {
                     block: bb_label.clone(),
                     location: lir::Location::Instruction(idx),
-                    // instr: Some(instr.clone()),
-                    // term: None,
+                    instr: Some(instr.clone()),
+                    term: None,
                 };
-                solution.insert(pp.to_string(), domain::ProgramPoint::Bottom);
+                solution.insert(
+                    pp.to_string(),
+                    domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                );
+                pp_use.insert(pp.to_string(), HashSet::new());
+                pp_def.insert(pp.to_string(), HashSet::new());
             }
             let pp = lir::ProgramPoint {
                 block: bb_label.clone(),
                 location: lir::Location::Terminal,
-                // instr: None,
-                // term: Some(block.term.clone()),
+                instr: None,
+                term: Some(block.term.clone()),
             };
-            solution.insert(pp.to_string(), domain::ProgramPoint::Bottom);
+            solution.insert(
+                pp.to_string(),
+                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+            );
+            pp_use.insert(pp.to_string(), HashSet::new());
+            pp_def.insert(pp.to_string(), HashSet::new());
         }
 
-        let mut store = store::ProgramPointStore::new();
+        let mut entry_store = store::ProgramPointStore::new();
+        let mut bb2store = HashMap::new();
 
+        // TODO: how to initialize entry_store
+        prog.get_int_globals().iter().for_each(|global| {
+            entry_store.set(
+                global.clone(),
+                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+            )
+        });
+        prog.get_ptr_globals().iter().for_each(|global| {
+            entry_store.set(
+                global.clone(),
+                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+            )
+        });
+        prog.get_int_locals(func_name).iter().for_each(|local| {
+            entry_store.set(
+                local.clone(),
+                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+            )
+        });
+        prog.get_ptr_locals(func_name).iter().for_each(|local| {
+            entry_store.set(
+                local.clone(),
+                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+            )
+        });
+        prog.get_int_parameters(func_name).iter().for_each(|param| {
+            entry_store.set(
+                param.clone(),
+                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+            )
+        });
+        prog.get_ptr_parameters(func_name).iter().for_each(|param| {
+            entry_store.set(
+                param.clone(),
+                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+            )
+        });
+        addr_taken.iter().for_each(|var| {
+            entry_store.set(
+                var.clone(),
+                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+            )
+        });
+        #[cfg(debug_assertions)]
+        {
+            println!("addr_taken: {:?}", addr_taken);
+            println!("initialized entry_store:\n {}", entry_store.to_string());
+        }
         worklist.push_back(cfg.get_entry().unwrap().clone());
+        for bb_label in &cfg.get_all_block_labels() {
+            bb2store.insert(bb_label.clone(), store::ProgramPointStore::new());
+        }
+        bb2store.insert("entry".to_string(), entry_store);
 
         Self {
             prog,
-            store,
-            solution,
+            bb2store,
             cfg,
-            pp_def: HashMap::new(),
-            pp_use: HashMap::new(),
             worklist,
+            solution,
+            pp_def,
+            pp_use,
+            addr_taken,
             executed: false,
         }
     }
 
-    fn exe_pp(&mut self, pp: &lir::ProgramPoint) {
-        let block = self.cfg.get_block(&pp.block).unwrap();
+    pub fn exe_pp(&mut self, pp: &lir::ProgramPoint) {
+        // let block = self.cfg.get_block(&pp.block).unwrap();
+        #[cfg(debug_assertions)]
+        {
+            println!();
+            println!("executing pp: {}", pp.to_string());
+        }
+        let store = self.bb2store.get_mut(&pp.block).unwrap();
+        self.pp_use.get_mut(&pp.to_string()).unwrap().clear(); // TODO: verify if this impacts
+        self.pp_def.get_mut(&pp.to_string()).unwrap().clear(); // TODO: verify if this impacts
         match pp.location {
-            lir::Location::Instruction(idx) => {
-                // let instr = &block.insts[idx];
-                match &block.insts[idx] {
+            lir::Location::Instruction(_) => {
+                match pp.instr.as_ref().unwrap() {
+                    // let instr = &block.insts[idx];
+                    // match &block.insts[idx] {
                     Instruction::AddrOf { lhs, rhs: _ } => {
-                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
-                        self.store.set(
+                        self.pp_def
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .insert(lhs.clone());
+                        store.set(
                             lhs.clone(),
                             domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                         );
+                        // println!("added domain to store: {}", store.get(lhs).unwrap());
                     }
                     Instruction::Arith {
                         lhs,
@@ -163,20 +193,42 @@ impl ReachingDefinitionAnalyzer {
                         op2,
                     } => {
                         if let lir::Operand::Var(var) = op1 {
+                            // self.pp_use
+                            //     .entry(pp.to_string())
+                            //     .or_insert(HashSet::new())
+                            //     .insert(var.clone());
                             self.pp_use
-                                .entry(pp.to_string())
-                                .or_insert(HashSet::new())
+                                .get_mut(&pp.to_string())
+                                .unwrap()
                                 .insert(var.clone());
                         }
                         if let lir::Operand::Var(var) = op2 {
+                            // self.pp_use
+                            //     .entry(pp.to_string())
+                            //     .or_insert(HashSet::new())
+                            //     .insert(var.clone());
                             self.pp_use
-                                .entry(pp.to_string())
-                                .or_insert(HashSet::new())
+                                .get_mut(&pp.to_string())
+                                .unwrap()
                                 .insert(var.clone());
                         }
-                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
-                        // TODO: update self.solution
-                        self.store.set(
+                        self.pp_def
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .insert(lhs.clone());
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            // println!(
+                            //     "joining store[{}] {} to solution[{}]",
+                            //     var.name,
+                            //     store.get(var).unwrap(),
+                            //     pp.to_string()
+                            // );
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
+                        store.set(
                             lhs.clone(),
                             domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                         );
@@ -199,9 +251,23 @@ impl ReachingDefinitionAnalyzer {
                                 .or_insert(HashSet::new())
                                 .insert(var.clone());
                         }
-                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
-                        // TODO: update self.solution
-                        self.store.set(
+                        self.pp_def
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .insert(lhs.clone());
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            // println!(
+                            //     "joining store[{}] {} to solution[{}]",
+                            //     var.name,
+                            //     store.get(var).unwrap(),
+                            //     pp.to_string()
+                            // );
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
+                        store.set(
                             lhs.clone(),
                             domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                         );
@@ -213,9 +279,23 @@ impl ReachingDefinitionAnalyzer {
                                 .or_insert(HashSet::new())
                                 .insert(var.clone());
                         }
-                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
-                        // TODO: update self.solution
-                        self.store.set(
+                        self.pp_def
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .insert(lhs.clone());
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            // println!(
+                            //     "joining store[{}] {} to solution[{}]",
+                            //     var.name,
+                            //     store.get(var).unwrap(),
+                            //     pp.to_string()
+                            // );
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
+                        store.set(
                             lhs.clone(),
                             domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                         );
@@ -231,9 +311,17 @@ impl ReachingDefinitionAnalyzer {
                             .entry(pp.to_string())
                             .or_insert(HashSet::new())
                             .insert(id.clone()); // TODO: ?????????
-                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
-                        // TODO: update self.solution
-                        self.store.set(
+                        self.pp_def
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .insert(lhs.clone());
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
+                        store.set(
                             lhs.clone(),
                             domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                         );
@@ -252,9 +340,17 @@ impl ReachingDefinitionAnalyzer {
                             .entry(pp.to_string())
                             .or_insert(HashSet::new())
                             .insert(src.clone());
-                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
-                        // TODO: update self.solution
-                        self.store.set(
+                        self.pp_def
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .insert(lhs.clone());
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
+                        store.set(
                             lhs.clone(),
                             domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                         );
@@ -271,82 +367,331 @@ impl ReachingDefinitionAnalyzer {
                             .entry(pp.to_string())
                             .or_insert(HashSet::new())
                             .insert(field.clone());
-                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
-                        // TODO: update self.solution
-                        self.store.set(
+                        self.pp_def
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .insert(lhs.clone());
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
+                        store.set(
                             lhs.clone(),
                             domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                         );
                     }
                     Instruction::Load { lhs, src } => {
-                        self.pp_def.insert(pp.to_string(), Some(lhs.clone()));
-                        // ...... TODO
-
-                        self.store.set(
+                        // TODO: .entry().or_insert() 都换成 get_mut()
+                        self.pp_use
+                            .entry(pp.to_string())
+                            .or_insert(HashSet::new())
+                            .insert(src.clone());
+                        for var in self.addr_taken.iter() {
+                            if var.typ == lhs.typ {
+                                self.pp_use
+                                    .get_mut(&pp.to_string())
+                                    .unwrap()
+                                    .insert(var.clone());
+                            }
+                        }
+                        self.pp_def
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .insert(lhs.clone());
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
+                        store.set(
                             lhs.clone(),
                             domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                         );
                     }
                     Instruction::Store { dst, op } => {
-                        // TODO
+                        self.pp_use
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .insert(dst.clone());
+                        if let lir::Operand::Var(var) = op {
+                            self.pp_use
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .insert(var.clone());
+                        }
+                        if let lir::Operand::Var(var) = op {
+                            for fake_var in self.addr_taken.iter() {
+                                if fake_var.typ == var.typ {
+                                    self.pp_def
+                                        .get_mut(&pp.to_string())
+                                        .unwrap()
+                                        .insert(fake_var.clone());
+                                }
+                            }
+                        }
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
+                        for var in self.pp_def.get(&pp.to_string()).unwrap() {
+                            // store.set(
+                            //     var.clone(),
+                            //     domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                            // );
+                            store.set(
+                                var.clone(),
+                                store.get(var).unwrap().join(
+                                    &domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                                ),
+                            ) // TODO: consider using store.join
+                        }
                     }
                     Instruction::CallExt {
                         lhs,
                         ext_callee,
                         args,
                     } => {
-                        // TODO
+                        let mut sdef = HashSet::new(); // strongly defined
+                        let mut wedf = HashSet::new(); // weakly defined
+                        if let Some(lsh) = lhs {
+                            sdef.insert(lsh.clone());
+                        }
+                        for global in self.prog.globals.iter() {
+                            wedf.insert(global.clone()); // TODO: all types of globals???
+                        }
+                        let mut reached_types_via_globals = HashSet::new();
+                        for global in self.prog.globals.iter() {
+                            // reached_types_via_globals  = reached_types_via_globals.union(&global.typ.reachable_types(&self.prog)).cloned().collect();
+                            reached_types_via_globals
+                                .extend(global.typ.reachable_types(&self.prog));
+                        }
+                        for var in self.addr_taken.iter() {
+                            if reached_types_via_globals.contains(&var.typ) {
+                                wedf.insert(var.clone());
+                            }
+                        }
+                        self.pp_use
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .extend(wedf.clone());
+                        for arg in args {
+                            if let lir::Operand::Var(var) = arg {
+                                self.pp_use
+                                    .get_mut(&pp.to_string())
+                                    .unwrap()
+                                    .insert(var.clone());
+                            }
+                        }
+                        self.pp_def
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .extend(sdef.clone());
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
+                        for var in wedf.iter() {
+                            store.set(
+                                var.clone(),
+                                store.get(var).unwrap().join(
+                                    &domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                                ),
+                            ) // TODO: 如何确定 store.get(var).unwrap() 一定存在？
+                        }
+                        if let Some(lsh) = lhs {
+                            store.set(
+                                lsh.clone(),
+                                domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                            );
+                        }
                     }
-                    _ => {}
                 }
             }
-            lir::Location::Terminal => match &block.term {
-                Terminal::Jump(_) => {
-                    // TODO: set pp_use to empty???
-                    self.pp_def.insert(pp.to_string(), None);
-                }
-                Terminal::Branch { cond, tt, ff } => {
-                    if let lir::Operand::Var(var) = cond {
-                        self.pp_use
-                            .entry(pp.to_string())
-                            .or_insert(HashSet::new())
-                            .insert(var.clone());
+
+            // lir::Location::Terminal => match &block.term {
+            lir::Location::Terminal => {
+                match pp.term.as_ref().unwrap() {
+                    Terminal::Jump(_) => {}
+                    Terminal::Branch { cond, tt: _, ff: _ } => {
+                        if let lir::Operand::Var(var) = cond {
+                            self.pp_use
+                                .entry(pp.to_string())
+                                .or_insert(HashSet::new())
+                                .insert(var.clone());
+                        }
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
                     }
-                    self.pp_def.insert(pp.to_string(), None);
-                    // TODO: update self.solution
-                }
-                Terminal::Ret(ret) => {
-                    if let Some(lir::Operand::Var(var)) = ret {
-                        self.pp_use
-                            .entry(pp.to_string())
-                            .or_insert(HashSet::new())
-                            .insert(var.clone());
+                    Terminal::Ret(ret) => {
+                        if let Some(lir::Operand::Var(var)) = ret {
+                            self.pp_use
+                                .entry(pp.to_string())
+                                .or_insert(HashSet::new())
+                                .insert(var.clone());
+                        }
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
                     }
-                    self.pp_def.insert(pp.to_string(), None);
-                    // TODO: update self.solution
+                    Terminal::CallDirect {
+                        lhs,
+                        callee,
+                        args,
+                        next_bb: _,
+                    } => {
+                        let mut sdef = HashSet::new(); // strongly defined
+                        let mut wdef = HashSet::new(); // weakly defined
+                        if let Some(lsh) = lhs {
+                            sdef.insert(lsh.clone());
+                        }
+                        for global in self.prog.globals.iter() {
+                            wdef.insert(global.clone()); // TODO: all types of globals???
+                        }
+                        let mut reached_types_via_globals = HashSet::new();
+                        for global in self.prog.globals.iter() {
+                            // reached_types_via_globals  = reached_types_via_globals.union(&global.typ.reachable_types(&self.prog)).cloned().collect();
+                            reached_types_via_globals
+                                .extend(global.typ.reachable_types(&self.prog));
+                        }
+                        for var in self.addr_taken.iter() {
+                            if reached_types_via_globals.contains(&var.typ) {
+                                wdef.insert(var.clone());
+                            }
+                        }
+                        self.pp_use
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .extend(wdef.clone());
+                        for arg in args {
+                            if let lir::Operand::Var(var) = arg {
+                                self.pp_use
+                                    .get_mut(&pp.to_string())
+                                    .unwrap()
+                                    .insert(var.clone());
+                            }
+                        }
+                        self.pp_def
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .extend(sdef.clone());
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
+                        for var in wdef.iter() {
+                            store.set(
+                                var.clone(),
+                                store.get(var).unwrap().join(
+                                    &domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                                ),
+                            )
+                        }
+                        if let Some(lsh) = lhs {
+                            store.set(
+                                lsh.clone(),
+                                domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                            );
+                        }
+                    }
+                    Terminal::CallIndirect {
+                        lhs,
+                        callee,
+                        args,
+                        next_bb: _,
+                    } => {
+                        let mut sdef = HashSet::new(); // strongly defined
+                        let mut wdef = HashSet::new(); // weakly defined
+                        if let Some(lsh) = lhs {
+                            sdef.insert(lsh.clone());
+                        }
+                        for global in self.prog.globals.iter() {
+                            wdef.insert(global.clone()); // TODO: all types of globals???
+                        }
+                        let mut reached_types_via_globals = HashSet::new();
+                        for global in self.prog.globals.iter() {
+                            // reached_types_via_globals  = reached_types_via_globals.union(&global.typ.reachable_types(&self.prog)).cloned().collect();
+                            reached_types_via_globals
+                                .extend(global.typ.reachable_types(&self.prog));
+                        }
+                        for var in self.addr_taken.iter() {
+                            if reached_types_via_globals.contains(&var.typ) {
+                                wdef.insert(var.clone());
+                            }
+                        }
+                        self.pp_use
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .insert(callee.clone());
+                        self.pp_use
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .extend(wdef.clone());
+                        for arg in args {
+                            if let lir::Operand::Var(var) = arg {
+                                self.pp_use
+                                    .get_mut(&pp.to_string())
+                                    .unwrap()
+                                    .insert(var.clone());
+                            }
+                        }
+                        self.pp_def
+                            .get_mut(&pp.to_string())
+                            .unwrap()
+                            .extend(sdef.clone());
+                        for var in self.pp_use.get(&pp.to_string()).unwrap() {
+                            self.solution
+                                .get_mut(&pp.to_string())
+                                .unwrap()
+                                .join_in_place(store.get(var).unwrap());
+                        }
+                        for var in wdef.iter() {
+                            store.set(
+                                var.clone(),
+                                store.get(var).unwrap().join(
+                                    &domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                                ),
+                            )
+                        }
+                        if let Some(lsh) = lhs {
+                            store.set(
+                                lsh.clone(),
+                                domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
+                            );
+                        }
+                    }
                 }
-                Terminal::CallDirect {
-                    lhs,
-                    callee,
-                    args,
-                    next_bb,
-                } => {
-                    // TODO
-                }
-                Terminal::CallIndirect {
-                    lhs,
-                    callee,
-                    args,
-                    next_bb,
-                } => {
-                    // TODO
-                }
-            },
+            }
+        }
+        #[cfg(debug_assertions)]
+        {
+            println!(
+                "after executing:\n solution[{}] -> {:?}",
+                pp.to_string(),
+                self.solution.get(&pp.to_string()).unwrap().to_string()
+            );
+            println!("pp_use -> {:?}", self.pp_use.get(&pp.to_string()).unwrap());
+            println!("pp_def -> {:?}", self.pp_def.get(&pp.to_string()).unwrap());
         }
     }
 }
 
-impl AbstractExecution for ConstantAnalyzer {
+impl AbstractExecution for ReachingDefinitionAnalyzer {
     fn mfp(&mut self) {
         if self.executed {
             log::warn!("Already executed");
@@ -356,454 +701,72 @@ impl AbstractExecution for ConstantAnalyzer {
         for bb_label in self.cfg.get_all_block_labels() {
             visited.insert(bb_label.clone(), 0);
         }
+
         self.executed = true;
+
         while !self.worklist.is_empty() {
             let block = self.worklist.pop_front().unwrap();
             self.exe_block(&block);
             visited.insert(block.id.clone(), visited.get(&block.id).unwrap() + 1);
 
-            for succ_label in self.reachable_successors.get(&block.id).unwrap() {
-                #[cfg(debug_assertions)]
-                {
-                    println!(
-                        "Joining store {} (just executed) --> store {}",
-                        block.id, succ_label
-                    );
-                    println!("{}", self.bb2store.get(&block.id).unwrap().to_string());
-                    println!();
-                    println!("{}", self.bb2store.get(succ_label).unwrap().to_string());
-                }
-
-                let succ = self.cfg.get_block(&succ_label).unwrap().clone();
-                let succ_store = self.bb2store.get(succ_label).unwrap(); // succ_store before joining and executing
+            for succ in self.cfg.get_successors(&block) {
+                let succ_store = self.bb2store.get(&succ.id).unwrap();
                 let store_joined = succ_store.join(&self.bb2store.get(&block.id).unwrap());
                 let mut new_store = store_joined.clone(); // it may be executed virtually
-
-                if visited.get(&block.id).unwrap() > &1 && visited.get(succ_label).unwrap() > &0 {
-                    // it is a block in a loop
-                    #[cfg(debug_assertions)]
-                    {
-                        println!("\n{} is a block in a loop\n", succ_label);
-                    }
-                    let mut analyzer_duplicate = self.clone();
-                    analyzer_duplicate
-                        .bb2store
-                        .insert(succ_label.clone(), new_store.clone());
-                    analyzer_duplicate.exe_block(&succ);
-                    new_store = analyzer_duplicate.bb2store.get(succ_label).unwrap().clone();
-                }
-
+                                                          // TODO: try to update new_store???
                 if &new_store != succ_store {
-                    #[cfg(debug_assertions)]
-                    {
-                        println!(
-                            "\t store {} to be changed (after executing {}), pushed to to worklist",
-                            succ_label, block.id
-                        );
-                    }
-                    self.bb2store.insert(succ_label.clone(), store_joined);
+                    self.bb2store.insert(succ.id.clone(), store_joined);
                     if !self.worklist.contains(&succ) {
                         self.worklist.push_back(succ.clone());
                     }
                 }
             }
         }
-    }
 
-    fn exe_block(&mut self, block: &lir::Block) {
-        #[cfg(debug_assertions)]
-        {
-            println!("Executing block {}", block.id);
-        }
-        for instr in &block.insts {
-            self.exe_instr(instr, &block.id);
-        }
-        self.exe_term(&block.term, &block.id);
+        // let mut worklist = Vec::new();
+        // for (bb_label, _) in self.bb2store.iter() {
+        //     worklist.push(bb_label.clone());
+        // }
+        // while !worklist.is_empty() {
+        //     let bb_label = worklist.pop().unwrap();
+        //     let store = self.bb2store.get(&bb_label).unwrap();
+        //     let old_out = self.bb2out.get(&bb_label).unwrap().clone();
+        //     let mut new_in = store.clone();
+        //     let mut new_out = store.clone();
+        //     for succ in self.reachable_successors.get(&bb_label).unwrap().iter() {
+        //         let succ_in = self.bb2in.get(succ).unwrap();
+        //         new_out = new_out.join(succ_in);
+        //     }
+        //     new_in = new_out.clone();
+        //     new_in = new_in.minus_kill(&self.bb2kill.get(&bb_label).unwrap());
+        //     new_in = new_in.join(&self.bb2gen.get(&bb_label).unwrap());
+        //     if new_in != old_out {
+        //         self.bb2in.insert(bb_label.clone(), new_in.clone());
+        //         self.bb2out.insert(bb_label.clone(), new_out.clone());
+        //         for pred in self.predecessors.get(&bb_label).unwrap().iter() {
+        //             if !worklist.contains(pred) {
+        //                 worklist.push(pred.clone());
+        //             }
+        //         }
+        //     }
+        // }
     }
-
-    fn exe_instr(&mut self, instr: &lir::Instruction, bb_label: &str) {
-        /*
-        execute an instruction on the store
-        op: Operand::CInt(i32), or Operand::Var { name: String, typ: Type::Int, scope: ...}
-        */
-        #[cfg(debug_assertions)]
-        {
-            println!("executing instruction: {:?}", instr);
-        }
-        let store = self.bb2store.get_mut(bb_label).unwrap();
-        match instr {
-            lir::Instruction::AddrOf { lhs: _, rhs } => {
-                // {"AddrOf": {"lhs": "xxx", "rhs": "xxx"}}
-                if let lir::Type::Int = rhs.typ {
-                    assert!(self.addrof_ints.contains(rhs));
-                    #[cfg(debug_assertions)]
-                    {
-                        println!("added {} to addrof_ints", rhs.name);
-                    }
-                }
-            }
-            lir::Instruction::Alloc {
-                lhs: _,
-                num: _,
-                id: _,
-            } => {
-                // {"Alloc": {"lhs": "xxx", "num": "xxx", "id": "xxx"}}
-            }
-            lir::Instruction::Copy { lhs, op } => {
-                // {"Copy": {"lhs": "xxx", "op": "xxx"}}
-                if let lir::Type::Int = lhs.typ {
-                    let res_val: domain::Constant;
-                    match op {
-                        lir::Operand::Var(var) => {
-                            if let lir::Type::Int = var.typ {
-                                res_val = store.get(var).unwrap().clone();
-                            } else {
-                                log::warn!("Copy: lhs and op type mismatch");
-                                res_val = domain::Constant::Top;
-                            }
-                        }
-                        lir::Operand::CInt(c) => {
-                            res_val = domain::Constant::CInt(*c);
-                        }
-                    }
-                    store.set(lhs.clone(), res_val);
-                }
-            }
-            lir::Instruction::Gep {
-                lhs: _,
-                src: _,
-                idx: _,
-            } => {
-                // {"Gep": {"lhs": "xxx", "src": "xxx", "idx": "xxx"}}
-            }
-            lir::Instruction::Arith { lhs, aop, op1, op2 } => {
-                // {"Arith": {"lhs": "xxx", "aop": "xxx", "op1": "xxx", "op2": "xxx"}}
-                let res_val: domain::Constant;
-                match (op1, op2) {
-                    (lir::Operand::Var(var1), lir::Operand::Var(var2)) => {
-                        if let lir::Type::Int = var1.typ {
-                            if let lir::Type::Int = var2.typ {
-                                let op1_val = store.get(var1).unwrap();
-                                let op2_val = store.get(var2).unwrap();
-                                res_val = op1_val.arith(op2_val, aop);
-                            } else {
-                                res_val = domain::Constant::Top;
-                            }
-                        } else {
-                            res_val = domain::Constant::Top;
-                        }
-                    }
-                    (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
-                        if let lir::Type::Int = var.typ {
-                            let op1_val = store.get(var).unwrap();
-                            let op2_val = domain::Constant::CInt(*c);
-                            res_val = op1_val.arith(&op2_val, aop);
-                        } else {
-                            res_val = domain::Constant::Top;
-                        }
-                    }
-                    (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
-                        if let lir::Type::Int = var.typ {
-                            let op1_val = domain::Constant::CInt(*c);
-                            let op2_val = store.get(var).unwrap();
-                            res_val = op1_val.arith(op2_val, aop);
-                        } else {
-                            res_val = domain::Constant::Top;
-                        }
-                    }
-                    (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
-                        let op1_val = domain::Constant::CInt(*c1);
-                        let op2_val = domain::Constant::CInt(*c2);
-                        res_val = op1_val.arith(&op2_val, aop);
-                    }
-                }
-                store.set(lhs.clone(), res_val);
-            }
-            lir::Instruction::Load { lhs, src: _ } => {
-                // {"Load": {"lhs": "xxx", "src": "xxx"}
-                if let lir::Type::Int = lhs.typ {
-                    store.set(lhs.clone(), domain::Constant::Top);
-                }
-            }
-            lir::Instruction::Store { dst: _, op } => {
-                // {"Store": {"dst": "xxx", "op": "xxx"}}
-                // if op is Operand::CInt or in-type Variable, do something
-                match op {
-                    lir::Operand::CInt(c) => {
-                        let op_val = domain::Constant::CInt(*c);
-                        let mut new_store = store::ConstantStore::new();
-                        for var in self.addrof_ints.iter() {
-                            new_store.set(var.clone(), op_val.clone());
-                        }
-                        #[cfg(debug_assertions)]
-                        {
-                            println!("Now new_store: {}", new_store.to_string());
-                        }
-                        #[cfg(debug_assertions)]
-                        {
-                            println!("In Store instruction, joining store with new_store");
-                            println!("Before joining:");
-                            println!("{}", store.to_string());
-                        }
-                        *store = store.join(&new_store);
-                        #[cfg(debug_assertions)]
-                        {
-                            println!("After joining:");
-                            println!("{}", store.to_string());
-                        }
-                    }
-                    lir::Operand::Var(var) => {
-                        if let lir::Type::Int = var.typ {
-                            let op_val = store.get(var).unwrap().clone();
-                            let mut new_store = store::ConstantStore::new();
-                            for var in self.addrof_ints.iter() {
-                                new_store.set(var.clone(), op_val.clone());
-                            }
-                            #[cfg(debug_assertions)]
-                            {
-                                println!("Now new_store: {}", new_store.to_string());
-                            }
-                            #[cfg(debug_assertions)]
-                            {
-                                println!("In Store instruction, joining store with new_store");
-                                println!("Before joining:");
-                                println!("{}", store.to_string());
-                            }
-                            *store = store.join(&new_store);
-                            #[cfg(debug_assertions)]
-                            {
-                                println!("After joining:");
-                                println!("{}", store.to_string());
-                            }
-                        }
-                    }
-                }
-            }
-            lir::Instruction::Gfp {
-                lhs: _,
-                src: _,
-                field: _,
-            } => {
-                // {"Gfp": {"lhs": "xxx", "src": "xxx", "field": "xxx"}}
-            }
-            lir::Instruction::Cmp { lhs, rop, op1, op2 } => {
-                // {"Cmp": {"lhs": "xxx", "rop": "xxx", "op1": "xxx", "op2": "xxx"}}
-                #[cfg(debug_assertions)]
-                {
-                    println!("[CMP] executing instruction: {:?}", instr);
-                }
-                if let lir::Type::Int = lhs.typ {
-                    let res_val: domain::Constant;
-                    match (op1, op2) {
-                        (lir::Operand::Var(var1), lir::Operand::Var(var2)) => {
-                            if let lir::Type::Int = var1.typ {
-                                if let lir::Type::Int = var2.typ {
-                                    let op1_val = store.get(var1).unwrap();
-                                    let op2_val = store.get(var2).unwrap();
-                                    res_val = op1_val.cmp(op2_val, rop);
-                                } else {
-                                    res_val = domain::Constant::Top;
-                                }
-                            } else {
-                                res_val = domain::Constant::Top;
-                            }
-                        }
-                        (lir::Operand::Var(var), lir::Operand::CInt(c)) => {
-                            if let lir::Type::Int = var.typ {
-                                let op1_val = store.get(var).unwrap();
-                                let op2_val = domain::Constant::CInt(*c);
-                                res_val = op1_val.cmp(&op2_val, rop);
-                            } else {
-                                res_val = domain::Constant::Top;
-                            }
-                        }
-                        (lir::Operand::CInt(c), lir::Operand::Var(var)) => {
-                            if let lir::Type::Int = var.typ {
-                                let op1_val = domain::Constant::CInt(*c);
-                                let op2_val = store.get(var).unwrap();
-                                res_val = op1_val.cmp(op2_val, rop);
-                            } else {
-                                res_val = domain::Constant::Top;
-                            }
-                        }
-                        (lir::Operand::CInt(c1), lir::Operand::CInt(c2)) => {
-                            let op1_val = domain::Constant::CInt(*c1);
-                            let op2_val = domain::Constant::CInt(*c2);
-                            res_val = op1_val.cmp(&op2_val, rop);
-                        }
-                    }
-                    store.set(lhs.clone(), res_val);
-                }
-            }
-            lir::Instruction::CallExt {
-                lhs,
-                ext_callee: _,
-                args,
-            } => {
-                // {"CallExt": {"lhs": "xxx", "ext_callee": "xxx", "args": ["xxx", "xxx"]}}
-                // set all global_ints to Top
-                for var in self.global_ints.iter() {
-                    store.set(var.clone(), domain::Constant::Top);
-                }
-                // if lhs is int-type Variable, set it to Top
-                match lhs {
-                    Some(lsh) => {
-                        if let lir::Type::Int = lsh.typ {
-                            store.set(lsh.clone(), domain::Constant::Top);
-                        }
-                    }
-                    None => {}
-                }
-                // for any argument that is a pointer able to reach an int-type Variable var, set it to Top
-                for arg in args.iter() {
-                    if let lir::Operand::Var(var) = arg {
-                        if let lir::Type::Pointer(to) = &var.typ {
-                            if utils::able_to_reach_int(to) {
-                                for var in self.addrof_ints.iter() {
-                                    store.set(var.clone(), domain::Constant::Top);
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    fn exe_term(&mut self, term: &lir::Terminal, bb_label: &str) {
-        #[cfg(debug_assertions)]
-        {
-            println!();
-            println!("executing terminal: {:?}", term);
-        }
-        let store = self.bb2store.get_mut(bb_label).unwrap();
-        match term {
-            lir::Terminal::CallDirect {
-                lhs,
-                callee: _,
-                args,
-                next_bb,
-            } => {
-                for var in self.global_ints.iter() {
-                    store.set(var.clone(), domain::Constant::Top);
-                }
-                match lhs {
-                    Some(lsh) => {
-                        if let lir::Type::Int = lsh.typ {
-                            store.set(lsh.clone(), domain::Constant::Top);
-                        }
-                    }
-                    None => {}
-                }
-                for arg in args.iter() {
-                    if let lir::Operand::Var(var) = arg {
-                        if let lir::Type::Pointer(to) = &var.typ {
-                            if utils::able_to_reach_int(to) {
-                                for var in self.addrof_ints.iter() {
-                                    store.set(var.clone(), domain::Constant::Top);
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-                self.reachable_successors
-                    .insert(bb_label.to_string(), vec![next_bb.clone()]);
-            }
-            lir::Terminal::CallIndirect {
-                lhs,
-                callee: _,
-                args,
-                next_bb,
-            } => {
-                for var in self.global_ints.iter() {
-                    store.set(var.clone(), domain::Constant::Top);
-                }
-                match lhs {
-                    Some(lsh) => {
-                        if let lir::Type::Int = lsh.typ {
-                            store.set(lsh.clone(), domain::Constant::Top);
-                        }
-                    }
-                    None => {}
-                }
-                for arg in args.iter() {
-                    // println!("traversing arg (op) {:?}", arg);
-                    if let lir::Operand::Var(var) = arg {
-                        if let lir::Type::Pointer(to) = &var.typ {
-                            // println!("traversing arg (ptr) {:?}", arg);
-                            if utils::able_to_reach_int(to) {
-                                for var in self.addrof_ints.iter() {
-                                    store.set(var.clone(), domain::Constant::Top);
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-                self.reachable_successors
-                    .insert(bb_label.to_string(), vec![next_bb.clone()]);
-            }
-            lir::Terminal::Jump(label) => {
-                self.reachable_successors
-                    .insert(bb_label.to_string(), vec![label.clone()]);
-            }
-            lir::Terminal::Branch { cond, tt, ff } => match cond {
-                lir::Operand::Var(var) => {
-                    if let lir::Type::Int = var.typ {
-                        let cond_val = store.get(var).unwrap();
-                        if cond_val.is_bottom() {
-                            self.reachable_successors
-                                .insert(bb_label.to_string(), vec![]);
-                        } else if cond_val.is_top() {
-                            self.reachable_successors
-                                .insert(bb_label.to_string(), vec![tt.clone(), ff.clone()]);
-                        } else {
-                            if let domain::Constant::CInt(c) = cond_val {
-                                if *c == 0 {
-                                    self.reachable_successors
-                                        .insert(bb_label.to_string(), vec![ff.clone()]);
-                                } else {
-                                    self.reachable_successors
-                                        .insert(bb_label.to_string(), vec![tt.clone()]);
-                                }
-                            }
-                        }
-                    }
-                }
-                lir::Operand::CInt(c) => {
-                    if *c == 0 {
-                        self.reachable_successors
-                            .insert(bb_label.to_string(), vec![ff.clone()]);
-                    } else {
-                        self.reachable_successors
-                            .insert(bb_label.to_string(), vec![tt.clone()]);
-                    }
-                }
-            },
-            lir::Terminal::Ret(_) => {
-                self.reachable_successors
-                    .insert(bb_label.to_string(), vec![]);
-            }
-        }
-    }
-}
-
-impl AbstractExecution for ReachingDefinitionAnalyzer {
-    fn mfp(&mut self) {}
 
     fn exe_block(&mut self, block: &lir::Block) {
         for (idx, instr) in block.insts.iter().enumerate() {
             let pp = lir::ProgramPoint {
                 block: block.id.clone(),
                 location: lir::Location::Instruction(idx),
+                instr: Some(instr.clone()),
+                term: None,
             };
             self.exe_pp(&pp);
         }
         let pp = lir::ProgramPoint {
             block: block.id.clone(),
             location: lir::Location::Terminal,
+            instr: None,
+            term: Some(block.term.clone()),
         };
         self.exe_pp(&pp);
     }

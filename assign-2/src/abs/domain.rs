@@ -53,6 +53,9 @@ impl AbstractSemantics for Constant {
             _ => Self::Top,
         }
     }
+    fn join_in_place(&mut self, other: &Self) {
+        *self = self.join(other);
+    }
     fn arith(&self, other: &Self, op: &lir::ArithOp) -> Self {
         match (self, other) {
             (Self::Bottom, _) => Self::Bottom,
@@ -132,21 +135,6 @@ impl AbstractSemantics for Constant {
     }
 }
 
-// impl ProgramPoint {
-//     pub fn from_pp(pp: lir::ProgramPoint) -> Self {
-//         let mut pps = HashSet::new();
-//         pps.insert(pp);
-//         ProgramPoint::ProgramPointSet(pps)
-//     }
-//     pub fn from_pps(pps: Vec<lir::ProgramPoint>) -> Self {
-//         let mut pps_set = HashSet::new();
-//         for pp in pps {
-//             pps_set.insert(pp);
-//         }
-//         ProgramPoint::ProgramPointSet(pps_set)
-//     }
-// }
-
 impl std::fmt::Display for ProgramPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -155,7 +143,14 @@ impl std::fmt::Display for ProgramPoint {
             Self::ProgramPointSet(pps) => {
                 let mut pps = pps.iter().map(|pp| pp.to_string()).collect::<Vec<String>>();
                 pps.sort();
-                write!(f, "{:?}", pps)
+                write!(
+                    f,
+                    "{{{}}}",
+                    pps.iter()
+                        .map(|pp| pp.to_string())
+                        .collect::<Vec<String>>()
+                        .join(", ")
+                )
             }
         }
     }
@@ -189,10 +184,39 @@ impl AbstractSemantics for ProgramPoint {
             }
         }
     }
+    fn join_in_place(&mut self, other: &Self) {
+        *self = self.join(other);
+    }
     fn arith(&self, _other: &Self, _op: &lir::ArithOp) -> Self {
         panic!("ProgramPoint does not support arithmetic operations")
     }
     fn cmp(&self, _other: &Self, _op: &lir::RelaOp) -> Self {
         panic!("ProgramPoint does not support comparison operations")
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use crate::lir;
+
+    #[test]
+    fn test_hashset_macro() {
+        use crate::hashset;
+        let pp_domain = ProgramPoint::ProgramPointSet(hashset! {
+            lir::ProgramPoint {
+                block: "bb1".to_string(),
+                location: lir::Location::Instruction(1),
+                instr: None,
+                term: None
+            },
+            lir::ProgramPoint {
+                block: "bb2".to_string(),
+                location: lir::Location::Instruction(1),
+                instr: None,
+                term: None
+            }
+        });
+        println!("{}", pp_domain);
     }
 }

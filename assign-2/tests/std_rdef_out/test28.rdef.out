@@ -1,0 +1,15 @@
+entry.2 -> {entry.0, entry.1}
+entry.3 -> {entry.0, entry.2}
+entry.4 -> {entry.0, entry.3}
+entry.5 -> {entry.4}
+entry.9 -> {entry.8}
+entry.12 -> {entry.11}
+entry.13 -> {entry.10, entry.12}
+entry.14 -> {entry.13}
+entry.16 -> {entry.5, entry.6}
+entry.17 -> {entry.16}
+entry.19 -> {entry.9, entry.14}
+entry.20 -> {entry.0, entry.15, entry.17}
+entry.21 -> {entry.19, entry.20}
+entry.22 -> {entry.0, entry.17, entry.21}
+entry.term -> {entry.22}

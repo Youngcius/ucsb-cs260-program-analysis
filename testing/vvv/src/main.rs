@@ -38,6 +38,12 @@ fn main() {
             .insert(v.to_string());
     }
 
+
+    // map.get_mut(pp).unwrap().clear();
+    map.get_mut(pp).unwrap().insert("added".to_string());
+
+
+
     println!("{:?}", map);
     println!("vec: {:?}", vec);
 

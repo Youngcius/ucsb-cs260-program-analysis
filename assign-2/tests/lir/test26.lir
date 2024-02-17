@@ -1,0 +1,102 @@
+f1:&() -> int
+f2:&(int, int) -> int
+test:&() -> int
+
+extern e1:() -> int
+extern e2:(int) -> int
+
+fn f1() -> int {
+entry:
+  $ret 0
+}
+
+fn f2(p:int, q:int) -> int {
+entry:
+  $ret 0
+}
+
+fn main() -> int {
+entry:
+  $ret 0
+}
+
+fn test() -> int {
+let _lo1:int, _lo2:int, _lo3:int, _t10:int, _t11:int, _t12:int, _t13:int, _t14:int, _t15:int, _t16:int, _t17:int, _t18:int, _t19:int, _t20:int, _t21:int, _t22:int, _t4:int, _t5:int, _t6:int, _t7:int, _t8:int, _t9:int, id0:int, id1:int, id2:int, id3:int, id4:int
+bb1:
+  _t5 = $arith mul 7 _lo1
+  id3 = $copy _t5
+  id4 = $copy 10
+  _t6 = $cmp neq id1 1
+  id0 = $copy _t6
+  $jump bb4
+
+bb10:
+  _t21 = $call_dir f2(_t18, _t20) then bb11
+
+bb11:
+  _t22 = $call_ext e2(_t21)
+  id3 = $copy _t22
+  $branch 7 bb13 bb14
+
+bb12:
+  $ret _lo3
+
+bb13:
+  _lo3 = $copy 0
+  $jump bb12
+
+bb14:
+  _lo3 = $copy 1
+  $jump bb12
+
+bb2:
+  _lo1 = $copy 0
+  $jump bb1
+
+bb3:
+  _lo1 = $copy 1
+  $jump bb1
+
+bb4:
+  _t7 = $arith sub 0 4
+  $branch _t7 bb5 bb6
+
+bb5:
+  $call_ext e1()
+  _t8 = $cmp gt 7 id4
+  _lo2 = $copy _t8
+  _t9 = $cmp eq _lo2 0
+  $branch _t9 bb8 bb7
+
+bb6:
+  _t17 = $call_ext e1()
+  _t18 = $arith mul 8 _t17
+  _t19 = $call_ext e1()
+  _t20 = $call_dir f2(_t19, id0) then bb10
+
+bb7:
+  _t10 = $call_dir f1() then bb9
+
+bb8:
+  _lo2 = $copy 8
+  $jump bb7
+
+bb9:
+  _t11 = $arith sub 0 _t10
+  _t12 = $cmp lte _t11 _lo2
+  id3 = $copy _t12
+  id2 = $copy id1
+  _t13 = $arith sub 0 10
+  _t14 = $call_ext e1()
+  _t15 = $arith add _t14 id3
+  _t16 = $cmp lt _t13 _t15
+  id1 = $copy _t16
+  $jump bb4
+
+entry:
+  id2 = $copy 9
+  id1 = $copy id2
+  id0 = $copy id1
+  _t4 = $call_ext e1()
+  $branch _t4 bb2 bb3
+}

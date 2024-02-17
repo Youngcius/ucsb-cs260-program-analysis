@@ -40,11 +40,22 @@ where
     }
 }
 
-pub fn display_rdef_solution(solution: HashMap<String, domain::ProgramPoint>)
+pub fn display_rdef_solution(solution: &HashMap<String, domain::ProgramPoint>)
 {
     let mut keys: Vec<String>= solution.keys().cloned().collect();
     keys.sort();
     for k in keys {
+        if let domain::ProgramPoint::Bottom = solution.get(&k).unwrap() {
+            continue;
+        }
+        if let domain::ProgramPoint::ProgramPointSet(pps) = solution.get(&k).unwrap() {
+            if pps.is_empty() {
+                continue;
+            }
+        }
+        // if let domain::ProgramPoint::ProgramPointSet(HashMap::new()) = solution.get(&k).unwrap() {
+        //     continue;
+        // }
         println!("{} -> {}", k, solution.get(&k).unwrap());
     }
 }

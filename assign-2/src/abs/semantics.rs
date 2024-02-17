@@ -4,6 +4,7 @@ pub trait AbstractSemantics {
     fn is_bottom(&self) -> bool;
     fn is_top(&self) -> bool;
     fn join(&self, other: &Self) -> Self;
+    fn join_in_place(&mut self, other: &Self);
     fn arith(&self, other: &Self, op: &lir::ArithOp) -> Self;
     fn cmp(&self, other: &Self, op: &lir::RelaOp) -> Self;
 }

@@ -29,6 +29,49 @@ pub enum Type {
     Pointer(Box<Type>),          // {"Pointer": "xxx"}
 }
 
+impl Type {
+    pub fn reachable_types(&self, prog: &Program) -> HashSet<Type> {
+        let mut reachable = HashSet::new();
+        self.reaching_types(prog, &mut reachable);
+        reachable
+    }
+
+    pub fn reaching_types(&self, prog: &Program, res: &mut HashSet<Type>) {
+        // return the set of types reachable via pointer dereference and/or struct field access from the given type,
+        // excluding struct and function types included in its field or via pointer dereference
+        match self {
+            Type::Int => {
+                res.insert(Type::Int);
+            }
+            Type::Struct(struct_name) => {
+                // reachable.insert(Type::Struct("".to_string()));
+                // println!("Struct type: {}", struct_name);
+                prog.structs.get(struct_name).unwrap().iter().for_each(|f| {
+                    // println!("Struct field: {:#?}", f);
+                    if !res.contains(&f.typ) {
+                        f.typ.reaching_types(prog, res);
+                    }
+                });
+            }
+            Type::Function(_) => {
+                // reachable.insert(Type::Function(Box::new(FunctionType {
+                //     ret_ty: None,
+                //     param_ty: Vec::new(),
+                // })));
+            }
+            Type::Pointer(t) => {
+                // if let Type::Function(_) = **t {
+                //     return;
+                // }
+                if !res.contains(&**t) {
+                    res.insert(Type::Pointer(t.clone()));
+                    t.reaching_types(prog, res);
+                }
+            }
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
 pub struct Variable {
     // it could be as parameter, local variable, or global variable
@@ -200,12 +243,12 @@ pub enum Operand {
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct ProgramPoint {
-    pub block: String,            // block id
-    pub location: Location,       // i-th instruction or terminal
+    pub block: String,      // block id
+    pub location: Location, // i-th instruction or terminal
     // pub using: HashSet<Variable>, // variables used are extracted from Operand objects
     // pub defining: Option<Variable>,
-    // pub instr: Option<Instruction>,
-    // pub term: Option<Terminal>,
+    pub instr: Option<Instruction>,
+    pub term: Option<Terminal>,
 }
 
 impl std::fmt::Display for ProgramPoint {
@@ -267,6 +310,15 @@ pub enum Location {
 //
 // pub type GlobalVariable = Variable;
 
+// TODO: define fake variable
+// #[derive(Debug, Clone)]
+// pub struct FakeVariable {
+//     pub name: String,
+//     pub typ: Type,
+// }
+
+// pub type FakeVariable = Variable;
+
 impl Program {
     pub fn new() -> Program {
         Program {
@@ -290,11 +342,20 @@ impl Program {
         global_ints
     }
 
+    pub fn get_ptr_globals(&self) -> Vec<Variable> {
+        let global_ptrs: Vec<Variable> = self
+            .globals
+            .iter()
+            .filter(|v| match &v.typ {
+                Type::Pointer(_) => true,
+                _ => false,
+            })
+            .cloned()
+            .collect();
+        global_ptrs
+    }
+
     pub fn get_int_parameters(&self, func_name: &str) -> Vec<Variable> {
-        #[cfg(debug_assertions)]
-        {
-            println!("get_int_parameters: {}", func_name);
-        }
         let func = self.functions.get(func_name).unwrap();
         let param_ints = func
             .params
@@ -305,14 +366,21 @@ impl Program {
             })
             .cloned()
             .collect();
-
-        #[cfg(debug_assertions)]
-        {
-            println!("------------------------------------------");
-            println!("param_ints: {:?}", param_ints);
-            println!("------------------------------------------");
-        }
         param_ints
+    }
+
+    pub fn get_ptr_parameters(&self, func_name: &str) -> Vec<Variable> {
+        let func = self.functions.get(func_name).unwrap();
+        let param_ptrs = func
+            .params
+            .iter()
+            .filter(|v| match &v.typ {
+                Type::Pointer(_) => true,
+                _ => false,
+            })
+            .cloned()
+            .collect();
+        param_ptrs
     }
 
     pub fn get_int_locals(&self, func_name: &str) -> Vec<Variable> {
@@ -327,6 +395,20 @@ impl Program {
             .cloned()
             .collect();
         local_ints
+    }
+
+    pub fn get_ptr_locals(&self, func_name: &str) -> Vec<Variable> {
+        let func = self.functions.get(func_name).unwrap();
+        let local_ptrs = func
+            .locals
+            .iter()
+            .filter(|v| match &v.typ {
+                Type::Pointer(_) => true,
+                _ => false,
+            })
+            .cloned()
+            .collect();
+        local_ptrs
     }
 
     pub fn get_addrof_ints(&self, func_name: &str) -> Vec<Variable> {
@@ -351,6 +433,29 @@ impl Program {
             println!("---------------------------------");
         }
         addrof_ints
+    }
+
+    pub fn get_addr_taken(&self, func_name: &str) -> Vec<Variable> {
+        let mut ptrs = self.get_ptr_globals();
+        ptrs.extend(self.get_ptr_locals(func_name));
+        ptrs.extend(self.get_ptr_parameters(func_name));
+
+        let mut reached_types = HashSet::new();
+        for typ in ptrs.iter().map(|v| &v.typ) {
+            // reached_types = reached_types.union(&typ.reachable_types(self)).cloned().collect();
+            reached_types.extend(typ.reachable_types(self));
+        }
+
+        let fake_vars_set: HashSet<Variable> = reached_types
+            .iter()
+            .map(|t| Variable {
+                name: "fake_var".to_string(),
+                typ: t.clone(),
+                scope: Some("fake".to_string()), // TODO: how to set its scope?
+            }).collect();
+
+        let fake_vars = fake_vars_set.into_iter().collect();
+        fake_vars
     }
 
     pub fn get_all_basic_blocks(&self) -> Vec<&Block> {
@@ -624,6 +729,104 @@ mod test {
         println!("======= int-type locals of {} =======", prog_name);
         for var in local_ints {
             println!("{:?}", var);
+        }
+    }
+
+    #[test]
+    fn test_reachable_types() {
+        let prog_name = "./examples/json/lambda.json";
+        let prog = Program::parse_json(prog_name);
+
+        let globals = &prog.globals;
+        let structs = &prog.structs;
+
+        for var in globals {
+            let reachable = var.typ.reachable_types(&prog);
+            println!("-------");
+            println!("reachable types of {:#?} (globals):", var);
+            for (i, t) in reachable.iter().enumerate() {
+                println!("{}: {:#?}", i, t);
+            }
+            println!();
+        }
+
+        let func_name = "add";
+        let func = prog.functions.get(func_name).unwrap();
+
+        for var in &func.params {
+            let reachable = var.typ.reachable_types(&prog);
+            println!("-------");
+            println!("reachable types of {:#?} (parameters):", var);
+            for (i, t) in reachable.iter().enumerate() {
+                println!("{}: {:#?}", i, t);
+            }
+            println!();
+        }
+    }
+
+    #[test]
+    fn test_get_variables() {
+        let prog_name = "./examples/json/lambda.json";
+        let prog = Program::parse_json(prog_name);
+        let global_ints = prog.get_int_globals();
+        let global_ptrs = prog.get_ptr_globals();
+        let local_ints = prog.get_int_locals("add");
+        let local_ptrs = prog.get_ptr_locals("add");
+        let param_ints = prog.get_int_parameters("add");
+        let param_ptrs = prog.get_ptr_parameters("add");
+
+        println!("======= int-type globals of {} =======", prog_name);
+        for var in global_ints {
+            println!("{:?}", var);
+        }
+        println!();
+
+        println!("======= pointer-type globals of {} =======", prog_name);
+        for var in global_ptrs {
+            println!("{:?}", var);
+        }
+        println!();
+
+        println!("======= int-type parameters of {} =======", prog_name);
+        for var in param_ints {
+            println!("{:?}", var);
+        }
+        println!();
+
+        println!("======= pointer-type parameters of {} =======", prog_name);
+        for var in param_ptrs {
+            println!("{:?}", var);
+        }
+        println!();
+
+        println!("======= int-type locals of {} =======", prog_name);
+        for var in local_ints {
+            println!("{:?}", var);
+        }
+        println!();
+
+        println!("======= pointer-type locals of {} =======", prog_name);
+        for var in local_ptrs {
+            println!("{:?}", var);
+        }
+    }
+
+
+    #[test]
+    fn test_get_addr_taken() {
+        let prog_name = "./examples/json/lambda.json";
+        let prog = Program::parse_json(prog_name);
+        let addr_taken = prog.get_addr_taken("add");
+        for (i, var) in addr_taken.iter().enumerate() {
+            println!("{}: {:#?}", i, var);
+        }
+
+
+        let prog_name = "./demos/json/test8.json";
+        let prog = Program::parse_json(prog_name);
+        let addr_taken = prog.get_addr_taken("test");
+        for (i, var) in addr_taken.iter().enumerate() {
+            println!("{}: {:#?}", i, var);
         }
     }
 }

@@ -23,7 +23,7 @@ ctrl_analysis_debug: $(CTRL_SRC)
 
 package:
 	mkdir -p assign-2
-	cp -r src/ assign-2/
+	cp -r src/ assign-2/src/
 	cp Cargo.toml Cargo.lock assign-2/
 	cp Makefile assign-2/
 	cp run-rdef.sh run-control.sh assign-2/
