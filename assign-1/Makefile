@@ -39,7 +39,7 @@ test_intervals_analysis: intervals_analysis
 
 package:
 	mkdir -p assign-1
-	cp -r src/ assign-1/
+	cp -r src/ assign-1/src/
 	cp Cargo.toml assign-1/
 	cp Cargo.lock assign-1/
 	cp Makefile assign-1/

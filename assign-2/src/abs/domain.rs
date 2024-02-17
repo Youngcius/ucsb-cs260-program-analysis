@@ -142,7 +142,16 @@ impl std::fmt::Display for ProgramPoint {
             Self::Top => write!(f, "Top"),
             Self::ProgramPointSet(pps) => {
                 let mut pps = pps.iter().map(|pp| pp.to_string()).collect::<Vec<String>>();
-                pps.sort();
+                // pps.sort_by(|a, b| natord::compare(a, b));
+                // pps.sort();
+                pps.sort_by(|a, b| {
+                    let a: Vec<&str> = a.split('.').collect();
+                    let b: Vec<&str> = b.split('.').collect();
+                    if a[0] != b[0] {
+                        return a[0].cmp(b[0]);
+                    }
+                    natord::compare(a[1], b[1])
+                });            
                 write!(
                     f,
                     "{{{}}}",
@@ -206,13 +215,25 @@ mod test {
         let pp_domain = ProgramPoint::ProgramPointSet(hashset! {
             lir::ProgramPoint {
                 block: "bb1".to_string(),
-                location: lir::Location::Instruction(1),
+                location: lir::Location::Instruction(2),
                 instr: None,
                 term: None
             },
             lir::ProgramPoint {
-                block: "bb2".to_string(),
-                location: lir::Location::Instruction(1),
+                block: "bb1".to_string(),
+                location: lir::Location::Instruction(11),
+                instr: None,
+                term: None
+            },
+            lir::ProgramPoint {
+                block: "bb1".to_string(),
+                location: lir::Location::Instruction(12),
+                instr: None,
+                term: None
+            },
+            lir::ProgramPoint {
+                block: "bb1".to_string(),
+                location: lir::Location::Terminal,
                 instr: None,
                 term: None
             }

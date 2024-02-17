@@ -22,16 +22,16 @@ ctrl_analysis_debug: $(CTRL_SRC)
 	cp ./target/debug/ctrl_analysis ./ctrl_analysis
 
 package:
-	mkdir -p assign-2
-	cp -r src/ assign-2/
-	cp Cargo.toml Cargo.lock assign-2/
-	cp Makefile assign-2/
-	cp run-rdef.sh run-control.sh assign-2/
-	cp build-analyses.sh assign-2/
-	cd assign-2/ && zip -r ../assign-2.zip *
+	mkdir -p assign-3
+	cp -r src/ assign-3/src/
+	cp Cargo.toml Cargo.lock assign-3/
+	cp Makefile assign-3/
+	cp run-rdef.sh run-control.sh assign-3/
+	cp build-analyses.sh assign-3/
+	cd assign-3/ && zip -r ../assign-3.zip *
 
 .PHONY: clean
 clean:
 	rm -f rdef_analysis ctrl_analysis *.out.tmp.*
-	rm -rf assign-2 assign-2.zip
+	rm -rf assign-3 assign-3.zip
 	cargo clean

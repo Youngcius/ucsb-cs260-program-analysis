@@ -1,10 +1,7 @@
-// use user_info::user::User;
-// use crate::user_info::user::User;
 use std::collections::HashMap;
 use std::collections::HashSet;
 use vvv::hashset;
 use vvv::user_info;
-use vvv::user_info::user;
 use vvv::user_info::user::User;
 
 fn main() {

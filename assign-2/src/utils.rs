@@ -28,6 +28,7 @@ where
     // blocks are printed in alphabetical order
     // variables are printed in alphabetical order for each block
     let mut bbs: Vec<String> = bb2store.keys().cloned().collect();
+    // bbs.sort_by(|a, b| natord::compare(a, b));
     bbs.sort();
     for bb in bbs {
         // if bb == "dummy_entry" || bb == "dummy_exit" {
@@ -43,7 +44,18 @@ where
 pub fn display_rdef_solution(solution: &HashMap<String, domain::ProgramPoint>)
 {
     let mut keys: Vec<String>= solution.keys().cloned().collect();
-    keys.sort();
+    // keys.sort();
+    keys.sort_by(|a, b| {
+        let a: Vec<&str> = a.split('.').collect();
+        let b: Vec<&str> = b.split('.').collect();
+        if a[0] != b[0] {
+            return a[0].cmp(b[0]);
+        }
+        natord::compare(a[1], b[1])
+        //  a[1].cmp(b[1])
+    });
+
+
     for k in keys {
         if let domain::ProgramPoint::Bottom = solution.get(&k).unwrap() {
             continue;

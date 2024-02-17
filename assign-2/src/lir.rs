@@ -253,10 +253,31 @@ pub struct ProgramPoint {
 
 impl std::fmt::Display for ProgramPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self.location {
+        match &self.location {
             Location::Instruction(i) => write!(f, "{}.{}", self.block, i),
             Location::Terminal => write!(f, "{}.term", self.block),
         }
+    }
+}
+
+impl PartialOrd for ProgramPoint {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        let block_cmp = self.block.cmp(&other.block);
+        match block_cmp {
+            std::cmp::Ordering::Equal => match (&self.location, &other.location) {
+                (Location::Instruction(i1), Location::Instruction(i2)) => i1.partial_cmp(i2),
+                (Location::Instruction(_), Location::Terminal) => Some(std::cmp::Ordering::Less),
+                (Location::Terminal, Location::Instruction(_)) => Some(std::cmp::Ordering::Greater),
+                (Location::Terminal, Location::Terminal) => Some(std::cmp::Ordering::Equal),
+            },
+            _ => Some(block_cmp),
+        }
+    }
+}
+
+impl Ord for ProgramPoint {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.partial_cmp(other).unwrap()
     }
 }
 
@@ -296,7 +317,7 @@ impl std::fmt::Display for ProgramPoint {
 //     }
 // }
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum Location {
     Instruction(usize),
     Terminal,
@@ -452,7 +473,8 @@ impl Program {
                 name: "fake_var".to_string(),
                 typ: t.clone(),
                 scope: Some("fake".to_string()), // TODO: how to set its scope?
-            }).collect();
+            })
+            .collect();
 
         let fake_vars = fake_vars_set.into_iter().collect();
         fake_vars
@@ -811,7 +833,6 @@ mod test {
         }
     }
 
-
     #[test]
     fn test_get_addr_taken() {
         let prog_name = "./examples/json/lambda.json";
@@ -821,12 +842,341 @@ mod test {
             println!("{}: {:#?}", i, var);
         }
 
-
         let prog_name = "./demos/json/test8.json";
         let prog = Program::parse_json(prog_name);
         let addr_taken = prog.get_addr_taken("test");
         for (i, var) in addr_taken.iter().enumerate() {
             println!("{}: {:#?}", i, var);
         }
+    }
+
+    #[test]
+    fn test_location_order() {
+        let loc1 = Location::Instruction(1);
+        let loc2 = Location::Instruction(2);
+        let loc11 = Location::Instruction(11);
+        let term = Location::Terminal;
+        let mut v = vec![loc1, term, loc11, loc2];
+        v.sort();
+        println!("{:?}", v);
+    }
+
+    #[test]
+    fn test_pps_order() {
+        // let pp1 = ProgramPoint {
+        //     block: "bb1".to_string(),
+        //     location: Location::Instruction(1),
+        //     instr: None,
+        //     term: None,
+        // };
+        // let pp2 = ProgramPoint {
+        //     block: "bb1".to_string(),
+        //     location: Location::Instruction(2),
+        //     instr: None,
+        //     term: None,
+        // };
+        // let pp11 = ProgramPoint {
+        //     block: "bb1".to_string(),
+        //     location: Location::Instruction(11),
+        //     instr: None,
+        //     term: None,
+        // };
+        // let pp_term = ProgramPoint {
+        //     block: "bb1".to_string(),
+        //     location: Location::Terminal,
+        //     instr: None,
+        //     term: None,
+        // };
+        // let mut v = vec![pp1, pp_term, pp11, pp2];
+        // v.sort();
+        // for pp in &v {
+        //     print!("{}, ", pp.to_string());
+        // }
+        // println!();
+
+        // "bb8.term".to_string(),
+        // "bb7.term".to_string(),
+        // "bb13.3".to_string(),
+        // "bb17.term".to_string(),
+        // "bb13.0".to_string(),
+        // "bb12.2".to_string(),
+        // "bb12.1".to_string(),
+        // "bb6.2".to_string(),
+        // "entry.12".to_string(),
+        // "bb12.term".to_string(),
+        // "bb6.1".to_string(),
+        // "bb13.2".to_string(),
+        // "bb12.0".to_string(),
+        // "entry.6".to_string(),
+        // "entry.term".to_string(),
+        // "bb17.2".to_string(),
+        // "entry.4".to_string(),
+        // "entry.7".to_string(),
+        // "entry.11".to_string(),
+        // "bb12.4".to_string(),
+        // "entry.5".to_string(),
+        // "entry.13".to_string(),
+        // "bb5.term".to_string(),
+        // "entry.2".to_string(),
+        // "entry.3".to_string(),
+        // "bb17.0".to_string(),
+        // "bb12.3".to_string(),
+        // "bb6.3".to_string(),
+        // "entry.9".to_string(),
+        // "bb13.4".to_string(),
+        // "bb13.term".to_string(),
+        // "bb6.term".to_string(),
+        // "bb4.term".to_string(),
+        // "bb11.term".to_string(),
+        let mut pps = vec![
+            ProgramPoint {
+                block: "bb8".to_string(),
+                location: Location::Terminal,
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb7".to_string(),
+                location: Location::Terminal,
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb13".to_string(),
+                location: Location::Instruction(3),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb17".to_string(),
+                location: Location::Terminal,
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb13".to_string(),
+                location: Location::Instruction(0),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb12".to_string(),
+                location: Location::Instruction(2),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb12".to_string(),
+                location: Location::Instruction(1),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb6".to_string(),
+                location: Location::Instruction(2),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "entry".to_string(),
+                location: Location::Instruction(12),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb12".to_string(),
+                location: Location::Terminal,
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb6".to_string(),
+                location: Location::Instruction(1),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb13".to_string(),
+                location: Location::Instruction(2),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb12".to_string(),
+                location: Location::Instruction(0),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "entry".to_string(),
+                location: Location::Instruction(6),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "entry".to_string(),
+                location: Location::Terminal,
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb17".to_string(),
+                location: Location::Instruction(2),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "entry".to_string(),
+                location: Location::Instruction(4),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "entry".to_string(),
+                location: Location::Instruction(7),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "entry".to_string(),
+                location: Location::Instruction(11),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb12".to_string(),
+                location: Location::Instruction(4),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "entry".to_string(),
+                location: Location::Instruction(5),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "entry".to_string(),
+                location: Location::Instruction(13),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb5".to_string(),
+                location: Location::Terminal,
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "entry".to_string(),
+                location: Location::Instruction(2),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "entry".to_string(),
+                location: Location::Instruction(3),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb17".to_string(),
+                location: Location::Instruction(0),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb12".to_string(),
+                location: Location::Instruction(3),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb6".to_string(),
+                location: Location::Instruction(3),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "entry".to_string(),
+                location: Location::Instruction(9),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb13".to_string(),
+                location: Location::Instruction(4),
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb13".to_string(),
+                location: Location::Terminal,
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb6".to_string(),
+                location: Location::Terminal,
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb4".to_string(),
+                location: Location::Terminal,
+                instr: None,
+                term: None,
+            },
+            ProgramPoint {
+                block: "bb11".to_string(),
+                location: Location::Terminal,
+                instr: None,
+                term: None,
+            },
+        ];
+        pps.sort();
+        for pp in &pps {
+            print!("{}, ", pp.to_string());
+        }
+        println!();
+
+        let res = vec![
+            "bb11.term".to_string(),
+            "bb12.0".to_string(),
+            "bb12.1".to_string(),
+            "bb12.2".to_string(),
+            "bb12.3".to_string(),
+            "bb12.4".to_string(),
+            "bb12.term".to_string(),
+            "bb13.0".to_string(),
+            "bb13.2".to_string(),
+            "bb13.3".to_string(),
+            "bb13.4".to_string(),
+            "bb13.term".to_string(),
+            "bb17.0".to_string(),
+            "bb17.2".to_string(),
+            "bb17.term".to_string(),
+            "bb4.term".to_string(),
+            "bb5.term".to_string(),
+            "bb6.1".to_string(),
+            "bb6.2".to_string(),
+            "bb6.3".to_string(),
+            "bb6.term".to_string(),
+            "bb7.term".to_string(),
+            "bb8.term".to_string(),
+            "entry.2".to_string(),
+            "entry.3".to_string(),
+            "entry.4".to_string(),
+            "entry.5".to_string(),
+            "entry.6".to_string(),
+            "entry.7".to_string(),
+            "entry.9".to_string(),
+            "entry.11".to_string(),
+            "entry.12".to_string(),
+            "entry.13".to_string(),
+            "entry.term".to_string(),
+        ];
+        assert_eq!(pps.iter().map(|pp| pp.to_string()).collect::<Vec<String>>(), res);
+        
     }
 }
