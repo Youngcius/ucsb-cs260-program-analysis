@@ -1,0 +1,21 @@
+bb1 -> {}
+bb10 -> {bb9}
+bb11 -> {bb9}
+bb12 -> {bb9}
+bb13 -> {bb12}
+bb14 -> {bb12}
+bb15 -> {bb9}
+bb16 -> {bb5}
+bb17 -> {}
+bb18 -> {bb17}
+bb19 -> {bb17}
+bb2 -> {}
+bb3 -> {bb2}
+bb4 -> {bb2}
+bb5 -> {bb5}
+bb6 -> {bb5}
+bb7 -> {}
+bb8 -> {bb5}
+bb9 -> {bb5}
+entry -> {}
+

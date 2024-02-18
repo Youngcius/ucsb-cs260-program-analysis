@@ -310,7 +310,7 @@ impl ReachingDefinitionAnalyzer {
                             domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                         );
                     }
-                    Instruction::Alloc { lhs, num, id } => {
+                    Instruction::Alloc { lhs, num, id: _ } => {
                         if let lir::Operand::Var(var) = num {
                             // self.pp_use
                             //     .entry(pp.to_string())
@@ -377,7 +377,7 @@ impl ReachingDefinitionAnalyzer {
                             domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                         );
                     }
-                    Instruction::Gfp { lhs, src, field } => {
+                    Instruction::Gfp { lhs, src, field: _ } => {
                         // get-field-pointer: `x = $gfp y foo` takes `y` (which is a pointer to a struct)
                         // and assigns to `x` the address of the `foo` field of the struct. the only way to
                         // access fields of a struct is via a pointer.
@@ -503,7 +503,7 @@ impl ReachingDefinitionAnalyzer {
                     }
                     Instruction::CallExt {
                         lhs,
-                        ext_callee,
+                        ext_callee: _,
                         args,
                     } => {
                         let mut sdef = HashSet::new(); // strongly defined
@@ -599,7 +599,7 @@ impl ReachingDefinitionAnalyzer {
                     }
                     Terminal::CallDirect {
                         lhs,
-                        callee,
+                        callee: _,
                         args,
                         next_bb: _,
                     } => {

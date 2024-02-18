@@ -1,0 +1,141 @@
+bb1.term -> {bb22.1, bb34.10, bb4.0, bb5.17, entry.48}
+bb10.0 -> {bb11.0, bb12.0}
+bb13.0 -> {bb14.0, bb15.0}
+bb13.1 -> {bb25.1, bb34.10, bb4.0, bb5.12, entry.34, entry.37, entry.48}
+bb13.2 -> {bb13.0, bb13.1, bb22.1, bb25.1, bb34.10, bb4.0, bb4.1, bb5.12, bb5.17, entry.3, entry.34, entry.48}
+bb13.term -> {bb13.2}
+bb16.0 -> {bb17.0, bb18.0}
+bb19.term -> {bb10.0, bb16.0, bb22.6, bb4.0}
+bb2.term -> {bb22.1, bb34.10, bb4.0, bb5.17, entry.48}
+bb20.term -> {bb10.0, bb16.0, bb22.6, bb4.0}
+bb22.0 -> {bb23.0, bb24.0}
+bb22.1 -> {bb22.0}
+bb22.2 -> {entry.40}
+bb22.3 -> {bb22.2}
+bb22.4 -> {bb22.0, bb22.1, bb22.3, bb34.10, bb4.0, bb4.1, bb5.12, entry.37, entry.48}
+bb22.5 -> {bb22.4}
+bb22.6 -> {bb4.1}
+bb22.term -> {bb22.1}
+bb25.0 -> {bb22.5, bb26.0, bb27.0}
+bb25.1 -> {bb25.0}
+bb28.term -> {bb22.1, bb34.10, bb4.0, bb5.17, entry.48}
+bb29.0 -> {bb25.1, bb34.10, bb4.0, bb5.12, entry.34, entry.48}
+bb29.2 -> {bb22.5, bb6.3, entry.42}
+bb29.3 -> {bb29.2}
+bb29.4 -> {entry.45}
+bb29.5 -> {bb22.1, bb25.1, bb29.0, bb29.4, bb34.10, bb4.0, bb4.1, bb5.12, bb5.17, entry.34, entry.48}
+bb29.6 -> {bb29.3, bb29.5}
+bb29.8 -> {bb29.7, entry.46}
+bb29.9 -> {bb29.8}
+bb29.10 -> {bb22.1, bb34.10, bb4.0, bb5.17, entry.40, entry.48}
+bb29.11 -> {bb29.10, bb29.19, bb29.22}
+bb29.13 -> {bb29.11, bb29.12}
+bb29.14 -> {bb22.1, bb25.1, bb29.0, bb29.13, bb34.10, bb4.0, bb4.1, bb5.12, bb5.17, entry.34, entry.48}
+bb29.15 -> {bb29.9, bb29.14}
+bb29.16 -> {bb29.15}
+bb29.17 -> {bb29.16, bb34.10, bb4.1}
+bb29.18 -> {bb29.17, bb29.19, bb29.22}
+bb29.19 -> {bb29.6, bb29.18}
+bb29.22 -> {bb29.20, bb29.21}
+bb29.24 -> {bb22.1, bb25.1, bb29.0, bb29.23, bb34.10, bb4.0, bb4.1, bb5.12, bb5.17, entry.34, entry.48}
+bb29.term -> {bb29.24}
+bb3.1 -> {bb3.0, entry.42}
+bb3.2 -> {entry.2}
+bb3.4 -> {bb10.0, bb16.0, bb22.1, bb22.6, bb25.1, bb29.0, bb3.3, bb34.10, bb4.0, bb4.1, bb5.12, bb5.17, entry.3, entry.33, entry.34, entry.48}
+bb3.5 -> {bb3.2, bb3.4}
+bb3.6 -> {entry.7}
+bb3.7 -> {bb3.5, bb3.6, bb34.10, bb4.1, entry.3, entry.7, entry.48}
+bb3.8 -> {bb22.5, bb3.7, bb6.3}
+bb3.term -> {bb3.9}
+bb31.1 -> {bb29.19, bb29.22, bb31.0}
+bb31.2 -> {bb22.1, bb25.1, bb29.0, bb31.1, bb34.10, bb4.0, bb4.1, bb5.12, bb5.17, entry.34, entry.48}
+bb31.term -> {bb31.2}
+bb34.1 -> {bb34.0, entry.37}
+bb34.2 -> {bb34.1, entry.40}
+bb34.3 -> {bb29.19, bb29.22, bb34.2}
+bb34.5 -> {bb34.4}
+bb34.6 -> {bb32.0, bb33.0, bb34.5}
+bb34.7 -> {bb29.19, bb29.22, bb34.6}
+bb34.8 -> {bb34.7, bb35.0, bb36.0}
+bb34.9 -> {bb22.1, bb25.1, bb29.0, bb34.8, bb34.10, bb4.0, bb4.1, bb5.12, bb5.17, entry.34, entry.48}
+bb34.10 -> {bb34.3, bb34.9}
+bb37.0 -> {entry.4}
+bb37.1 -> {bb10.0, bb16.0, bb22.6, bb25.1, bb29.0, bb3.5, bb3.6, bb3.8, bb34.10, bb37.0, bb39.0, bb4.0, bb4.1, bb40.3, bb40.6, bb46.1, bb5.12, entry.3, entry.33, entry.34, entry.48}
+bb37.term -> {bb37.1}
+bb39.0 -> {bb10.0, bb16.0, bb22.6, bb29.0, bb3.5, bb3.6, bb3.8, bb34.10, bb4.0, entry.6, entry.33, entry.48}
+bb4.0 -> {bb25.1, bb34.10, bb4.0, bb5.12, entry.7, entry.34, entry.48}
+bb4.1 -> {bb25.1, bb34.10, bb4.0, bb5.12, entry.34, entry.48}
+bb40.0 -> {bb22.1, bb3.5, bb3.6, bb3.8, bb34.10, bb4.0, bb5.17, entry.6, entry.48}
+bb40.1 -> {bb10.0, bb16.0, bb22.1, bb22.6, bb25.1, bb29.0, bb3.5, bb3.6, bb3.8, bb34.10, bb4.0, bb4.1, bb40.0, bb5.12, bb5.17, entry.3, entry.33, entry.34, entry.48}
+bb40.2 -> {bb40.1, entry.37}
+bb40.3 -> {bb40.2, bb41.0, bb42.0}
+bb40.4 -> {bb3.1}
+bb40.5 -> {bb40.4, entry.40}
+bb40.6 -> {bb40.5}
+bb40.7 -> {bb29.1, bb5.15, entry.7}
+bb40.term -> {bb40.7}
+bb43.0 -> {bb29.1, bb5.15}
+bb43.1 -> {bb10.0, bb16.0, bb22.6, bb25.1, bb29.0, bb3.5, bb3.6, bb3.8, bb34.10, bb4.0, bb4.1, bb40.3, bb40.6, bb43.0, bb5.12, entry.3, entry.33, entry.34, entry.48}
+bb43.2 -> {bb43.1, bb44.0, bb45.0}
+bb43.3 -> {bb43.2}
+bb46.0 -> {bb47.0, bb48.0}
+bb46.1 -> {bb46.0}
+bb46.3 -> {bb46.2, entry.39}
+bb5.0 -> {entry.4}
+bb5.1 -> {bb29.19, bb29.22, bb5.0}
+bb5.2 -> {bb10.0, bb16.0, bb22.1, bb22.6, bb25.1, bb29.0, bb34.10, bb4.0, bb4.1, bb5.1, bb5.12, bb5.17, entry.3, entry.33, entry.34, entry.48}
+bb5.3 -> {bb5.2}
+bb5.6 -> {bb29.19, bb29.22, bb5.5}
+bb5.8 -> {bb5.7}
+bb5.9 -> {bb5.6, bb5.8}
+bb5.10 -> {bb10.0, bb16.0, bb22.1, bb22.6, bb25.1, bb29.0, bb34.10, bb4.0, bb5.3, bb5.9, bb5.12, bb5.17, entry.33, entry.34, entry.48}
+bb5.11 -> {bb5.10}
+bb5.12 -> {bb5.4, bb5.11}
+bb5.13 -> {bb10.0, bb16.0, bb22.1, bb22.6, bb25.1, bb29.0, bb34.10, bb4.0, bb5.3, bb5.12, bb5.17, entry.7, entry.33, entry.34, entry.48}
+bb5.14 -> {bb5.13}
+bb5.17 -> {bb5.16}
+bb5.19 -> {bb5.18}
+bb5.20 -> {bb5.19}
+bb5.21 -> {bb29.19, bb29.22, bb5.20}
+bb5.22 -> {bb10.0, bb16.0, bb22.6, bb25.1, bb29.0, bb34.10, bb4.0, bb5.12, bb5.14, bb5.17, bb5.21, entry.33, entry.34, entry.48}
+bb5.term -> {bb5.22}
+bb6.2 -> {bb10.0, bb16.0, bb22.1, bb22.6, bb25.1, bb29.0, bb34.10, bb4.0, bb4.1, bb5.12, bb5.17, bb6.1, entry.3, entry.33, entry.34, entry.48}
+bb6.3 -> {bb6.2}
+bb6.5 -> {bb34.10, bb4.1, entry.3, entry.48}
+bb6.6 -> {bb6.5}
+bb6.term -> {bb6.6}
+bb7.0 -> {bb8.0, bb9.0}
+entry.1 -> {entry.0}
+entry.2 -> {entry.1}
+entry.6 -> {entry.5}
+entry.7 -> {entry.6}
+entry.9 -> {entry.8}
+entry.11 -> {entry.10}
+entry.12 -> {entry.11}
+entry.13 -> {entry.12}
+entry.14 -> {entry.12}
+entry.15 -> {entry.14}
+entry.16 -> {entry.13, entry.15}
+entry.18 -> {entry.16, entry.17}
+entry.19 -> {entry.18}
+entry.20 -> {entry.19}
+entry.21 -> {entry.20}
+entry.23 -> {entry.3, entry.22}
+entry.24 -> {entry.23}
+entry.25 -> {entry.24}
+entry.26 -> {entry.21}
+entry.27 -> {entry.26}
+entry.28 -> {entry.27}
+entry.29 -> {entry.3, entry.28}
+entry.30 -> {entry.25, entry.29}
+entry.31 -> {entry.30}
+entry.32 -> {entry.31}
+entry.33 -> {entry.32}
+entry.36 -> {entry.35}
+entry.39 -> {entry.38}
+entry.40 -> {entry.39}
+entry.42 -> {entry.41}
+entry.44 -> {entry.43}
+entry.45 -> {entry.44}
+entry.47 -> {entry.2}
+entry.48 -> {entry.47}

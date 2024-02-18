@@ -1,5 +1,4 @@
 import sys
-import os
 import networkx as nx
 
 from src import utils
@@ -20,3 +19,4 @@ if __name__ == '__main__':
 
         print('{} -> {}{}{}'.format(node, LEFT_PARENTHESES,
               ', '.join(frontier), RIGHT_PARENTHESES))
+    print()

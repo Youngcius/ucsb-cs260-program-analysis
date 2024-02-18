@@ -6,7 +6,6 @@ use serde_json as json;
 use std::collections::{HashMap, HashSet};
 use std::fs::File;
 use std::io::{BufReader, BufWriter};
-use std::ptr;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Program {

@@ -29,6 +29,7 @@ package:
 	mkdir -p assign-2
 	cp -r src/ assign-2/src/
 	cp ctrl.py assign-2/
+	cp networkx-3.2.1-py3-none-any.whl assign-2/
 	cp Cargo.toml Cargo.lock assign-2/
 	cp Makefile assign-2/
 	cp run-rdef.sh run-control.sh assign-2/

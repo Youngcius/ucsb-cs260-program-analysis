@@ -1,7 +1,5 @@
 use cs260::abs;
-use cs260::abs::execution::AbstractExecution;
 use cs260::lir;
-use cs260::cfg;
 use cs260::utils;
 
 fn main() {
