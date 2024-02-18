@@ -1,0 +1,146 @@
+test:&() -> int
+
+fn main() -> int {
+entry:
+  $ret 0
+}
+
+fn test() -> int {
+let _lo1:int, _lo2:int, _lo3:int, _lo4:int, _lo5:int, _lo6:int, _t10:int, _t11:int, _t12:int, _t13:int, _t14:int, _t15:int, _t16:int, _t17:int, _t18:int, _t19:int, _t20:int, _t21:int, _t22:int, _t7:int, _t8:int, _t9:int, id0:int, id1:int, id2:int, id3:int, id4:int
+bb1:
+  _t11 = $cmp neq id1 _lo1
+  id3 = $copy _t11
+  $branch 9 bb4 bb5
+
+bb10:
+  _t14 = $arith sub 0 5
+  $branch _t14 bb12 bb13
+
+bb11:
+  id4 = $copy _lo2
+  _t15 = $arith sub 0 9
+  id3 = $copy _t15
+  $branch id3 bb15 bb16
+
+bb12:
+  _lo2 = $copy 0
+  $jump bb11
+
+bb13:
+  _lo2 = $copy 1
+  $jump bb11
+
+bb14:
+  _t16 = $cmp lt id2 _lo3
+  $branch _t16 bb18 bb19
+
+bb15:
+  _lo3 = $copy 0
+  $jump bb14
+
+bb16:
+  _lo3 = $copy 1
+  $jump bb14
+
+bb17:
+  id1 = $copy _lo4
+  id4 = $copy id4
+  _t17 = $arith sub 0 10
+  $branch _t17 bb21 bb22
+
+bb18:
+  _lo4 = $copy 0
+  $jump bb17
+
+bb19:
+  _lo4 = $copy 1
+  $jump bb17
+
+bb2:
+  _lo1 = $copy id4
+  $jump bb1
+
+bb20:
+  id2 = $copy _lo5
+  $jump bb9
+
+bb21:
+  _lo5 = $copy 0
+  $jump bb20
+
+bb22:
+  _lo5 = $copy 1
+  $jump bb20
+
+bb23:
+  id3 = $copy _lo6
+  $jump bb26
+
+bb24:
+  _lo6 = $copy 0
+  $jump bb23
+
+bb25:
+  _lo6 = $copy 1
+  $jump bb23
+
+bb26:
+  _t18 = $arith sub 0 3
+  $branch _t18 bb27 bb28
+
+bb27:
+  id3 = $copy id1
+  id4 = $copy 0
+  id2 = $copy id4
+  $jump bb26
+
+bb28:
+  id0 = $copy id1
+  $jump bb3
+
+bb3:
+  id4 = $copy 7
+  _t19 = $arith sub 0 1
+  _t20 = $arith div _t19 8
+  id3 = $copy _t20
+  _t21 = $arith sub 0 id4
+  id2 = $copy _t21
+  _t22 = $arith sub 0 2
+  $ret _t22
+
+bb4:
+  id0 = $copy id0
+  $branch 0 bb7 bb8
+
+bb5:
+  $branch 6 bb24 bb25
+
+bb6:
+  $branch id2 bb10 bb9
+
+bb7:
+  id2 = $copy id0
+  $jump bb6
+
+bb8:
+  id3 = $copy id2
+  _t12 = $arith sub 0 id3
+  id0 = $copy _t12
+  _t13 = $arith sub 0 2
+  id3 = $copy _t13
+  $jump bb6
+
+bb9:
+  $jump bb3
+
+entry:
+  _t7 = $arith sub 0 3
+  _t8 = $cmp eq _t7 id1
+  id1 = $copy _t8
+  _t9 = $arith sub 0 id1
+  id0 = $copy _t9
+  id2 = $copy id0
+  _lo1 = $copy 8
+  _t10 = $cmp neq _lo1 0
+  $branch _t10 bb2 bb1
+}

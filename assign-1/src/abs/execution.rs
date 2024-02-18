@@ -39,11 +39,7 @@ impl ConstantAnalyzer {
         let global_ints = prog.get_int_globals();
         let param_ints = prog.get_int_parameters(func_name);
         let local_ints = prog.get_int_locals(func_name);
-        let mut addrof_ints = prog.get_addrof_ints(func_name);
-        // add global to addrof_ints
-        for global in &global_ints {
-            addrof_ints.push(global.clone());
-        }
+        let addrof_ints = prog.get_addrof_ints(func_name); // addrof_ints includes global_ints
 
         for local in &local_ints {
             // println!("adding {} to entry_store (BOTTOM)", local.name);
@@ -89,11 +85,7 @@ impl IntervalAnalyzer {
         let global_ints = prog.get_int_globals();
         let param_ints = prog.get_int_parameters(func_name);
         let local_ints = prog.get_int_locals(func_name);
-        let mut addrof_ints = prog.get_addrof_ints(func_name);
-        // add global to addrof_ints
-        for global in &global_ints {
-            addrof_ints.push(global.clone());
-        }
+        let addrof_ints = prog.get_addrof_ints(func_name); // addrof_ints includes global_ints
         for local in &local_ints {
             entry_store.set(local.clone(), domain::Interval::Bottom);
         }
@@ -134,6 +126,8 @@ impl AbstractExecution for ConstantAnalyzer {
             visited.insert(bb_label.clone(), 0);
         }
         self.executed = true;
+
+        /*
         while !self.worklist.is_empty() {
             let block = self.worklist.pop_front().unwrap();
             self.exe_block(&block);
@@ -184,6 +178,39 @@ impl AbstractExecution for ConstantAnalyzer {
                     }
                 }
             }
+        }
+        */
+
+        // following is another more direct implementation of the MFP worklist algorithm
+        while !self.worklist.is_empty() {
+            let block = self.worklist.pop_front().unwrap();
+            let store_before = self.bb2store.get(&block.id).unwrap().clone();
+            if &block != self.cfg.get_entry().unwrap() {
+                let mut store_joined = store::ConstantStore::new();
+                for pred in self.cfg.get_predecessors(&block) {
+                    match self.reachable_successors.get(&pred.id) {
+                        Some(succs) => {
+                            if succs.contains(&block.id) {
+                                store_joined =
+                                    store_joined.join(&self.bb2store.get(&pred.id).unwrap());
+                            }
+                        }
+                        None => {}
+                    }
+                }
+                self.bb2store.insert(block.id.clone(), store_joined);
+            }
+            self.exe_block(&block);
+            let store_after = self.bb2store.get(&block.id).unwrap().clone();
+            if store_before != store_after || visited.get(&block.id).unwrap() == &0 {
+                for succ_label in self.reachable_successors.get(&block.id).unwrap() {
+                    let succ = self.cfg.get_block(&succ_label).unwrap().clone();
+                    if !self.worklist.contains(&succ) {
+                        self.worklist.push_back(succ.clone());
+                    }
+                }
+            }
+            visited.insert(block.id.clone(), visited.get(&block.id).unwrap() + 1);
         }
     }
 

@@ -6,7 +6,6 @@ use crate::lir;
 use crate::lir::Instruction;
 use crate::lir::Terminal;
 use crate::store;
-use crate::utils;
 use log;
 use std::collections::HashSet;
 use std::collections::{HashMap, VecDeque};
@@ -41,11 +40,9 @@ pub struct ReachingDefinitionAnalyzer {
 pub struct ControlDependenceAnalyzer {
     pub prog: lir::Program,
     pub cfg: cfg::ControlFlowGraph,
-    pub solution: HashMap<String, HashSet<String>>, // mapping from blocks to block sets
+    pub solution: HashMap<String, domain::ControlDependence>, // mapping from blocks to block sets
     pub executed: bool,
 }
-
-pub type ConstantAnalyzer = Analyzer<domain::Constant>;
 
 impl ReachingDefinitionAnalyzer {
     pub fn new(prog: lir::Program, func_name: &str) -> Self {
@@ -97,43 +94,50 @@ impl ReachingDefinitionAnalyzer {
         prog.get_int_globals().iter().for_each(|global| {
             entry_store.set(
                 global.clone(),
-                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                // domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                domain::ProgramPoint::Bottom,
             )
         });
         prog.get_ptr_globals().iter().for_each(|global| {
             entry_store.set(
                 global.clone(),
-                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                // domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                domain::ProgramPoint::Bottom,
             )
         });
         prog.get_int_locals(func_name).iter().for_each(|local| {
             entry_store.set(
                 local.clone(),
-                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                // domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                domain::ProgramPoint::Bottom,
             )
         });
         prog.get_ptr_locals(func_name).iter().for_each(|local| {
             entry_store.set(
                 local.clone(),
-                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                // domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                domain::ProgramPoint::Bottom,
             )
         });
         prog.get_int_parameters(func_name).iter().for_each(|param| {
             entry_store.set(
                 param.clone(),
-                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                // domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                domain::ProgramPoint::Bottom,
             )
         });
         prog.get_ptr_parameters(func_name).iter().for_each(|param| {
             entry_store.set(
                 param.clone(),
-                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                // domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                domain::ProgramPoint::Bottom,
             )
         });
         addr_taken.iter().for_each(|var| {
             entry_store.set(
                 var.clone(),
-                domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                // domain::ProgramPoint::ProgramPointSet(HashSet::new()),
+                domain::ProgramPoint::Bottom,
             )
         });
         #[cfg(debug_assertions)]
@@ -271,6 +275,12 @@ impl ReachingDefinitionAnalyzer {
                             lhs.clone(),
                             domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                         );
+                        // println!("now the store is \n{}", store.to_string().blue());
+                        // println!(
+                        //     "now the pp_use[{}] is {:?}",
+                        //     pp.to_string().green(),
+                        //     self.pp_use.get(&pp.to_string()).unwrap()
+                        // );
                     }
                     Instruction::Copy { lhs, op } => {
                         if let lir::Operand::Var(var) = op {
@@ -302,19 +312,31 @@ impl ReachingDefinitionAnalyzer {
                     }
                     Instruction::Alloc { lhs, num, id } => {
                         if let lir::Operand::Var(var) = num {
+                            // self.pp_use
+                            //     .entry(pp.to_string())
+                            //     .or_insert(HashSet::new())
+                            //     .insert(var.clone());
                             self.pp_use
-                                .entry(pp.to_string())
-                                .or_insert(HashSet::new())
+                                .get_mut(&pp.to_string())
+                                .unwrap()
                                 .insert(var.clone());
                         }
-                        self.pp_use
-                            .entry(pp.to_string())
-                            .or_insert(HashSet::new())
-                            .insert(id.clone()); // TODO: ?????????
+                        // self.pp_use
+                        //     .entry(pp.to_string())
+                        //     .or_insert(HashSet::new())
+                        //     .insert(id.clone()); // TODO: ?????????
                         self.pp_def
                             .get_mut(&pp.to_string())
                             .unwrap()
                             .insert(lhs.clone());
+
+                        // println!("now the store is {}", store.to_string().blue());
+                        // println!(
+                        //     "now the pp_use[{}] is {:?}",
+                        //     pp.to_string().green(),
+                        //     self.pp_use.get(&pp.to_string()).unwrap()
+                        // );
+
                         for var in self.pp_use.get(&pp.to_string()).unwrap() {
                             self.solution
                                 .get_mut(&pp.to_string())
@@ -363,10 +385,10 @@ impl ReachingDefinitionAnalyzer {
                             .entry(pp.to_string())
                             .or_insert(HashSet::new())
                             .insert(src.clone());
-                        self.pp_use
-                            .entry(pp.to_string())
-                            .or_insert(HashSet::new())
-                            .insert(field.clone());
+                        // self.pp_use
+                        //     .entry(pp.to_string())
+                        //     .or_insert(HashSet::new())
+                        //     .insert(field.clone()); // TODO: how to deal with field?
                         self.pp_def
                             .get_mut(&pp.to_string())
                             .unwrap()
@@ -383,10 +405,14 @@ impl ReachingDefinitionAnalyzer {
                         );
                     }
                     Instruction::Load { lhs, src } => {
-                        // TODO: .entry().or_insert() 都换成 get_mut()
+                        // println!(
+                        //     "executing load instruction {}: {:?}",
+                        //     pp.to_string().green(),
+                        //     pp.instr
+                        // );
                         self.pp_use
-                            .entry(pp.to_string())
-                            .or_insert(HashSet::new())
+                            .get_mut(&pp.to_string())
+                            .unwrap()
                             .insert(src.clone());
                         for var in self.addr_taken.iter() {
                             if var.typ == lhs.typ {
@@ -412,6 +438,11 @@ impl ReachingDefinitionAnalyzer {
                         );
                     }
                     Instruction::Store { dst, op } => {
+                        // println!(
+                        // "executing store instruction {}: {:?}",
+                        // pp.to_string().green(),
+                        // pp.instr
+                        // );
                         self.pp_use
                             .get_mut(&pp.to_string())
                             .unwrap()
@@ -422,13 +453,25 @@ impl ReachingDefinitionAnalyzer {
                                 .unwrap()
                                 .insert(var.clone());
                         }
-                        if let lir::Operand::Var(var) = op {
-                            for fake_var in self.addr_taken.iter() {
-                                if fake_var.typ == var.typ {
-                                    self.pp_def
-                                        .get_mut(&pp.to_string())
-                                        .unwrap()
-                                        .insert(fake_var.clone());
+                        match op {
+                            lir::Operand::Var(var) => {
+                                for addr_taken_var in self.addr_taken.iter() {
+                                    if addr_taken_var.typ == var.typ {
+                                        self.pp_def
+                                            .get_mut(&pp.to_string())
+                                            .unwrap()
+                                            .insert(addr_taken_var.clone());
+                                    }
+                                }
+                            }
+                            lir::Operand::CInt(_) => {
+                                for addr_taken_var in self.addr_taken.iter() {
+                                    if addr_taken_var.typ == lir::Type::Int {
+                                        self.pp_def
+                                            .get_mut(&pp.to_string())
+                                            .unwrap()
+                                            .insert(addr_taken_var.clone());
+                                    }
                                 }
                             }
                         }
@@ -438,6 +481,7 @@ impl ReachingDefinitionAnalyzer {
                                 .unwrap()
                                 .join_in_place(store.get(var).unwrap());
                         }
+
                         for var in self.pp_def.get(&pp.to_string()).unwrap() {
                             // store.set(
                             //     var.clone(),
@@ -450,6 +494,12 @@ impl ReachingDefinitionAnalyzer {
                                 ),
                             ) // TODO: consider using store.join
                         }
+                        // println!("now the store is {}", store.to_string().blue());
+                        // println!(
+                        //     "now the pp_use[{}] is {:?}",
+                        //     pp.to_string().green(),
+                        //     self.pp_use.get(&pp.to_string()).unwrap()
+                        // );
                     }
                     Instruction::CallExt {
                         lhs,
@@ -704,6 +754,8 @@ impl AbstractExecution for ReachingDefinitionAnalyzer {
 
         self.executed = true;
 
+        /*
+        // There is an issue (use store_updated or store_joined ???) hard to deal with if using the following implementation:
         while !self.worklist.is_empty() {
             let block = self.worklist.pop_front().unwrap();
             self.exe_block(&block);
@@ -714,6 +766,7 @@ impl AbstractExecution for ReachingDefinitionAnalyzer {
                 let store_joined = succ_store.join(&self.bb2store.get(&block.id).unwrap());
                 let mut new_store = store_joined.clone(); // it may be executed virtually
                                                           // TODO: try to update new_store???
+
                 if &new_store != succ_store {
                     self.bb2store.insert(succ.id.clone(), store_joined);
                     if !self.worklist.contains(&succ) {
@@ -721,6 +774,32 @@ impl AbstractExecution for ReachingDefinitionAnalyzer {
                     }
                 }
             }
+        }
+        */
+
+        while !self.worklist.is_empty() {
+            let block = self.worklist.pop_front().unwrap();
+            let store_before = self.bb2store.get(&block.id).unwrap().clone();
+            if &block != self.cfg.get_entry().unwrap() {
+                // join ann predecessors' stores
+                let mut store_joined = store::ProgramPointStore::new();
+                for pred in self.cfg.get_predecessors(&block) {
+                    store_joined = store_joined.join(&self.bb2store.get(&pred.id).unwrap());
+                }
+                self.bb2store.insert(block.id.clone(), store_joined);
+            }
+            self.exe_block(&block);
+            let store_after = self.bb2store.get(&block.id).unwrap().clone();
+            if store_before != store_after || visited.get(&block.id).unwrap() == &0 {
+                // add all successors to worklist
+                for succ in self.cfg.get_successors(&block) {
+                    if !self.worklist.contains(&succ) {
+                        // TODO: 这两行代码是否不需要？
+                        self.worklist.push_back(succ.clone());
+                    }
+                }
+            }
+            visited.insert(block.id.clone(), visited.get(&block.id).unwrap() + 1);
         }
 
         // let mut worklist = Vec::new();
@@ -777,6 +856,33 @@ impl AbstractExecution for ReachingDefinitionAnalyzer {
 
     fn exe_term(&mut self, _term: &lir::Terminal, _bb_label: &str) {
         panic!("ReachingDefinitionAnalyzer does not support exe_term method")
+    }
+}
+
+impl ControlDependenceAnalyzer {
+    pub fn new(prog: lir::Program, func_name: &str) -> Self {
+        let cfg = cfg::ControlFlowGraph::from_function(&prog, func_name);
+        let mut solution = HashMap::new();
+        for bb_label in &cfg.get_all_block_labels() {
+            solution.insert(bb_label.clone(), domain::ControlDependence::Top); // TODO: correct?
+        }
+        panic!("ControlDependenceAnalyzer::new not implemented");
+        // Self {
+        //     prog,
+        //     cfg,
+        //     solution,
+        //     executed: false,
+        // }
+    }
+
+    pub fn execute(&mut self) {
+        if self.executed {
+            log::warn!("Already executed");
+            return;
+        }
+        self.executed = true;
+        panic!("ControlDependenceAnalyzer::execute not implemented")
+        // let dominators = self.cfg.get_all_dominators();
     }
 }
 

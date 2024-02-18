@@ -98,6 +98,26 @@ impl ControlFlowGraph {
         self.nodes.get("dummy_exit")
     }
 
+    pub fn get_exit(&self) -> Option<&lir::Block> {
+        // search the block whose terminal is Ret
+        for block in self.nodes.values() {
+            if let lir::Terminal::Ret(_) = block.term {
+                return Some(block); // TODO: what if there are more-than-one blocks with Ret terminal?
+            }
+        }
+        None
+    }
+
+    pub fn reverse(&self) -> Self {
+        // reverse the edges of this CFG and return a new one
+        let mut reversed_cfg = self.clone();
+        reversed_cfg.edges.clear();
+        for (src, dst) in &self.edges {
+            reversed_cfg.edges.push((dst.clone(), src.clone()));
+        }
+        reversed_cfg
+    }
+
     pub fn get_block_label(&self, block: &lir::Block) -> Option<String> {
         // get the label of a block
         for (label, blk) in &self.nodes {
@@ -279,6 +299,92 @@ impl ControlFlowGraph {
         file.write_all(b"}")?;
         Ok(())
     }
+
+    pub fn to_graphml_file(&self, filename: &str) -> std::io::Result<()> {
+        let mut file = std::fs::File::create(filename)?;
+        file.write_all(b"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")?;
+        file.write_all(b"<graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\">\n")?;
+        file.write_all(b"<graph id=\"G\" edgedefault=\"directed\">\n")?;
+        for (src, dst) in &self.edges {
+            file.write_all(
+                format!("  <edge source=\"{}\" target=\"{}\"/>\n", src, dst).as_bytes(),
+            )?;
+        }
+        file.write_all(b"</graph>\n")?;
+        file.write_all(b"</graphml>\n")?;
+        Ok(())
+    }
+
+    // pub fn get_dominator(&self, label: &str) -> Vec<String> {
+    //     // get dominator of a block
+    //     let mut dominators = Vec::new();
+    //     let mut visited = HashSet::new();
+    //     let mut stack = Vec::new();
+    //     let mut in_current_path = HashSet::new();
+
+    //     let entry_label = "entry".to_string();
+    //     self.dfs_dominator(
+    //         &entry_label,
+    //         &mut visited,
+    //         &mut stack,
+    //         &mut in_current_path,
+    //         &mut dominators,
+    //         label,
+    //     );
+
+    //     for (src, _) in &self.edges {
+    //         if !visited.contains(src) {
+    //             self.dfs_dominator(
+    //                 src,
+    //                 &mut visited,
+    //                 &mut stack,
+    //                 &mut in_current_path,
+    //                 &mut dominators,
+    //                 label,
+    //             );
+    //         }
+    //     }
+    //     println!("Dominators of {}: {:?}", label, dominators);
+    //     dominators
+    // }
+
+    // pub fn dfs_dominator(
+    //     &self,
+    //     label: &String,
+    //     visited: &mut HashSet<String>,
+    //     stack: &mut Vec<String>,
+    //     in_current_path: &mut HashSet<String>,
+    //     dominators: &mut Vec<String>,
+    //     target: &str,
+    // ) {
+    //     visited.insert(label.clone());
+    //     stack.push(label.clone());
+    //     in_current_path.insert(label.clone());
+    //     for succ_label in self.get_successor_labels(label) {
+    //         if !visited.contains(&succ_label) {
+    //             self.dfs_dominator(
+    //                 &succ_label,
+    //                 visited,
+    //                 stack,
+    //                 in_current_path,
+    //                 dominators,
+    //                 target,
+    //             );
+    //         } else if in_current_path.contains(&succ_label) {
+    //             dominators.push(succ_label.clone());
+    //         }
+    //     }
+    //     in_current_path.remove(label);
+    //     stack.pop();
+    // }
+
+    // pub fn get_all_dominators(&self) -> HashMap<String, Vec<String>> {
+    //     let mut dominators = HashMap::new();
+    //     for label in self.nodes.keys() {
+    //         dominators.insert(label.clone(), self.get_dominator(label));
+    //     }
+    //     dominators
+    // }
 }
 
 #[cfg(test)]
@@ -446,4 +552,36 @@ mod test {
             HashSet::from_iter(vec!["bb1".to_string(), "bb4".to_string()])
         );
     }
+
+    // #[test]
+    // fn test_dominance() {
+    //     let mut cfg = ControlFlowGraph::new();
+
+    //     let entry = lir::Block::new("entry", &lir::Terminal::Jump("xxx".to_string()));
+    //     let blockB = lir::Block::new("B", &lir::Terminal::Jump("xxx".to_string()));
+    //     let blockC = lir::Block::new("C", &lir::Terminal::Jump("xxx".to_string()));
+    //     let blockD = lir::Block::new("D", &lir::Terminal::Jump("xxx".to_string()));
+    //     let blockE = lir::Block::new("E", &lir::Terminal::Ret(None));
+
+    //     let entry_label = "entry".to_string();
+    //     let labelB = "B".to_string();
+    //     let labelC = "C".to_string();
+    //     let labelD = "D".to_string();
+    //     let labelE = "E".to_string();
+
+    //     cfg.nodes.insert(entry_label.clone(), entry.clone());
+    //     cfg.nodes.insert(labelB.clone(), blockB.clone());
+    //     cfg.nodes.insert(labelC.clone(), blockC.clone());
+    //     cfg.nodes.insert(labelD.clone(), blockD.clone());
+    //     cfg.nodes.insert(labelE.clone(), blockE.clone());
+
+    //     cfg.edges.push((entry_label.clone(), labelB.clone()));
+    //     cfg.edges.push((labelB.clone(), labelC.clone()));
+    //     cfg.edges.push((labelB.clone(), labelD.clone()));
+    //     cfg.edges.push((labelC.clone(), labelE.clone()));
+    //     cfg.edges.push((labelD.clone(), labelE.clone()));
+
+    //     let dominators = cfg.get_all_dominators();
+    //     println!("{:#?}", dominators);
+    // }
 }

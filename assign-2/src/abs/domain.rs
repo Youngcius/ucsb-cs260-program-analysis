@@ -16,6 +16,13 @@ pub enum ProgramPoint {
     ProgramPointSet(HashSet<lir::ProgramPoint>),
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum ControlDependence {
+    Bottom,                    // all basic blocks
+    Top,                       // {}
+    BlockSet(HashSet<String>), // set of basic block (bb_labels)
+}
+
 impl std::fmt::Display for Constant {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -151,7 +158,7 @@ impl std::fmt::Display for ProgramPoint {
                         return a[0].cmp(b[0]);
                     }
                     natord::compare(a[1], b[1])
-                });            
+                });
                 write!(
                     f,
                     "{{{}}}",
@@ -201,6 +208,65 @@ impl AbstractSemantics for ProgramPoint {
     }
     fn cmp(&self, _other: &Self, _op: &lir::RelaOp) -> Self {
         panic!("ProgramPoint does not support comparison operations")
+    }
+}
+
+impl std::fmt::Display for ControlDependence {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ControlDependence::Bottom => write!(f, "⊥"),
+            ControlDependence::Top => write!(f, "{{}}"),
+            ControlDependence::BlockSet(bbs) => {
+                let mut bbs = bbs.iter().collect::<Vec<&String>>();
+                bbs.sort();
+                // write!(f, "{{{}}}", bbs.iter().join(", "))
+                // TODO: complete this
+                write!(f, "{:?}", bbs)
+            }
+        }
+    }
+
+}
+
+impl AbstractSemantics for ControlDependence {
+    fn is_bottom(&self) -> bool {
+        if let ControlDependence::Bottom = self {
+            true
+        } else {
+            false
+        }
+    }
+    fn is_top(&self) -> bool {
+        if let ControlDependence::Top = self {
+            true
+        } else {
+            false
+        }
+    }
+    fn join(&self, other: &Self) -> Self {
+        match (self, other) {
+            (ControlDependence::Bottom, _) => other.clone(),
+            (_, ControlDependence::Bottom) => self.clone(),
+            (ControlDependence::Top, _) => ControlDependence::Top,
+            (_, ControlDependence::Top) => ControlDependence::Top,
+            (ControlDependence::BlockSet(bbs1), ControlDependence::BlockSet(bbs2)) => {
+                // here use set intersection as "join" operation
+                ControlDependence::BlockSet(
+                    bbs1.intersection(&bbs2)
+                        .cloned()
+                        .collect::<HashSet<String>>(),
+                )
+            }
+        }
+    }
+    fn join_in_place(&mut self, other: &Self) {
+        *self = self.join(other);
+    }
+    fn arith(&self, _other: &Self, _op: &lir::ArithOp) -> Self {
+        panic!("ControlDependence does not support arithmetic operations")
+    }
+    fn cmp(&self, _other: &Self, _op: &lir::RelaOp) -> Self {
+        panic!("ControlDependence does not support comparison operations")
     }
 }
 

@@ -21,7 +21,7 @@ bb1:
   id20 = $copy id21
   _t36 = $gfp id21 f2
   _t37 = $load _t36
-  id24 = $copy _t37
+  id24 = $copy _t37 // impact id11 ???
   id23 = $copy id24
   _t38 = $addrof id24
   id25 = $copy _t38
@@ -331,7 +331,7 @@ entry:
   id5 = $copy id6
   _t23 = $load id14
   id13 = $copy _t23
-  _t24 = $gfp id5 f2
+  _t24 = $gfp id5 f2 // error in this line
   _t25 = $load _t24
   _t26 = $gep id13 id10
   _t27 = $load _t26

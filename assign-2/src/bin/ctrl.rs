@@ -1,6 +1,7 @@
 use cs260::abs;
 use cs260::abs::execution::AbstractExecution;
 use cs260::lir;
+use cs260::cfg;
 use cs260::utils;
 
 fn main() {
@@ -20,12 +21,7 @@ fn main() {
     }
 
     let prog = lir::Program::parse_json(&json_fname);
-    let mut analyzer = abs::execution::ReachingDefinitionAnalyzer::new(prog, &func_name);
-    analyzer.mfp();
-    #[cfg(debug_assertions)]
-    {
-        utils::display_bb2store(&analyzer.bb2store);
-        println!("---------------------------------");
-    }
-    utils::display_rdef_solution(&analyzer.solution);
+    let mut analyzer = abs::execution::ControlDependenceAnalyzer::new(prog, &func_name);
+    analyzer.execute();
+    utils::display_ctrl_solution(&analyzer.solution);
 }

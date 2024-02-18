@@ -18,3 +18,7 @@ path = "src/bin/rdef.rs"
 [[bin]]
 name = "ctrl_analysis"
 path = "src/bin/ctrl.rs"
+
+[[bin]]
+name = "gene_graphml"
+path = "src/bin/gene_graphml.rs"

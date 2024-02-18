@@ -1,0 +1,14 @@
+fn main() -> int {
+entry:
+  $ret 0
+}
+
+fn test() -> int {
+let a:int, b:&int, c:int
+entry:
+  b = $addrof a
+  a = $copy 42
+  c = $copy 12
+  $store b 6
+  $ret 0
+}

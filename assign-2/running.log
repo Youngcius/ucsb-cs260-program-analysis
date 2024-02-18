@@ -1,0 +1,403 @@
+json_fname: ./tests/json/vvv.json
+func_name: test
+---------------------------------
+addrof_ints: []
+---------------------------------
+addr_taken: [Variable { name: "fake_var", typ: Pointer(Function(FunctionType { ret_ty: Some(Int), param_ty: [] })), scope: Some("fake") }]
+initialized entry_store:
+ 
+
+executing pp: entry.0
+after executing:
+ solution[entry.0] -> "{}"
+pp_use -> {Variable { name: "id0", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "id1", typ: Int, scope: Some("test") }}
+
+executing pp: entry.1
+after executing:
+ solution[entry.1] -> "{}"
+pp_use -> {Variable { name: "id0", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "id2", typ: Int, scope: Some("test") }}
+
+executing pp: entry.2
+after executing:
+ solution[entry.2] -> "{}"
+pp_use -> {}
+pp_def -> {Variable { name: "_t7", typ: Int, scope: Some("test") }}
+
+executing pp: entry.3
+after executing:
+ solution[entry.3] -> "{entry.2}"
+pp_use -> {Variable { name: "_t7", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_lo1", typ: Int, scope: Some("test") }}
+
+executing pp: entry.4
+after executing:
+ solution[entry.4] -> "{entry.3}"
+pp_use -> {Variable { name: "_lo1", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t8", typ: Int, scope: Some("test") }}
+
+executing pp: entry.term
+after executing:
+ solution[entry.term] -> "{entry.4}"
+pp_use -> {Variable { name: "_t8", typ: Int, scope: Some("test") }}
+pp_def -> {}
+
+executing pp: bb2.0
+after executing:
+ solution[bb2.0] -> "{}"
+pp_use -> {}
+pp_def -> {Variable { name: "_t9", typ: Int, scope: Some("test") }}
+
+executing pp: bb2.term
+after executing:
+ solution[bb2.term] -> "{bb2.0}"
+pp_use -> {Variable { name: "_t9", typ: Int, scope: Some("test") }}
+pp_def -> {}
+
+executing pp: bb1.0
+after executing:
+ solution[bb1.0] -> "{entry.3}"
+pp_use -> {Variable { name: "_lo1", typ: Int, scope: Some("test") }, Variable { name: "id0", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t10", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.1
+after executing:
+ solution[bb1.1] -> "{bb1.0}"
+pp_use -> {Variable { name: "_t10", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "id4", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.2
+after executing:
+ solution[bb1.2] -> "{bb1.1}"
+pp_use -> {Variable { name: "id4", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "id3", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.3
+after executing:
+ solution[bb1.3] -> "{}"
+pp_use -> {}
+pp_def -> {Variable { name: "_t11", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.4
+after executing:
+ solution[bb1.4] -> "{bb1.3}"
+pp_use -> {Variable { name: "_t11", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t12", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.5
+after executing:
+ solution[bb1.5] -> "{}"
+pp_use -> {Variable { name: "id0", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t13", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.6
+after executing:
+ solution[bb1.6] -> "{bb1.4, bb1.5}"
+pp_use -> {Variable { name: "_t12", typ: Int, scope: Some("test") }, Variable { name: "_t13", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t14", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.7
+after executing:
+ solution[bb1.7] -> "{bb1.6}"
+pp_use -> {Variable { name: "_t14", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "id0", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.term
+after executing:
+ solution[bb1.term] -> "{}"
+pp_use -> {}
+pp_def -> {}
+
+executing pp: bb4.0
+after executing:
+ solution[bb4.0] -> "{}"
+pp_use -> {}
+pp_def -> {Variable { name: "_lo2", typ: Int, scope: Some("test") }}
+
+executing pp: bb4.term
+after executing:
+ solution[bb4.term] -> "{}"
+pp_use -> {}
+pp_def -> {}
+
+executing pp: bb5.0
+after executing:
+ solution[bb5.0] -> "{}"
+pp_use -> {}
+pp_def -> {Variable { name: "_lo2", typ: Int, scope: Some("test") }}
+
+executing pp: bb5.term
+after executing:
+ solution[bb5.term] -> "{}"
+pp_use -> {}
+pp_def -> {}
+
+executing pp: bb7.term
+after executing:
+ solution[bb7.term] -> "{}"
+pp_use -> {}
+pp_def -> {}
+
+executing pp: bb8.0
+after executing:
+ solution[bb8.0] -> "{entry.0}"
+pp_use -> {Variable { name: "id1", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t17", typ: Int, scope: Some("test") }}
+
+executing pp: bb8.1
+after executing:
+ solution[bb8.1] -> "{bb8.0}"
+pp_use -> {Variable { name: "_t17", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_lo3", typ: Int, scope: Some("test") }}
+
+executing pp: bb8.2
+after executing:
+ solution[bb8.2] -> "{bb8.1}"
+pp_use -> {Variable { name: "_lo3", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t18", typ: Int, scope: Some("test") }}
+
+executing pp: bb8.term
+after executing:
+ solution[bb8.term] -> "{}"
+pp_use -> {}
+pp_def -> {}
+
+executing pp: bb3.0
+after executing:
+ solution[bb3.0] -> "{bb5.0}"
+pp_use -> {Variable { name: "_lo2", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_lo1", typ: Int, scope: Some("test") }}
+
+executing pp: bb3.term
+after executing:
+ solution[bb3.term] -> "{}"
+pp_use -> {}
+pp_def -> {}
+
+executing pp: exit.term
+after executing:
+ solution[exit.term] -> "{}"
+pp_use -> {Variable { name: "_ret28", typ: Int, scope: Some("test") }}
+pp_def -> {}
+
+executing pp: bb1.0
+after executing:
+ solution[bb1.0] -> "{bb3.0, entry.3}"
+pp_use -> {Variable { name: "_lo1", typ: Int, scope: Some("test") }, Variable { name: "id0", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t10", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.1
+after executing:
+ solution[bb1.1] -> "{bb1.0}"
+pp_use -> {Variable { name: "_t10", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "id4", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.2
+after executing:
+ solution[bb1.2] -> "{bb1.1}"
+pp_use -> {Variable { name: "id4", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "id3", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.3
+after executing:
+ solution[bb1.3] -> "{}"
+pp_use -> {}
+pp_def -> {Variable { name: "_t11", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.4
+after executing:
+ solution[bb1.4] -> "{bb1.3}"
+pp_use -> {Variable { name: "_t11", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t12", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.5
+after executing:
+ solution[bb1.5] -> "{}"
+pp_use -> {Variable { name: "id0", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t13", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.6
+after executing:
+ solution[bb1.6] -> "{bb1.4, bb1.5}"
+pp_use -> {Variable { name: "_t12", typ: Int, scope: Some("test") }, Variable { name: "_t13", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t14", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.7
+after executing:
+ solution[bb1.7] -> "{bb1.6}"
+pp_use -> {Variable { name: "_t14", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "id0", typ: Int, scope: Some("test") }}
+
+executing pp: bb1.term
+after executing:
+ solution[bb1.term] -> "{}"
+pp_use -> {}
+pp_def -> {}
+
+executing pp: bb7.term
+after executing:
+ solution[bb7.term] -> "{}"
+pp_use -> {}
+pp_def -> {}
+
+executing pp: bb8.0
+after executing:
+ solution[bb8.0] -> "{entry.0}"
+pp_use -> {Variable { name: "id1", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t17", typ: Int, scope: Some("test") }}
+
+executing pp: bb8.1
+after executing:
+ solution[bb8.1] -> "{bb8.0}"
+pp_use -> {Variable { name: "_t17", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_lo3", typ: Int, scope: Some("test") }}
+
+executing pp: bb8.2
+after executing:
+ solution[bb8.2] -> "{bb8.1}"
+pp_use -> {Variable { name: "_lo3", typ: Int, scope: Some("test") }}
+pp_def -> {Variable { name: "_t18", typ: Int, scope: Some("test") }}
+
+executing pp: bb8.term
+after executing:
+ solution[bb8.term] -> "{}"
+pp_use -> {}
+pp_def -> {}
+
+executing pp: exit.term
+after executing:
+ solution[exit.term] -> "{}"
+pp_use -> {Variable { name: "_ret28", typ: Int, scope: Some("test") }}
+pp_def -> {}
+bb1:
+_lo1 -> {bb3.0}
+_lo2 -> {bb5.0}
+_t10 -> {bb1.0}
+_t11 -> {bb1.3}
+_t12 -> {bb1.4}
+_t13 -> {bb1.5}
+_t14 -> {bb1.6}
+_t7 -> {entry.2}
+_t8 -> {entry.4}
+_t9 -> {bb2.0}
+id0 -> {bb1.7}
+id1 -> {entry.0}
+id2 -> {entry.1}
+id3 -> {bb1.2}
+id4 -> {bb1.1}
+
+bb2:
+_lo1 -> {entry.3}
+_t7 -> {entry.2}
+_t8 -> {entry.4}
+_t9 -> {bb2.0}
+id1 -> {entry.0}
+id2 -> {entry.1}
+
+bb3:
+_lo1 -> {bb3.0}
+_lo2 -> {bb5.0}
+_t7 -> {entry.2}
+_t8 -> {entry.4}
+_t9 -> {bb2.0}
+id1 -> {entry.0}
+id2 -> {entry.1}
+
+bb4:
+_lo1 -> {entry.3}
+_lo2 -> {bb4.0}
+_t7 -> {entry.2}
+_t8 -> {entry.4}
+_t9 -> {bb2.0}
+id1 -> {entry.0}
+id2 -> {entry.1}
+
+bb5:
+_lo1 -> {entry.3}
+_lo2 -> {bb5.0}
+_t7 -> {entry.2}
+_t8 -> {entry.4}
+_t9 -> {bb2.0}
+id1 -> {entry.0}
+id2 -> {entry.1}
+
+bb7:
+_lo1 -> {bb3.0}
+_lo2 -> {bb5.0}
+_t10 -> {bb1.0}
+_t11 -> {bb1.3}
+_t12 -> {bb1.4}
+_t13 -> {bb1.5}
+_t14 -> {bb1.6}
+_t7 -> {entry.2}
+_t8 -> {entry.4}
+_t9 -> {bb2.0}
+id0 -> {bb1.7}
+id1 -> {entry.0}
+id2 -> {entry.1}
+id3 -> {bb1.2}
+id4 -> {bb1.1}
+
+bb8:
+_lo1 -> {bb3.0}
+_lo2 -> {bb5.0}
+_lo3 -> {bb8.1}
+_t10 -> {bb1.0}
+_t11 -> {bb1.3}
+_t12 -> {bb1.4}
+_t13 -> {bb1.5}
+_t14 -> {bb1.6}
+_t17 -> {bb8.0}
+_t18 -> {bb8.2}
+_t7 -> {entry.2}
+_t8 -> {entry.4}
+_t9 -> {bb2.0}
+id0 -> {bb1.7}
+id1 -> {entry.0}
+id2 -> {entry.1}
+id3 -> {bb1.2}
+id4 -> {bb1.1}
+
+entry:
+_lo1 -> {entry.3}
+_t7 -> {entry.2}
+_t8 -> {entry.4}
+id1 -> {entry.0}
+id2 -> {entry.1}
+
+exit:
+_lo1 -> {bb3.0}
+_lo2 -> {bb5.0}
+_lo3 -> {bb8.1}
+_t10 -> {bb1.0}
+_t11 -> {bb1.3}
+_t12 -> {bb1.4}
+_t13 -> {bb1.5}
+_t14 -> {bb1.6}
+_t17 -> {bb8.0}
+_t18 -> {bb8.2}
+_t7 -> {entry.2}
+_t8 -> {entry.4}
+_t9 -> {bb2.0}
+id0 -> {bb1.7}
+id1 -> {entry.0}
+id2 -> {entry.1}
+id3 -> {bb1.2}
+id4 -> {bb1.1}
+
+---------------------------------
+bb1.0 -> {bb3.0, entry.3}
+bb1.1 -> {bb1.0}
+bb1.2 -> {bb1.1}
+bb1.4 -> {bb1.3}
+bb1.6 -> {bb1.4, bb1.5}
+bb1.7 -> {bb1.6}
+bb2.term -> {bb2.0}
+bb3.0 -> {bb5.0}
+bb8.0 -> {entry.0}
+bb8.1 -> {bb8.0}
+bb8.2 -> {bb8.1}
+entry.3 -> {entry.2}
+entry.4 -> {entry.3}
+entry.term -> {entry.4}

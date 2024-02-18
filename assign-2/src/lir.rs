@@ -6,6 +6,7 @@ use serde_json as json;
 use std::collections::{HashMap, HashSet};
 use std::fs::File;
 use std::io::{BufReader, BufWriter};
+use std::ptr;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Program {
@@ -433,6 +434,7 @@ impl Program {
     }
 
     pub fn get_addrof_ints(&self, func_name: &str) -> Vec<Variable> {
+        // TODO: whether it should include global_ints herein?
         let func = self.functions.get(func_name).unwrap();
         let mut addrof_ints = Vec::new();
         for block in func.body.values() {
@@ -440,11 +442,18 @@ impl Program {
                 match inst {
                     Instruction::AddrOf { lhs: _, rhs } => {
                         if let Type::Int = rhs.typ {
-                            addrof_ints.push(rhs.clone());
+                            if !addrof_ints.contains(rhs) {
+                                addrof_ints.push(rhs.clone());
+                            }
                         }
                     }
                     _ => {}
                 }
+            }
+        }
+        for var in self.get_int_globals() {
+            if !addrof_ints.contains(&var) {
+                addrof_ints.push(var);
             }
         }
         #[cfg(debug_assertions)]
@@ -475,9 +484,12 @@ impl Program {
                 scope: Some("fake".to_string()), // TODO: how to set its scope?
             })
             .collect();
-
-        let fake_vars = fake_vars_set.into_iter().collect();
-        fake_vars
+        let fake_vars: Vec<Variable> = fake_vars_set.into_iter().collect();
+        
+        let mut addr_taken = Vec::new();
+        addr_taken.extend(fake_vars);
+        addr_taken.extend(self.get_addrof_ints(func_name));
+        addr_taken
     }
 
     pub fn get_all_basic_blocks(&self) -> Vec<&Block> {

@@ -1,0 +1,13 @@
+fn main() -> int {
+entry:
+  $ret 0
+}
+
+fn test() -> int {
+let a:&int, b:int, c:&int, d:int
+entry:
+  a = $addrof b
+  c = $alloc 1 [_a1]
+  d = $load c
+  $ret 0
+}

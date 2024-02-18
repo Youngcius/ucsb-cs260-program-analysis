@@ -105,12 +105,12 @@ entry:
   _t6 = $load _t5
   _t7 = $gep id0 _t6
   _t8 = $load _t7
-  id1 = $copy _t8
+  id1 = $copy _t8  // definition used in entry.13
   id3 = $copy id3
   id4 = $copy id2
   _t9 = $arith sub 0 6
   id7 = $copy _t9
   id6 = $copy id7
-  _t10 = $load id0
+  _t10 = $load id0 // use entry.7
   $branch _t10 bb2 bb3
 }

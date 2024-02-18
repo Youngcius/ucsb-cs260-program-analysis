@@ -2,10 +2,10 @@
 Utils functions
 */
 
+use crate::abs::domain;
 use crate::lir;
 use crate::{abs::semantics::AbstractSemantics, store};
 use std::collections::HashMap;
-use crate::abs::domain;
 
 #[macro_export]
 macro_rules! hashset {
@@ -41,9 +41,8 @@ where
     }
 }
 
-pub fn display_rdef_solution(solution: &HashMap<String, domain::ProgramPoint>)
-{
-    let mut keys: Vec<String>= solution.keys().cloned().collect();
+pub fn display_rdef_solution(solution: &HashMap<String, domain::ProgramPoint>) {
+    let mut keys: Vec<String> = solution.keys().cloned().collect();
     // keys.sort();
     keys.sort_by(|a, b| {
         let a: Vec<&str> = a.split('.').collect();
@@ -52,9 +51,7 @@ pub fn display_rdef_solution(solution: &HashMap<String, domain::ProgramPoint>)
             return a[0].cmp(b[0]);
         }
         natord::compare(a[1], b[1])
-        //  a[1].cmp(b[1])
     });
-
 
     for k in keys {
         if let domain::ProgramPoint::Bottom = solution.get(&k).unwrap() {
@@ -65,10 +62,17 @@ pub fn display_rdef_solution(solution: &HashMap<String, domain::ProgramPoint>)
                 continue;
             }
         }
-        // if let domain::ProgramPoint::ProgramPointSet(HashMap::new()) = solution.get(&k).unwrap() {
-        //     continue;
-        // }
         println!("{} -> {}", k, solution.get(&k).unwrap());
+    }
+}
+
+pub fn display_ctrl_solution(solution: &HashMap<String, domain::ControlDependence>) {
+    // solution is a bb2frontier mapping
+    let mut bbs: Vec<String> = solution.keys().cloned().collect();
+    bbs.sort();
+    for bb in bbs {
+        // TODO: will it print Bottom?
+        println!("{} -> {:?}", bb, solution.get(&bb).unwrap());
     }
 }
 

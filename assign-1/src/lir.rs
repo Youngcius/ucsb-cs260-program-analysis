@@ -273,6 +273,12 @@ impl Program {
                 }
             }
         }
+        for var in self.get_int_globals() {
+            if !addrof_ints.contains(&var) {
+                addrof_ints.push(var);
+            }
+        }
+        
         #[cfg(debug_assertions)]
         {
             println!("---------------------------------");

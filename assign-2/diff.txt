@@ -1,0 +1,150 @@
+Diffing test1
+Diffing test2
+Diffing test3
+Diffing test4
+13c13
+< bb10.1 -> {bb1.8, entry.3}
+---
+> bb10.1 -> {entry.3}
+19c19
+< bb10.11 -> {bb1.8, bb10.10, entry.3}
+---
+> bb10.11 -> {entry.3}
+35c35
+< bb16.1 -> {bb16.0, bb18.2}
+---
+> bb16.1 -> {bb16.0}
+44,45c44,45
+< bb17.2 -> {bb1.8, bb17.1, bb18.2}
+< bb17.4 -> {bb17.3, bb18.2}
+---
+> bb17.2 -> {bb17.1, bb18.2}
+> bb17.4 -> {bb17.3}
+52c52
+< bb19.1 -> {bb1.8, bb18.2, bb19.0}
+---
+> bb19.1 -> {bb18.2, bb19.0}
+63,64c63,64
+< bb20.2 -> {bb1.8, bb1.11, bb18.2}
+< bb20.3 -> {bb1.8, bb18.2, bb20.2}
+---
+> bb20.2 -> {bb1.11, bb18.2}
+> bb20.3 -> {bb1.8, bb20.2}
+74c74
+< bb25.1 -> {bb1.8, bb18.2, bb25.0}
+---
+> bb25.1 -> {bb18.2, bb25.0}
+114c114
+< bb38.5 -> {bb1.8, bb18.2, bb38.4}
+---
+> bb38.5 -> {bb18.2, bb38.4}
+120c120
+< bb39.1 -> {bb1.8, bb18.2, bb37.14, bb39.0}
+---
+> bb39.1 -> {bb18.2, bb37.14, bb39.0}
+131c131
+< bb40.4 -> {bb1.8, bb18.2, bb37.14, bb40.3}
+---
+> bb40.4 -> {bb18.2, bb37.14, bb40.3}
+Diffing test5
+Diffing test6
+21c21
+< bb10.9 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.8, bb6.0, bb6.term, entry.term}
+---
+> bb10.9 -> {bb10.4, bb10.5, bb10.7, bb10.8, bb6.0, bb6.term}
+32,33c32,33
+< bb11.3 -> {bb1.term, bb11.0, bb6.term, entry.10, entry.term}
+< bb11.term -> {bb1.term, bb11.0, bb11.2, bb11.3, bb2.0, bb2.8, bb2.10, bb6.0, bb6.term, entry.7, entry.term}
+---
+> bb11.3 -> {bb1.term, bb6.term, entry.10, entry.term}
+> bb11.term -> {bb1.term, bb11.2, bb11.3, bb2.0, bb2.8, bb2.10, bb6.0, bb6.term, entry.7, entry.term}
+48c48
+< bb14.8 -> {bb1.term, bb11.0, bb11.term, bb14.7, bb6.term, entry.term}
+---
+> bb14.8 -> {bb1.term, bb11.term, bb14.7, bb6.term, entry.term}
+52c52
+< bb14.14 -> {bb1.term, bb11.0, bb11.term, bb14.1, bb14.4, bb14.13, bb2.0, bb2.8, bb2.10, bb6.term, entry.7, entry.term}
+---
+> bb14.14 -> {bb1.term, bb11.term, bb14.1, bb14.4, bb14.13, bb2.0, bb2.8, bb2.10, bb6.term, entry.7, entry.term}
+81c81
+< bb20.5 -> {bb1.15, bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.0, bb11.term, bb12.term, bb14.14, bb21.term, bb24.term, bb27.1, bb27.8, bb6.term, entry.term}
+---
+> bb20.5 -> {bb1.15, bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.term, bb12.term, bb14.14, bb21.term, bb24.term, bb27.1, bb27.8, bb6.term, entry.term}
+84c84
+< bb20.9 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.0, bb11.term, bb12.term, bb14.14, bb20.6, bb20.8, bb21.term, bb24.term, bb27.1, bb27.8, bb6.term, entry.term}
+---
+> bb20.9 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.term, bb12.term, bb14.14, bb20.8, bb21.term, bb24.term, bb27.1, bb27.8, bb6.term, entry.term}
+96c96
+< bb21.5 -> {bb1.2, bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.0, bb11.term, bb12.term, bb14.14, bb6.term, entry.term}
+---
+> bb21.5 -> {bb1.2, bb11.0}
+99c99
+< bb21.9 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.0, bb11.term, bb12.term, bb14.14, bb21.8, bb6.term, entry.term}
+---
+> bb21.9 -> {bb11.0, bb21.8}
+107c107
+< bb21.term -> {bb1.term, bb10.1, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.0, bb11.term, bb12.term, bb14.1, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb21.6, bb21.13, bb6.term, entry.7, entry.term}
+---
+> bb21.term -> {bb1.term, bb10.1, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.term, bb12.term, bb14.1, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb21.6, bb21.13, bb6.term, entry.7, entry.term}
+110c110
+< bb22.2 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.0, bb11.term, bb12.term, bb14.14, bb22.1, bb6.term, entry.term}
+---
+> bb22.2 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.term, bb12.term, bb14.14, bb22.1, bb6.term, entry.term}
+115c115
+< bb24.2 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.0, bb11.term, bb12.term, bb14.14, bb24.1, bb6.term, entry.term}
+---
+> bb24.2 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.term, bb12.term, bb14.14, bb24.1, bb6.term, entry.term}
+118c118
+< bb24.5 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.0, bb11.term, bb12.term, bb14.4, bb14.14, bb14.15, bb6.0, bb6.term, entry.term}
+---
+> bb24.5 -> {bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.0, bb12.term, bb14.4, bb14.14, bb14.15, bb6.0, bb6.term}
+124c124
+< bb24.term -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.0, bb11.term, bb12.term, bb14.1, bb14.4, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb22.4, bb24.0, bb24.2, bb24.10, bb6.0, bb6.term, entry.term}
+---
+> bb24.term -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.term, bb12.term, bb14.1, bb14.4, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb22.4, bb24.0, bb24.2, bb24.10, bb6.0, bb6.term, entry.term}
+126,127c126,127
+< bb27.1 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.0, bb11.term, bb12.term, bb14.1, bb14.4, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb22.4, bb24.term, bb27.0, bb6.0, bb6.term, entry.term}
+< bb27.3 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.0, bb11.term, bb12.term, bb14.14, bb24.term, bb27.1, bb27.2, bb6.term, entry.term}
+---
+> bb27.1 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.term, bb12.term, bb14.1, bb14.4, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb22.4, bb24.term, bb27.0, bb6.0, bb6.term, entry.term}
+> bb27.3 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.term, bb11.term, bb12.term, bb14.14, bb24.term, bb27.1, bb27.2, bb6.term, entry.term}
+132c132
+< bb29.term -> {bb1.term, bb10.1, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.0, bb11.term, bb12.term, bb14.1, bb14.4, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb20.4, bb20.6, bb20.14, bb21.6, bb21.term, bb22.4, bb23.0, bb24.term, bb27.1, bb27.6, bb27.8, bb29.term, bb32.4, bb32.7, bb32.12, bb32.15, bb6.0, bb6.term, entry.7, entry.term}
+---
+> bb29.term -> {bb1.term, bb10.1, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.term, bb12.term, bb14.1, bb14.4, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb20.4, bb20.6, bb20.14, bb21.6, bb21.term, bb22.4, bb23.0, bb24.term, bb27.1, bb27.6, bb27.8, bb29.term, bb32.4, bb32.7, bb32.12, bb32.15, bb6.0, bb6.term, entry.7, entry.term}
+142c142
+< bb32.12 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.0, bb11.term, bb12.term, bb14.1, bb14.4, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb20.4, bb20.6, bb20.14, bb21.6, bb21.term, bb24.term, bb27.1, bb27.6, bb27.8, bb29.term, bb32.4, bb32.7, bb32.11, bb32.12, bb32.15, bb6.0, bb6.term, entry.term}
+---
+> bb32.12 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.term, bb12.term, bb14.1, bb14.4, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb20.4, bb20.6, bb20.14, bb21.6, bb21.term, bb24.term, bb27.1, bb27.6, bb27.8, bb29.term, bb32.4, bb32.7, bb32.11, bb32.12, bb32.15, bb6.0, bb6.term, entry.term}
+145c145
+< bb32.15 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.0, bb11.term, bb12.term, bb14.1, bb14.4, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb20.4, bb20.6, bb20.14, bb21.6, bb21.term, bb24.term, bb27.1, bb27.6, bb27.8, bb29.term, bb32.4, bb32.7, bb32.12, bb32.14, bb32.15, bb6.0, bb6.term, entry.term}
+---
+> bb32.15 -> {bb1.term, bb10.4, bb10.5, bb10.7, bb10.8, bb10.term, bb11.term, bb12.term, bb14.1, bb14.4, bb14.14, bb14.15, bb2.0, bb2.8, bb2.10, bb20.4, bb20.6, bb20.14, bb21.6, bb21.term, bb24.term, bb27.1, bb27.6, bb27.8, bb29.term, bb32.4, bb32.7, bb32.12, bb32.14, bb32.15, bb6.0, bb6.term, entry.term}
+157d156
+< bb8.0 -> {bb1.term, bb6.term, entry.term}
+Diffing test7
+Diffing test8
+1,3c1,3
+< bb11.term -> {bb11.term, bb12.term, bb13.3, bb5.term, bb8.term, entry.7}
+< bb12.0 -> {bb11.term, bb13.3, entry.7}
+< bb12.1 -> {bb11.term, bb12.0}
+---
+> bb11.term -> {bb11.term, bb12.term, bb5.term, bb8.term}
+> bb12.0 -> {bb13.3, entry.7}
+> bb12.1 -> {bb12.0}
+6c6
+< bb12.4 -> {bb11.term, bb12.0, bb12.3}
+---
+> bb12.4 -> {bb12.0, bb12.3}
+11c11
+< bb13.4 -> {bb11.term, bb13.3}
+---
+> bb13.4 -> {bb13.3}
+14c14
+< bb17.2 -> {bb11.term, bb13.3, bb17.1, bb6.term, entry.7}
+---
+> bb17.2 -> {bb13.3, bb17.1, entry.7}
+21c21
+< bb6.term -> {bb11.term, bb12.term, bb13.3, bb5.term, bb6.4, bb8.term, entry.7}
+---
+> bb6.term -> {bb11.term, bb12.term, bb5.term, bb6.4, bb8.term}
