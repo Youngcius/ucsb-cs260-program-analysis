@@ -1,35 +1,35 @@
- ./remote_control.sh ./demos/lir/test1.lir test ./demos/std_ctrl_out/test1.ctrl.out
- ./remote_control.sh ./demos/lir/test2.lir test ./demos/std_ctrl_out/test2.ctrl.out
- ./remote_control.sh ./demos/lir/test3.lir test ./demos/std_ctrl_out/test3.ctrl.out
- ./remote_control.sh ./demos/lir/test4.lir test ./demos/std_ctrl_out/test4.ctrl.out
- ./remote_control.sh ./demos/lir/test5.lir test ./demos/std_ctrl_out/test5.ctrl.out
- ./remote_control.sh ./demos/lir/test6.lir test ./demos/std_ctrl_out/test6.ctrl.out
- ./remote_control.sh ./demos/lir/test7.lir test ./demos/std_ctrl_out/test7.ctrl.out
- ./remote_control.sh ./demos/lir/test8.lir test ./demos/std_ctrl_out/test8.ctrl.out
- ./remote_control.sh ./demos/lir/test9.lir test ./demos/std_ctrl_out/test9.ctrl.out
- ./remote_control.sh ./demos/lir/test10.lir test ./demos/std_ctrl_out/test10.ctrl.out
- ./remote_control.sh ./demos/lir/test11.lir test ./demos/std_ctrl_out/test11.ctrl.out
- ./remote_control.sh ./demos/lir/test12.lir test ./demos/std_ctrl_out/test12.ctrl.out
- ./remote_control.sh ./demos/lir/test13.lir test ./demos/std_ctrl_out/test13.ctrl.out
- ./remote_control.sh ./demos/lir/test14.lir test ./demos/std_ctrl_out/test14.ctrl.out
- ./remote_control.sh ./demos/lir/test15.lir test ./demos/std_ctrl_out/test15.ctrl.out
- ./remote_control.sh ./demos/lir/test16.lir test ./demos/std_ctrl_out/test16.ctrl.out
- ./remote_control.sh ./demos/lir/test17.lir test ./demos/std_ctrl_out/test17.ctrl.out
- ./remote_control.sh ./demos/lir/test18.lir test ./demos/std_ctrl_out/test18.ctrl.out
- ./remote_control.sh ./demos/lir/test19.lir test ./demos/std_ctrl_out/test19.ctrl.out
- ./remote_control.sh ./demos/lir/test20.lir test ./demos/std_ctrl_out/test20.ctrl.out
- ./remote_control.sh ./demos/lir/test21.lir test ./demos/std_ctrl_out/test21.ctrl.out
- ./remote_control.sh ./demos/lir/test22.lir test ./demos/std_ctrl_out/test22.ctrl.out
- ./remote_control.sh ./demos/lir/test23.lir test ./demos/std_ctrl_out/test23.ctrl.out
- ./remote_control.sh ./demos/lir/test24.lir test ./demos/std_ctrl_out/test24.ctrl.out
- ./remote_control.sh ./demos/lir/test25.lir test ./demos/std_ctrl_out/test25.ctrl.out
- ./remote_control.sh ./demos/lir/test26.lir test ./demos/std_ctrl_out/test26.ctrl.out
- ./remote_control.sh ./demos/lir/test27.lir test ./demos/std_ctrl_out/test27.ctrl.out
- ./remote_control.sh ./demos/lir/test28.lir test ./demos/std_ctrl_out/test28.ctrl.out
- ./remote_control.sh ./demos/lir/test29.lir test ./demos/std_ctrl_out/test29.ctrl.out
- ./remote_control.sh ./demos/lir/test30.lir test ./demos/std_ctrl_out/test30.ctrl.out
- ./remote_control.sh ./demos/lir/test31.lir test ./demos/std_ctrl_out/test31.ctrl.out
- ./remote_control.sh ./demos/lir/test32.lir test ./demos/std_ctrl_out/test32.ctrl.out
+./remote_control.sh ./demos/lir/test1.lir test ./demos/std_ctrl_out/test1.ctrl.out
+./remote_control.sh ./demos/lir/test2.lir test ./demos/std_ctrl_out/test2.ctrl.out
+./remote_control.sh ./demos/lir/test3.lir test ./demos/std_ctrl_out/test3.ctrl.out
+./remote_control.sh ./demos/lir/test4.lir test ./demos/std_ctrl_out/test4.ctrl.out
+./remote_control.sh ./demos/lir/test5.lir test ./demos/std_ctrl_out/test5.ctrl.out
+./remote_control.sh ./demos/lir/test6.lir test ./demos/std_ctrl_out/test6.ctrl.out
+./remote_control.sh ./demos/lir/test7.lir test ./demos/std_ctrl_out/test7.ctrl.out
+./remote_control.sh ./demos/lir/test8.lir test ./demos/std_ctrl_out/test8.ctrl.out
+./remote_control.sh ./demos/lir/test9.lir test ./demos/std_ctrl_out/test9.ctrl.out
+./remote_control.sh ./demos/lir/test10.lir test ./demos/std_ctrl_out/test10.ctrl.out
+./remote_control.sh ./demos/lir/test11.lir test ./demos/std_ctrl_out/test11.ctrl.out
+./remote_control.sh ./demos/lir/test12.lir test ./demos/std_ctrl_out/test12.ctrl.out
+./remote_control.sh ./demos/lir/test13.lir test ./demos/std_ctrl_out/test13.ctrl.out
+./remote_control.sh ./demos/lir/test14.lir test ./demos/std_ctrl_out/test14.ctrl.out
+./remote_control.sh ./demos/lir/test15.lir test ./demos/std_ctrl_out/test15.ctrl.out
+./remote_control.sh ./demos/lir/test16.lir test ./demos/std_ctrl_out/test16.ctrl.out
+./remote_control.sh ./demos/lir/test17.lir test ./demos/std_ctrl_out/test17.ctrl.out
+./remote_control.sh ./demos/lir/test18.lir test ./demos/std_ctrl_out/test18.ctrl.out
+./remote_control.sh ./demos/lir/test19.lir test ./demos/std_ctrl_out/test19.ctrl.out
+./remote_control.sh ./demos/lir/test20.lir test ./demos/std_ctrl_out/test20.ctrl.out
+./remote_control.sh ./demos/lir/test21.lir test ./demos/std_ctrl_out/test21.ctrl.out
+./remote_control.sh ./demos/lir/test22.lir test ./demos/std_ctrl_out/test22.ctrl.out
+./remote_control.sh ./demos/lir/test23.lir test ./demos/std_ctrl_out/test23.ctrl.out
+./remote_control.sh ./demos/lir/test24.lir test ./demos/std_ctrl_out/test24.ctrl.out
+./remote_control.sh ./demos/lir/test25.lir test ./demos/std_ctrl_out/test25.ctrl.out
+./remote_control.sh ./demos/lir/test26.lir test ./demos/std_ctrl_out/test26.ctrl.out
+./remote_control.sh ./demos/lir/test27.lir test ./demos/std_ctrl_out/test27.ctrl.out
+./remote_control.sh ./demos/lir/test28.lir test ./demos/std_ctrl_out/test28.ctrl.out
+./remote_control.sh ./demos/lir/test29.lir test ./demos/std_ctrl_out/test29.ctrl.out
+./remote_control.sh ./demos/lir/test30.lir test ./demos/std_ctrl_out/test30.ctrl.out
+./remote_control.sh ./demos/lir/test31.lir test ./demos/std_ctrl_out/test31.ctrl.out
+./remote_control.sh ./demos/lir/test32.lir test ./demos/std_ctrl_out/test32.ctrl.out
 
 
 #./ctrl_analysis ./demos/json/test1.json test > ./demos/ctrl_out/test1.ctrl.out

@@ -1,1 +1,28 @@
+bb1.0 -> {entry.2, entry.term}
+bb1.1 -> {bb1.0}
+bb1.term -> {bb1.2}
+bb10.term -> {bb10.term, bb12.term, bb15.0, bb6.term, bb9.term, entry.2, entry.term}
+bb11.0 -> {bb10.term}
+bb11.term -> {bb11.1}
+bb12.0 -> {bb15.1, entry.1}
+bb12.1 -> {bb12.0, bb13.0, bb14.0}
+bb12.2 -> {bb12.1}
+bb12.term -> {bb10.term, bb12.term, bb15.0, bb6.term, bb9.term, entry.2, entry.term}
+bb15.0 -> {bb10.term, bb12.term, bb15.0, bb6.term, bb9.term, entry.2, entry.term}
+bb15.1 -> {bb15.0}
+bb17.0 -> {bb18.0, bb19.0}
+bb17.1 -> {bb17.0}
+bb17.3 -> {bb17.2}
+bb17.4 -> {bb10.term, bb12.term, bb15.0, bb6.term, bb9.term, entry.2, entry.term}
+bb17.5 -> {bb17.4}
+bb17.term -> {bb17.5}
+bb2.0 -> {bb3.0, bb4.0}
+bb5.term -> {bb5.0}
+bb6.term -> {bb10.term, bb12.term, bb15.0, bb6.term, bb9.term, entry.2, entry.term}
+bb7.0 -> {bb15.1, entry.1}
+bb7.term -> {bb1.1, bb9.0}
+bb8.term -> {bb6.term}
+bb9.0 -> {bb15.1, entry.1}
+bb9.term -> {bb10.term, bb12.term, bb15.0, bb6.term, bb9.term, entry.2, entry.term}
 entry.1 -> {entry.0}
+entry.term -> {entry.2}

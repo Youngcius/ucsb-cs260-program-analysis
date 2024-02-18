@@ -1,20 +1,35 @@
-bb1.1 -> {bb1.0, entry.1}
-bb1.2 -> {bb1.1}
-bb1.4 -> {bb1.3, bb2.0, bb3.0}
-bb1.5 -> {bb1.2, bb1.4}
-bb1.6 -> {bb1.5}
-bb1.7 -> {entry.1}
-bb1.term -> {bb1.9}
-bb10.0 -> {entry.4}
-bb10.1 -> {bb11.0, bb12.0}
-bb10.2 -> {bb10.0, bb10.1}
-bb10.3 -> {bb10.2}
-bb4.term -> {bb10.3, bb6.2, entry.3}
-bb6.0 -> {entry.4}
-bb6.4 -> {bb6.3}
-bb7.term -> {bb10.3, entry.3}
-bb8.0 -> {entry.4}
-bb8.term -> {entry.4}
-entry.1 -> {entry.0}
-entry.3 -> {entry.2}
-entry.4 -> {entry.3}
+bb10.0 -> {bb11.1, bb8.3}
+bb10.1 -> {bb10.0}
+bb10.2 -> {bb10.1, entry.1}
+bb10.3 -> {entry.1}
+bb10.5 -> {bb10.3, bb10.4}
+bb10.6 -> {bb10.5}
+bb11.1 -> {bb11.0}
+bb12.0 -> {bb13.0, bb14.0}
+bb12.term -> {bb12.2}
+bb2.1 -> {bb10.2, bb10.6, bb2.0, bb7.1, bb8.0, bb8.1, bb9.9}
+bb2.2 -> {bb10.2, bb10.6, bb7.1, bb8.0, bb8.1, bb9.9, entry.0}
+bb2.3 -> {bb2.1, bb2.2}
+bb2.term -> {bb2.3}
+bb3.1 -> {bb3.0}
+bb3.term -> {bb3.1}
+bb4.term -> {bb5.0, bb6.0}
+bb7.0 -> {bb10.2, bb10.6, bb7.1, bb8.0, bb8.1, bb9.9}
+bb7.1 -> {bb7.0}
+bb7.3 -> {bb7.2}
+bb8.0 -> {bb10.2, bb10.6, bb7.1, bb8.0, bb8.1, bb9.9}
+bb8.1 -> {bb7.3, entry.2}
+bb8.3 -> {bb8.2}
+bb8.4 -> {bb8.3}
+bb8.term -> {bb8.4}
+bb9.0 -> {bb9.1, entry.3, entry.4}
+bb9.1 -> {bb9.0}
+bb9.2 -> {bb10.2, bb10.6, bb7.1, bb8.0, bb8.1, bb9.9}
+bb9.3 -> {bb9.2}
+bb9.4 -> {bb9.3, entry.4}
+bb9.5 -> {bb9.4}
+bb9.6 -> {bb10.2, bb10.6, bb7.1, bb8.0, bb8.1, bb9.5, bb9.9}
+bb9.7 -> {bb9.6}
+bb9.8 -> {bb10.2, bb10.6, bb7.1, bb8.0, bb8.1, bb9.9, entry.0}
+bb9.9 -> {bb9.8}
+entry.2 -> {entry.1}

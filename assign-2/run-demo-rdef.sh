@@ -1,35 +1,35 @@
- ./remote_rdef.sh ./demos/lir/test1.lir test ./demos/std_rdef_out/test1.rdef.out
- ./remote_rdef.sh ./demos/lir/test2.lir test ./demos/std_rdef_out/test2.rdef.out
- ./remote_rdef.sh ./demos/lir/test3.lir test ./demos/std_rdef_out/test3.rdef.out
- ./remote_rdef.sh ./demos/lir/test4.lir test ./demos/std_rdef_out/test4.rdef.out
- ./remote_rdef.sh ./demos/lir/test5.lir test ./demos/std_rdef_out/test5.rdef.out
- ./remote_rdef.sh ./demos/lir/test6.lir test ./demos/std_rdef_out/test6.rdef.out
- ./remote_rdef.sh ./demos/lir/test7.lir test ./demos/std_rdef_out/test7.rdef.out
- ./remote_rdef.sh ./demos/lir/test8.lir test ./demos/std_rdef_out/test8.rdef.out
- ./remote_rdef.sh ./demos/lir/test9.lir test ./demos/std_rdef_out/test9.rdef.out
- ./remote_rdef.sh ./demos/lir/test10.lir test ./demos/std_rdef_out/test10.rdef.out
- ./remote_rdef.sh ./demos/lir/test11.lir test ./demos/std_rdef_out/test11.rdef.out
- ./remote_rdef.sh ./demos/lir/test12.lir test ./demos/std_rdef_out/test12.rdef.out
- ./remote_rdef.sh ./demos/lir/test13.lir test ./demos/std_rdef_out/test13.rdef.out
- ./remote_rdef.sh ./demos/lir/test14.lir test ./demos/std_rdef_out/test14.rdef.out
- ./remote_rdef.sh ./demos/lir/test15.lir test ./demos/std_rdef_out/test15.rdef.out
- ./remote_rdef.sh ./demos/lir/test16.lir test ./demos/std_rdef_out/test16.rdef.out
- ./remote_rdef.sh ./demos/lir/test17.lir test ./demos/std_rdef_out/test17.rdef.out
- ./remote_rdef.sh ./demos/lir/test18.lir test ./demos/std_rdef_out/test18.rdef.out
- ./remote_rdef.sh ./demos/lir/test19.lir test ./demos/std_rdef_out/test19.rdef.out
- ./remote_rdef.sh ./demos/lir/test20.lir test ./demos/std_rdef_out/test20.rdef.out
- ./remote_rdef.sh ./demos/lir/test21.lir test ./demos/std_rdef_out/test21.rdef.out
- ./remote_rdef.sh ./demos/lir/test22.lir test ./demos/std_rdef_out/test22.rdef.out
- ./remote_rdef.sh ./demos/lir/test23.lir test ./demos/std_rdef_out/test23.rdef.out
- ./remote_rdef.sh ./demos/lir/test24.lir test ./demos/std_rdef_out/test24.rdef.out
- ./remote_rdef.sh ./demos/lir/test25.lir test ./demos/std_rdef_out/test25.rdef.out
- ./remote_rdef.sh ./demos/lir/test26.lir test ./demos/std_rdef_out/test26.rdef.out
- ./remote_rdef.sh ./demos/lir/test27.lir test ./demos/std_rdef_out/test27.rdef.out
- ./remote_rdef.sh ./demos/lir/test28.lir test ./demos/std_rdef_out/test28.rdef.out
- ./remote_rdef.sh ./demos/lir/test29.lir test ./demos/std_rdef_out/test29.rdef.out
- ./remote_rdef.sh ./demos/lir/test30.lir test ./demos/std_rdef_out/test30.rdef.out
- ./remote_rdef.sh ./demos/lir/test31.lir test ./demos/std_rdef_out/test31.rdef.out
- ./remote_rdef.sh ./demos/lir/test32.lir test ./demos/std_rdef_out/test32.rdef.out
+./remote_rdef.sh ./demos/lir/test1.lir test ./demos/std_rdef_out/test1.rdef.out
+./remote_rdef.sh ./demos/lir/test2.lir test ./demos/std_rdef_out/test2.rdef.out
+./remote_rdef.sh ./demos/lir/test3.lir test ./demos/std_rdef_out/test3.rdef.out
+./remote_rdef.sh ./demos/lir/test4.lir test ./demos/std_rdef_out/test4.rdef.out
+./remote_rdef.sh ./demos/lir/test5.lir test ./demos/std_rdef_out/test5.rdef.out
+./remote_rdef.sh ./demos/lir/test6.lir test ./demos/std_rdef_out/test6.rdef.out
+./remote_rdef.sh ./demos/lir/test7.lir test ./demos/std_rdef_out/test7.rdef.out
+./remote_rdef.sh ./demos/lir/test8.lir test ./demos/std_rdef_out/test8.rdef.out
+./remote_rdef.sh ./demos/lir/test9.lir test ./demos/std_rdef_out/test9.rdef.out
+./remote_rdef.sh ./demos/lir/test10.lir test ./demos/std_rdef_out/test10.rdef.out
+./remote_rdef.sh ./demos/lir/test11.lir test ./demos/std_rdef_out/test11.rdef.out
+./remote_rdef.sh ./demos/lir/test12.lir test ./demos/std_rdef_out/test12.rdef.out
+./remote_rdef.sh ./demos/lir/test13.lir test ./demos/std_rdef_out/test13.rdef.out
+./remote_rdef.sh ./demos/lir/test14.lir test ./demos/std_rdef_out/test14.rdef.out
+./remote_rdef.sh ./demos/lir/test15.lir test ./demos/std_rdef_out/test15.rdef.out
+./remote_rdef.sh ./demos/lir/test16.lir test ./demos/std_rdef_out/test16.rdef.out
+./remote_rdef.sh ./demos/lir/test17.lir test ./demos/std_rdef_out/test17.rdef.out
+./remote_rdef.sh ./demos/lir/test18.lir test ./demos/std_rdef_out/test18.rdef.out
+./remote_rdef.sh ./demos/lir/test19.lir test ./demos/std_rdef_out/test19.rdef.out
+./remote_rdef.sh ./demos/lir/test20.lir test ./demos/std_rdef_out/test20.rdef.out
+./remote_rdef.sh ./demos/lir/test21.lir test ./demos/std_rdef_out/test21.rdef.out
+./remote_rdef.sh ./demos/lir/test22.lir test ./demos/std_rdef_out/test22.rdef.out
+./remote_rdef.sh ./demos/lir/test23.lir test ./demos/std_rdef_out/test23.rdef.out
+./remote_rdef.sh ./demos/lir/test24.lir test ./demos/std_rdef_out/test24.rdef.out
+./remote_rdef.sh ./demos/lir/test25.lir test ./demos/std_rdef_out/test25.rdef.out
+./remote_rdef.sh ./demos/lir/test26.lir test ./demos/std_rdef_out/test26.rdef.out
+./remote_rdef.sh ./demos/lir/test27.lir test ./demos/std_rdef_out/test27.rdef.out
+./remote_rdef.sh ./demos/lir/test28.lir test ./demos/std_rdef_out/test28.rdef.out
+./remote_rdef.sh ./demos/lir/test29.lir test ./demos/std_rdef_out/test29.rdef.out
+./remote_rdef.sh ./demos/lir/test30.lir test ./demos/std_rdef_out/test30.rdef.out
+./remote_rdef.sh ./demos/lir/test31.lir test ./demos/std_rdef_out/test31.rdef.out
+./remote_rdef.sh ./demos/lir/test32.lir test ./demos/std_rdef_out/test32.rdef.out
 
 
 #./rdef_analysis ./demos/json/test1.json test > ./demos/rdef_out/test1.rdef.out
