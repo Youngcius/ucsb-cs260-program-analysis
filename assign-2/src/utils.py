@@ -83,3 +83,30 @@ def gene_frontiers(cfg: nx.DiGraph):
             for dom_pred in dominators[pred] - strict_dom_nodes:
                 frontiers[dom_pred] = frontiers[dom_pred].union({node})
     return frontiers
+
+
+if __name__ == "__main__":
+    from pprint import pprint
+    g = nx.DiGraph()
+    g.add_nodes_from(['entry', 'B', 'C', 'D', 'E'])
+    g.add_edges_from([('entry', 'B'), ('B', 'C'), ('B', 'D'), ('C', 'E'), ('D', 'E')])
+
+    print("=============== dominators ===============")
+    print('dominators:')
+    pprint(gene_dominators(g, 'entry', False))
+    print('dom_rela:')
+    pprint(gene_dom_rela(g, 'entry', False))
+
+
+    print("=============== strict dominators ===============")
+    print('strict dominators:')
+    pprint(gene_dominators(g, 'entry', True))
+    print('strict dom_rela:')
+    pprint(gene_dom_rela(g, 'entry', True))
+
+    print("=============== immediate dominators ===============")
+    print('imm_dominators:')
+    pprint(gene_imm_dominators(g, 'entry'))
+    print('imm_dom_rela:')
+    pprint(gene_imm_dom_rela(g, 'entry'))
+

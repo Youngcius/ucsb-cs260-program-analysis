@@ -5,7 +5,7 @@ Utils functions
 use crate::abs::domain;
 use crate::lir;
 use crate::{abs::semantics::AbstractSemantics, store};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 #[macro_export]
 macro_rules! hashset {
@@ -66,14 +66,20 @@ pub fn display_rdef_solution(solution: &HashMap<String, domain::ProgramPoint>) {
     }
 }
 
-pub fn display_ctrl_solution(solution: &HashMap<String, domain::ControlDependence>) {
+pub fn display_ctrl_solution(solution: &HashMap<String, HashSet<String>>) {
     // solution is a bb2frontier mapping
     let mut bbs: Vec<String> = solution.keys().cloned().collect();
     bbs.sort();
     for bb in bbs {
-        // TODO: will it print Bottom?
-        println!("{} -> {:?}", bb, solution.get(&bb).unwrap());
+        let mut bbs: Vec<String> = solution.get(&bb).unwrap().iter().cloned().collect();
+        bbs.sort();
+        println!(
+            "{} -> {{{}}}",
+            bb,
+            bbs.iter().cloned().collect::<Vec<String>>().join(", ")
+        );
     }
+    println!();
 }
 
 pub fn able_to_reach_int(to: &Box<lir::Type>) -> bool {

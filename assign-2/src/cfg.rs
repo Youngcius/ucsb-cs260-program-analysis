@@ -315,6 +315,125 @@ impl ControlFlowGraph {
         Ok(())
     }
 
+    pub fn all_simple_paths(&self, src: &str, dst: &str) -> Vec<Vec<String>> {
+        let mut result = Vec::new();
+        let mut visited = HashSet::new();
+        let mut path = Vec::new();
+        self.dfs_all_simple_paths(src, dst, &mut visited, &mut path, &mut result);
+        result
+    }
+
+    pub fn dfs_all_simple_paths(
+        &self,
+        src: &str,
+        dst: &str,
+        visited: &mut HashSet<String>,
+        path: &mut Vec<String>,
+        result: &mut Vec<Vec<String>>,
+    ) {
+        visited.insert(src.to_string());
+        path.push(src.to_string());
+        if src == dst {
+            result.push(path.clone());
+        } else {
+            for succ in self.get_successor_labels(src) {
+                if !visited.contains(&succ) {
+                    self.dfs_all_simple_paths(&succ, dst, visited, path, result);
+                }
+            }
+        }
+        visited.remove(src);
+        path.pop();
+    }
+
+    pub fn get_dominators(&self, strict: bool) -> HashMap<String, HashSet<String>> {
+        let entry_label = "entry";
+        let mut dominators = HashMap::new();
+        for label in self.nodes.keys() {
+            dominators.insert(label.clone(), HashSet::new());
+        }
+
+        for label in self.nodes.keys() {
+            if label == entry_label {
+                continue;
+            }
+            let mut through_nodes = Vec::new();
+            for path in self.all_simple_paths(entry_label, label) {
+                through_nodes.push(path);
+            }
+            // set intersection all elements in through_nodes, assign to bb_doms
+            let bb_doms = through_nodes.iter().fold(HashSet::new(), |acc, path| {
+                if acc.is_empty() {
+                    return path.iter().cloned().collect();
+                }
+                acc.intersection(&path.iter().cloned().collect())
+                    .cloned()
+                    .collect()
+            });
+            dominators.insert(label.clone(), bb_doms);
+        }
+
+        if strict {
+            for label in self.nodes.keys() {
+                if dominators.get(label).unwrap().contains(label) {
+                    dominators.get_mut(label).unwrap().remove(label);
+                }
+            }
+        } else {
+            for label in self.nodes.keys() {
+                dominators.get_mut(label).unwrap().insert(label.clone());
+            }
+        }
+
+        dominators
+    }
+
+    pub fn get_dom_rela(&self, strict: bool) -> HashMap<String, HashSet<String>> {
+        let mut dom_rela = HashMap::new();
+        let dominators = self.get_dominators(strict);
+        for (label, doms) in &dominators {
+            for dom in doms {
+                dom_rela
+                    .entry(dom.clone())
+                    .or_insert(HashSet::new())
+                    .insert(label.clone());
+            }
+        }
+        dom_rela
+    }
+
+    pub fn get_imm_dominators(&self) -> HashMap<String, HashSet<String>> {
+        let dominators = self.get_dominators(true);
+        let mut imm_dominators = HashMap::new();
+        for label in self.nodes.keys() {
+            imm_dominators.insert(label.clone(), HashSet::new());
+        }
+        for label in self.nodes.keys() {
+            for dom in dominators.get(label).unwrap() {
+                let mut bb_doms_exclude_this = dominators.get(label).unwrap().clone();
+                bb_doms_exclude_this.remove(dom);
+                if bb_doms_exclude_this.is_subset(&dominators.get(dom).unwrap()) {
+                    imm_dominators.get_mut(label).unwrap().insert(dom.clone());
+                }
+            }
+        }
+        imm_dominators
+    }
+
+    pub fn get_imm_dom_rela(&self) -> HashMap<String, HashSet<String>> {
+        let mut imm_dom_rela = HashMap::new();
+        let imm_dominators = self.get_imm_dominators();
+        for (label, doms) in &imm_dominators {
+            for dom in doms {
+                imm_dom_rela
+                    .entry(dom.clone())
+                    .or_insert(HashSet::new())
+                    .insert(label.clone());
+            }
+        }
+        imm_dom_rela
+    }
+
     // pub fn get_dominator(&self, label: &str) -> Vec<String> {
     //     // get dominator of a block
     //     let mut dominators = Vec::new();
@@ -553,35 +672,56 @@ mod test {
         );
     }
 
-    // #[test]
-    // fn test_dominance() {
-    //     let mut cfg = ControlFlowGraph::new();
+    #[test]
+    fn test_dominance() {
+        let mut cfg = ControlFlowGraph::new();
 
-    //     let entry = lir::Block::new("entry", &lir::Terminal::Jump("xxx".to_string()));
-    //     let blockB = lir::Block::new("B", &lir::Terminal::Jump("xxx".to_string()));
-    //     let blockC = lir::Block::new("C", &lir::Terminal::Jump("xxx".to_string()));
-    //     let blockD = lir::Block::new("D", &lir::Terminal::Jump("xxx".to_string()));
-    //     let blockE = lir::Block::new("E", &lir::Terminal::Ret(None));
+        let entry = lir::Block::new("entry", &lir::Terminal::Jump("xxx".to_string()));
+        let blockB = lir::Block::new("B", &lir::Terminal::Jump("xxx".to_string()));
+        let blockC = lir::Block::new("C", &lir::Terminal::Jump("xxx".to_string()));
+        let blockD = lir::Block::new("D", &lir::Terminal::Jump("xxx".to_string()));
+        let blockE = lir::Block::new("E", &lir::Terminal::Ret(None));
 
-    //     let entry_label = "entry".to_string();
-    //     let labelB = "B".to_string();
-    //     let labelC = "C".to_string();
-    //     let labelD = "D".to_string();
-    //     let labelE = "E".to_string();
+        let entry_label = "entry".to_string();
+        let labelB = "B".to_string();
+        let labelC = "C".to_string();
+        let labelD = "D".to_string();
+        let labelE = "E".to_string();
 
-    //     cfg.nodes.insert(entry_label.clone(), entry.clone());
-    //     cfg.nodes.insert(labelB.clone(), blockB.clone());
-    //     cfg.nodes.insert(labelC.clone(), blockC.clone());
-    //     cfg.nodes.insert(labelD.clone(), blockD.clone());
-    //     cfg.nodes.insert(labelE.clone(), blockE.clone());
+        cfg.nodes.insert(entry_label.clone(), entry.clone());
+        cfg.nodes.insert(labelB.clone(), blockB.clone());
+        cfg.nodes.insert(labelC.clone(), blockC.clone());
+        cfg.nodes.insert(labelD.clone(), blockD.clone());
+        cfg.nodes.insert(labelE.clone(), blockE.clone());
 
-    //     cfg.edges.push((entry_label.clone(), labelB.clone()));
-    //     cfg.edges.push((labelB.clone(), labelC.clone()));
-    //     cfg.edges.push((labelB.clone(), labelD.clone()));
-    //     cfg.edges.push((labelC.clone(), labelE.clone()));
-    //     cfg.edges.push((labelD.clone(), labelE.clone()));
+        cfg.edges.push((entry_label.clone(), labelB.clone()));
+        cfg.edges.push((labelB.clone(), labelC.clone()));
+        cfg.edges.push((labelB.clone(), labelD.clone()));
+        cfg.edges.push((labelC.clone(), labelE.clone()));
+        cfg.edges.push((labelD.clone(), labelE.clone()));
 
-    //     let dominators = cfg.get_all_dominators();
-    //     println!("{:#?}", dominators);
-    // }
+        println!("=============== dominators ===============");
+        let dominators = cfg.get_dominators(false);
+        let dom_rela = cfg.get_dom_rela(false);
+        println!("dominators:");
+        println!("{:#?}", dominators);
+        println!("dom_rela:");
+        println!("{:#?}", dom_rela);
+
+        println!("=============== strict dominators ===============");
+        let strict_dominators = cfg.get_dominators(true);
+        let strict_dom_rela = cfg.get_dom_rela(true);
+        println!("strict_dominators:");
+        println!("{:#?}", strict_dominators);
+        println!("strict_dom_rela:");
+        println!("{:#?}", strict_dom_rela);
+
+        println!("=============== immediate dominators ===============");
+        let imm_dominators = cfg.get_imm_dominators();
+        let imm_dom_rela = cfg.get_imm_dom_rela();
+        println!("imm_dominators:");
+        println!("{:#?}", imm_dominators);
+        println!("imm_dom_rela:");
+        println!("{:#?}", imm_dom_rela);
+    }
 }

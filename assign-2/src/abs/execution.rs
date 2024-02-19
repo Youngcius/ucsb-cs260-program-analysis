@@ -40,7 +40,7 @@ pub struct ReachingDefinitionAnalyzer {
 pub struct ControlDependenceAnalyzer {
     pub prog: lir::Program,
     pub cfg: cfg::ControlFlowGraph,
-    pub solution: HashMap<String, domain::ControlDependence>, // mapping from blocks to block sets
+    pub solution: HashMap<String, HashSet<String>>, // mapping from blocks to block sets
     pub executed: bool,
 }
 
@@ -864,15 +864,14 @@ impl ControlDependenceAnalyzer {
         let cfg = cfg::ControlFlowGraph::from_function(&prog, func_name);
         let mut solution = HashMap::new();
         for bb_label in &cfg.get_all_block_labels() {
-            solution.insert(bb_label.clone(), domain::ControlDependence::Top); // TODO: correct?
+            solution.insert(bb_label.clone(), HashSet::new()); // TODO: correct?
         }
-        panic!("ControlDependenceAnalyzer::new not implemented");
-        // Self {
-        //     prog,
-        //     cfg,
-        //     solution,
-        //     executed: false,
-        // }
+        Self {
+            prog,
+            cfg,
+            solution,
+            executed: false,
+        }
     }
 
     pub fn execute(&mut self) {
@@ -881,8 +880,35 @@ impl ControlDependenceAnalyzer {
             return;
         }
         self.executed = true;
-        panic!("ControlDependenceAnalyzer::execute not implemented")
-        // let dominators = self.cfg.get_all_dominators();
+        /*
+
+        def gene_frontiers(cfg: nx.DiGraph):
+            frontiers = {node: set() for node in cfg.nodes}
+            dominators = gene_dominators(cfg)
+            for node, dom_nodes in dominators.items():
+                strict_dom_nodes = dom_nodes - {node}
+                for pred in cfg.predecessors(node):
+                    for dom_pred in dominators[pred] - strict_dom_nodes:
+                        frontiers[dom_pred] = frontiers[dom_pred].union({node})
+            return frontiers
+
+        */
+        let dominators = self.cfg.get_dominators(false);
+        for (label, doms) in &dominators {
+            let strict_doms = doms
+                .clone()
+                .difference(&hashset! {label.clone()})
+                .cloned()
+                .collect();
+            for pred in &self.cfg.get_predecessor_labels(label) {
+                for dom_pred in dominators.get(pred).unwrap().difference(&strict_doms) {
+                    self.solution
+                        .get_mut(dom_pred)
+                        .unwrap()
+                        .insert(label.clone());
+                }
+            }
+        }
     }
 }
 

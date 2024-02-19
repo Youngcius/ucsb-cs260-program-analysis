@@ -225,7 +225,6 @@ impl std::fmt::Display for ControlDependence {
             }
         }
     }
-
 }
 
 impl AbstractSemantics for ControlDependence {
