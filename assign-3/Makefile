@@ -32,6 +32,6 @@ package:
 
 .PHONY: clean
 clean:
-	rm -f rdef_analysis ctrl_analysis *.out.tmp.*
+	rm -f rdef_analysis ctrl_analysis *.tmp.*
 	rm -rf assign-3 assign-3.zip
 	cargo clean

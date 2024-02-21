@@ -50,6 +50,6 @@ package:
 
 .PHONY: clean
 clean:
-	rm -f constants_analysis intervals_analysis *.out.tmp.*
+	rm -f constants_analysis intervals_analysis *.tmp.*
 	rm -rf assign-1 assign-1.zip
 	cargo clean

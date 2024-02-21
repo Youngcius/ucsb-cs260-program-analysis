@@ -674,22 +674,10 @@ impl ReachingDefinitionAnalyzer {
                             wdef.insert(global.clone()); // TODO: all types of globals???
                         }
                         let mut reached_types_via_globals = HashSet::new();
-                        let mut reached_types_via_args = HashSet::new();
                         for global in self.prog.globals.iter() {
+                            // reached_types_via_globals  = reached_types_via_globals.union(&global.typ.reachable_types(&self.prog)).cloned().collect();
                             reached_types_via_globals
                                 .extend(global.typ.reachable_types(&self.prog));
-                        }
-                        for arg in args {
-                            match arg {
-                                lir::Operand::Var(var) => {
-                                    reached_types_via_args
-                                        .extend(var.typ.reachable_types(&self.prog));
-                                }
-                                lir::Operand::CInt(_) => {
-                                    reached_types_via_args
-                                        .extend(lir::Type::Int.reachable_types(&self.prog));
-                                }
-                            }
                         }
                         for var in self.addr_taken.iter() {
                             if reached_types_via_globals.contains(&var.typ) {

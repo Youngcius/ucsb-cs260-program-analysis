@@ -38,7 +38,7 @@ package:
 
 .PHONY: clean
 clean:
-	rm -f rdef_analysis ctrl_analysis gene_graphml *.out.tmp.*
+	rm -f rdef_analysis ctrl_analysis gene_graphml *.tmp.*
 	rm -rf src/__pycache__/
 	rm -rf assign-2 assign-2.zip
 	cargo clean

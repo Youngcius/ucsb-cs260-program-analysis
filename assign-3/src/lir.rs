@@ -185,23 +185,6 @@ pub enum Instruction {
     },
 }
 
-impl Instruction {
-    pub fn get_instr_name(&self) -> String {
-        match self {
-            Instruction::AddrOf { .. } => "AddrOf".to_string(),
-            Instruction::Alloc { .. } => "Alloc".to_string(),
-            Instruction::Copy { .. } => "Copy".to_string(),
-            Instruction::Gep { .. } => "Gep".to_string(),
-            Instruction::Arith { .. } => "Arith".to_string(),
-            Instruction::Load { .. } => "Load".to_string(),
-            Instruction::Store { .. } => "Store".to_string(),
-            Instruction::Gfp { .. } => "Gfp".to_string(),
-            Instruction::Cmp { .. } => "Cmp".to_string(),
-            Instruction::CallExt { .. } => "CallExt".to_string(),
-        }
-    }
-}
-
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
 pub enum ArithOp {
     // arithmetic operators
@@ -247,18 +230,6 @@ pub enum Terminal {
         args: Vec<Operand>,
         next_bb: String,
     },
-}
-
-impl Terminal {
-    pub fn get_term_name(&self) -> String {
-        match self {
-            Terminal::Jump(_) => "Jump".to_string(),
-            Terminal::Branch { .. } => "Branch".to_string(),
-            Terminal::Ret(_) => "Ret".to_string(),
-            Terminal::CallDirect { .. } => "CallDirect".to_string(),
-            Terminal::CallIndirect { .. } => "CallIndirect".to_string(),
-        }
-    }
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
@@ -513,7 +484,7 @@ impl Program {
             })
             .collect();
         let fake_vars: Vec<Variable> = fake_vars_set.into_iter().collect();
-
+        
         let mut addr_taken = Vec::new();
         addr_taken.extend(fake_vars);
         addr_taken.extend(self.get_addrof_ints(func_name));
@@ -1216,9 +1187,7 @@ mod test {
             "entry.13".to_string(),
             "entry.term".to_string(),
         ];
-        assert_eq!(
-            pps.iter().map(|pp| pp.to_string()).collect::<Vec<String>>(),
-            res
-        );
+        assert_eq!(pps.iter().map(|pp| pp.to_string()).collect::<Vec<String>>(), res);
+        
     }
 }
