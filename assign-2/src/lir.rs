@@ -186,7 +186,7 @@ pub enum Instruction {
 }
 
 impl Instruction {
-    pub fn get_instr_name(&self) -> String {
+    pub fn get_name(&self) -> String {
         match self {
             Instruction::AddrOf { .. } => "AddrOf".to_string(),
             Instruction::Alloc { .. } => "Alloc".to_string(),
@@ -250,7 +250,7 @@ pub enum Terminal {
 }
 
 impl Terminal {
-    pub fn get_term_name(&self) -> String {
+    pub fn get_name(&self) -> String {
         match self {
             Terminal::Jump(_) => "Jump".to_string(),
             Terminal::Branch { .. } => "Branch".to_string(),
