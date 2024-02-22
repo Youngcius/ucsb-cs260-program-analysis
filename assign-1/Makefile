@@ -25,14 +25,14 @@ intervals_analysis_debug: $(INTER_SRC)
 
 test_constants_analysis: constants_analysis
 	@echo "Running constants analysis on test files from ./demos/"
-	@bash run-demo-const.sh
+	@bash test-demos-const.sh
 	@echo "Comparing the output with the expected output"
 	@bash diff-demo-const.sh
 	@echo ""
 
 test_intervals_analysis: intervals_analysis
 	@echo "Running intervals analysis on test files from ./demos/"
-	@bash run-demo-inter.sh
+	@bash test-demos-inter.sh
 	@echo "Comparing the output with the expected output"
 	@bash diff-demo-inter.sh
 	@echo ""

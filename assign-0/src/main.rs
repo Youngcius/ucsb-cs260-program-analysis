@@ -1,9 +1,7 @@
 // parse LIR files, get stats, compare
 
-mod lir;
-mod stats;
-use lir::Program;
-use stats::Stats;
+use cs260::lir;
+use cs260::stats;
 use std::fs;
 
 fn main() {
@@ -18,8 +16,8 @@ fn main() {
             let stats_fname = format!("{}.stats", fname);
             println!("Testing parsing {} ...", fname);
 
-            let stats = Stats::read_stats(&stats_fname);
-            let program = Program::parse_json(&json_fname);
+            let stats = stats::Stats::read_stats(&stats_fname);
+            let program = lir::Program::parse_json(&json_fname);
             assert_eq!(stats, program.get_stats());
         }
     }

@@ -5,10 +5,9 @@ use cs260::cfg;
 use cs260::lir;
 
 fn main() {
-    // accept command line arguments (./constants_analysis <json_file> <func_name>)
     let args: Vec<String> = std::env::args().collect();
     if args.len() != 3 {
-        println!("Usage: cargo run --bin constants_analysis <json_file> <func_name>");
+        println!("Usage: cargo run --bin loop_headers <json_file> <func_name>");
         std::process::exit(1);
     }
     let json_fname = &args[1];
