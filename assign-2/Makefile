@@ -5,6 +5,8 @@ all: rdef_analysis ctrl_analysis gene_graphml
 
 debug: rdef_analysis_debug ctrl_analysis_debug
 
+test: test_rdef_analysis test_ctrl_analysis
+
 rdef_analysis: $(RDEF_SRC)
 	cargo build --release --bin rdef_analysis
 	cp ./target/release/rdef_analysis ./rdef_analysis
@@ -24,6 +26,20 @@ ctrl_analysis_debug: $(CTRL_SRC)
 gene_graphml: $(RDEF_SRC) $(CTRL_SRC)
 	cargo build --release --bin gene_graphml
 	cp ./target/release/gene_graphml ./gene_graphml
+
+test_rdef_analysis: rdef_analysis
+	@echo "Running rdef analysis on test files from ./demos/"
+	@bash test-tests-rdef.sh
+	@echo "Comparing the output with the expected output"
+	@bash diff-tests-rdef.sh
+	@echo ""
+
+test_ctrl_analysis: ctrl_analysis
+	@echo "Running ctrl analysis on test files from ./demos/"
+	@bash test-tests-ctrl.sh
+	@echo "Comparing the output with the expected output"
+	@bash diff-tests-ctrl.sh
+	@echo ""
 
 package:
 	mkdir -p assign-2
