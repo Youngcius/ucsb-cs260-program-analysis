@@ -30,7 +30,7 @@ bb10:
   $jump bb8
 
 bb11:
-  $call_dir f2(_t12, id0) then bb12
+  $jump bb12
 
 bb12:
   id1 = $copy id1
