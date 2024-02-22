@@ -353,14 +353,15 @@ impl ReachingDefinitionAnalyzer {
                         // array of elements) and assigns to `x` the address of the 10th element of
                         // the array. this is the only way to do pointer arithmetic.
                         if let lir::Operand::Var(var) = idx {
+                            // TODO: 变量作用域
                             self.pp_use
                                 .entry(pp.to_string())
                                 .or_insert(HashSet::new())
                                 .insert(var.clone());
                         }
                         self.pp_use
-                            .entry(pp.to_string())
-                            .or_insert(HashSet::new())
+                            .get_mut(&pp.to_string())
+                            .unwrap()
                             .insert(src.clone());
                         self.pp_def
                             .get_mut(&pp.to_string())
@@ -492,7 +493,7 @@ impl ReachingDefinitionAnalyzer {
                                 store.get(var).unwrap().join(
                                     &domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                                 ),
-                            ) // TODO: consider using store.join
+                            )
                         }
                         // println!("now the store is {}", store.to_string().blue());
                         // println!(
@@ -553,7 +554,7 @@ impl ReachingDefinitionAnalyzer {
                                 store.get(var).unwrap().join(
                                     &domain::ProgramPoint::ProgramPointSet(hashset! {pp.clone()}),
                                 ),
-                            ) // TODO: 如何确定 store.get(var).unwrap() 一定存在？
+                            )
                         }
                         if let Some(lsh) = lhs {
                             store.set(
